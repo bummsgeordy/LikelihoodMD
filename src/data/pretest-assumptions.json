@@ -1,0 +1,327 @@
+[
+  {
+    "id": "cushing-primary-care-direct",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "setting": "Hausarztpraxis",
+    "settingId": "hausarztpraxis",
+    "evidenceLevel": "direct",
+    "population": "Unspezifische Symptome ohne typische Progression oder klare Stigmata.",
+    "probability": 0.01,
+    "rangeLow": 0.005,
+    "rangeHigh": 0.03,
+    "rationale": "Sehr niedrige Ausgangswahrscheinlichkeit bei unspezifischen Beschwerden; dient als didaktischer Ausgangspunkt.",
+    "limitations": "Keine populationsbasierte Prävalenzschätzung für jede Praxis. Bei typischer Klinik, Nebenniereninzidentalom oder schwerer Komorbidität höher ansetzen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Leitlinie betont gezieltes Testen bei klinischem Verdacht statt Screening unselektierter Populationen."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "cushing-endocrine-direct",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "setting": "Ambulant: Endokrinologie",
+    "settingId": "ambulant-endokrinologie",
+    "evidenceLevel": "direct",
+    "population": "Überwiesene Patienten mit typischen Zeichen, Nebenniereninzidentalom oder schwer kontrollierbarer Komorbidität.",
+    "probability": 0.1,
+    "rangeLow": 0.05,
+    "rangeHigh": 0.25,
+    "rationale": "Spezialisierte Zuweisung erhöht die Vortestwahrscheinlichkeit deutlich.",
+    "limitations": "Stark abhängig von Zuweisungskriterien und lokaler Praxis; bitte individuell anpassen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Aus klinischen Testindikationen abgeleitete Setting-Annahme."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "cushing-general-fallback",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit klinischem Verdacht auf Hyperkortisolismus ohne setting-spezifische Daten.",
+    "probability": 0.05,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.15,
+    "rationale": "Fallback-Annahme zwischen Primärversorgung und spezialisierten Zuweisungen, wenn kein Setting-Datensatz vorliegt.",
+    "limitations": "Nicht als populationsbasierte Prävalenz verstehen; bei klarer Klinik oder Zufallsbefund individuell anpassen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Allgemeine Fallback-Annahme aus Testindikationen abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "pa-nephrology-direct",
+    "condition": "Primärer Hyperaldosteronismus",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "setting": "Ambulant: Nephrologie / Hypertonie",
+    "settingId": "ambulant-nephrologie",
+    "evidenceLevel": "direct",
+    "population": "Resistente Hypertonie oder Hypertonie mit Hypokaliämie.",
+    "probability": 0.15,
+    "rangeLow": 0.08,
+    "rangeHigh": 0.25,
+    "rationale": "Bei selektierten Hypertoniepatienten ist primärer Hyperaldosteronismus deutlich häufiger als in unselektierter Primärversorgung.",
+    "limitations": "Spanne hängt von Definition resistenter Hypertonie, Medikamenten und Screeningstrategie ab.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Leitlinie benennt Hochrisikogruppen für Screening."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "pa-general-fallback",
+    "condition": "Primärer Hyperaldosteronismus",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit Hypertonie und klinischer Indikation zur Abklärung.",
+    "probability": 0.08,
+    "rangeLow": 0.03,
+    "rangeHigh": 0.15,
+    "rationale": "Allgemeine Annahme für selektierte Hypertonieabklärung, wenn kein spezifisches Setting hinterlegt ist.",
+    "limitations": "Bei resistenter Hypertonie oder Hypokaliämie höher, bei unselektierter Hypertonie niedriger ansetzen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Fallback aus beschriebenen Screening-Indikationen und Hochrisikogruppen abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "ppgl-primary-care-direct",
+    "condition": "Phäochromozytom / Paragangliom",
+    "conditionId": "phaochromozytom-paragangliom",
+    "setting": "Hausarztpraxis",
+    "settingId": "hausarztpraxis",
+    "evidenceLevel": "direct",
+    "population": "Unspezifische Hypertonie ohne klassische Paroxysmen oder Risikokonstellation.",
+    "probability": 0.005,
+    "rangeLow": 0.001,
+    "rangeHigh": 0.02,
+    "rationale": "PPGL ist selten; die Annahme zeigt den Einfluss niedriger Prätestwahrscheinlichkeit auf positive Tests.",
+    "limitations": "Bei Nebenniereninzidentalom, genetischem Risiko oder typischen Paroxysmen deutlich höher ansetzen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Leitlinie unterstützt gezielte biochemische Testung bei passenden Risikokonstellationen."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "ppgl-general-fallback",
+    "condition": "Phäochromozytom / Paragangliom",
+    "conditionId": "phaochromozytom-paragangliom",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit Verdacht auf PPGL ohne spezifischere Setting-Annahme.",
+    "probability": 0.02,
+    "rangeLow": 0.005,
+    "rangeHigh": 0.08,
+    "rationale": "Allgemeiner Fallback für gezielte Abklärung, höher als unselektierte Hypertonie.",
+    "limitations": "Bei Nebenniereninzidentalom, genetischem Risiko oder klassischer Klinik individuell höher ansetzen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Fallback aus Testindikationen der Leitlinie abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "heart-failure-primary-care-direct",
+    "condition": "Herzinsuffizienz",
+    "conditionId": "herzinsuffizienz",
+    "setting": "Hausarztpraxis",
+    "settingId": "hausarztpraxis",
+    "evidenceLevel": "direct",
+    "population": "Ambulante Dyspnoe oder Leistungsminderung ohne akute Dekompensation.",
+    "probability": 0.15,
+    "rangeLow": 0.05,
+    "rangeHigh": 0.3,
+    "rationale": "Pragmatische Ausgangsannahme für symptomatische ambulante Abklärung.",
+    "limitations": "Alter, Vorerkrankungen und Akuität verändern die Wahrscheinlichkeit erheblich.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+        "year": 2021,
+        "url": "https://academic.oup.com/eurheartj/article/42/36/3599/6358045",
+        "kind": "Leitlinie",
+        "note": "Diagnostischer Kontext für natriuretische Peptide in der ambulanten Abklärung."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "heart-failure-general-fallback",
+    "condition": "Herzinsuffizienz",
+    "conditionId": "herzinsuffizienz",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit Verdacht auf Herzinsuffizienz ohne setting-spezifische Annahme.",
+    "probability": 0.2,
+    "rangeLow": 0.05,
+    "rangeHigh": 0.4,
+    "rationale": "Allgemeine Annahme für symptomatische Abklärung, wenn kein Setting-Datensatz vorliegt.",
+    "limitations": "Akute Dyspnoe, Alter, Nierenfunktion und Vorerkrankungen verändern die Wahrscheinlichkeit stark.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+        "year": 2021,
+        "url": "https://academic.oup.com/eurheartj/article/42/36/3599/6358045",
+        "kind": "Leitlinie",
+        "note": "Allgemeiner Fallback aus diagnostischem Versorgungskontext abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "adrenal-insufficiency-general-fallback",
+    "condition": "Nebenniereninsuffizienz",
+    "conditionId": "nebenniereninsuffizienz",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit Verdacht auf Nebenniereninsuffizienz ohne setting-spezifische Annahme.",
+    "probability": 0.1,
+    "rangeLow": 0.03,
+    "rangeHigh": 0.25,
+    "rationale": "Pragmatische Fallback-Annahme für gezielte endokrinologische Abklärung.",
+    "limitations": "Vorbehandlung mit Glukokortikoiden, Hypophysenerkrankung und Akuität verändern die Wahrscheinlichkeit.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "StatPearls: Adrenocorticotropic Hormone (Cosyntropin) Stimulation Test",
+        "year": 2024,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK555940/",
+        "kind": "Lehrtext",
+        "note": "Fallback aus klinischer Testindikation für den Cosyntropin-Test abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "graves-general-fallback",
+    "condition": "Morbus Basedow",
+    "conditionId": "morbus-basedow",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit biochemischer Hyperthyreose ohne setting-spezifische Annahme.",
+    "probability": 0.6,
+    "rangeLow": 0.3,
+    "rangeHigh": 0.8,
+    "rationale": "Morbus Basedow ist eine häufige Ursache der Hyperthyreose; Fallback für differenzialdiagnostische Abklärung.",
+    "limitations": "Knotenstruma, Thyreoiditis, Jodexposition und Alter verändern die Vortestwahrscheinlichkeit.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "TSH receptor antibodies for the diagnosis of Graves' disease: systematic review and meta-analysis",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+        "kind": "Review",
+        "note": "Fallback aus diagnostischem Kontext der TRAb-Testung abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "mtc-general-fallback",
+    "condition": "Medulläres Schilddrüsenkarzinom",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit Schilddrüsenknoten ohne setting-spezifische Annahme.",
+    "probability": 0.005,
+    "rangeLow": 0.001,
+    "rangeHigh": 0.02,
+    "rationale": "MTC ist selten; Fallback für Screening-Kontext bei Schilddrüsenknoten.",
+    "limitations": "Familiäres Risiko, auffälliger Ultraschall und lokale Screeningstrategie können die Wahrscheinlichkeit erhöhen.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Diagnostic accuracy of calcitonin for medullary thyroid carcinoma",
+        "year": 2024,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/39178090/",
+        "kind": "Review",
+        "note": "Fallback für diagnostischen Kontext der basalen Calcitoninbestimmung."
+      }
+    ],
+    "kind": "curated"
+  },
+  {
+    "id": "celiac-general-fallback",
+    "condition": "Zöliakie",
+    "conditionId": "zoliakie",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patienten mit Symptomen oder Risikokonstellation ohne setting-spezifische Annahme.",
+    "probability": 0.05,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.15,
+    "rationale": "Fallback für gezielte serologische Abklärung, höher als Bevölkerungsscreening.",
+    "limitations": "Typ-1-Diabetes, Autoimmunität, Familienanamnese und glutenarme Ernährung verändern die Wahrscheinlichkeit.",
+    "lastReviewed": "2026-05-17",
+    "sources": [
+      {
+        "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+        "year": 2017,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+        "kind": "Review",
+        "note": "Fallback aus diagnostischem Kontext der tTG-IgA-Testung abgeleitet."
+      }
+    ],
+    "kind": "curated"
+  }
+]

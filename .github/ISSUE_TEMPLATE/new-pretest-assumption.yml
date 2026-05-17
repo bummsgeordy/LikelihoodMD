@@ -1,0 +1,57 @@
+name: Neue Praetest-Annahme vorschlagen
+description: Vorschlag fuer eine Ausgangswahrscheinlichkeit nach Setting, Population und Quelle
+title: "[Praetest] "
+labels: ["clinical-data", "pretest-assumption"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bitte keine Patientendaten eintragen. Eine Praetest-Annahme soll eine Population oder ein Setting beschreiben, keine Einzelperson.
+  - type: input
+    id: condition
+    attributes:
+      label: Krankheitsbild / Fragestellung
+      placeholder: z. B. Herzinsuffizienz
+    validations:
+      required: true
+  - type: input
+    id: setting
+    attributes:
+      label: Setting
+      placeholder: z. B. Hausarztpraxis, Endokrinologie, Kardiologie
+    validations:
+      required: true
+  - type: textarea
+    id: population
+    attributes:
+      label: Population
+      description: Welche Patientengruppe ist gemeint?
+    validations:
+      required: true
+  - type: input
+    id: probability
+    attributes:
+      label: Wahrscheinlichkeit / Spanne
+      placeholder: z. B. 10 % oder 5-20 %
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Begründung
+      description: Warum ist diese Annahme in diesem Setting plausibel?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Quellen
+      description: Leitlinie, Studie, Register, lokale Daten oder Expertenschätzung mit URL/DOI und Notiz.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Grenzen der Übertragbarkeit
+    validations:
+      required: true

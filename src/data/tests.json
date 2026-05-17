@@ -1,0 +1,551 @@
+[
+  {
+    "id": "lnsc",
+    "name": "Late-night salivary cortisol (LNSC)",
+    "category": "Endokrinologie",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "description": "Späte Speichelcortisol-Messung als Screening-Test bei Verdacht auf Hyperkortisolismus.",
+    "evidenceProfiles": [
+      {
+        "id": "lnsc-elecsys-2024",
+        "testId": "lnsc",
+        "label": "Elecsys Cortisol II, ECE 2024",
+        "kind": "curated",
+        "method": "Speichelcortisol spätabends, Elecsys Cortisol II",
+        "cutoff": "11,3 nmol/l",
+        "procedure": "Speichel spätabends nach Laboranweisung sammeln.",
+        "sensitivity": 0.8824,
+        "specificity": 0.8846,
+        "lrPositive": 7.65,
+        "lrNegative": 0.13,
+        "population": "Prospektive Diagnostikpopulation bei Verdacht auf Hyperkortisolismus.",
+        "rationale": "Konservative aktuelle Basiseinstellung aus einer methodenspezifischen Studie.",
+        "limitations": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus und Präanalytik können Ergebnisse beeinflussen.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "ECE 2024 Poster EP917: Late-night salivary cortisol using Elecsys Cortisol II",
+            "year": 2024,
+            "url": "https://www.endocrine-abstracts.org/ea/0099/ea0099ep917",
+            "kind": "Studie",
+            "note": "Berichtet Sensitivität 88,24 % und Spezifität 88,46 % bei Cut-off 11,3 nmol/l."
+          }
+        ]
+      },
+      {
+        "id": "lnsc-meta-analysis",
+        "testId": "lnsc",
+        "label": "Meta-Analyse, ältere Studien",
+        "kind": "curated",
+        "method": "Late-night salivary cortisol, Metaanalyse verschiedener Assays",
+        "cutoff": "Assay- und studienabhängig",
+        "procedure": "Speichel spätabends nach Laboranweisung sammeln.",
+        "sensitivity": 0.92,
+        "specificity": 0.96,
+        "lrPositive": 21,
+        "lrNegative": 0.08,
+        "population": "Zusammenfassung älterer Studienpopulationen mit Verdacht auf Cushing-Syndrom.",
+        "rationale": "Alternative optimistischere Literaturannahme, bewusst als eigenes Evidenzprofil auswählbar.",
+        "limitations": "Assays, Cut-offs und Patientenselektion unterscheiden sich deutlich; nicht als Standardwert für jedes Labor übernehmen.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": false,
+        "sources": [
+          {
+            "title": "Meta-analysis of late-night salivary cortisol for Cushing syndrome",
+            "year": 2009,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/?term=late-night+salivary+cortisol+meta-analysis+sensitivity+specificity",
+            "kind": "Review",
+            "note": "Als historische Vergleichsannahme dokumentiert."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dst-1mg",
+    "name": "1-mg Dexamethason-Hemmtest",
+    "category": "Endokrinologie",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "description": "Overnight-Dexamethason-Suppressionstest als Screening bei Verdacht auf Hyperkortisolismus.",
+    "evidenceProfiles": [
+      {
+        "id": "dst-1mg-statpearls",
+        "testId": "dst-1mg",
+        "label": "Overnight-DST, StatPearls",
+        "kind": "curated",
+        "method": "Overnight-Dexamethason-Suppressionstest",
+        "cutoff": "Cortisol 1,8 µg/dl",
+        "procedure": "1 mg Dexamethason gegen 23 Uhr, Serumcortisol morgens bestimmen.",
+        "sensitivity": 0.95,
+        "specificity": 0.8,
+        "lrPositive": 4.75,
+        "lrNegative": 0.06,
+        "population": "Screening bei klinischem Verdacht auf Hyperkortisolismus.",
+        "rationale": "Hohe Sensitivität für Screening; Spezifität bewusst konservativ angenommen.",
+        "limitations": "Falsch-positive Ergebnisse bei Medikamenteninteraktionen, Depression, Alkohol, Stress und unzureichender Dexamethason-Exposition möglich.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "StatPearls: Dexamethasone Suppression Test",
+            "year": 2024,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK542317/",
+            "kind": "Lehrtext",
+            "note": "Zusammenfassende Angaben zu Sensitivität und diagnostischer Anwendung des Overnight-DST."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dst-2mg-48h",
+    "name": "2-mg Dexamethason-Hemmtest über 48 h",
+    "category": "Endokrinologie",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "description": "Low-dose Dexamethason-Suppressionstest über 48 h als zweite DST-Option.",
+    "evidenceProfiles": [
+      {
+        "id": "dst-2mg-48h-statpearls",
+        "testId": "dst-2mg-48h",
+        "label": "48-h-DST, StatPearls",
+        "kind": "curated",
+        "method": "Low-dose Dexamethason-Suppressionstest über 48 h",
+        "cutoff": "Cortisol cut-off abhängig vom Protokoll",
+        "procedure": "Dexamethason 0,5 mg alle 6 h über 48 h, Cortisol am Testende bestimmen.",
+        "sensitivity": 0.96,
+        "specificity": 0.7,
+        "lrPositive": 3.2,
+        "lrNegative": 0.06,
+        "population": "Bestätigende Diagnostik bei weiter bestehendem Verdacht.",
+        "rationale": "Als zweite DST-Option mit separater Annahme geführt.",
+        "limitations": "Protokoll, Cut-off und Präanalytik müssen lokal geprüft werden; nicht als isolierte Entscheidungsgrundlage verwenden.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "StatPearls: Dexamethasone Suppression Test",
+            "year": 2024,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK542317/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Einsatz und Grenzen des 48-h-DST."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arr",
+    "name": "Aldosteron-Renin-Ratio",
+    "category": "Endokrinologie / Nephrologie",
+    "condition": "Primärer Hyperaldosteronismus",
+    "description": "ARR-Screening bei geeigneten Hypertonie-Risikogruppen.",
+    "evidenceProfiles": [
+      {
+        "id": "arr-screening-guideline",
+        "testId": "arr",
+        "label": "ARR-Screening, Leitlinienannahme",
+        "kind": "curated",
+        "method": "ARR-Screening",
+        "cutoff": "Labor- und einheitenabhängig",
+        "procedure": "Morgendliche Blutentnahme für Aldosteron und Renin nach lokalem Präanalytik-Protokoll.",
+        "sensitivity": 0.97,
+        "specificity": 0.94,
+        "lrPositive": 16.2,
+        "lrNegative": 0.03,
+        "population": "Patienten mit Hypertonie und klinischer Indikation zum Screening.",
+        "rationale": "Plausible Standardannahme für ein gut vorbereitetes ARR-Screening.",
+        "limitations": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zur Indikation, Präanalytik und Interpretation des Screenings."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "metanephrines-plasma",
+    "name": "Plasmafreie Metanephrine",
+    "category": "Endokrinologie / Innere Medizin",
+    "condition": "Phäochromozytom / Paragangliom",
+    "description": "Biochemische Diagnostik bei Verdacht auf PPGL.",
+    "evidenceProfiles": [
+      {
+        "id": "metanephrines-plasma-default",
+        "testId": "metanephrines-plasma",
+        "label": "Plasmafreie Metanephrine",
+        "kind": "curated",
+        "method": "Plasmafreie Metanephrine",
+        "cutoff": "Cut-off 1-fach oberer Referenzbereich",
+        "procedure": "Blut für freie Metanephrine nach kurzer Ruhephase abnehmen, ideal nach Laborstandard.",
+        "sensitivity": 0.986,
+        "specificity": 0.893,
+        "lrPositive": 9.2,
+        "lrNegative": 0.02,
+        "population": "Patienten mit Verdacht auf PPGL.",
+        "rationale": "Hohe Sensitivität macht den Test besonders als Rule-out-Test nützlich.",
+        "limitations": "Lage bei Blutabnahme, Stress, Medikamente und Referenzbereiche können die Spezifität beeinflussen.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Endocrine Society Guideline: Pheochromocytoma and Paraganglioma",
+            "year": 2014,
+            "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+            "kind": "Leitlinie",
+            "note": "Leitlinie dokumentiert hohe Sensitivität und nennt Studiendaten zu Plasma- und Urin-Metanephrinen."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "metanephrines-urine",
+    "name": "Urinfraktionierte Metanephrine",
+    "category": "Endokrinologie / Innere Medizin",
+    "condition": "Phäochromozytom / Paragangliom",
+    "description": "24-h-Urin-Alternative zur PPGL-Diagnostik.",
+    "evidenceProfiles": [
+      {
+        "id": "metanephrines-urine-default",
+        "testId": "metanephrines-urine",
+        "label": "Urinfraktionierte Metanephrine",
+        "kind": "curated",
+        "method": "24-h-Urin, fraktionierte Metanephrine",
+        "cutoff": "Cut-off 1-fach oberer Referenzbereich",
+        "procedure": "24-h-Urin sammeln und fraktionierte Metanephrine plus Kreatinin bestimmen.",
+        "sensitivity": 0.97,
+        "specificity": 0.91,
+        "lrPositive": 10.8,
+        "lrNegative": 0.03,
+        "population": "Patienten mit Verdacht auf PPGL.",
+        "rationale": "Alternative zu Plasma-Metanephrinen mit ähnlicher diagnostischer Leistung.",
+        "limitations": "Sammelqualität, Nierenfunktion, Medikamente und Laborverfahren begrenzen die Übertragbarkeit.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Endocrine Society Guideline: Pheochromocytoma and Paraganglioma",
+            "year": 2014,
+            "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+            "kind": "Leitlinie",
+            "note": "Berichtet für urinfraktionierte Metanephrine per Massenspektrometrie Sensitivität 97 % und Spezifität 91 %."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ntprobnp",
+    "name": "NT-proBNP ohne Vorhofflimmern",
+    "category": "Kardiologie / Allgemeinmedizin",
+    "condition": "Herzinsuffizienz",
+    "description": "Natriuretisches Peptid zur ambulanten Herzinsuffizienz-Abklärung.",
+    "evidenceProfiles": [
+      {
+        "id": "ntprobnp-125",
+        "testId": "ntprobnp",
+        "label": "Cut-off 125 pg/ml",
+        "kind": "curated",
+        "method": "NT-proBNP",
+        "cutoff": "125 pg/ml",
+        "procedure": "Blutentnahme für NT-proBNP nach lokalem Laborstandard.",
+        "sensitivity": 0.929,
+        "specificity": 0.538,
+        "lrPositive": 2.01,
+        "lrNegative": 0.13,
+        "population": "Patienten ohne Vorhofflimmern mit Verdacht auf Herzinsuffizienz.",
+        "rationale": "Niedriger Cut-off mit hoher Sensitivität und begrenztem Rule-in-Effekt.",
+        "limitations": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "NT-proBNP thresholds for heart failure diagnosis",
+            "year": 2025,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/?term=NT-proBNP+125+400+sensitivity+specificity+heart+failure+2025",
+            "kind": "Studie",
+            "note": "Als Basisannahme für den niedrigen ambulanten Cut-off aufgenommen."
+          }
+        ]
+      },
+      {
+        "id": "ntprobnp-400",
+        "testId": "ntprobnp",
+        "label": "Cut-off 400 pg/ml",
+        "kind": "curated",
+        "method": "NT-proBNP",
+        "cutoff": "400 pg/ml",
+        "procedure": "Blutentnahme für NT-proBNP nach lokalem Laborstandard.",
+        "sensitivity": 0.771,
+        "specificity": 0.849,
+        "lrPositive": 5.09,
+        "lrNegative": 0.27,
+        "population": "Patienten ohne Vorhofflimmern mit Verdacht auf Herzinsuffizienz.",
+        "rationale": "Höherer Cut-off mit besserem Rule-in-Effekt und schwächerem Rule-out-Effekt.",
+        "limitations": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": false,
+        "sources": [
+          {
+            "title": "NT-proBNP thresholds for heart failure diagnosis",
+            "year": 2025,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/?term=NT-proBNP+400+sensitivity+specificity+heart+failure+2025",
+            "kind": "Studie",
+            "note": "Als Basisannahme für den höheren ambulanten Cut-off aufgenommen."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "oral-sodium-loading",
+    "name": "Oraler Kochsalzbelastungstest",
+    "category": "Endokrinologie / Nephrologie",
+    "condition": "Primärer Hyperaldosteronismus",
+    "description": "Bestätigungstest bei positiver oder unklarer Aldosteron-Renin-Ratio.",
+    "evidenceProfiles": [
+      {
+        "id": "oral-sodium-loading-endotext",
+        "testId": "oral-sodium-loading",
+        "label": "Oral sodium loading, Endotext",
+        "kind": "curated",
+        "method": "Orale Natriumbelastung mit 24-h-Urin-Aldosteron",
+        "cutoff": "Urin-Aldosteron > 12 µg/24 h bei adäquater Natriurese",
+        "procedure": "Drei Tage salzreich essen; am letzten Tag 24-h-Urin auf Aldosteron, Natrium und Kreatinin sammeln.",
+        "sensitivity": 0.96,
+        "specificity": 0.93,
+        "lrPositive": 13.7,
+        "lrNegative": 0.04,
+        "population": "Patienten mit Screening-Verdacht auf primären Hyperaldosteronismus.",
+        "rationale": "Ambulant gut passender Bestätigungstest mit publizierten Sensitivitäts- und Spezifitätsangaben.",
+        "limitations": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Endotext: Primary Aldosteronism",
+            "year": 2024,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK279065/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Protokoll und nennt Sensitivität 96 % sowie Spezifität 93 % für den oralen Salzbelastungstest."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "urinary-free-cortisol-24h",
+    "name": "24-h-Urin auf freies Cortisol",
+    "category": "Endokrinologie",
+    "condition": "Cushing-Syndrom / Hyperkortisolismus",
+    "description": "Urinfreies Cortisol als Screening-Test bei Verdacht auf Hyperkortisolismus.",
+    "evidenceProfiles": [
+      {
+        "id": "ufc-24h-meta-analysis",
+        "testId": "urinary-free-cortisol-24h",
+        "label": "UFC, Meta-Analyse diagnostischer Tests",
+        "kind": "curated",
+        "method": "24-h-Urin, freies Cortisol",
+        "cutoff": "Laborabhängig, meist oberer Referenzbereich",
+        "procedure": "24-h-Urin vollständig sammeln; freies Cortisol und Kreatinin bestimmen.",
+        "sensitivity": 0.94,
+        "specificity": 0.93,
+        "lrPositive": 13.4,
+        "lrNegative": 0.06,
+        "population": "Erwachsene mit klinischem Verdacht auf Cushing-Syndrom.",
+        "rationale": "Gepoolte Schätzung aus diagnostischen Studien; als robuste Startannahme geeignet.",
+        "limitations": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus und Assay-Unterschiede begrenzen die Übertragbarkeit.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Diagnostic Tests for Cushing's Syndrome Differ from Published Guidelines",
+            "year": 2020,
+            "url": "https://academic.oup.com/jcem/article/105/9/2979/5854709",
+            "kind": "Review",
+            "note": "Meta-Analyse diagnostischer Tests; berichtet für 24-h-Urinfreies Cortisol gepoolte Sensitivität und Spezifität."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "acth-stimulation-250",
+    "name": "ACTH-Stimulationstest 250 µg",
+    "category": "Endokrinologie",
+    "condition": "Nebenniereninsuffizienz",
+    "description": "Cosyntropin-Test zur Abklärung einer Nebenniereninsuffizienz.",
+    "evidenceProfiles": [
+      {
+        "id": "acth-stimulation-secondary-ai",
+        "testId": "acth-stimulation-250",
+        "label": "250-µg-Test, sekundäre Nebenniereninsuffizienz",
+        "kind": "curated",
+        "method": "Standard-Cosyntropin-Stimulationstest",
+        "cutoff": "Peak-Cortisol laborabhängig, klassisch ca. 18 µg/dl",
+        "procedure": "Basal-Cortisol abnehmen, 250 µg ACTH geben, Cortisol nach 30 und/oder 60 min messen.",
+        "sensitivity": 0.64,
+        "specificity": 0.93,
+        "lrPositive": 9.1,
+        "lrNegative": 0.39,
+        "population": "Erwachsene mit Verdacht auf sekundäre Nebenniereninsuffizienz.",
+        "rationale": "Aufgenommen wegen hoher ambulanter Relevanz; Test ist eher Rule-in als sicherer Rule-out bei sekundärer Insuffizienz.",
+        "limitations": "Cut-off ist assayabhängig; frühe zentrale Insuffizienz kann übersehen werden.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "StatPearls: Adrenocorticotropic Hormone (Cosyntropin) Stimulation Test",
+            "year": 2024,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK555940/",
+            "kind": "Lehrtext",
+            "note": "Berichtet für sekundäre Nebenniereninsuffizienz Sensitivität 64 % und Spezifität 93 %."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trab-graves",
+    "name": "TSH-Rezeptor-Antikörper (TRAb)",
+    "category": "Endokrinologie / Schilddrüse",
+    "condition": "Morbus Basedow",
+    "description": "Autoantikörpertest zur Differenzialdiagnose einer Hyperthyreose.",
+    "evidenceProfiles": [
+      {
+        "id": "trab-third-generation-meta",
+        "testId": "trab-graves",
+        "label": "TRAb, 3. Generation",
+        "kind": "curated",
+        "method": "TRAb-Assay der 3. Generation",
+        "cutoff": "Assayabhängig",
+        "procedure": "Serum-TRAb bei biochemischer Hyperthyreose bestimmen.",
+        "sensitivity": 0.983,
+        "specificity": 0.992,
+        "lrPositive": 122.9,
+        "lrNegative": 0.02,
+        "population": "Patienten mit Hyperthyreose zur Differenzialdiagnose Morbus Basedow.",
+        "rationale": "Sehr starker Rule-in- und guter Rule-out-Test bei passender klinischer Fragestellung.",
+        "limitations": "Assaygeneration und Vortestpopulation beeinflussen die Übertragbarkeit.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "TSH receptor antibodies for the diagnosis of Graves' disease: systematic review and meta-analysis",
+            "year": 2012,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+            "kind": "Review",
+            "note": "Berichtet für TRAb-Assays der 3. Generation Sensitivität 98,3 % und Spezifität 99,2 %."
+          }
+        ]
+      },
+      {
+        "id": "trab-second-generation-meta",
+        "testId": "trab-graves",
+        "label": "TRAb, 2. Generation",
+        "kind": "curated",
+        "method": "TRAb-Assay der 2. Generation",
+        "cutoff": "Assayabhängig",
+        "procedure": "Serum-TRAb bei biochemischer Hyperthyreose bestimmen.",
+        "sensitivity": 0.971,
+        "specificity": 0.974,
+        "lrPositive": 37.3,
+        "lrNegative": 0.03,
+        "population": "Patienten mit Hyperthyreose zur Differenzialdiagnose Morbus Basedow.",
+        "rationale": "Alternative Profilannahme, falls lokal ein Assay der 2. Generation oder vergleichbare Daten genutzt werden.",
+        "limitations": "Assaygeneration und lokale Grenzwerte prüfen.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": false,
+        "sources": [
+          {
+            "title": "TSH receptor antibodies for the diagnosis of Graves' disease: systematic review and meta-analysis",
+            "year": 2012,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+            "kind": "Review",
+            "note": "Berichtet für TRAb-Assays der 2. Generation Sensitivität 97,1 % und Spezifität 97,4 %."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "basal-calcitonin-thyroid-nodule",
+    "name": "Basales Calcitonin bei Schilddrüsenknoten",
+    "category": "Endokrinologie / Schilddrüse",
+    "condition": "Medulläres Schilddrüsenkarzinom",
+    "description": "Serum-Calcitonin als Screeningtest bei Schilddrüsenknoten.",
+    "evidenceProfiles": [
+      {
+        "id": "basal-calcitonin-10pgml-review",
+        "testId": "basal-calcitonin-thyroid-nodule",
+        "label": "Basales Calcitonin, Cut-off 10 pg/ml",
+        "kind": "curated",
+        "method": "Basales Serum-Calcitonin",
+        "cutoff": "10 pg/ml",
+        "procedure": "Serum-Calcitonin basal bestimmen.",
+        "sensitivity": 1,
+        "specificity": 0.972,
+        "lrPositive": 35.7,
+        "lrNegative": 0,
+        "population": "Patienten mit Schilddrüsenknoten in diagnostischen Studien.",
+        "rationale": "Hohe Sensitivität in Übersichtsarbeit; als starkes Rule-out-orientiertes Profil dokumentiert.",
+        "limitations": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Diagnostic accuracy of calcitonin for medullary thyroid carcinoma",
+            "year": 2024,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/39178090/",
+            "kind": "Review",
+            "note": "Umbrella Review; berichtet für basales Calcitonin bei 10 pg/ml Sensitivität 100 % und Spezifität 97,2 %."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ttg-iga-celiac",
+    "name": "Transglutaminase-IgA (tTG-IgA)",
+    "category": "Diabetologie / Autoimmunität",
+    "condition": "Zöliakie",
+    "description": "Serologisches Screening bei Verdacht auf Zöliakie oder Risikokonstellation.",
+    "evidenceProfiles": [
+      {
+        "id": "ttg-iga-adults-meta",
+        "testId": "ttg-iga-celiac",
+        "label": "tTG-IgA, Erwachsene",
+        "kind": "curated",
+        "method": "Serum-tTG-IgA",
+        "cutoff": "Assayabhängig",
+        "procedure": "Serum-tTG-IgA und Gesamt-IgA unter glutenhaltiger Ernährung bestimmen.",
+        "sensitivity": 0.93,
+        "specificity": 0.965,
+        "lrPositive": 26.6,
+        "lrNegative": 0.07,
+        "population": "Erwachsene mit Verdacht auf Zöliakie.",
+        "rationale": "Für diabetologische und endokrinologische Risikokonstellationen häufig relevanter Screeningtest.",
+        "limitations": "IgA-Mangel, glutenarme Ernährung, Alter und Assay beeinflussen die Aussagekraft.",
+        "lastReviewed": "2026-05-17",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+            "year": 2017,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+            "kind": "Review",
+            "note": "AHRQ Review; berichtet für tTG-IgA bei Erwachsenen Sensitivität 93,0 % und Spezifität 96,5 %."
+          }
+        ]
+      }
+    ]
+  }
+]

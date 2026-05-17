@@ -1,0 +1,222 @@
+[
+  {
+    "id": "pa-resistant-hypertension",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "label": "Resistente Hypertonie",
+    "category": "Kontext",
+    "direction": "increases",
+    "rationale": "Resistente Hypertonie ist eine klassische Hochrisikokonstellation für primären Hyperaldosteronismus.",
+    "limitations": "Die Höhe der Prätestwahrscheinlichkeit hängt von Definition, Medikamenten, Kaliumstatus und Screeningpraxis ab.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Benennt resistente Hypertonie als Screening-Indikation."
+      }
+    ]
+  },
+  {
+    "id": "pa-hypokalemia",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "label": "Hypokaliämie bei Hypertonie",
+    "category": "Labor/Vorbefund",
+    "direction": "increases",
+    "rationale": "Hypokaliämie erhöht bei Hypertonie den Verdacht auf primären Hyperaldosteronismus.",
+    "limitations": "Normokaliämie schließt primären Hyperaldosteronismus nicht aus; Diuretika und Substitution beeinflussen die Einordnung.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Benennt Hypertonie mit Hypokaliämie als Screening-Indikation."
+      }
+    ]
+  },
+  {
+    "id": "pa-adrenal-incidentaloma",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "label": "Nebenniereninzidentalom mit Hypertonie",
+    "category": "Kontext",
+    "direction": "increases",
+    "rationale": "Nebenniereninzidentalom plus Hypertonie erhöht die Relevanz einer Abklärung auf Aldosteronexzess.",
+    "limitations": "Bildgebung allein beweist keine Hormonaktivität; biochemische Diagnostik bleibt erforderlich.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Unterstützt Screening bei passenden Risikokonstellationen."
+      }
+    ]
+  },
+  {
+    "id": "ppgl-paroxysmal-symptoms",
+    "conditionId": "phaochromozytom-paragangliom",
+    "label": "Paroxysmen: Kopfschmerz, Schwitzen, Palpitationen",
+    "category": "Symptom",
+    "direction": "increases",
+    "rationale": "Klassische paroxysmale Symptomkonstellation erhöht den klinischen Verdacht auf PPGL.",
+    "limitations": "Symptome sind unspezifisch; Angst, Medikamente und andere Ursachen können ähnlich imponieren.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Beschreibt typische klinische Präsentation und Testindikationen."
+      }
+    ]
+  },
+  {
+    "id": "ppgl-adrenal-incidentaloma",
+    "conditionId": "phaochromozytom-paragangliom",
+    "label": "Nebenniereninzidentalom",
+    "category": "Kontext",
+    "direction": "increases",
+    "rationale": "Nebenniereninzidentalome sind eine wichtige Indikation zur biochemischen PPGL-Abklärung.",
+    "limitations": "Bildgebende Charakteristika und Vortestkontext beeinflussen die Wahrscheinlichkeit deutlich.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Benennt Nebenniereninzidentalom als klinischen Kontext für Testung."
+      }
+    ]
+  },
+  {
+    "id": "ppgl-genetic-risk",
+    "conditionId": "phaochromozytom-paragangliom",
+    "label": "Bekanntes genetisches Risiko oder Familienanamnese",
+    "category": "Anamnese",
+    "direction": "increases",
+    "rationale": "Hereditäre Syndrome und Familienanamnese erhöhen die Prätestwahrscheinlichkeit.",
+    "limitations": "Risiko hängt stark vom konkreten Gen/Syndrom und Alter ab.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Berücksichtigung hereditärer Risikokonstellationen."
+      }
+    ]
+  },
+  {
+    "id": "cushing-typical-stigmata",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "label": "Typische Cushing-Stigmata",
+    "category": "Klinisches Zeichen",
+    "direction": "increases",
+    "rationale": "Progressive und typische klinische Zeichen erhöhen die Wahrscheinlichkeit eines Hyperkortisolismus.",
+    "limitations": "Viele Zeichen sind einzeln unspezifisch; Kombination und Progression sind entscheidend.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Testung bei ungewöhnlichen/progressiven klinischen Merkmalen."
+      }
+    ]
+  },
+  {
+    "id": "cushing-adrenal-incidentaloma",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "label": "Nebenniereninzidentalom",
+    "category": "Kontext",
+    "direction": "increases",
+    "rationale": "Nebenniereninzidentalom ist ein relevanter Kontext für die Abklärung auf autonome Cortisolsekretion.",
+    "limitations": "Wahrscheinlichkeit hängt von Bildgebung, Komorbidität und lokaler Definition autonomer Cortisolsekretion ab.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Unterstützt Testung in passenden klinischen Kontexten."
+      }
+    ]
+  },
+  {
+    "id": "cushing-severe-comorbidity",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "label": "Schwer kontrollierbare Komorbidität",
+    "category": "Kontext",
+    "direction": "increases",
+    "rationale": "Schwer kontrollierbare Hypertonie, Diabetes oder Osteoporose können den Verdacht erhöhen, wenn sie klinisch passend sind.",
+    "limitations": "Diese Befunde sind häufig und unspezifisch; ohne typische Zeichen nur vorsichtig gewichten.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Leitlinie beschreibt klinische Konstellationen für gezielte Testung."
+      }
+    ]
+  },
+  {
+    "id": "heart-failure-orthopnea-edema",
+    "conditionId": "herzinsuffizienz",
+    "label": "Orthopnoe oder periphere Ödeme",
+    "category": "Symptom",
+    "direction": "increases",
+    "rationale": "Kongestive Symptome erhöhen bei Dyspnoe den Verdacht auf Herzinsuffizienz.",
+    "limitations": "Ödeme und Dyspnoe haben viele Differentialdiagnosen; Kontext und Untersuchung bleiben entscheidend.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+        "year": 2021,
+        "url": "https://academic.oup.com/eurheartj/article/42/36/3599/6358045",
+        "kind": "Leitlinie",
+        "note": "Klinischer Kontext für Herzinsuffizienzdiagnostik."
+      }
+    ]
+  },
+  {
+    "id": "adrenal-insufficiency-hyperpigmentation",
+    "conditionId": "nebenniereninsuffizienz",
+    "label": "Hyperpigmentierung oder Salzverlangen",
+    "category": "Klinisches Zeichen",
+    "direction": "increases",
+    "rationale": "Bei passender Symptomatik können Hyperpigmentierung und Salzverlangen den Verdacht auf primäre Nebenniereninsuffizienz erhöhen.",
+    "limitations": "Nicht jede Nebenniereninsuffizienz zeigt diese Befunde; sekundäre Formen können ohne Hyperpigmentierung auftreten.",
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Adrenal Insufficiency",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/2/364/2804860",
+        "kind": "Leitlinie",
+        "note": "Beschreibt klinische Merkmale der Nebenniereninsuffizienz."
+      }
+    ]
+  }
+]

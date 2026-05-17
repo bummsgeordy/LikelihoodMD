@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 3,
+  "exportedAt": "2026-05-17T00:00:00.000Z",
+  "customTests": [
+    {
+      "id": "custom-test-example",
+      "name": "Beispieltest",
+      "category": "Eigene Tests",
+      "condition": "Beispiel-Krankheitsbild",
+      "description": "Beispielhafter diagnostischer Test. Die Testgüte liegt separat im Evidenzprofil.",
+      "custom": true,
+      "evidenceProfiles": []
+    }
+  ],
+  "customEvidenceProfiles": [
+    {
+      "id": "custom-profile-example",
+      "testId": "custom-test-example",
+      "label": "Beispielprofil",
+      "kind": "custom",
+      "method": "Lokales Testverfahren",
+      "cutoff": "lokaler Cut-off",
+      "sensitivity": 0.9,
+      "specificity": 0.8,
+      "lrPositive": 4.5,
+      "lrNegative": 0.125,
+      "population": "Beispielpopulation, für die die Testgüte gelten soll.",
+      "rationale": "Beispielhafte Begründung für die angenommene Testgüte.",
+      "limitations": "Beispielhafte Grenzen, z. B. andere Cut-offs oder andere Populationen.",
+      "lastReviewed": "2026-05-17",
+      "sources": [
+        {
+          "title": "Beispielquelle",
+          "year": 2026,
+          "url": "https://example.com/source",
+          "kind": "Lokale Annahme",
+          "note": "Beispielnotiz zur Quelle und Übertragbarkeit."
+        }
+      ]
+    },
+    {
+      "id": "custom-scenario-example",
+      "testId": "custom-test-example",
+      "label": "Abweichendes Beispiel-Szenario",
+      "kind": "scenario",
+      "method": "Lokales Testverfahren",
+      "cutoff": "abweichender lokaler Cut-off",
+      "sensitivity": 0.85,
+      "specificity": 0.9,
+      "lrPositive": 8.5,
+      "lrNegative": 0.167,
+      "population": "Beispielpopulation, für die die abweichenden Werte gelten sollen.",
+      "rationale": "Szenario für lokale Annahmen.",
+      "limitations": "Nicht als kuratierte Evidenz verstehen.",
+      "lastReviewed": "2026-05-17",
+      "deviationFromProfileId": "custom-profile-example",
+      "deviationReason": "Lokaler Cut-off und lokale Population weichen vom Beispielprofil ab.",
+      "sources": [
+        {
+          "title": "Lokales Szenario",
+          "year": 2026,
+          "url": "https://example.com/local-scenario",
+          "kind": "Lokale Annahme",
+          "note": "Beispiel für bewusst markierte Abweichung."
+        }
+      ]
+    }
+  ],
+  "customAssumptions": [
+    {
+      "id": "custom-pretest-example",
+      "condition": "Beispiel-Krankheitsbild",
+      "conditionId": "beispiel-krankheitsbild",
+      "setting": "Eigene Praxis",
+      "settingId": "eigene-praxis",
+      "evidenceLevel": "direct",
+      "population": "Beispielhafte Patientengruppe ohne Patientendaten.",
+      "probability": 0.1,
+      "rangeLow": 0.05,
+      "rangeHigh": 0.2,
+      "rationale": "Beispielhafte Begründung für die Prätestwahrscheinlichkeit.",
+      "limitations": "Beispielhafte Grenzen der Übertragbarkeit.",
+      "lastReviewed": "2026-05-17",
+      "kind": "custom",
+      "custom": true,
+      "sources": [
+        {
+          "title": "Lokale Beispielannahme",
+          "year": 2026,
+          "url": "https://example.com/local-assumption",
+          "kind": "Lokale Annahme",
+          "note": "Beispiel für lokale Daten, Registerauswertung oder begründete Expertenschätzung."
+        }
+      ]
+    }
+  ],
+  "customModifiers": [
+    {
+      "id": "custom-modifier-example",
+      "conditionId": "beispiel-krankheitsbild",
+      "label": "Beispiel-Symptomcluster",
+      "category": "Symptom",
+      "direction": "increases",
+      "likelihoodRatio": 2,
+      "rationale": "Beispielhafte Begründung, warum dieser Faktor die Prätestwahrscheinlichkeit erhöhen kann.",
+      "limitations": "Nur als Beispiel; ohne passende Quelle nicht kuratiert verwenden.",
+      "lastReviewed": "2026-05-17",
+      "kind": "custom",
+      "custom": true,
+      "sources": [
+        {
+          "title": "Lokaler Beispielmodifikator",
+          "year": 2026,
+          "url": "https://example.com/local-modifier",
+          "kind": "Lokale Annahme",
+          "note": "Beispiel für einen quantifizierten Modifikator."
+        }
+      ]
+    }
+  ]
+}

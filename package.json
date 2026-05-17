@@ -1,0 +1,20 @@
+{
+  "name": "likelihood-ratio-rechner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deutschsprachiges Lehr- und Rechentool für Vor- und Nachtestwahrscheinlichkeiten.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && npm run validate:data && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "validate:data": "node scripts/validate-data.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4"
+  }
+}

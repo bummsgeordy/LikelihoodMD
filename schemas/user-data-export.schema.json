@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/user-data-export.schema.json",
+  "title": "UserDataExport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "exportedAt", "customTests", "customEvidenceProfiles", "customAssumptions", "customModifiers"],
+  "properties": {
+    "schemaVersion": { "const": 3 },
+    "exportedAt": { "type": "string", "format": "date-time" },
+    "customTests": {
+      "type": "array",
+      "items": { "$ref": "diagnostic-test.schema.json" }
+    },
+    "customEvidenceProfiles": {
+      "type": "array",
+      "items": { "$ref": "evidence-profile.schema.json" }
+    },
+    "customAssumptions": {
+      "type": "array",
+      "items": { "$ref": "pretest-assumption.schema.json" }
+    },
+    "customModifiers": {
+      "type": "array",
+      "items": { "$ref": "clinical-modifier.schema.json" }
+    }
+  }
+}

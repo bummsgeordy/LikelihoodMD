@@ -1,0 +1,26 @@
+[
+  {
+    "id": "hausarztpraxis",
+    "label": "Hausarztpraxis"
+  },
+  {
+    "id": "klinik-notaufnahme",
+    "label": "Klinik-Notaufnahme"
+  },
+  {
+    "id": "ambulant-kardiologie",
+    "label": "Ambulant: Kardiologie"
+  },
+  {
+    "id": "ambulant-endokrinologie",
+    "label": "Ambulant: Endokrinologie"
+  },
+  {
+    "id": "ambulant-diabetologie",
+    "label": "Ambulant: Diabetologie"
+  },
+  {
+    "id": "ambulant-nephrologie",
+    "label": "Ambulant: Nephrologie / Hypertonie"
+  }
+]

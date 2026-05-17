@@ -1,0 +1,58 @@
+name: Neuen diagnostischen Test vorschlagen
+description: Vorschlag fuer einen neuen Test mit Testguete, Population und Quellen
+title: "[Test] "
+labels: ["clinical-data", "diagnostic-test"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bitte keine Patientendaten eintragen. Jede Zahl braucht eine nachvollziehbare Quelle und eine klare Population.
+  - type: input
+    id: name
+    attributes:
+      label: Testname
+      placeholder: z. B. Late-night salivary cortisol
+    validations:
+      required: true
+  - type: input
+    id: condition
+    attributes:
+      label: Krankheitsbild / Fragestellung
+      placeholder: z. B. Cushing-Syndrom
+    validations:
+      required: true
+  - type: input
+    id: method
+    attributes:
+      label: Methode und Cut-off
+      placeholder: z. B. Assay, Protokoll, Schwellenwert, Einheit
+    validations:
+      required: true
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Testguete
+      description: Sensitivitaet, Spezifitaet, LR+ und LR−, falls vorhanden.
+      placeholder: "Sensitivitaet: ...\nSpezifitaet: ...\nLR+: ...\nLR−: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: population
+    attributes:
+      label: Population und intended use
+      description: Fuer wen gelten diese Werte?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Quellen
+      description: Titel, Jahr, URL/DOI/PubMed-Link und kurze Notiz zur Uebertragbarkeit.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Grenzen / Praeanalytik / Cut-off-Abhaengigkeit
+    validations:
+      required: true
