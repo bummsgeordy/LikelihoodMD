@@ -43,6 +43,8 @@ export interface EvidenceProfile extends ReviewMetadata {
   testId: string;
   label: string;
   kind: EvidenceProfileKind;
+  purpose?: string;
+  specimen?: string;
   method: string;
   cutoff: string;
   procedure?: string;
@@ -53,6 +55,12 @@ export interface EvidenceProfile extends ReviewMetadata {
   population: string;
   rationale: string;
   limitations: string;
+  preanalytics?: string[];
+  medicationInterferences?: string[];
+  falsePositiveReasons?: string[];
+  falseNegativeReasons?: string[];
+  interpretationCautions?: string[];
+  implementationNotes?: string;
   sources: EvidenceSource[];
   lastReviewed: string;
   isDefault?: boolean;

@@ -1013,8 +1013,15 @@ function renderDetails(test: DiagnosticTest, profile: EvidenceProfile, assumptio
     ['Test-Erkrankung', test.condition],
     ['Krankheitsbild-Match', selectedTestMatchesCondition(test) ? 'Ja' : 'Nein, Kontext-Mismatch'],
     ['Methode', profile.method],
+    ['Zweck', profile.purpose ?? 'Nicht separat hinterlegt'],
+    ['Material', profile.specimen ?? 'Nicht separat hinterlegt'],
     ['Kurz-Durchführung', profile.procedure ?? 'Nach lokalem Laborprotokoll durchführen.'],
     ['Cut-off', profile.cutoff],
+    ['Präanalytik', joinedList(profile.preanalytics)],
+    ['Interferenzen', joinedList(profile.medicationInterferences)],
+    ['Falsch positiv', joinedList(profile.falsePositiveReasons)],
+    ['Falsch negativ', joinedList(profile.falseNegativeReasons)],
+    ['Interpretation', joinedList(profile.interpretationCautions)],
     ['Sensitivität', formatPercent(profile.sensitivity)],
     ['Spezifität', formatPercent(profile.specificity)],
     ['PPV', formatPercent(result.ppv)],
@@ -1051,6 +1058,10 @@ function renderSources(title: string, item: EvidenceProfile | PretestAssumption)
   rationale.textContent = `Begründung: ${item.rationale}`;
   const limitations = document.createElement('p');
   limitations.textContent = `Grenzen: ${item.limitations}`;
+  const structuredNotes = 'preanalytics' in item ? profileStructuredNotes(item) : '';
+  const notes = document.createElement('p');
+  notes.className = 'muted';
+  notes.textContent = structuredNotes ? `Praktische Hinweise: ${structuredNotes}` : '';
   const list = document.createElement('ul');
   list.className = 'source-list';
   item.sources.forEach(source => {
@@ -1070,7 +1081,9 @@ function renderSources(title: string, item: EvidenceProfile | PretestAssumption)
     sourceItem.append(badge, link, note);
     list.append(sourceItem);
   });
-  section.append(heading, meta, rationale, limitations, list);
+  section.append(heading, meta, rationale, limitations);
+  if (structuredNotes) section.append(notes);
+  section.append(list);
   return section;
 }
 
@@ -1165,6 +1178,8 @@ function renderAdminOverview(): void {
       [
         ['Profil', profile.label],
         ['Methode', profile.method],
+        ['Zweck', profile.purpose ?? 'Nicht separat hinterlegt'],
+        ['Material', profile.specimen ?? 'Nicht separat hinterlegt'],
         ['Kurz-Durchführung', profile.procedure ?? 'Nach lokalem Laborprotokoll durchführen.'],
         ['Cut-off', profile.cutoff],
         ['Sensitivität / Spezifität', `${formatPercent(profile.sensitivity)} / ${formatPercent(profile.specificity)}`],
@@ -1172,6 +1187,11 @@ function renderAdminOverview(): void {
         ['Population', profile.population],
         ['Begründung', profile.rationale],
         ['Grenzen', profile.limitations],
+        ['Präanalytik', joinedList(profile.preanalytics)],
+        ['Interferenzen', joinedList(profile.medicationInterferences)],
+        ['Falsch positiv', joinedList(profile.falsePositiveReasons)],
+        ['Falsch negativ', joinedList(profile.falseNegativeReasons)],
+        ['Interpretation', joinedList(profile.interpretationCautions)],
         ['Letzte Prüfung', profile.lastReviewed]
       ],
       profile.sources
@@ -1181,6 +1201,25 @@ function renderAdminOverview(): void {
 
 function sourceSummary(sources: EvidenceSource[]): string {
   return sources.length > 0 ? sources.map(source => `${source.title} (${source.year})`).join('; ') : 'Keine Quelle hinterlegt';
+}
+
+function joinedList(values: string[] | undefined, fallback = 'Nicht separat hinterlegt'): string {
+  return values && values.length > 0 ? values.join('; ') : fallback;
+}
+
+function profileStructuredNotes(profile: EvidenceProfile): string {
+  const sections: string[] = [];
+  if (profile.preanalytics?.length) sections.push(`Präanalytik: ${joinedList(profile.preanalytics)}`);
+  if (profile.medicationInterferences?.length) {
+    sections.push(`Medikamentöse/Substanz-Interferenzen: ${joinedList(profile.medicationInterferences)}`);
+  }
+  if (profile.falsePositiveReasons?.length) sections.push(`Falsch-positive Gründe: ${joinedList(profile.falsePositiveReasons)}`);
+  if (profile.falseNegativeReasons?.length) sections.push(`Falsch-negative Gründe: ${joinedList(profile.falseNegativeReasons)}`);
+  if (profile.interpretationCautions?.length) {
+    sections.push(`Interpretationshinweise: ${joinedList(profile.interpretationCautions)}`);
+  }
+  if (profile.implementationNotes) sections.push(`Implementierung: ${profile.implementationNotes}`);
+  return sections.join(' ');
 }
 
 function conditionLabelForId(conditionId: string): string {
@@ -1354,7 +1393,7 @@ function catalogRows(): CatalogRow[] {
         result ? `${formatPercent(result.ppv)} / ${formatPercent(result.npv)}` : '–',
         ...catalogMetadataCells(profile),
         sourceSummary(profile.sources),
-        `Methode: ${profile.method}. Durchführung: ${profile.procedure ?? 'Nach Laborprotokoll.'} Begründung: ${profile.rationale} Grenzen: ${profile.limitations}`
+        `Methode: ${profile.method}. Durchführung: ${profile.procedure ?? 'Nach Laborprotokoll.'} Begründung: ${profile.rationale} Grenzen: ${profile.limitations} ${profileStructuredNotes(profile)}`
       ];
       return {
         key: `profile:${profile.id}:${assumption?.settingId ?? 'none'}`,
@@ -1372,6 +1411,7 @@ function catalogRows(): CatalogRow[] {
           ...cells,
           test.description,
           profile.population,
+          profileStructuredNotes(profile),
           profile.sources.map(source => source.note),
           profile.reviewNote,
           assumption?.population,
@@ -1390,7 +1430,7 @@ function catalogRows(): CatalogRow[] {
           sources: sourceSummary(profile.sources),
           population: profile.population,
           rationale: `Test: ${profile.rationale}${assumption ? ` Prätest: ${assumption.rationale}` : ''}`,
-          limitations: `${profile.limitations}${assumption ? ` Prätest-Grenzen: ${assumption.limitations}` : ''}`,
+          limitations: `${profile.limitations} ${profileStructuredNotes(profile)}${assumption ? ` Prätest-Grenzen: ${assumption.limitations}` : ''}`,
           reviewNote: profile.reviewNote
         }
       };

@@ -5,8 +5,8 @@
     "label": "Resistente Hypertonie",
     "category": "Kontext",
     "direction": "increases",
-    "rationale": "Resistente Hypertonie ist eine klassische Hochrisikokonstellation für primären Hyperaldosteronismus.",
-    "limitations": "Die Höhe der Prätestwahrscheinlichkeit hängt von Definition, Medikamenten, Kaliumstatus und Screeningpraxis ab.",
+    "rationale": "Resistente Hypertonie ist eine Hochrisikokonstellation für PA und sollte primär über ein passendes Prätest-Setting abgebildet werden.",
+    "limitations": "Die Höhe der Prätestwahrscheinlichkeit hängt von Definition, Medikamenten, Kaliumstatus und Bestätigungstest ab.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -15,23 +15,38 @@
         "year": 2025,
         "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
         "kind": "Leitlinie",
-        "note": "Benennt resistente Hypertonie als Screening-Indikation."
+        "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+      },
+      {
+        "title": "Primary aldosteronism: a common cause of resistant hypertension",
+        "year": 2016,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5461126/",
+        "kind": "Review",
+        "note": "Review zur erhöhten PA-Prävalenz bei resistenter Hypertonie."
+      },
+      {
+        "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
+        "kind": "Review",
+        "note": "Systematischer Review zur Heterogenität von PA-Prävalenzschätzungen und Risikogruppen."
       }
     ],
     "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "overlapWarning": "Wenn das Setting Nephrologie/Hypertonie mit resistenter Hypertonie bereits gewählt ist, diesen Modifikator nicht zusätzlich als quantitativen Faktor verwenden."
   },
   {
     "id": "pa-hypokalemia",
     "conditionId": "primarer-hyperaldosteronismus",
-    "label": "Hypokaliämie bei Hypertonie",
+    "label": "Hypokaliämie, spontan oder diuretikainduziert",
     "category": "Labor/Vorbefund",
     "direction": "increases",
-    "rationale": "Hypokaliämie erhöht bei Hypertonie den Verdacht auf primären Hyperaldosteronismus.",
-    "limitations": "Normokaliämie schließt primären Hyperaldosteronismus nicht aus; Diuretika und Substitution beeinflussen die Einordnung.",
+    "rationale": "Hypokaliämie ist ein klassischer Risikomarker für PA und eine leitlinienrelevante Screeningkonstellation.",
+    "limitations": "Normokaliämie schließt PA nicht aus. Diuretika, Kaliumsubstitution und Salzstatus beeinflussen die Einordnung.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -40,23 +55,37 @@
         "year": 2025,
         "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
         "kind": "Leitlinie",
-        "note": "Benennt Hypertonie mit Hypokaliämie als Screening-Indikation."
+        "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+      },
+      {
+        "title": "Validity of the aldosterone-renin ratio used to screen for primary aldosteronism",
+        "year": 2001,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11560297/",
+        "kind": "Review",
+        "note": "Systematischer Review zur ARR-Testcharakteristik und methodischen Heterogenität."
+      },
+      {
+        "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
+        "kind": "Review",
+        "note": "Systematischer Review zur Heterogenität von PA-Prävalenzschätzungen und Risikogruppen."
       }
     ],
     "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
   },
   {
     "id": "pa-adrenal-incidentaloma",
     "conditionId": "primarer-hyperaldosteronismus",
-    "label": "Nebenniereninzidentalom mit Hypertonie",
+    "label": "Hypertonie + Nebenniereninzidentalom",
     "category": "Kontext",
     "direction": "increases",
-    "rationale": "Nebenniereninzidentalom plus Hypertonie erhöht die Relevanz einer Abklärung auf Aldosteronexzess.",
-    "limitations": "Bildgebung allein beweist keine Hormonaktivität; biochemische Diagnostik bleibt erforderlich.",
+    "rationale": "Hypertonie plus Nebenniereninzidentalom ist eine leitlinienrelevante Screeningkonstellation für PA.",
+    "limitations": "Ein konkreter Prätestwert ist noch nicht separat kuratiert; Bildgebung beweist keine Hormonaktivität.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -65,23 +94,30 @@
         "year": 2025,
         "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
         "kind": "Leitlinie",
-        "note": "Unterstützt Screening bei passenden Risikokonstellationen."
+        "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+      },
+      {
+        "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
+        "kind": "Review",
+        "note": "Systematischer Review zur Heterogenität von PA-Prävalenzschätzungen und Risikogruppen."
       }
     ],
     "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
-    "evidenceQuality": "moderate",
+    "evidenceQuality": "low",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
   },
   {
     "id": "ppgl-paroxysmal-symptoms",
     "conditionId": "phaochromozytom-paragangliom",
-    "label": "Paroxysmen: Kopfschmerz, Schwitzen, Palpitationen",
+    "label": "Kopfschmerz + Palpitationen + Schwitzen",
     "category": "Symptom",
     "direction": "increases",
-    "rationale": "Klassische paroxysmale Symptomkonstellation erhöht den klinischen Verdacht auf PPGL.",
-    "limitations": "Symptome sind unspezifisch; Angst, Medikamente und andere Ursachen können ähnlich imponieren.",
+    "rationale": "Die klassische Symptomtrias erhöht die Vortestwahrscheinlichkeit deutlich. Im Tool wird dies als ungefähr 6-facher Odds-Multiplikator visualisiert, nicht als universeller diagnostischer Test-LR.",
+    "limitations": "Der Effekt ist kontextabhängig; Symptome sind unspezifisch und sollten nicht ohne Setting, Blutdruckkontext, Medikamente und Tumorrisiko interpretiert werden.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -90,14 +126,23 @@
         "year": 2014,
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
-        "note": "Beschreibt typische klinische Präsentation und Testindikationen."
+        "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+      },
+      {
+        "title": "Pheochromocytoma: Symptom to Diagnosis, An Evidence-Based Guide",
+        "year": 2020,
+        "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=2715&sectionid=249060850",
+        "kind": "Lehrtext",
+        "note": "Nennt niedrige Prätestwahrscheinlichkeit in unselektierter Hypertonie und höhere Werte bei Inzidentalom/Risikokontext."
       }
     ],
-    "quantificationStatus": "qualitative",
+    "quantificationStatus": "likelihood-ratio",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "likelihoodRatio": 6,
+    "overlapWarning": "Wenn bereits eine Hochrisiko-Prätest-Annahme für typische Symptome oder Inzidentalom gewählt wurde, kann eine zusätzliche Anwendung den Verdacht doppelt gewichten."
   },
   {
     "id": "ppgl-adrenal-incidentaloma",
@@ -105,8 +150,8 @@
     "label": "Nebenniereninzidentalom",
     "category": "Kontext",
     "direction": "increases",
-    "rationale": "Nebenniereninzidentalome sind eine wichtige Indikation zur biochemischen PPGL-Abklärung.",
-    "limitations": "Bildgebende Charakteristika und Vortestkontext beeinflussen die Wahrscheinlichkeit deutlich.",
+    "rationale": "Nebenniereninzidentalom erhöht die Indikation zur PPGL-Abklärung deutlich; in Lehrtexten wird für Inzidentalome ungefähr 5% als Prätestwahrscheinlichkeit genannt.",
+    "limitations": "Prätestwahrscheinlichkeit hängt von HU, Größe, Bildmorphologie, Vorbefunden und Kohorte ab.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -115,23 +160,38 @@
         "year": 2014,
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
-        "note": "Benennt Nebenniereninzidentalom als klinischen Kontext für Testung."
+        "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+      },
+      {
+        "title": "Pheochromocytoma: Symptom to Diagnosis, An Evidence-Based Guide",
+        "year": 2020,
+        "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=2715&sectionid=249060850",
+        "kind": "Lehrtext",
+        "note": "Nennt niedrige Prätestwahrscheinlichkeit in unselektierter Hypertonie und höhere Werte bei Inzidentalom/Risikokontext."
+      },
+      {
+        "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
+        "year": 2004,
+        "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+        "kind": "Review",
+        "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
       }
     ],
     "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "overlapWarning": "Nicht zusätzlich anwenden, wenn eine Inzidentalom-spezifische Prätest-Annahme bereits gewählt ist."
   },
   {
     "id": "ppgl-genetic-risk",
     "conditionId": "phaochromozytom-paragangliom",
-    "label": "Bekanntes genetisches Risiko oder Familienanamnese",
+    "label": "MEN2 / VHL / NF1 / SDHx-Kontext",
     "category": "Anamnese",
     "direction": "increases",
-    "rationale": "Hereditäre Syndrome und Familienanamnese erhöhen die Prätestwahrscheinlichkeit.",
-    "limitations": "Risiko hängt stark vom konkreten Gen/Syndrom und Alter ab.",
+    "rationale": "Hereditäre Syndrome und bekannte pathogene Varianten verändern die Prätestwahrscheinlichkeit stark und rechtfertigen häufig eine eigene Screeninglogik.",
+    "limitations": "Risiko hängt vom konkreten Gen, Alter, Familienanamnese und Screeningprogramm ab; kein einheitlicher Faktor hinterlegt.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -140,23 +200,30 @@
         "year": 2014,
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
-        "note": "Empfiehlt Berücksichtigung hereditärer Risikokonstellationen."
+        "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+      },
+      {
+        "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
+        "year": 2004,
+        "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+        "kind": "Review",
+        "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
       }
     ],
     "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
   },
   {
     "id": "cushing-typical-stigmata",
     "conditionId": "cushing-syndrom-hyperkortisolismus",
-    "label": "Typische Cushing-Stigmata",
+    "label": "Proximale Myopathie, breite violette Striae, Plethora, Hämatomneigung",
     "category": "Klinisches Zeichen",
     "direction": "increases",
-    "rationale": "Progressive und typische klinische Zeichen erhöhen die Wahrscheinlichkeit eines Hyperkortisolismus.",
-    "limitations": "Viele Zeichen sind einzeln unspezifisch; Kombination und Progression sind entscheidend.",
+    "rationale": "Diese diskriminativen/progredienten Zeichen erhöhen die Prätestwahrscheinlichkeit deutlich stärker als Adipositas, Hypertonie oder Diabetes allein.",
+    "limitations": "Kein einheitlicher quantitativer Faktor hinterlegt; Anzahl, Progression und Kombination der Zeichen sind entscheidend.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -165,14 +232,22 @@
         "year": 2008,
         "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
         "kind": "Leitlinie",
-        "note": "Empfiehlt Testung bei ungewöhnlichen/progressiven klinischen Merkmalen."
+        "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+      },
+      {
+        "title": "Adrenal Hypercortisolism: Screening, Diagnosis, and Testing Modalities",
+        "year": 2019,
+        "url": "https://academic.oup.com/jes/article/3/5/1097/5436876",
+        "kind": "Review",
+        "note": "Review zu Screening-Indikationen, diskriminativen Zeichen und präanalytischen Einschränkungen."
       }
     ],
     "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "overlapWarning": "Wenn eine Prätest-Annahme für diskriminative Cushing-Zeichen gewählt ist, kann eine zusätzliche Gewichtung doppelt zählen."
   },
   {
     "id": "cushing-adrenal-incidentaloma",
@@ -273,5 +348,95 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+  },
+  {
+    "id": "cushing-unspecific-metabolic-features",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "label": "Adipositas, Diabetes, Hypertonie ohne spezifische Zeichen",
+    "category": "Kontext",
+    "direction": "uncertain",
+    "quantificationStatus": "qualitative",
+    "rationale": "Häufige metabolische Merkmale haben geringe Spezifität. Sie sollen nicht als starke isolierte Testindikation dargestellt werden.",
+    "limitations": "Bei progredienter Multisystemkonstellation, ungewöhnlichem Alter oder zusätzlichen diskriminativen Zeichen steigt der Verdacht.",
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-17",
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+  },
+  {
+    "id": "ai-hyponatremia-hyperkalemia",
+    "conditionId": "nebenniereninsuffizienz",
+    "label": "Hyponatriämie ± Hyperkaliämie",
+    "category": "Labor/Vorbefund",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Hyponatriämie erhöht bei passender Klinik den Verdacht auf Nebenniereninsuffizienz; Hyperkaliämie spricht besonders für primäre NNI.",
+    "limitations": "Nicht spezifisch; Medikamente, Volumenstatus, SIADH, Nierenfunktion und akute Erkrankung können ähnliche Befunde erzeugen.",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Adrenal Insufficiency",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/2/364/2804860",
+        "kind": "Leitlinie",
+        "note": "Beschreibt klinische und laborchemische Hinweise auf primäre Nebenniereninsuffizienz."
+      },
+      {
+        "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
+        "year": 2016,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
+        "kind": "Review",
+        "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Stimulationstests bei Nebenniereninsuffizienz."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-17",
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+  },
+  {
+    "id": "ai-exogenous-glucocorticoids",
+    "conditionId": "nebenniereninsuffizienz",
+    "label": "Exogene Glukokortikoidexposition",
+    "category": "Anamnese",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Exogene Glukokortikoide sind ein zentraler Kontext für sekundäre HPA-Achsen-Suppression.",
+    "limitations": "Dosis, Dauer, Applikationsweg, Potenz, Zeitpunkt seit Absetzen und individuelle Erholung bestimmen das Risiko.",
+    "overlapWarning": "Nicht zusätzlich gewichten, wenn bereits die Prätest-Annahme Glukokortikoidexposition/Endokrinologie gewählt wurde.",
+    "sources": [
+      {
+        "title": "ESE/Endocrine Society Guideline: Glucocorticoid-induced Adrenal Insufficiency",
+        "year": 2024,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
+        "kind": "Leitlinie",
+        "note": "Beschreibt relevante Glukokortikoidexposition und Erholung der HPA-Achse."
+      },
+      {
+        "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
+        "year": 2016,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
+        "kind": "Review",
+        "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Stimulationstests bei Nebenniereninsuffizienz."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-17",
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
   }
 ]

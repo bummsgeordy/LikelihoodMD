@@ -25,6 +25,13 @@
         "isDefault": true,
         "sources": [
           {
+            "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+            "year": 2008,
+            "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+          },
+          {
             "title": "ECE 2024 Poster EP917: Late-night salivary cortisol using Elecsys Cortisol II",
             "year": 2024,
             "url": "https://www.endocrine-abstracts.org/ea/0099/ea0099ep917",
@@ -35,7 +42,29 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "low",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "screening",
+        "specimen": "Speichel",
+        "preanalytics": [
+          "Schlaf-Wach-Rhythmus erfassen",
+          "Schichtarbeit berücksichtigen",
+          "Probenzeit exakt dokumentieren",
+          "Kontamination mit topischen/oralen Glukokortikoiden vermeiden"
+        ],
+        "falsePositiveReasons": [
+          "Schichtarbeit oder gestörter Schlafrhythmus",
+          "Depression, Alkohol, Stress",
+          "Glukokortikoid-Kontamination",
+          "falsche Probenzeit"
+        ],
+        "falseNegativeReasons": [
+          "zyklischer Hyperkortisolismus",
+          "milder Hyperkortisolismus"
+        ],
+        "interpretationCautions": [
+          "Nicht bei fehlender nächtlicher Ruhephase unkritisch interpretieren.",
+          "Assay-spezifische Cut-offs verwenden."
+        ]
       },
       {
         "id": "lnsc-meta-analysis",
@@ -83,8 +112,8 @@
         "label": "Overnight-DST, StatPearls",
         "kind": "curated",
         "method": "Overnight-Dexamethason-Suppressionstest",
-        "cutoff": "Cortisol 1,8 µg/dl",
-        "procedure": "1 mg Dexamethason gegen 23 Uhr, Serumcortisol morgens bestimmen.",
+        "cutoff": "typisch Cortisol nach DST < 1,8 µg/dl bzw. < 50 nmol/l als Suppression; assayabhängig prüfen",
+        "procedure": "1 mg Dexamethason abends, Serumcortisol morgens bestimmen; Einnahmezeit dokumentieren.",
         "sensitivity": 0.95,
         "specificity": 0.8,
         "lrPositive": 4.75,
@@ -96,6 +125,20 @@
         "isDefault": true,
         "sources": [
           {
+            "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+            "year": 2008,
+            "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+          },
+          {
+            "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
+            "year": 2008,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/18334594/",
+            "kind": "Review",
+            "note": "Evidenzreview zu diagnostischen Tests beim Cushing-Syndrom; konkrete Testprofile bleiben cut-off- und populationsabhängig."
+          },
+          {
             "title": "StatPearls: Dexamethasone Suppression Test",
             "year": 2024,
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK542317/",
@@ -104,9 +147,37 @@
           }
         ],
         "reviewStatus": "needs-review",
-        "evidenceQuality": "low",
-        "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "screening",
+        "specimen": "Serum-Cortisol ± Serum-Dexamethason",
+        "preanalytics": [
+          "Einnahmezeit und Dosis exakt dokumentieren",
+          "Dexamethasonspiegel erwägen, wenn fehlende Suppression unplausibel ist",
+          "Östrogene/CBG-Erhöhung berücksichtigen",
+          "CYP3A4-Induktoren und Pseudo-Cushing-Kontexte erfassen"
+        ],
+        "medicationInterferences": [
+          "CYP3A4-Induktoren: Carbamazepin, Phenytoin, Rifampicin, Johanniskraut",
+          "Östrogene/orale Kontrazeptiva durch CBG-Erhöhung",
+          "Glukokortikoide je nach Kreuzreaktivität und Timing"
+        ],
+        "falsePositiveReasons": [
+          "unzureichende Dexamethasonexposition",
+          "CYP3A4-Induktion",
+          "Östrogene/CBG-Erhöhung",
+          "Depression, Alkohol, akute Erkrankung",
+          "Adhärenz- oder Einnahmefehler"
+        ],
+        "falseNegativeReasons": [
+          "milder oder zyklischer Hyperkortisolismus",
+          "nicht passender Zeitpunkt bei zyklischem Verlauf"
+        ],
+        "interpretationCautions": [
+          "Bei niedriger Prätestwahrscheinlichkeit relevante falsch-positive Befunde möglich.",
+          "Leitlinien empfehlen gezielte Testung, kein breites Screening bei jedem Diabetes/Adipositas."
+        ]
       }
     ]
   },
@@ -164,7 +235,7 @@
         "kind": "curated",
         "method": "ARR-Screening",
         "cutoff": "Labor- und einheitenabhängig",
-        "procedure": "Morgendliche Blutentnahme für Aldosteron und Renin nach lokalem Präanalytik-Protokoll.",
+        "procedure": "Aldosteron und Renin nach lokalem Präanalytik-Protokoll bestimmen; Kalium, Medikation, Haltung und Uhrzeit dokumentieren.",
         "sensitivity": 0.97,
         "specificity": 0.94,
         "lrPositive": 16.2,
@@ -180,13 +251,112 @@
             "year": 2025,
             "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
             "kind": "Leitlinie",
-            "note": "Leitlinie zur Indikation, Präanalytik und Interpretation des Screenings."
+            "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+          },
+          {
+            "title": "Validity of the aldosterone-renin ratio used to screen for primary aldosteronism",
+            "year": 2001,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/11560297/",
+            "kind": "Review",
+            "note": "Systematischer Review zur ARR-Testcharakteristik und methodischen Heterogenität."
+          },
+          {
+            "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
+            "year": 2016,
+            "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
+            "kind": "Review",
+            "note": "Systematischer Review zur Heterogenität von PA-Prävalenzschätzungen und Risikogruppen."
           }
         ],
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "screening",
+        "specimen": "Plasma/Serum je nach Labor",
+        "preanalytics": [
+          "Kalium vor Test korrigieren",
+          "Salzrestriktion vermeiden und Salzstatus dokumentieren",
+          "Körperhaltung und Tageszeit standardisieren",
+          "Renin-Suppression und Aldosteronhöhe getrennt interpretieren",
+          "Medikamente dokumentieren und Ergebnis kontextualisieren"
+        ],
+        "medicationInterferences": [
+          "Mineralokortikoidrezeptor-Antagonisten",
+          "ENaC-Inhibitoren",
+          "Diuretika",
+          "ACE-Hemmer",
+          "AT1-Blocker",
+          "Betablocker",
+          "zentrale Alpha-2-Agonisten",
+          "NSAR",
+          "Östrogene je nach Reninmethode"
+        ],
+        "falsePositiveReasons": [
+          "Betablocker oder zentrale Sympatholytika mit Renin-Suppression",
+          "niedriges Renin aus anderen Gründen",
+          "Alter/CKD-Kontext je nach Reninmethode"
+        ],
+        "falseNegativeReasons": [
+          "Hypokaliämie",
+          "Diuretika, ACE-Hemmer oder AT1-Blocker durch Reninanstieg",
+          "nicht standardisierte Abnahme",
+          "Salzrestriktion"
+        ],
+        "interpretationCautions": [
+          "ARR ist Screeningtest, kein alleiniger Diagnosenachweis.",
+          "ARR ohne absolut erhöhtes oder inadäquat hohes Aldosteron kann irreführend sein.",
+          "Cut-offs sind methoden- und einheitenabhängig."
+        ]
+      },
+      {
+        "id": "arr-direct-renin-li-2016",
+        "label": "ADRR mit direkter Reninkonzentration, Meta-Analyse",
+        "kind": "curated",
+        "purpose": "screening",
+        "specimen": "Plasma/Serum je nach Labor",
+        "method": "Aldosteron/direct-renin-concentration ratio",
+        "cutoff": "labor-, einheiten- und methodeabhängig",
+        "procedure": "Wie ARR; direkte Reninkonzentration und Einheiten explizit dokumentieren.",
+        "sensitivity": 0.89,
+        "specificity": 0.96,
+        "lrPositive": 22.25,
+        "lrNegative": 0.11,
+        "population": "Patienten mit Verdacht auf primären Hyperaldosteronismus in Studien zur direkten Reninkonzentration.",
+        "rationale": "Separates Evidenzprofil, weil direkte Reninkonzentration nicht mit Plasma-Renin-Aktivität gleichgesetzt werden sollte.",
+        "limitations": "Gepoolte Werte sind cut-off-, einheiten- und laborabhängig; lokale Validierung nötig.",
+        "preanalytics": [
+          "wie ARR",
+          "Methode direkte Reninkonzentration explizit speichern",
+          "keine automatische Einheitenumrechnung ohne Laborangabe"
+        ],
+        "interpretationCautions": [
+          "ADRR nicht mit PRA-basierter ARR gleichsetzen.",
+          "Sensitivität/Spezifität nach lokalem Cut-off validieren."
+        ],
+        "sources": [
+          {
+            "title": "Diagnostic accuracy of aldosterone/direct renin concentration ratio for primary aldosteronism",
+            "year": 2016,
+            "url": "https://journals.sagepub.com/doi/10.1177/1470320316657450",
+            "kind": "Review",
+            "note": "Metaanalyse zur ADRR; Startannahme Sensitivität 89% und Spezifität 96% aus bereitgestelltem Datensatz."
+          },
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+            "kind": "Leitlinie",
+            "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+          }
+        ],
+        "isDefault": false,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-05-17",
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "testId": "arr"
       }
     ]
   },
@@ -213,20 +383,115 @@
         "rationale": "Hohe Sensitivität macht den Test besonders als Rule-out-Test nützlich.",
         "limitations": "Lage bei Blutabnahme, Stress, Medikamente und Referenzbereiche können die Spezifität beeinflussen.",
         "lastReviewed": "2026-05-17",
-        "isDefault": true,
+        "isDefault": false,
         "sources": [
           {
-            "title": "Endocrine Society Guideline: Pheochromocytoma and Paraganglioma",
+            "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
             "year": 2014,
             "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
             "kind": "Leitlinie",
-            "note": "Leitlinie dokumentiert hohe Sensitivität und nennt Studiendaten zu Plasma- und Urin-Metanephrinen."
+            "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+          },
+          {
+            "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
+            "year": 2004,
+            "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+            "kind": "Review",
+            "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
           }
         ],
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "rule_out",
+        "specimen": "Plasma",
+        "preanalytics": [
+          "Blutabnahme möglichst nach ausreichender Ruhephase",
+          "Körperlage und Medikamente dokumentieren"
+        ],
+        "interpretationCautions": [
+          "Alternatives optimistischeres Profil; bei niedriger Prätestwahrscheinlichkeit positive Grenzwerte vorsichtig interpretieren."
+        ]
+      },
+      {
+        "id": "metanephrines-plasma-fractionated-conservative",
+        "label": "Fraktionierte freie Plasma-Metanephrine, konservative Meta-Annahme",
+        "kind": "curated",
+        "purpose": "rule_out",
+        "specimen": "Plasma",
+        "method": "Plasma, freie Metanephrine, fraktioniert",
+        "cutoff": "meist oberer Referenzbereich; lage- und laborabhängig",
+        "procedure": "Blutabnahme möglichst nach ausreichender Ruhephase; Körperlage und Medikamente dokumentieren.",
+        "sensitivity": 0.983,
+        "specificity": 0.83,
+        "lrPositive": 5.77,
+        "lrNegative": 0.02,
+        "population": "Patienten mit Verdacht auf PPGL; diagnostische Studienpopulationen mit unterschiedlicher Vorselektion.",
+        "rationale": "Konservativeres Evidenzprofil: sehr starker Rule-out-Effekt, aber nur moderater Rule-in-Effekt bei niedriger Prätestwahrscheinlichkeit.",
+        "limitations": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente und Referenzbereiche beeinflussen vor allem die Spezifität.",
+        "preanalytics": [
+          "Blutabnahme möglichst nach ausreichender Ruhephase",
+          "Körperlage sitzend vs. liegend dokumentieren",
+          "Stress, akute Erkrankung und körperliche Belastung vermeiden, soweit möglich",
+          "Medikamente und Substanzen mit potenzieller Interferenz dokumentieren"
+        ],
+        "medicationInterferences": [
+          "trizyklische Antidepressiva",
+          "SNRI",
+          "Sympathomimetika",
+          "MAO-Hemmer",
+          "Levodopa je nach Analyt",
+          "Stimulanzien",
+          "Nikotin/Koffein als Kontextfaktoren"
+        ],
+        "falsePositiveReasons": [
+          "unzureichende Ruhe",
+          "sitzende statt standardisiert liegende Abnahme bei dafür kalibrierten Cut-offs",
+          "Stress, Schmerz oder akute Erkrankung",
+          "Medikamente",
+          "schwere Erkrankung/Intensivkontext"
+        ],
+        "falseNegativeReasons": [
+          "sehr kleine Tumoren",
+          "dopaminproduzierende Tumoren bei fehlendem 3-Methoxytyramin",
+          "falscher Test im genetischen Spezialkontext"
+        ],
+        "interpretationCautions": [
+          "Sehr guter Ausschlusstest wegen niedrigem LR−.",
+          "Positiver Test ist bei niedriger Prätestwahrscheinlichkeit nur moderat beweisend.",
+          "Grad der Erhöhung berücksichtigen: grenzwertige Erhöhung ist keine manifeste PPGL-Diagnose."
+        ],
+        "sources": [
+          {
+            "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
+            "year": 2004,
+            "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+            "kind": "Review",
+            "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
+          },
+          {
+            "title": "Accuracy of plasma free metanephrines in the diagnosis of pheochromocytoma and paraganglioma: a systematic review and meta-analysis",
+            "year": 2017,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/28704098/",
+            "kind": "Review",
+            "note": "Metaanalytische Startannahme für fraktionierte freie Plasma-Metanephrine; im Tool als konservativeres Evidenzprofil geführt."
+          },
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+            "year": 2014,
+            "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "lastReviewed": "2026-05-17",
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "testId": "metanephrines-plasma"
       }
     ]
   },
@@ -256,17 +521,52 @@
         "isDefault": true,
         "sources": [
           {
-            "title": "Endocrine Society Guideline: Pheochromocytoma and Paraganglioma",
+            "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
             "year": 2014,
             "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
             "kind": "Leitlinie",
-            "note": "Berichtet für urinfraktionierte Metanephrine per Massenspektrometrie Sensitivität 97 % und Spezifität 91 %."
+            "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+          },
+          {
+            "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
+            "year": 2004,
+            "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+            "kind": "Review",
+            "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
           }
         ],
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "rule_out",
+        "specimen": "24-h-Urin",
+        "preanalytics": [
+          "korrekte 24-h-Sammlung sicherstellen",
+          "Sammelvolumen und Kreatinin plausibilisieren",
+          "Medikamente/Substanzen dokumentieren",
+          "Nierenfunktion berücksichtigen"
+        ],
+        "medicationInterferences": [
+          "Sympathomimetika",
+          "trizyklische Antidepressiva/SNRI je nach Analyt",
+          "Levodopa je nach Analyt",
+          "Stimulanzien"
+        ],
+        "falsePositiveReasons": [
+          "Sammelfehler",
+          "Medikamente/Substanzen",
+          "Stress/akute Erkrankung",
+          "Nierenfunktions- oder Laborprobleme"
+        ],
+        "falseNegativeReasons": [
+          "Sammelfehler",
+          "sehr kleine oder biochemisch atypische Tumoren"
+        ],
+        "interpretationCautions": [
+          "Alternative zu Plasma-Metanephrinen; Sammelqualität ist zentral.",
+          "Positive Grenzwerte brauchen Kontext und Bestätigung."
+        ]
       }
     ]
   },
@@ -395,7 +695,7 @@
         "kind": "curated",
         "method": "24-h-Urin, freies Cortisol",
         "cutoff": "Laborabhängig, meist oberer Referenzbereich",
-        "procedure": "24-h-Urin vollständig sammeln; freies Cortisol und Kreatinin bestimmen.",
+        "procedure": "24-h-Urin vollständig sammeln; freies Cortisol und Kreatinin bestimmen, meist mindestens zwei Sammlungen erwägen.",
         "sensitivity": 0.94,
         "specificity": 0.93,
         "lrPositive": 13.4,
@@ -407,6 +707,20 @@
         "isDefault": true,
         "sources": [
           {
+            "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+            "year": 2008,
+            "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+          },
+          {
+            "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
+            "year": 2008,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/18334594/",
+            "kind": "Review",
+            "note": "Evidenzreview zu diagnostischen Tests beim Cushing-Syndrom; konkrete Testprofile bleiben cut-off- und populationsabhängig."
+          },
+          {
             "title": "Diagnostic Tests for Cushing's Syndrome Differ from Published Guidelines",
             "year": 2020,
             "url": "https://academic.oup.com/jcem/article/105/9/2979/5854709",
@@ -417,7 +731,31 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "screening",
+        "specimen": "24-h-Urin",
+        "preanalytics": [
+          "korrekte 24-h-Sammlung sicherstellen",
+          "Urinvolumen und Kreatinin zur Plausibilitätsprüfung erfassen",
+          "mindestens zwei Sammlungen wegen Variabilität erwägen",
+          "Nierenfunktion berücksichtigen",
+          "zyklischen Hyperkortisolismus berücksichtigen"
+        ],
+        "falsePositiveReasons": [
+          "Sammelfehler",
+          "hohe Flüssigkeitszufuhr oder hohes Urinvolumen",
+          "Stress oder akute Erkrankung",
+          "Pseudo-Cushing-Konstellationen"
+        ],
+        "falseNegativeReasons": [
+          "mildes Cushing",
+          "zyklisches Cushing",
+          "eingeschränkte Nierenfunktion"
+        ],
+        "interpretationCautions": [
+          "Testgüte hängt stark von Cut-off und Referenzstandard ab.",
+          "Bei mildem oder zyklischem Cushing nicht allein ausreichend."
+        ]
       }
     ]
   },
@@ -447,17 +785,54 @@
         "isDefault": true,
         "sources": [
           {
-            "title": "StatPearls: Adrenocorticotropic Hormone (Cosyntropin) Stimulation Test",
+            "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
+            "year": 2016,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
+            "kind": "Review",
+            "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Stimulationstests bei Nebenniereninsuffizienz."
+          },
+          {
+            "title": "ESE/Endocrine Society Guideline: Glucocorticoid-induced Adrenal Insufficiency",
             "year": 2024,
-            "url": "https://www.ncbi.nlm.nih.gov/books/NBK555940/",
-            "kind": "Lehrtext",
-            "note": "Berichtet für sekundäre Nebenniereninsuffizienz Sensitivität 64 % und Spezifität 93 %."
+            "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
+            "kind": "Leitlinie",
+            "note": "Beschreibt relevante Glukokortikoidexposition und Erholung der HPA-Achse."
           }
         ],
         "reviewStatus": "needs-review",
-        "evidenceQuality": "low",
+        "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "purpose": "rule_in",
+        "specimen": "Serum-Cortisol",
+        "preanalytics": [
+          "Zeitpunkt der letzten Glukokortikoidgabe dokumentieren",
+          "Hydrocortison vor Test je nach Protokoll pausieren",
+          "Cortisol-Assay und Cut-off dokumentieren",
+          "0-, 30- und/oder 60-Minuten-Werte je nach Protokoll",
+          "bei frischer sekundärer NNI kann Nebennierenantwort noch erhalten sein"
+        ],
+        "medicationInterferences": [
+          "Hydrocortison/Cortisonacetat",
+          "Prednisolon je nach Assay-Kreuzreaktivität",
+          "orale Östrogene durch CBG-Erhöhung",
+          "Medikamente mit Einfluss auf Cortisolmetabolismus"
+        ],
+        "falsePositiveReasons": [
+          "zu hoher Cortisol-Cut-off für modernen Assay",
+          "CBG-Veränderungen",
+          "falsche Probenzeit/Protokollfehler"
+        ],
+        "falseNegativeReasons": [
+          "frühe zentrale NNI mit noch erhaltener Nebennierenrindenreserve",
+          "milde sekundäre NNI",
+          "falscher Referenzcut-off"
+        ],
+        "interpretationCautions": [
+          "Bei sekundärer NNI eher Rule-in als sicherer Rule-out.",
+          "Cut-offs alter Immunoassays nicht unkritisch auf moderne Assays übertragen.",
+          "Bei hoher klinischer Wahrscheinlichkeit ggf. weiterführende Diagnostik trotz unauffälligem Test."
+        ]
       }
     ]
   },
@@ -609,6 +984,147 @@
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+      }
+    ]
+  },
+  {
+    "id": "saline-infusion-test",
+    "name": "Kochsalzinfusionstest",
+    "category": "Endokrinologie / Nephrologie",
+    "condition": "Primärer Hyperaldosteronismus",
+    "description": "Intravenöser Kochsalzbelastungstest als Bestätigungstest bei Verdacht auf primären Hyperaldosteronismus.",
+    "evidenceProfiles": [
+      {
+        "id": "saline-infusion-lcms-prosaldo",
+        "testId": "saline-infusion-test",
+        "label": "Saline infusion test, LC-MS/MS-Profil",
+        "kind": "curated",
+        "purpose": "confirmation",
+        "specimen": "Serum/Plasma-Aldosteron",
+        "method": "Saline infusion test mit Aldosteronmessung",
+        "cutoff": "protokoll- und methodenabhängig; LC-MS/MS-Profil nicht auf jedes Labor übertragbar",
+        "procedure": "2 l NaCl 0,9% über 4 h nach lokalem Protokoll; Aldosteron am Testende bestimmen.",
+        "sensitivity": 0.96,
+        "specificity": 0.96,
+        "lrPositive": 24,
+        "lrNegative": 0.04,
+        "population": "Patienten mit auffälligem PA-Screening in spezialisierten Zentren.",
+        "rationale": "Als Bestätigungstest-Profil aufgenommen; hohe Genauigkeit nur unter standardisiertem Protokoll und passender Messmethode plausibel.",
+        "limitations": "Nicht als Primärscreening verwenden. Kontraindikationen, Körperhaltung, Kalium, Volumenstatus, Medikamente und Methode/Cut-off sind entscheidend.",
+        "preanalytics": [
+          "Kalium normalisieren",
+          "Kontraindikationen prüfen: schwere unkontrollierte Hypertonie, Herzinsuffizienz, relevante CKD, Hypokaliämie",
+          "Körperhaltung und Protokoll standardisieren",
+          "Aldosteron-Cut-off labor- und protokollabhängig dokumentieren"
+        ],
+        "falsePositiveReasons": [
+          "nicht standardisiertes Protokoll",
+          "Volumen-/Salzstatus nicht passend",
+          "Medikamenteneffekte",
+          "methodenabhängige Aldosteronmessung"
+        ],
+        "falseNegativeReasons": [
+          "milde PA-Formen",
+          "Hypokaliämie",
+          "nicht geeigneter Cut-off",
+          "Protokollabweichung"
+        ],
+        "interpretationCautions": [
+          "Bestätigungstest nach positivem Screening; keine Primärscreening-Situation.",
+          "LR-Werte nur für vergleichbares Protokoll und vergleichbare Messmethode verwenden."
+        ],
+        "sources": [
+          {
+            "title": "Saline Infusion Test for Primary Aldosteronism: Implications of Immunoassay Inaccuracy",
+            "year": 2022,
+            "url": "https://academic.oup.com/jcem/article/107/5/e2027/6485559",
+            "kind": "Studie",
+            "note": "PROSALDO-Daten; LC-MS/MS-Profil mit hoher diagnostischer Genauigkeit unter standardisiertem Protokoll."
+          },
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+            "kind": "Leitlinie",
+            "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-05-17",
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+      }
+    ]
+  },
+  {
+    "id": "acth-stimulation-1",
+    "name": "Low-dose ACTH-Stimulationstest 1 µg",
+    "category": "Endokrinologie",
+    "condition": "Nebenniereninsuffizienz",
+    "description": "Niedrigdosis-Cosyntropin-Test zur Abklärung vor allem zentraler Nebenniereninsuffizienz.",
+    "evidenceProfiles": [
+      {
+        "id": "acth-stimulation-1-secondary-ai",
+        "testId": "acth-stimulation-1",
+        "label": "1-µg-Test, sekundäre Nebenniereninsuffizienz",
+        "kind": "curated",
+        "purpose": "rule_in",
+        "specimen": "Serum-Cortisol",
+        "method": "Low-dose Cosyntropin-Stimulationstest",
+        "cutoff": "Peak-Cortisol labor- und assayabhängig",
+        "procedure": "1 µg ACTH nach standardisierter Verdünnung geben; Cortisol zeitgerecht nach Protokoll messen.",
+        "sensitivity": 0.837,
+        "specificity": 0.858,
+        "lrPositive": 5.9,
+        "lrNegative": 0.19,
+        "population": "Erwachsene mit Verdacht auf sekundäre Nebenniereninsuffizienz.",
+        "rationale": "Niedrigeres LR− als 250-µg-Test in der bereitgestellten Annahme; präanalytisch aber deutlich anspruchsvoller.",
+        "limitations": "Verdünnungs- und Timingfehler können die Testgüte stark verschlechtern; Cut-offs alter Immunoassays nicht unkritisch übertragen.",
+        "preanalytics": [
+          "korrekte Verdünnung extrem wichtig",
+          "standardisierte Applikation und Timing",
+          "Cortisol-Assay und Cut-off dokumentieren",
+          "Protokollabweichungen aktiv erfassen"
+        ],
+        "falsePositiveReasons": [
+          "Verdünnungsfehler",
+          "zu hoher Cut-off",
+          "Assay-/CBG-Probleme"
+        ],
+        "falseNegativeReasons": [
+          "Protokollfehler",
+          "Timingfehler",
+          "milde oder frühe zentrale NNI je nach Kontext"
+        ],
+        "interpretationCautions": [
+          "Niedrigdosis-Test ist präanalytisch empfindlicher.",
+          "Nicht ohne standardisiertes Protokoll verwenden.",
+          "Ausschluss bei hoher Prätestwahrscheinlichkeit nicht sicher."
+        ],
+        "sources": [
+          {
+            "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
+            "year": 2016,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
+            "kind": "Review",
+            "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Stimulationstests bei Nebenniereninsuffizienz."
+          },
+          {
+            "title": "ESE/Endocrine Society Guideline: Glucocorticoid-induced Adrenal Insufficiency",
+            "year": 2024,
+            "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
+            "kind": "Leitlinie",
+            "note": "Beschreibt relevante Glukokortikoidexposition und Erholung der HPA-Achse."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "lastReviewed": "2026-05-17",
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
       }
     ]
   }
