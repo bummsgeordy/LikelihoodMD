@@ -21,15 +21,14 @@ import {
   resetStoredState,
   saveState
 } from './lib/storage';
+import { drawNomogramCanvases } from './ui/renderNomogram';
 import {
-  createNomogramLayout,
-  type NomogramMode,
-  nomogramPoints,
-  probabilityTicks,
-  probabilityToY,
-  ratioTicksForMode,
-  ratioToY
-} from './lib/nomogram';
+  filterCatalogRows,
+  sortCatalogRows,
+  type CatalogRow,
+  type CatalogRowKind,
+  type CatalogSortKey
+} from './app/catalog';
 import { validateClinicalModifier, validateDiagnosticTest, validateEvidenceProfile, validatePretestAssumption } from './lib/validation';
 import type {
   CalculationResult,
@@ -38,11 +37,14 @@ import type {
   ClinicalModifier,
   ClinicalModifierDirection,
   ClinicalSetting,
+  DataCompleteness,
   DiagnosticTest,
   EvidenceProfile,
-  EvidenceProfileKind,
+  EvidenceQuality,
   EvidenceSource,
   PretestAssumption,
+  ReviewMetadata,
+  ReviewStatus,
   SourceKind
 } from './types';
 
@@ -52,6 +54,7 @@ const curatedModifiers = curatedModifiersRaw as ClinicalModifier[];
 const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
 let state: CalculatorState = loadState();
 let lastFocusBeforeDrawer: HTMLElement | null = null;
+let selectedCatalogRowKey = '';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) throw new Error('App root not found.');
@@ -63,8 +66,19 @@ app.innerHTML = `
         <h1>Likelihood-Ratio-Rechner</h1>
         <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
       </div>
-      <p class="lead">Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
-      <div class="notice" role="note">Dieses Tool ist keine alleinige Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
+      <section class="disclaimer-box" aria-labelledby="disclaimerTitle">
+        <div class="disclaimer-summary">
+          <p id="disclaimerTitle">Lehr- und Rechentool für medizinische Fachpersonen. Kein Medizinprodukt, keine alleinige Entscheidungsgrundlage.</p>
+          <button id="disclaimerToggleButton" class="secondary-button compact-button" type="button" aria-expanded="false" aria-controls="disclaimerContent">
+            <span aria-hidden="true" id="disclaimerToggleIcon">+</span>
+            <span id="disclaimerToggleLabel">Details anzeigen</span>
+          </button>
+        </div>
+        <div id="disclaimerContent" class="disclaimer-content hidden">
+          <p class="lead">Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
+          <div class="notice" role="note">Dieses Tool ist keine alleinige Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
+        </div>
+      </section>
     </header>
 
     <section class="calculator-grid" id="calculatorGrid" aria-label="Likelihood-Ratio-Rechner">
@@ -235,10 +249,15 @@ app.innerHTML = `
         <h3>Datenkatalog</h3>
         <p class="muted">Zusammenführung von Setting, Erkrankung, Prätest-Annahmen, klinischen Modifikatoren, Tests, Evidenzprofilen, Quellen und Fallstricken. Korrekturen werden als lokale Vorschläge angelegt.</p>
         <div class="admin-filter-grid">
+          <div class="field full"><label for="catalogSearchInput">Textsuche</label><input id="catalogSearchInput" type="search" placeholder="Erkrankung, Test, Quelle, Setting, Begründung ..."></div>
           <div class="field"><label for="catalogConditionFilter">Erkrankung</label><select id="catalogConditionFilter"></select></div>
           <div class="field"><label for="catalogSettingFilter">Setting</label><select id="catalogSettingFilter"></select></div>
           <div class="field"><label for="catalogTestFilter">Test</label><select id="catalogTestFilter"></select></div>
           <div class="field"><label for="catalogStatusFilter">Datenstatus</label><select id="catalogStatusFilter"><option value="all">Alle</option><option value="curated">Kuratierte Daten</option><option value="custom">Eigene Daten</option><option value="scenario">Szenarien</option></select></div>
+          <div class="field"><label for="catalogReviewFilter">Review</label><select id="catalogReviewFilter"><option value="all">Alle</option><option value="needs-review">Needs review</option><option value="reviewed">Reviewed</option><option value="draft">Draft</option></select></div>
+          <div class="field"><label for="catalogQualityFilter">Evidenzqualität</label><select id="catalogQualityFilter"><option value="all">Alle</option><option value="high">High</option><option value="moderate">Moderate</option><option value="low">Low</option><option value="expert-opinion">Expert opinion</option><option value="unclear">Unclear</option></select></div>
+          <div class="field"><label for="catalogCompletenessFilter">Vollständigkeit</label><select id="catalogCompletenessFilter"><option value="all">Alle</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="minimal">Minimal</option></select></div>
+          <div class="field"><label for="catalogSortSelect">Sortierung</label><select id="catalogSortSelect"><option value="condition">Erkrankung</option><option value="setting">Setting</option><option value="test">Test</option><option value="lrPositive">LR+</option><option value="lrNegative">LR−</option><option value="reviewStatus">Reviewstatus</option></select></div>
         </div>
         <div class="catalog-table-wrap">
           <table class="catalog-table">
@@ -257,6 +276,9 @@ app.innerHTML = `
                 <th>LR+</th>
                 <th>LR−</th>
                 <th>PPV/NPV</th>
+                <th>Review</th>
+                <th>Qualität</th>
+                <th>Vollst.</th>
                 <th>Quelle</th>
                 <th>Begründung / Grenzen</th>
                 <th>Aktionen</th>
@@ -265,6 +287,7 @@ app.innerHTML = `
             <tbody id="catalogTableBody"></tbody>
           </table>
         </div>
+        <aside id="catalogDetailPanel" class="catalog-detail-panel" aria-live="polite"></aside>
       </section>
 
       <section class="admin-panel" data-panel="test">
@@ -372,6 +395,10 @@ const $ = <T extends HTMLElement>(id: string): T => {
 
 const controls = {
   settingSelect: $<HTMLSelectElement>('settingSelect'),
+  disclaimerToggleButton: $<HTMLButtonElement>('disclaimerToggleButton'),
+  disclaimerToggleIcon: $('disclaimerToggleIcon'),
+  disclaimerToggleLabel: $('disclaimerToggleLabel'),
+  disclaimerContent: $('disclaimerContent'),
   conditionSelect: $<HTMLSelectElement>('conditionSelect'),
   testSelect: $<HTMLSelectElement>('testSelect'),
   profileSelect: $<HTMLSelectElement>('profileSelect'),
@@ -417,11 +444,17 @@ const controls = {
   adminConditionSelect: $<HTMLSelectElement>('adminConditionSelect'),
   adminTestSelect: $<HTMLSelectElement>('adminTestSelect'),
   adminProfileSelect: $<HTMLSelectElement>('adminProfileSelect'),
+  catalogSearchInput: $<HTMLInputElement>('catalogSearchInput'),
   catalogConditionFilter: $<HTMLSelectElement>('catalogConditionFilter'),
   catalogSettingFilter: $<HTMLSelectElement>('catalogSettingFilter'),
   catalogTestFilter: $<HTMLSelectElement>('catalogTestFilter'),
   catalogStatusFilter: $<HTMLSelectElement>('catalogStatusFilter'),
+  catalogReviewFilter: $<HTMLSelectElement>('catalogReviewFilter'),
+  catalogQualityFilter: $<HTMLSelectElement>('catalogQualityFilter'),
+  catalogCompletenessFilter: $<HTMLSelectElement>('catalogCompletenessFilter'),
+  catalogSortSelect: $<HTMLSelectElement>('catalogSortSelect'),
   catalogTableBody: $('catalogTableBody'),
+  catalogDetailPanel: $('catalogDetailPanel'),
   adminOverview: $('adminOverview'),
   profileTestSelect: $<HTMLSelectElement>('profileTestSelect'),
   modifierConditionSelect: $<HTMLSelectElement>('modifierConditionSelect')
@@ -611,7 +644,8 @@ function modifierPreviewProbability(baseProbability: number, modifiers: Clinical
           rationale: 'Modifier preview',
           limitations: 'Modifier preview',
           sources: [],
-          lastReviewed: new Date().toISOString().slice(0, 10)
+          lastReviewed: new Date().toISOString().slice(0, 10),
+          ...localReviewMetadata('unclear', 'minimal')
         },
         probability
       ).postPositiveProbability;
@@ -698,6 +732,19 @@ function sourceFromForm(prefix: string, kind: SourceKind): EvidenceSource {
     url: $<HTMLInputElement>(`${prefix}SourceUrl`).value.trim(),
     kind,
     note: $<HTMLTextAreaElement>(`${prefix}SourceNote`).value.trim()
+  };
+}
+
+function localReviewMetadata(
+  evidenceQuality: EvidenceQuality = 'expert-opinion',
+  dataCompleteness: DataCompleteness = 'partial',
+  reviewStatus: ReviewStatus = 'draft'
+): ReviewMetadata {
+  return {
+    reviewStatus,
+    evidenceQuality,
+    dataCompleteness,
+    reviewNote: 'Lokaler Vorschlag; vor Übernahme in die kuratierten Daten fachlich prüfen.'
   };
 }
 
@@ -815,17 +862,17 @@ function populateAdminSelectors(): void {
   populateSelect(
     controls.catalogConditionFilter,
     [{ value: 'all', label: 'Alle Erkrankungen' }, ...allConditions().map(condition => ({ value: condition.id, label: condition.label }))],
-    controls.catalogConditionFilter.value || selectedCondition.id
+    controls.catalogConditionFilter.value || 'all'
   );
   populateSelect(
     controls.catalogSettingFilter,
     [{ value: 'all', label: 'Alle Settings' }, ...allSettings().map(setting => ({ value: setting.id, label: setting.label }))],
-    controls.catalogSettingFilter.value || getSelectedSetting().id
+    controls.catalogSettingFilter.value || 'all'
   );
   populateSelect(
     controls.catalogTestFilter,
     [{ value: 'all', label: 'Alle Tests' }, ...allTests().map(test => ({ value: test.id, label: test.name }))],
-    controls.catalogTestFilter.value || selectedTest.id
+    controls.catalogTestFilter.value || 'all'
   );
 }
 
@@ -1129,18 +1176,6 @@ function renderAdminOverview(): void {
   );
 }
 
-type CatalogRowKind = 'assumption' | 'modifier' | 'profile';
-
-interface CatalogRow {
-  kind: CatalogRowKind;
-  id: string;
-  status: EvidenceProfileKind;
-  conditionId: string;
-  settingId?: string;
-  testId?: string;
-  cells: string[];
-}
-
 function sourceSummary(sources: EvidenceSource[]): string {
   return sources.length > 0 ? sources.map(source => `${source.title} (${source.year})`).join('; ') : 'Keine Quelle hinterlegt';
 }
@@ -1165,19 +1200,42 @@ function modifierSummaryForCondition(conditionId: string): string {
   return modifiers.map(modifier => `${modifier.label} (${directionLabel(modifier.direction)})`).join('; ');
 }
 
+function reviewLabel(value: ReviewStatus): string {
+  if (value === 'needs-review') return 'needs-review';
+  if (value === 'reviewed') return 'reviewed';
+  return 'draft';
+}
+
+function qualityLabel(value: EvidenceQuality): string {
+  if (value === 'expert-opinion') return 'expert opinion';
+  return value;
+}
+
+function completenessLabel(value: DataCompleteness): string {
+  return value;
+}
+
+function textSearchValue(values: unknown[]): string {
+  return values
+    .flatMap(value => (Array.isArray(value) ? value : [value]))
+    .filter(value => value != null)
+    .map(value => String(value).toLowerCase())
+    .join(' ');
+}
+
+function catalogMetadataCells(item: ReviewMetadata): string[] {
+  return [reviewLabel(item.reviewStatus), qualityLabel(item.evidenceQuality), completenessLabel(item.dataCompleteness)];
+}
+
 function catalogRows(): CatalogRow[] {
-  const assumptionRows: CatalogRow[] = normalizedAssumptions().map(assumption => ({
-    kind: 'assumption',
-    id: assumption.id,
-    status: assumption.kind,
-    conditionId: assumption.conditionId ?? conditionIdForLabel(assumption.condition),
-    settingId: assumption.settingId,
-    cells: [
+  const assumptionRows: CatalogRow[] = normalizedAssumptions().map(assumption => {
+    const conditionId = assumption.conditionId ?? conditionIdForLabel(assumption.condition);
+    const cells = [
       'Prätest-Annahme',
       assumption.condition,
       assumption.setting,
       `${formatPercent(assumption.probability)}${assumption.rangeLow != null && assumption.rangeHigh != null ? ` (${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)})` : ''}`,
-      modifierSummaryForCondition(assumption.conditionId ?? conditionIdForLabel(assumption.condition)),
+      modifierSummaryForCondition(conditionId),
       '–',
       '–',
       '–',
@@ -1186,21 +1244,47 @@ function catalogRows(): CatalogRow[] {
       '–',
       '–',
       '–',
+      ...catalogMetadataCells(assumption),
       sourceSummary(assumption.sources),
       `${assumption.rationale} Grenzen: ${assumption.limitations}`
-    ]
-  }));
-  const modifierRows: CatalogRow[] = allModifiers().map(modifier => ({
-    kind: 'modifier',
-    id: modifier.id,
-    status: modifier.kind,
-    conditionId: modifier.conditionId,
-    cells: [
+    ];
+    return {
+      key: `assumption:${assumption.id}`,
+      kind: 'assumption',
+      id: assumption.id,
+      status: assumption.kind,
+      reviewStatus: assumption.reviewStatus,
+      evidenceQuality: assumption.evidenceQuality,
+      dataCompleteness: assumption.dataCompleteness,
+      conditionId,
+      settingId: assumption.settingId,
+      cells,
+      searchText: textSearchValue([...cells, assumption.population, assumption.sources.map(source => source.note), assumption.reviewNote]),
+      sortValues: {
+        condition: assumption.condition,
+        setting: assumption.setting,
+        test: '',
+        lrPositive: null,
+        lrNegative: null,
+        reviewStatus: assumption.reviewStatus
+      },
+      detail: {
+        title: `Prätest-Annahme: ${assumption.condition} / ${assumption.setting}`,
+        sources: sourceSummary(assumption.sources),
+        population: assumption.population,
+        rationale: assumption.rationale,
+        limitations: assumption.limitations,
+        reviewNote: assumption.reviewNote
+      }
+    };
+  });
+  const modifierRows: CatalogRow[] = allModifiers().map(modifier => {
+    const cells = [
       'Klinischer Modifikator',
       conditionLabelForId(modifier.conditionId),
       '–',
       'wirkt auf Prätest',
-      `${modifier.label}; ${modifier.category}; Richtung: ${directionLabel(modifier.direction)}${modifier.likelihoodRatio != null ? `; LR ${formatRatio(modifier.likelihoodRatio)}` : ''}${modifier.probabilityFactor != null ? `; Faktor ${formatRatio(modifier.probabilityFactor)}` : ''}`,
+      `${modifier.label}; ${modifier.category}; Richtung: ${directionLabel(modifier.direction)}; ${modifier.quantificationStatus}${modifier.likelihoodRatio != null ? `; LR ${formatRatio(modifier.likelihoodRatio)}` : ''}${modifier.probabilityFactor != null ? `; Faktor ${formatRatio(modifier.probabilityFactor)}` : ''}`,
       '–',
       '–',
       '–',
@@ -1209,27 +1293,49 @@ function catalogRows(): CatalogRow[] {
       modifier.likelihoodRatio != null ? formatRatio(modifier.likelihoodRatio) : '–',
       modifier.likelihoodRatio != null ? formatRatio(modifier.likelihoodRatio) : '–',
       '–',
+      ...catalogMetadataCells(modifier),
       sourceSummary(modifier.sources),
-      `${modifier.rationale} Grenzen: ${modifier.limitations}`
-    ]
-  }));
+      `${modifier.rationale}${modifier.overlapWarning ? ` Doppelzählung: ${modifier.overlapWarning}` : ''} Grenzen: ${modifier.limitations}`
+    ];
+    return {
+      key: `modifier:${modifier.id}`,
+      kind: 'modifier',
+      id: modifier.id,
+      status: modifier.kind,
+      reviewStatus: modifier.reviewStatus,
+      evidenceQuality: modifier.evidenceQuality,
+      dataCompleteness: modifier.dataCompleteness,
+      conditionId: modifier.conditionId,
+      cells,
+      searchText: textSearchValue([...cells, modifier.sources.map(source => source.note), modifier.reviewNote]),
+      sortValues: {
+        condition: conditionLabelForId(modifier.conditionId),
+        setting: '',
+        test: '',
+        lrPositive: modifier.likelihoodRatio ?? null,
+        lrNegative: modifier.likelihoodRatio ?? null,
+        reviewStatus: modifier.reviewStatus
+      },
+      detail: {
+        title: `Klinischer Modifikator: ${modifier.label}`,
+        sources: sourceSummary(modifier.sources),
+        population: conditionLabelForId(modifier.conditionId),
+        rationale: `${modifier.rationale}${modifier.overlapWarning ? ` Doppelzählung beachten: ${modifier.overlapWarning}` : ''}`,
+        limitations: modifier.limitations,
+        reviewNote: modifier.reviewNote
+      }
+    };
+  });
   const profileRows: CatalogRow[] = allProfiles().flatMap(profile => {
     const test = allTests().find(candidate => candidate.id === profile.testId);
     if (!test) return [];
     const conditionId = conditionIdForLabel(test.condition);
-    const ratios = resolveLikelihoodRatios(profile);
     const assumptions = assumptionsForCondition(conditionId);
     const assumptionsForRows = assumptions.length > 0 ? assumptions : [undefined];
     return assumptionsForRows.map(assumption => {
       const result = assumption ? calculateResult(profile, assumption.probability) : null;
-      return {
-      kind: 'profile',
-      id: profile.id,
-      status: profile.kind,
-      conditionId,
-      settingId: assumption?.settingId,
-      testId: test.id,
-      cells: [
+      const ratios = resolveLikelihoodRatios(profile);
+      const cells = [
         'Test / Evidenzprofil',
         test.condition,
         settingLabelForId(assumption?.settingId, 'Keine Prätest-Annahme'),
@@ -1243,41 +1349,101 @@ function catalogRows(): CatalogRow[] {
         formatRatio(ratios.lrPositive),
         formatRatio(ratios.lrNegative),
         result ? `${formatPercent(result.ppv)} / ${formatPercent(result.npv)}` : '–',
+        ...catalogMetadataCells(profile),
         sourceSummary(profile.sources),
         `Methode: ${profile.method}. Durchführung: ${profile.procedure ?? 'Nach Laborprotokoll.'} Begründung: ${profile.rationale} Grenzen: ${profile.limitations}`
-      ]
-    };
+      ];
+      return {
+        key: `profile:${profile.id}:${assumption?.settingId ?? 'none'}`,
+        kind: 'profile',
+        id: profile.id,
+        status: profile.kind,
+        reviewStatus: profile.reviewStatus,
+        evidenceQuality: profile.evidenceQuality,
+        dataCompleteness: profile.dataCompleteness,
+        conditionId,
+        settingId: assumption?.settingId,
+        testId: test.id,
+        cells,
+        searchText: textSearchValue([
+          ...cells,
+          test.description,
+          profile.population,
+          profile.sources.map(source => source.note),
+          profile.reviewNote,
+          assumption?.population,
+          assumption?.rationale
+        ]),
+        sortValues: {
+          condition: test.condition,
+          setting: settingLabelForId(assumption?.settingId, ''),
+          test: test.name,
+          lrPositive: ratios.lrPositive,
+          lrNegative: ratios.lrNegative,
+          reviewStatus: profile.reviewStatus
+        },
+        detail: {
+          title: `${test.name}: ${profile.label}`,
+          sources: sourceSummary(profile.sources),
+          population: profile.population,
+          rationale: `Test: ${profile.rationale}${assumption ? ` Prätest: ${assumption.rationale}` : ''}`,
+          limitations: `${profile.limitations}${assumption ? ` Prätest-Grenzen: ${assumption.limitations}` : ''}`,
+          reviewNote: profile.reviewNote
+        }
+      };
     });
   });
   return [...assumptionRows, ...modifierRows, ...profileRows];
 }
 
 function renderDataCatalog(): void {
-  const conditionFilter = controls.catalogConditionFilter.value || 'all';
-  const settingFilter = controls.catalogSettingFilter.value || 'all';
   const testFilter = controls.catalogTestFilter.value || 'all';
-  const statusFilter = controls.catalogStatusFilter.value || 'all';
   const testFilterConditionId = testFilter === 'all'
     ? null
     : conditionIdForLabel(allTests().find(test => test.id === testFilter)?.condition ?? '');
-  const rows = catalogRows().filter(row => {
-    if (conditionFilter !== 'all' && row.conditionId !== conditionFilter) return false;
-    if (settingFilter !== 'all' && row.settingId && row.settingId !== settingFilter) return false;
-    if (settingFilter !== 'all' && row.kind === 'profile' && !row.settingId) return false;
-    if (testFilter !== 'all' && row.kind === 'profile' && row.testId !== testFilter) return false;
-    if (testFilter !== 'all' && row.kind !== 'profile' && testFilterConditionId && row.conditionId !== testFilterConditionId) return false;
-    if (statusFilter !== 'all' && row.status !== statusFilter) return false;
-    return true;
-  });
+  const rows = sortCatalogRows(
+    filterCatalogRows(
+      catalogRows(),
+      {
+        conditionId: controls.catalogConditionFilter.value || 'all',
+        settingId: controls.catalogSettingFilter.value || 'all',
+        testId: testFilter,
+        status: controls.catalogStatusFilter.value || 'all',
+        reviewStatus: controls.catalogReviewFilter.value || 'all',
+        evidenceQuality: controls.catalogQualityFilter.value || 'all',
+        dataCompleteness: controls.catalogCompletenessFilter.value || 'all',
+        search: controls.catalogSearchInput.value,
+        sortBy: (controls.catalogSortSelect.value || 'condition') as CatalogSortKey
+      },
+      testFilterConditionId
+    ),
+    (controls.catalogSortSelect.value || 'condition') as CatalogSortKey
+  );
+  if (selectedCatalogRowKey && !rows.some(row => row.key === selectedCatalogRowKey)) selectedCatalogRowKey = '';
+  if (!selectedCatalogRowKey && rows[0]) selectedCatalogRowKey = rows[0].key;
   controls.catalogTableBody.textContent = '';
   rows.forEach(row => {
     const tr = document.createElement('tr');
     tr.dataset.kind = row.kind;
     tr.dataset.id = row.id;
+    tr.dataset.key = row.key;
     if (row.settingId) tr.dataset.settingId = row.settingId;
-    row.cells.forEach(value => {
+    tr.classList.toggle('is-selected', row.key === selectedCatalogRowKey);
+    row.cells.forEach((value, index) => {
       const td = document.createElement('td');
       td.textContent = value;
+      if (index === 13) {
+        td.textContent = '';
+        td.append(reviewBadge(row.reviewStatus));
+      }
+      if (index === 14) {
+        td.textContent = '';
+        td.append(qualityBadge(row.evidenceQuality));
+      }
+      if (index === 15) {
+        td.textContent = '';
+        td.append(completenessBadge(row.dataCompleteness));
+      }
       tr.append(td);
     });
     const actions = document.createElement('td');
@@ -1303,11 +1469,84 @@ function renderDataCatalog(): void {
   if (rows.length === 0) {
     const tr = document.createElement('tr');
     const td = document.createElement('td');
-    td.colSpan = 16;
+    td.colSpan = 19;
     td.textContent = 'Keine Einträge für diese Filter.';
     tr.append(td);
     controls.catalogTableBody.append(tr);
   }
+  renderCatalogDetail(rows.find(row => row.key === selectedCatalogRowKey) ?? rows[0]);
+}
+
+function badge(text: string, className: string): HTMLElement {
+  const element = document.createElement('span');
+  element.className = `catalog-badge ${className}`;
+  element.textContent = text;
+  return element;
+}
+
+function reviewBadge(value: ReviewStatus): HTMLElement {
+  return badge(reviewLabel(value), `review-${value}`);
+}
+
+function qualityBadge(value: EvidenceQuality): HTMLElement {
+  return badge(qualityLabel(value), `quality-${value}`);
+}
+
+function completenessBadge(value: DataCompleteness): HTMLElement {
+  return badge(completenessLabel(value), `complete-${value}`);
+}
+
+function renderCatalogDetail(row: CatalogRow | undefined): void {
+  controls.catalogDetailPanel.textContent = '';
+  if (!row) {
+    controls.catalogDetailPanel.textContent = 'Kein Eintrag ausgewählt.';
+    return;
+  }
+  const heading = document.createElement('h4');
+  heading.textContent = row.detail.title;
+  const meta = document.createElement('div');
+  meta.className = 'catalog-detail-meta';
+  meta.append(reviewBadge(row.reviewStatus), qualityBadge(row.evidenceQuality), completenessBadge(row.dataCompleteness));
+  const list = document.createElement('dl');
+  [
+    ['Population / Kontext', row.detail.population],
+    ['Quellen', row.detail.sources],
+    ['Begründung', row.detail.rationale],
+    ['Grenzen / Fallstricke', row.detail.limitations],
+    ['Review-Notiz', row.detail.reviewNote ?? 'Keine Review-Notiz hinterlegt.']
+  ].forEach(([label, value]) => {
+    const dt = document.createElement('dt');
+    dt.textContent = label;
+    const dd = document.createElement('dd');
+    dd.textContent = value;
+    list.append(dt, dd);
+  });
+  const actions = document.createElement('div');
+  actions.className = 'button-row';
+  const selectButton = document.createElement('button');
+  selectButton.type = 'button';
+  selectButton.className = 'compact-button';
+  selectButton.dataset.catalogAction = 'select';
+  selectButton.dataset.kind = row.kind;
+  selectButton.dataset.id = row.id;
+  selectButton.dataset.settingId = row.settingId ?? '';
+  selectButton.textContent = 'Im Rechner öffnen';
+  const correctButton = document.createElement('button');
+  correctButton.type = 'button';
+  correctButton.className = 'compact-button';
+  correctButton.dataset.catalogAction = 'correct';
+  correctButton.dataset.kind = row.kind;
+  correctButton.dataset.id = row.id;
+  correctButton.textContent = 'Korrekturformular öffnen';
+  const exportButton = document.createElement('button');
+  exportButton.type = 'button';
+  exportButton.className = 'compact-button secondary-button';
+  exportButton.dataset.catalogAction = 'export';
+  exportButton.dataset.kind = row.kind;
+  exportButton.dataset.id = row.id;
+  exportButton.textContent = 'JSON-Vorschlag exportieren';
+  actions.append(selectButton, correctButton, exportButton);
+  controls.catalogDetailPanel.append(heading, meta, list, actions);
 }
 
 function renderEvidence(profile: EvidenceProfile, assumption: PretestAssumption, pretestResolution: PretestResolution): void {
@@ -1345,173 +1584,9 @@ function describeResult(result: CalculationResult): string {
   return `Ein positives Ergebnis zeigt einen ${ruleIn}en Rule-in-Effekt (${formatPercent(gain)} absolute Zunahme). Ein negatives Ergebnis zeigt einen ${ruleOut}en Rule-out-Effekt (${formatPercent(drop)} absolute Abnahme).`;
 }
 
-function drawSingleNomogramOnCanvas(
-  canvas: HTMLCanvasElement,
-  result: CalculationResult,
-  likelihoodRatio: number,
-  posttestProbability: number,
-  color: string,
-  label: string,
-  mode: NomogramMode,
-  impact: ModifierImpact
-): void {
-  const maybeContext = canvas.getContext('2d');
-  if (!maybeContext) return;
-  const context: CanvasRenderingContext2D = maybeContext;
-  const rect = canvas.getBoundingClientRect();
-  const width = Math.max(320, rect.width || 720);
-  const height = Math.max(180, rect.height || 405);
-  const deviceScale = window.devicePixelRatio || 1;
-  const targetWidth = Math.round(width * deviceScale);
-  const targetHeight = Math.round(height * deviceScale);
-  if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
-    canvas.width = targetWidth;
-    canvas.height = targetHeight;
-  }
-  context.setTransform(deviceScale, 0, 0, deviceScale, 0, 0);
-  const layout = createNomogramLayout({ width, height });
-  const points = nomogramPoints(result.pretestProbability, likelihoodRatio, posttestProbability, layout);
-  context.clearRect(0, 0, width, height);
-  context.fillStyle = '#fff';
-  context.fillRect(0, 0, width, height);
-  function axis(x: number, label: string, ticks: number[], mapper: (value: number) => number): void {
-    context.strokeStyle = '#cbd5e1';
-    context.lineWidth = 1;
-    context.beginPath();
-    context.moveTo(x, layout.top);
-    context.lineTo(x, layout.bottom);
-    context.stroke();
-    context.fillStyle = '#111827';
-    context.font = `600 ${14 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-    context.textAlign = 'center';
-    context.fillText(label, x, 26 * layout.scale);
-    context.font = `${11 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-    ticks.forEach(tick => {
-      const y = mapper(tick);
-      context.strokeStyle = '#94a3b8';
-      context.beginPath();
-      context.moveTo(x - 5 * layout.scale, y);
-      context.lineTo(x + 5 * layout.scale, y);
-      context.stroke();
-      context.fillStyle = '#475569';
-      context.textAlign = x === layout.xPost ? 'left' : 'right';
-      const text = label === 'LR' ? String(tick).replace('.', ',') : `${Math.round(tick * 100)}%`;
-      context.fillText(text, x === layout.xPost ? x + 9 * layout.scale : x - 9 * layout.scale, y + 4 * layout.scale);
-    });
-  }
-  axis(layout.xPre, 'Prä', probabilityTicks, value => probabilityToY(value, layout));
-  axis(layout.xLr, 'LR', ratioTicksForMode(mode), value => ratioToY(value, result.pretestProbability, layout));
-  axis(layout.xPost, 'Post', probabilityTicks, value => probabilityToY(value, layout));
-
-  context.strokeStyle = color;
-  context.lineWidth = 3 * layout.scale;
-  context.beginPath();
-  context.moveTo(points.pre.x, points.pre.y);
-  context.lineTo(points.post.x, points.post.y);
-  context.stroke();
-
-  context.fillStyle = color;
-  [points.pre, points.lr, points.post].forEach(point => {
-    context.beginPath();
-    context.arc(point.x, point.y, 4.5 * layout.scale, 0, Math.PI * 2);
-    context.fill();
-  });
-
-  context.font = `700 ${12 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-  context.textAlign = 'left';
-  context.fillText(label, points.post.x + 14 * layout.scale, points.post.y + 4 * layout.scale);
-
-  const ratioLabel = formatRatio(likelihoodRatio);
-  context.font = `700 ${11 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-  const labelPaddingX = 5 * layout.scale;
-  const labelPaddingY = 4 * layout.scale;
-  const labelWidth = context.measureText(ratioLabel).width + labelPaddingX * 2;
-  const labelHeight = 18 * layout.scale;
-  const labelX = layout.xLr + 12 * layout.scale;
-  const labelY = clamp(points.lr.y - labelHeight - 6 * layout.scale, layout.top + 4 * layout.scale, layout.bottom - labelHeight - 4 * layout.scale);
-  context.fillStyle = '#fff';
-  context.strokeStyle = color;
-  context.lineWidth = 1 * layout.scale;
-  context.beginPath();
-  context.roundRect(labelX, labelY, labelWidth, labelHeight, 5 * layout.scale);
-  context.fill();
-  context.stroke();
-  context.fillStyle = color;
-  context.textAlign = 'left';
-  context.fillText(ratioLabel, labelX + labelPaddingX, labelY + labelHeight - labelPaddingY);
-
-  if (impact.direction !== 'none') {
-    const direction = impact.direction;
-    const arrowColor =
-      direction === 'higher' ? '#0f766e' : direction === 'lower' ? '#b45309' : direction === 'mixed' ? '#7c3aed' : '#64748b';
-    const arrowX = layout.xPost + 38 * layout.scale;
-    const arrowLength = 34 * layout.scale;
-    const arrowStartY = clamp(points.post.y + (direction === 'higher' ? 18 : direction === 'lower' ? -18 : 0) * layout.scale, layout.top + arrowLength, layout.bottom - arrowLength);
-    const arrowEndY =
-      direction === 'higher'
-        ? arrowStartY - arrowLength
-        : direction === 'lower'
-          ? arrowStartY + arrowLength
-          : arrowStartY;
-    context.strokeStyle = arrowColor;
-    context.fillStyle = arrowColor;
-    context.lineWidth = 2.5 * layout.scale;
-    context.beginPath();
-    if (direction === 'mixed' || direction === 'uncertain') {
-      context.moveTo(arrowX, arrowStartY - arrowLength / 2);
-      context.lineTo(arrowX, arrowStartY + arrowLength / 2);
-    } else {
-      context.moveTo(arrowX, arrowStartY);
-      context.lineTo(arrowX, arrowEndY);
-    }
-    context.stroke();
-    const headSize = 6 * layout.scale;
-    function arrowHead(y: number, pointsUp: boolean): void {
-      context.beginPath();
-      context.moveTo(arrowX, y);
-      context.lineTo(arrowX - headSize, y + (pointsUp ? headSize : -headSize));
-      context.lineTo(arrowX + headSize, y + (pointsUp ? headSize : -headSize));
-      context.closePath();
-      context.fill();
-    }
-    if (direction === 'higher') arrowHead(arrowEndY, true);
-    if (direction === 'lower') arrowHead(arrowEndY, false);
-    if (direction === 'mixed' || direction === 'uncertain') {
-      arrowHead(arrowStartY - arrowLength / 2, true);
-      arrowHead(arrowStartY + arrowLength / 2, false);
-    }
-    context.font = `700 ${10 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-    context.textAlign = 'left';
-    context.fillText(
-      direction === 'higher' ? 'Mod. höher' : direction === 'lower' ? 'Mod. niedriger' : 'Mod. uneinheitlich',
-      arrowX + 10 * layout.scale,
-      clamp(arrowEndY + 4 * layout.scale, layout.top + 12 * layout.scale, layout.bottom - 6 * layout.scale)
-    );
-  }
-}
-
 function drawNomogram(result: CalculationResult): void {
   const impact = modifierImpact(getSelectedProfile(), result);
-  drawSingleNomogramOnCanvas(
-    controls.nomogramPositive,
-    result,
-    result.lrPositive,
-    result.postPositiveProbability,
-    '#167044',
-    '+',
-    'positive',
-    impact
-  );
-  drawSingleNomogramOnCanvas(
-    controls.nomogramNegative,
-    result,
-    result.lrNegative,
-    result.postNegativeProbability,
-    '#b45309',
-    '-',
-    'negative',
-    impact
-  );
+  drawNomogramCanvases({ positive: controls.nomogramPositive, negative: controls.nomogramNegative }, result, impact);
 }
 
 function currentCalculation(): {
@@ -1598,6 +1673,15 @@ function closeDrawer(): void {
   lastFocusBeforeDrawer?.focus();
 }
 
+function toggleDisclaimer(): void {
+  const expanded = controls.disclaimerToggleButton.getAttribute('aria-expanded') === 'true';
+  const nextExpanded = !expanded;
+  controls.disclaimerToggleButton.setAttribute('aria-expanded', String(nextExpanded));
+  controls.disclaimerContent.classList.toggle('hidden', !nextExpanded);
+  controls.disclaimerToggleIcon.textContent = nextExpanded ? '−' : '+';
+  controls.disclaimerToggleLabel.textContent = nextExpanded ? 'Details ausblenden' : 'Details anzeigen';
+}
+
 function handleNomogramSizeToggle(): void {
   const expanded = controls.nomogramSizeToggle.checked;
   controls.calculatorGrid.classList.toggle('nomogram-focus', expanded);
@@ -1639,7 +1723,8 @@ function profileFromForm(kind: 'custom' | 'scenario'): EvidenceProfile {
       deviationReason: $<HTMLTextAreaElement>('scenarioReason').value.trim(),
       lastReviewed: new Date().toISOString().slice(0, 10),
       isDefault: false,
-      sources: baseProfile.sources
+      sources: baseProfile.sources,
+      ...localReviewMetadata('expert-opinion', 'partial')
     };
   }
   const testId = controls.profileTestSelect.value || getSelectedTest().id;
@@ -1660,7 +1745,8 @@ function profileFromForm(kind: 'custom' | 'scenario'): EvidenceProfile {
     limitations: $<HTMLTextAreaElement>('profileLimitations').value.trim(),
     sources: [sourceFromForm('profile', 'Lokale Annahme')],
     lastReviewed: new Date().toISOString().slice(0, 10),
-    isDefault: false
+    isDefault: false,
+    ...localReviewMetadata('expert-opinion', 'partial')
   };
 }
 
@@ -1740,7 +1826,8 @@ function saveCustomAssumption(): void {
     sources: [sourceFromForm('customAssumption', 'Lokale Annahme')],
     lastReviewed: new Date().toISOString().slice(0, 10),
     kind: 'custom',
-    custom: true
+    custom: true,
+    ...localReviewMetadata('expert-opinion', 'partial')
   };
   const issues = validatePretestAssumption(assumption);
   if (issues.length > 0) {
@@ -1759,20 +1846,25 @@ function saveCustomAssumption(): void {
 function modifierFromForm(): ClinicalModifier {
   const likelihoodRatio = Number.parseFloat($<HTMLInputElement>('modifierLikelihoodRatio').value);
   const probabilityFactor = Number.parseFloat($<HTMLInputElement>('modifierProbabilityFactor').value);
+  const hasLikelihoodRatio = Number.isFinite(likelihoodRatio);
+  const hasProbabilityFactor = Number.isFinite(probabilityFactor);
+  const quantificationStatus = hasLikelihoodRatio ? 'likelihood-ratio' : hasProbabilityFactor ? 'probability-factor' : 'qualitative';
   return {
     id: uniqueId('custom-modifier'),
     conditionId: controls.modifierConditionSelect.value,
     label: $<HTMLInputElement>('modifierLabel').value.trim(),
     category: $<HTMLSelectElement>('modifierCategory').value as ClinicalModifier['category'],
     direction: $<HTMLSelectElement>('modifierDirection').value as ClinicalModifierDirection,
-    ...(Number.isFinite(likelihoodRatio) ? { likelihoodRatio } : {}),
-    ...(Number.isFinite(probabilityFactor) ? { probabilityFactor } : {}),
+    ...(hasLikelihoodRatio ? { likelihoodRatio } : {}),
+    ...(hasProbabilityFactor && !hasLikelihoodRatio ? { probabilityFactor } : {}),
+    quantificationStatus,
     rationale: $<HTMLTextAreaElement>('modifierRationale').value.trim(),
     limitations: $<HTMLTextAreaElement>('modifierLimitations').value.trim(),
     sources: [sourceFromForm('modifier', 'Lokale Annahme')],
     lastReviewed: new Date().toISOString().slice(0, 10),
     kind: 'custom',
-    custom: true
+    custom: true,
+    ...localReviewMetadata('expert-opinion', quantificationStatus === 'qualitative' ? 'partial' : 'complete')
   };
 }
 
@@ -1934,7 +2026,8 @@ function cloneAsProposal<T extends PretestAssumption | ClinicalModifier | Eviden
     custom: true,
     isDefault: 'isDefault' in item ? false : undefined,
     rationale: `Vorschlag/Korrektur: ${item.rationale}`,
-    lastReviewed: new Date().toISOString().slice(0, 10)
+    lastReviewed: new Date().toISOString().slice(0, 10),
+    ...localReviewMetadata(item.evidenceQuality ?? 'expert-opinion', item.dataCompleteness ?? 'partial')
   } as T;
 }
 
@@ -1948,7 +2041,7 @@ function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
     kind === 'assumption' ? [proposal as PretestAssumption] : [],
     kind === 'modifier' ? [proposal as ClinicalModifier] : []
   );
-  downloadJson('likelihood-ratio-vorschlag-v3.json', payload);
+  downloadJson('likelihood-ratio-vorschlag-v4.json', payload);
   setMessage(controls.actionMessage, 'JSON-Vorschlag exportiert.');
 }
 
@@ -2003,6 +2096,7 @@ async function importUserData(file: File): Promise<void> {
 }
 
 controls.drawerOpenButton.addEventListener('click', () => openDrawer('data'));
+controls.disclaimerToggleButton.addEventListener('click', toggleDisclaimer);
 controls.drawerCloseButton.addEventListener('click', closeDrawer);
 controls.drawerBackdrop.addEventListener('click', closeDrawer);
 document.addEventListener('keydown', event => {
@@ -2054,22 +2148,44 @@ controls.adminProfileSelect.addEventListener('change', () => {
   saveAndRender();
 });
 [
+  controls.catalogSearchInput,
   controls.catalogConditionFilter,
   controls.catalogSettingFilter,
   controls.catalogTestFilter,
-  controls.catalogStatusFilter
-].forEach(select => {
-  select.addEventListener('change', renderDataCatalog);
+  controls.catalogStatusFilter,
+  controls.catalogReviewFilter,
+  controls.catalogQualityFilter,
+  controls.catalogCompletenessFilter,
+  controls.catalogSortSelect
+].forEach(control => {
+  control.addEventListener(control instanceof HTMLInputElement ? 'input' : 'change', renderDataCatalog);
 });
-controls.catalogTableBody.addEventListener('click', event => {
-  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-catalog-action]');
-  const row = button?.closest<HTMLTableRowElement>('tr[data-kind][data-id]');
-  if (!button || !row) return;
-  const kind = row.dataset.kind as CatalogRowKind;
-  const id = row.dataset.id ?? '';
-  if (button.dataset.catalogAction === 'select') selectCatalogItem(kind, id, row.dataset.settingId);
+
+function handleCatalogAction(button: HTMLButtonElement, row?: HTMLTableRowElement): void {
+  const kind = (button.dataset.kind ?? row?.dataset.kind) as CatalogRowKind;
+  const id = button.dataset.id ?? row?.dataset.id ?? '';
+  const settingId = button.dataset.settingId ?? row?.dataset.settingId;
+  if (!kind || !id) return;
+  if (button.dataset.catalogAction === 'select') selectCatalogItem(kind, id, settingId);
   if (button.dataset.catalogAction === 'correct') openCatalogItemForCorrection(kind, id);
   if (button.dataset.catalogAction === 'export') exportCatalogProposal(kind, id);
+}
+
+controls.catalogTableBody.addEventListener('click', event => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-catalog-action]');
+  const row = (event.target as HTMLElement).closest<HTMLTableRowElement>('tr[data-kind][data-id]');
+  if (button && row) {
+    handleCatalogAction(button, row);
+    return;
+  }
+  if (!row) return;
+  selectedCatalogRowKey = row.dataset.key ?? '';
+  renderDataCatalog();
+});
+controls.catalogDetailPanel.addEventListener('click', event => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-catalog-action]');
+  if (!button) return;
+  handleCatalogAction(button);
 });
 controls.profileSelect.addEventListener('change', () => {
   state.selectedEvidenceProfileId = controls.profileSelect.value;
@@ -2119,7 +2235,7 @@ $('resetButton').addEventListener('click', () => {
 });
 $('exportButton').addEventListener('click', () => {
   downloadJson(
-    'likelihood-ratio-eigene-daten-v3.json',
+    'likelihood-ratio-eigene-daten-v4.json',
     buildExport(state.customTests, state.customEvidenceProfiles, state.customAssumptions, state.customModifiers)
   );
   setMessage(controls.actionMessage, 'Eigene Daten exportiert.');

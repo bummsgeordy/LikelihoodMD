@@ -23,6 +23,9 @@ const exampleProfile: EvidenceProfile = {
   rationale: 'Example rationale',
   limitations: 'Example limitations',
   lastReviewed: '2026-05-17',
+  reviewStatus: 'reviewed',
+  evidenceQuality: 'moderate',
+  dataCompleteness: 'complete',
   isDefault: true,
   sources: [
     {

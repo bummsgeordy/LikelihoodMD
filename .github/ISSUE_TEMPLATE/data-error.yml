@@ -1,0 +1,44 @@
+name: Datenfehler melden
+description: Fehler, unklare Quelle, falsche Population oder problematische Annahme melden
+title: "[Datenfehler] "
+labels: ["clinical-data", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bitte keine Patientendaten eintragen. Beschreibe nur den Datenfehler und die betroffene Stelle.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Bereich
+      options:
+        - Praetest-Annahme
+        - Evidenzprofil / Testguete
+        - Klinischer Modifikator
+        - Quelle / Link
+        - UI-Darstellung
+    validations:
+      required: true
+  - type: input
+    id: affected-item
+    attributes:
+      label: Betroffener Eintrag
+      placeholder: Name des Tests, Settings, Modifikators oder Profils
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Was ist falsch oder unklar?
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Vorschlag zur Korrektur
+      description: Falls bekannt, bitte konkrete Werte und Quellen angeben.
+  - type: textarea
+    id: sources
+    attributes:
+      label: Quellen / Belege
+      description: Titel, Jahr, URL/DOI/PubMed-Link, falls vorhanden.

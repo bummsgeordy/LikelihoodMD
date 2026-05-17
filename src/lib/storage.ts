@@ -3,15 +3,45 @@ import type {
   ClinicalModifier,
   DiagnosticTest,
   EvidenceProfile,
+  EvidenceQuality,
   PretestAssumption,
+  DataCompleteness,
+  QuantificationStatus,
+  ReviewStatus,
   UserDataExport
 } from '../types';
 import { likelihoodRatiosFromSensitivitySpecificity } from './calculations';
 
-const STORAGE_KEY = 'likelihood-ratio-rechner-state-v2';
+const STORAGE_KEY = 'likelihood-ratio-rechner-state-v4';
+const PREVIOUS_STORAGE_KEYS = ['likelihood-ratio-rechner-state-v2'];
 const LEGACY_STORAGE_KEY = 'likelihood-ratio-rechner-state-v1';
 
 type UserDataExportV2 = Omit<UserDataExport, 'schemaVersion' | 'customModifiers'> & { schemaVersion: 2 };
+type UserDataExportV3 = Omit<UserDataExport, 'schemaVersion'> & { schemaVersion: 3 };
+
+const defaultReview = {
+  reviewStatus: 'draft' as ReviewStatus,
+  evidenceQuality: 'unclear' as EvidenceQuality,
+  dataCompleteness: 'minimal' as DataCompleteness
+};
+
+function withReviewFields<T extends Partial<EvidenceProfile | PretestAssumption | ClinicalModifier>>(item: T): T {
+  return {
+    ...item,
+    reviewStatus: item.reviewStatus ?? defaultReview.reviewStatus,
+    evidenceQuality: item.evidenceQuality ?? defaultReview.evidenceQuality,
+    dataCompleteness: item.dataCompleteness ?? defaultReview.dataCompleteness
+  };
+}
+
+function withModifierFields(modifier: ClinicalModifier): ClinicalModifier {
+  return {
+    ...withReviewFields(modifier),
+    quantificationStatus:
+      modifier.quantificationStatus ??
+      ((modifier.likelihoodRatio != null ? 'likelihood-ratio' : modifier.probabilityFactor != null ? 'probability-factor' : 'qualitative') as QuantificationStatus)
+  };
+}
 
 function slugifyClinicalLabel(value: string): string {
   return value
@@ -57,7 +87,6 @@ export const defaultState: CalculatorState = {
   selectedSettingId: 'ambulant-endokrinologie',
   selectedConditionId: 'cushing-syndrom-hyperkortisolismus',
   manualPretestPercent: 10,
-  useManualPretest: false,
   selectedModifierIds: [],
   modifierListExpanded: false,
   customTests: [],
@@ -92,7 +121,8 @@ function migrateLegacyTest(test: Record<string, unknown>): { test: DiagnosticTes
     limitations: String(test.limitations ?? 'Bitte Grenzen nach Migration prüfen.'),
     sources: Array.isArray(test.sources) ? (test.sources as EvidenceProfile['sources']) : [],
     lastReviewed: String(test.lastReviewed ?? new Date().toISOString().slice(0, 10)),
-    isDefault: true
+    isDefault: true,
+    ...defaultReview
   };
 
   return {
@@ -117,7 +147,7 @@ function migrateLegacyState(parsed: Record<string, unknown>): CalculatorState {
   migrated.customEvidenceProfiles = migratedPairs.map(pair => pair.profile);
   migrated.customAssumptions = Array.isArray(parsed.customAssumptions)
     ? (parsed.customAssumptions as PretestAssumption[]).map(assumption => ({
-        ...assumption,
+        ...withReviewFields(assumption),
         conditionId: assumption.conditionId ?? slugifyClinicalLabel(assumption.condition),
         settingId: assumption.settingId ?? settingIdFromLabel(assumption.setting),
         evidenceLevel: assumption.evidenceLevel ?? 'direct',
@@ -126,15 +156,13 @@ function migrateLegacyState(parsed: Record<string, unknown>): CalculatorState {
       }))
     : [];
   migrated.customModifiers = Array.isArray(parsed.customModifiers)
-    ? (parsed.customModifiers as ClinicalModifier[]).map(modifier => ({ ...modifier, kind: modifier.kind ?? 'custom', custom: true }))
+    ? (parsed.customModifiers as ClinicalModifier[]).map(modifier => withModifierFields({ ...modifier, kind: modifier.kind ?? 'custom', custom: true }))
     : [];
   migrated.selectedModifierIds = Array.isArray(parsed.selectedModifierIds)
     ? (parsed.selectedModifierIds as unknown[]).filter((id): id is string => typeof id === 'string')
     : [];
   migrated.manualPretestPercent =
     typeof parsed.manualPretestPercent === 'number' ? parsed.manualPretestPercent : defaultState.manualPretestPercent;
-  migrated.useManualPretest =
-    typeof parsed.useManualPretest === 'boolean' ? parsed.useManualPretest : defaultState.useManualPretest;
   migrated.selectedTestId = migrated.customTests[0]?.id ?? defaultState.selectedTestId;
   migrated.selectedEvidenceProfileId = migrated.customEvidenceProfiles[0]?.id ?? defaultState.selectedEvidenceProfileId;
   migrated.selectedAssumptionId = migrated.customAssumptions[0]?.id ?? defaultState.selectedAssumptionId;
@@ -162,12 +190,14 @@ export function loadState(): CalculatorState {
         selectedSettingId: parsed.selectedSettingId ?? legacySelection?.selectedSettingId ?? defaultState.selectedSettingId,
         selectedConditionId: parsed.selectedConditionId ?? legacySelection?.selectedConditionId ?? defaultState.selectedConditionId,
         customAssumptions: (parsed.customAssumptions ?? []).map(assumption => ({
+          ...withReviewFields(assumption),
           ...assumption,
           conditionId: assumption.conditionId ?? slugifyClinicalLabel(assumption.condition),
           settingId: assumption.settingId ?? settingIdFromLabel(assumption.setting),
           evidenceLevel: assumption.evidenceLevel ?? 'direct'
         })),
-        customModifiers: (parsed.customModifiers ?? []).map(modifier => ({
+        customEvidenceProfiles: (parsed.customEvidenceProfiles ?? []).map(profile => withReviewFields(profile) as EvidenceProfile),
+        customModifiers: (parsed.customModifiers ?? []).map(modifier => withModifierFields({
           ...modifier,
           kind: modifier.kind ?? 'custom',
           custom: modifier.custom ?? true
@@ -182,6 +212,14 @@ export function loadState(): CalculatorState {
       const migrated = migrateLegacyState(JSON.parse(legacy));
       saveState(migrated);
       return migrated;
+    }
+    for (const key of PREVIOUS_STORAGE_KEYS) {
+      const previous = window.localStorage.getItem(key);
+      if (previous) {
+        const migrated = migrateLegacyState(JSON.parse(previous));
+        saveState(migrated);
+        return migrated;
+      }
     }
     return { ...defaultState };
   } catch {
@@ -205,7 +243,7 @@ export function buildExport(
   customModifiers: ClinicalModifier[] = []
 ): UserDataExport {
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     exportedAt: new Date().toISOString(),
     customTests,
     customEvidenceProfiles,
@@ -216,8 +254,20 @@ export function buildExport(
 
 export function parseUserDataExport(text: string): UserDataExport {
   const parsed = JSON.parse(text) as UserDataExport | (Record<string, unknown> & { schemaVersion?: number });
+  if (parsed.schemaVersion === 4) {
+    const exportV4 = parsed as UserDataExport;
+    if (
+      !Array.isArray(exportV4.customTests) ||
+      !Array.isArray(exportV4.customEvidenceProfiles) ||
+      !Array.isArray(exportV4.customAssumptions) ||
+      !Array.isArray(exportV4.customModifiers)
+    ) {
+      throw new Error('Export enthält keine gültigen Test-, Profil-, Annahmen- oder Modifikatorlisten.');
+    }
+    return exportV4;
+  }
   if (parsed.schemaVersion === 3) {
-    const exportV3 = parsed as UserDataExport;
+    const exportV3 = parsed as unknown as UserDataExportV3;
     if (
       !Array.isArray(exportV3.customTests) ||
       !Array.isArray(exportV3.customEvidenceProfiles) ||
@@ -226,7 +276,12 @@ export function parseUserDataExport(text: string): UserDataExport {
     ) {
       throw new Error('Export enthält keine gültigen Test-, Profil-, Annahmen- oder Modifikatorlisten.');
     }
-    return exportV3;
+    return buildExport(
+      exportV3.customTests,
+      exportV3.customEvidenceProfiles.map(profile => withReviewFields(profile) as EvidenceProfile),
+      exportV3.customAssumptions.map(assumption => withReviewFields(assumption) as PretestAssumption),
+      exportV3.customModifiers.map(withModifierFields)
+    );
   }
   if (parsed.schemaVersion === 2) {
     const exportV2 = parsed as unknown as UserDataExportV2;
@@ -238,11 +293,11 @@ export function parseUserDataExport(text: string): UserDataExport {
       throw new Error('Export enthält keine gültigen Test-, Profil- oder Annahmenlisten.');
     }
     return {
-      schemaVersion: 3,
+      schemaVersion: 4,
       exportedAt: exportV2.exportedAt,
       customTests: exportV2.customTests,
-      customEvidenceProfiles: exportV2.customEvidenceProfiles,
-      customAssumptions: exportV2.customAssumptions,
+      customEvidenceProfiles: exportV2.customEvidenceProfiles.map(profile => withReviewFields(profile) as EvidenceProfile),
+      customAssumptions: exportV2.customAssumptions.map(assumption => withReviewFields(assumption) as PretestAssumption),
       customModifiers: []
     };
   }

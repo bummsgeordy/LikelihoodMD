@@ -15,6 +15,11 @@ const profileKinds = new Set(['curated', 'custom', 'scenario']);
 const pretestEvidenceLevels = new Set(['direct', 'fallback', 'manual']);
 const modifierDirections = new Set(['increases', 'decreases', 'uncertain']);
 const modifierCategories = new Set(['Symptom', 'Klinisches Zeichen', 'Anamnese', 'Kontext', 'Labor/Vorbefund']);
+const reviewStatuses = new Set(['draft', 'reviewed', 'needs-review']);
+const evidenceQualities = new Set(['high', 'moderate', 'low', 'expert-opinion', 'unclear']);
+const dataCompletenessLevels = new Set(['complete', 'partial', 'minimal']);
+const quantificationStatuses = new Set(['qualitative', 'probability-factor', 'likelihood-ratio']);
+const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const errors = [];
 
 function slugifyClinicalLabel(value) {
@@ -44,9 +49,17 @@ function validateSources(sources, prefix) {
     if (!hasText(source.title)) errors.push(`${sourcePrefix}.title fehlt`);
     if (!Number.isInteger(source.year) || source.year < 1900) errors.push(`${sourcePrefix}.year unplausibel`);
     if (!hasText(source.url)) errors.push(`${sourcePrefix}.url fehlt`);
+    if (hasText(source.url) && !/^https?:\/\//i.test(source.url)) errors.push(`${sourcePrefix}.url muss http/https sein`);
     if (!sourceKinds.has(source.kind)) errors.push(`${sourcePrefix}.kind unbekannt`);
     if (!hasText(source.note)) errors.push(`${sourcePrefix}.note fehlt`);
   });
+}
+
+function validateReview(item, prefix) {
+  if (!reviewStatuses.has(item.reviewStatus)) errors.push(`${prefix}.reviewStatus unbekannt`);
+  if (!evidenceQualities.has(item.evidenceQuality)) errors.push(`${prefix}.evidenceQuality unbekannt`);
+  if (!dataCompletenessLevels.has(item.dataCompleteness)) errors.push(`${prefix}.dataCompleteness unbekannt`);
+  if (!isoDatePattern.test(item.lastReviewed || '')) errors.push(`${prefix}.lastReviewed muss YYYY-MM-DD sein`);
 }
 
 function validateProfile(profile, prefix) {
@@ -63,6 +76,7 @@ function validateProfile(profile, prefix) {
     errors.push(`${prefix}.lrNegative ungültig`);
   }
   if (profile.kind === 'scenario' && !hasText(profile.deviationReason)) errors.push(`${prefix}.deviationReason fehlt`);
+  validateReview(profile, prefix);
   validateSources(profile.sources, prefix);
 }
 
@@ -103,6 +117,7 @@ assumptions.forEach((assumption, index) => {
   if (assumption.rangeLow !== undefined && !probability(assumption.rangeLow)) errors.push(`${prefix}.rangeLow ungültig`);
   if (assumption.rangeHigh !== undefined && !probability(assumption.rangeHigh)) errors.push(`${prefix}.rangeHigh ungültig`);
   if (assumption.rangeLow > assumption.rangeHigh) errors.push(`${prefix}.range unplausibel`);
+  validateReview(assumption, prefix);
   validateSources(assumption.sources, prefix);
 });
 
@@ -114,12 +129,23 @@ modifiers.forEach((modifier, index) => {
   if (!modifierCategories.has(modifier.category)) errors.push(`${prefix}.category unbekannt`);
   if (!modifierDirections.has(modifier.direction)) errors.push(`${prefix}.direction unbekannt`);
   if (!profileKinds.has(modifier.kind)) errors.push(`${prefix}.kind unbekannt`);
+  if (!quantificationStatuses.has(modifier.quantificationStatus)) errors.push(`${prefix}.quantificationStatus unbekannt`);
   if (modifier.probabilityFactor !== undefined && (!Number.isFinite(modifier.probabilityFactor) || modifier.probabilityFactor <= 0)) {
     errors.push(`${prefix}.probabilityFactor ungültig`);
   }
   if (modifier.likelihoodRatio !== undefined && (!Number.isFinite(modifier.likelihoodRatio) || modifier.likelihoodRatio <= 0)) {
     errors.push(`${prefix}.likelihoodRatio ungültig`);
   }
+  if (modifier.quantificationStatus === 'likelihood-ratio' && modifier.likelihoodRatio === undefined) {
+    errors.push(`${prefix}.likelihoodRatio fehlt für LR-Status`);
+  }
+  if (modifier.quantificationStatus === 'probability-factor' && modifier.probabilityFactor === undefined) {
+    errors.push(`${prefix}.probabilityFactor fehlt für Faktor-Status`);
+  }
+  if (modifier.quantificationStatus === 'qualitative' && (modifier.likelihoodRatio !== undefined || modifier.probabilityFactor !== undefined)) {
+    errors.push(`${prefix}.qualitative Modifikatoren dürfen keinen Faktor/LR tragen`);
+  }
+  validateReview(modifier, prefix);
   validateSources(modifier.sources, prefix);
 });
 

@@ -13,9 +13,18 @@ Dieses Projekt ist als öffentliches Lehr- und Rechentool angelegt. Damit die Za
 - Jede Testgüte und jede Prätest-Annahme braucht mindestens eine Quelle.
 - Jede Quelle braucht eine Kurznotiz zur Übertragbarkeit.
 - Jede Annahme braucht Population, Setting, Begründung und Grenzen.
+- Jeder kuratierte Datensatz braucht `reviewStatus`, `evidenceQuality` und `dataCompleteness`.
 - Konkurrierende Studienwerte werden als getrennte Evidenzprofile geführt, nicht gegenseitig überschrieben.
 - Bewusst abweichende eigene Werte werden als Szenario mit Abweichungsgrund markiert.
 - Werte ohne klare Population werden nicht als kuratierte Standardwerte übernommen.
+
+## Reviewstatus
+
+- `reviewed` wird nur nach fachlicher Prüfung durch Maintainer oder benannte medizinische Reviewer gesetzt.
+- `needs-review` bleibt der konservative Standard für kuratierte Startwerte und importierte Vorschläge, die noch nicht final geprüft wurden.
+- `draft` kennzeichnet lokale oder unvollständige Vorschläge.
+- Unsichere oder nicht direkt datenbasierte Annahmen werden zusätzlich mit `expert-opinion`, `unclear`, `partial` oder `minimal` markiert.
+- Konkurrierende Studien, Cut-offs oder Populationen werden als separate Evidenzprofile aufgenommen, damit Nutzer die Annahme bewusst auswählen können.
 
 ## Review-Checkliste
 
@@ -24,7 +33,17 @@ Dieses Projekt ist als öffentliches Lehr- und Rechentool angelegt. Damit die Za
 - Sind Sensitivität/Spezifität oder LR-Werte rechnerisch plausibel?
 - Ist die Prätestwahrscheinlichkeit als Setting-Annahme und nicht als individuelle Patientendaten formuliert?
 - Sind Grenzen und Störfaktoren sichtbar?
+- Sind Reviewstatus, Evidenzqualität und Datenvollständigkeit konservativ gesetzt?
+- Ist ein klinischer Modifikator nur dann quantifiziert, wenn der Faktor/LR selbst belegt ist?
+- Gibt es Hinweise auf Doppelzählung zwischen Setting-Prätestannahme und Modifikator?
 - Wurde `npm run validate:data` ausgeführt?
+
+## GitHub-Prozess
+
+- GitHub Pages sollte über Actions deployen.
+- `main` sollte per Branch Protection geschützt werden.
+- Pull Requests sollten erst nach grünem `validate`, `test` und `build` gemergt werden.
+- Beiträge von außen laufen bevorzugt über Issue-Templates oder JSON-Vorschläge aus dem Tool.
 
 ## Regulatorische Grenze
 

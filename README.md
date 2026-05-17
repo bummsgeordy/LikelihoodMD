@@ -17,7 +17,8 @@ Bitte keine Patientendaten eingeben. Eigene Tests und Prätest-Annahmen werden n
 - Eigene Tests, Evidenzprofile, Szenarien und Prätest-Annahmen in einem getrennten Verwaltungs-Drawer.
 - Datenkatalog im Verwaltungs-Drawer mit tabellarischer Sicht auf Setting, Erkrankung, Prätest-Annahmen, Modifikatoren, Tests, Evidenzprofile, Quellen und Grenzen.
 - Szenarien markieren bewusst abweichende Werte mit Begründung, statt kuratierte Quellen still zu überschreiben.
-- Lokale Speicherung, JSON-Import und JSON-Export im Schema `schemaVersion: 3`.
+- Lokale Speicherung, JSON-Import und JSON-Export im Schema `schemaVersion: 4`.
+- Review- und Qualitätsfelder für Datenpflege: `reviewStatus`, `evidenceQuality` und `dataCompleteness`.
 - Kurzbericht zum Kopieren.
 - Fagan-ähnliches Nomogramm und Balkendarstellung.
 
@@ -40,6 +41,7 @@ Build und Prüfungen:
 npm run test:run
 npm run validate:data
 npm run build
+npm run check:pages
 ```
 
 ## Veröffentlichung mit GitHub Pages
@@ -54,7 +56,7 @@ Eine Schritt-für-Schritt-Anleitung steht in [docs/PUBLISHING.md](docs/PUBLISHIN
 
 Kuratierte Tests liegen in `src/data/tests.json`, Prätest-Annahmen in `src/data/pretest-assumptions.json`, klinische Modifikatoren in `src/data/clinical-modifiers.json`, klinische Settings in `src/data/clinical-settings.json`. Ein Test beschreibt das diagnostische Verfahren; Sensitivität, Spezifität, LR-Werte, Cut-off, Methode, knappe Durchführung und Quellen stehen in Evidenzprofilen. So können mehrere Studien oder konkurrierende Annahmen zum gleichen Test transparent nebeneinander stehen.
 
-Jede Zahl braucht eine Quelle, eine Begründung, eine Zielpopulation, Grenzen der Übertragbarkeit und ein Datum der letzten Prüfung. Eigene lokale Ergänzungen aus dem Drawer bleiben im Browser gespeichert und können als JSON exportiert werden.
+Jede Zahl braucht eine Quelle, eine Begründung, eine Zielpopulation, Grenzen der Übertragbarkeit, ein Datum der letzten Prüfung und konservativ gesetzte Review-/Qualitätsfelder. Eigene lokale Ergänzungen aus dem Drawer bleiben im Browser gespeichert und können als JSON exportiert werden.
 
 Details stehen in [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
 

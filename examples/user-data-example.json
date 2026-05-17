@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "exportedAt": "2026-05-17T00:00:00.000Z",
   "customTests": [
     {
@@ -36,7 +36,11 @@
           "kind": "Lokale Annahme",
           "note": "Beispielnotiz zur Quelle und Übertragbarkeit."
         }
-      ]
+      ],
+      "reviewStatus": "draft",
+      "evidenceQuality": "expert-opinion",
+      "dataCompleteness": "partial",
+      "reviewNote": "Beispieldatensatz, nicht kuratiert."
     },
     {
       "id": "custom-scenario-example",
@@ -63,7 +67,11 @@
           "kind": "Lokale Annahme",
           "note": "Beispiel für bewusst markierte Abweichung."
         }
-      ]
+      ],
+      "reviewStatus": "draft",
+      "evidenceQuality": "expert-opinion",
+      "dataCompleteness": "partial",
+      "reviewNote": "Beispieldatensatz, nicht kuratiert."
     }
   ],
   "customAssumptions": [
@@ -91,7 +99,11 @@
           "kind": "Lokale Annahme",
           "note": "Beispiel für lokale Daten, Registerauswertung oder begründete Expertenschätzung."
         }
-      ]
+      ],
+      "reviewStatus": "draft",
+      "evidenceQuality": "expert-opinion",
+      "dataCompleteness": "partial",
+      "reviewNote": "Beispieldatensatz, nicht kuratiert."
     }
   ],
   "customModifiers": [
@@ -115,7 +127,12 @@
           "kind": "Lokale Annahme",
           "note": "Beispiel für einen quantifizierten Modifikator."
         }
-      ]
+      ],
+      "reviewStatus": "draft",
+      "evidenceQuality": "expert-opinion",
+      "dataCompleteness": "partial",
+      "reviewNote": "Beispieldatensatz, nicht kuratiert.",
+      "quantificationStatus": "likelihood-ratio"
     }
   ]
 }

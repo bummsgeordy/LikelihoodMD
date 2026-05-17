@@ -30,6 +30,10 @@ Ein Evidenzprofil gehört zu genau einem Test. Es kann direkt im jeweiligen Test
 - `sources`: mindestens eine Quelle mit Titel, Jahr, URL, Quellentyp und Kurznotiz.
 - `lastReviewed`: Datum im Format `YYYY-MM-DD`.
 - `isDefault`: bei kuratierten Profilen genau einmal pro Test `true`.
+- `reviewStatus`: `draft`, `needs-review` oder `reviewed`.
+- `evidenceQuality`: `high`, `moderate`, `low`, `expert-opinion` oder `unclear`.
+- `dataCompleteness`: `complete`, `partial` oder `minimal`.
+- optional `reviewNote`: knappe Notiz, was noch geprüft werden muss.
 
 Szenarien sind bewusst abweichende Werte. Sie müssen zusätzlich `deviationFromProfileId` und `deviationReason` enthalten, damit die Abweichung sichtbar bleibt.
 
@@ -47,6 +51,7 @@ Eine neue Annahme gehört in `src/data/pretest-assumptions.json`. Bitte angeben:
 - optional `rangeLow` und `rangeHigh` als plausible Spanne.
 - `kind`: `curated`, `custom` oder `scenario`.
 - `rationale`, `limitations`, `sources`, `lastReviewed`.
+- `reviewStatus`, `evidenceQuality`, `dataCompleteness` und optional `reviewNote`.
 
 Eigene Annahmen aus dem Drawer werden als `custom` gespeichert. Direkte Setting-Annahmen werden in der App grün markiert; allgemeine Fallbacks werden orange markiert.
 
@@ -61,11 +66,28 @@ Bitte pro Modifikator angeben:
 - `category`: `Symptom`, `Klinisches Zeichen`, `Anamnese`, `Kontext` oder `Labor/Vorbefund`.
 - `direction`: `increases`, `decreases` oder `uncertain`.
 - optional `likelihoodRatio` oder `probabilityFactor`, nur wenn dafür eine belastbare Quelle angegeben ist.
+- `quantificationStatus`: `qualitative`, `likelihood-ratio` oder `probability-factor`.
+- optional `overlapWarning`: Hinweis, wenn der Faktor wahrscheinlich bereits in einer Setting-Annahme steckt und Doppelzählung droht.
 - `rationale`: warum verändert dieser Faktor die Prätestwahrscheinlichkeit?
 - `limitations`: Grenzen der Übertragbarkeit.
 - `sources`, `lastReviewed`, `kind`.
+- `reviewStatus`, `evidenceQuality`, `dataCompleteness` und optional `reviewNote`.
 
-Ohne quantifizierten Faktor wird der Modifikator im Rechner nur qualitativ angezeigt. Die Rechnung bleibt dann unverändert, weist aber sichtbar darauf hin, dass die wahre Posttestwahrscheinlichkeit klinisch höher oder niedriger liegen kann.
+Ohne quantifizierten Faktor wird der Modifikator im Rechner nur qualitativ angezeigt. Die Rechnung bleibt dann unverändert, weist aber sichtbar darauf hin, dass die wahre Posttestwahrscheinlichkeit klinisch höher oder niedriger liegen kann. Quantifizierte Modifikatoren zeigen nur eine Vorschau; sie werden erst nach aktiver Übernahme in die Prätestwahrscheinlichkeit eingerechnet.
+
+## Reviewstatus und Datenqualität
+
+Neue oder importierte Vorschläge starten grundsätzlich als `draft` oder `needs-review`. `reviewed` wird nur gesetzt, wenn die fachliche Prüfung abgeschlossen ist. Unsichere Annahmen bleiben sichtbar markiert, z. B. `expert-opinion`, `unclear`, `partial` oder `minimal`.
+
+Empfohlene Einordnung:
+
+- `high`: systematischer Review, hochwertige diagnostische Studie oder belastbare Leitlinie mit klarer Population.
+- `moderate`: plausible Studie/Leitlinie, aber begrenzte Übertragbarkeit oder indirekte Ableitung.
+- `low`: kleine Studie, relevante Unsicherheit oder unklare Übertragbarkeit.
+- `expert-opinion`: lokale oder fachliche Annahme ohne direkte quantitative Studie.
+- `unclear`: Quelle oder Übertragbarkeit ist noch nicht ausreichend geprüft.
+
+Der Datenkatalog im Drawer zeigt diese Felder als Badges und kann danach filtern. Korrekturen aus dem Tool werden als JSON-Vorschläge exportiert und überschreiben kuratierte Daten nicht automatisch.
 
 ## Quellenqualität
 
@@ -77,6 +99,7 @@ Bevorzugt sind Leitlinien, systematische Reviews, diagnostische Genauigkeitsstud
 npm run validate:data
 npm run test:run
 npm run build
+npm run check:pages
 ```
 
 Die Datenstruktur ist zusätzlich als JSON Schema dokumentiert:

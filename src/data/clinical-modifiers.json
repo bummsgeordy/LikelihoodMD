@@ -17,7 +17,12 @@
         "kind": "Leitlinie",
         "note": "Benennt resistente Hypertonie als Screening-Indikation."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "pa-hypokalemia",
@@ -37,7 +42,12 @@
         "kind": "Leitlinie",
         "note": "Benennt Hypertonie mit Hypokaliämie als Screening-Indikation."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "pa-adrenal-incidentaloma",
@@ -57,7 +67,12 @@
         "kind": "Leitlinie",
         "note": "Unterstützt Screening bei passenden Risikokonstellationen."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "ppgl-paroxysmal-symptoms",
@@ -77,7 +92,12 @@
         "kind": "Leitlinie",
         "note": "Beschreibt typische klinische Präsentation und Testindikationen."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "ppgl-adrenal-incidentaloma",
@@ -97,7 +117,12 @@
         "kind": "Leitlinie",
         "note": "Benennt Nebenniereninzidentalom als klinischen Kontext für Testung."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "ppgl-genetic-risk",
@@ -117,7 +142,12 @@
         "kind": "Leitlinie",
         "note": "Empfiehlt Berücksichtigung hereditärer Risikokonstellationen."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "cushing-typical-stigmata",
@@ -137,7 +167,12 @@
         "kind": "Leitlinie",
         "note": "Empfiehlt Testung bei ungewöhnlichen/progressiven klinischen Merkmalen."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "cushing-adrenal-incidentaloma",
@@ -157,7 +192,12 @@
         "kind": "Leitlinie",
         "note": "Unterstützt Testung in passenden klinischen Kontexten."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "cushing-severe-comorbidity",
@@ -177,7 +217,12 @@
         "kind": "Leitlinie",
         "note": "Leitlinie beschreibt klinische Konstellationen für gezielte Testung."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "heart-failure-orthopnea-edema",
@@ -197,7 +242,12 @@
         "kind": "Leitlinie",
         "note": "Klinischer Kontext für Herzinsuffizienzdiagnostik."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   },
   {
     "id": "adrenal-insufficiency-hyperpigmentation",
@@ -217,6 +267,11 @@
         "kind": "Leitlinie",
         "note": "Beschreibt klinische Merkmale der Nebenniereninsuffizienz."
       }
-    ]
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
   }
 ]

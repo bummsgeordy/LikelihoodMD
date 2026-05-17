@@ -3,6 +3,22 @@ export type EvidenceProfileKind = 'curated' | 'custom' | 'scenario';
 export type PretestEvidenceLevel = 'direct' | 'fallback' | 'manual';
 export type ClinicalModifierDirection = 'increases' | 'decreases' | 'uncertain';
 export type ModifierCategory = 'Symptom' | 'Klinisches Zeichen' | 'Anamnese' | 'Kontext' | 'Labor/Vorbefund';
+export type ReviewStatus = 'draft' | 'reviewed' | 'needs-review';
+export type EvidenceQuality = 'high' | 'moderate' | 'low' | 'expert-opinion' | 'unclear';
+export type DataCompleteness = 'complete' | 'partial' | 'minimal';
+export type QuantificationStatus = 'qualitative' | 'probability-factor' | 'likelihood-ratio';
+
+export const REVIEW_STATUSES: ReviewStatus[] = ['draft', 'reviewed', 'needs-review'];
+export const EVIDENCE_QUALITIES: EvidenceQuality[] = ['high', 'moderate', 'low', 'expert-opinion', 'unclear'];
+export const DATA_COMPLETENESS_LEVELS: DataCompleteness[] = ['complete', 'partial', 'minimal'];
+export const QUANTIFICATION_STATUSES: QuantificationStatus[] = ['qualitative', 'probability-factor', 'likelihood-ratio'];
+
+export interface ReviewMetadata {
+  reviewStatus: ReviewStatus;
+  evidenceQuality: EvidenceQuality;
+  dataCompleteness: DataCompleteness;
+  reviewNote?: string;
+}
 
 export interface ClinicalSetting {
   id: string;
@@ -22,7 +38,7 @@ export interface EvidenceSource {
   note: string;
 }
 
-export interface EvidenceProfile {
+export interface EvidenceProfile extends ReviewMetadata {
   id: string;
   testId: string;
   label: string;
@@ -54,7 +70,7 @@ export interface DiagnosticTest {
   custom?: boolean;
 }
 
-export interface PretestAssumption {
+export interface PretestAssumption extends ReviewMetadata {
   id: string;
   condition: string;
   conditionId?: string;
@@ -74,7 +90,7 @@ export interface PretestAssumption {
   deviationReason?: string;
 }
 
-export interface ClinicalModifier {
+export interface ClinicalModifier extends ReviewMetadata {
   id: string;
   conditionId: string;
   label: string;
@@ -82,6 +98,8 @@ export interface ClinicalModifier {
   direction: ClinicalModifierDirection;
   probabilityFactor?: number;
   likelihoodRatio?: number;
+  quantificationStatus: QuantificationStatus;
+  overlapWarning?: string;
   rationale: string;
   limitations: string;
   sources: EvidenceSource[];
@@ -98,7 +116,6 @@ export interface CalculatorState {
   selectedSettingId: string;
   selectedConditionId: string;
   manualPretestPercent: number;
-  useManualPretest: boolean;
   selectedModifierIds: string[];
   modifierListExpanded: boolean;
   customTests: DiagnosticTest[];
@@ -120,7 +137,7 @@ export interface CalculationResult {
 }
 
 export interface UserDataExport {
-  schemaVersion: 3;
+  schemaVersion: 4;
   exportedAt: string;
   customTests: DiagnosticTest[];
   customEvidenceProfiles: EvidenceProfile[];

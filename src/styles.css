@@ -124,6 +124,43 @@ button:hover {
   overflow-wrap: anywhere;
 }
 
+.disclaimer-box {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.disclaimer-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+.disclaimer-summary p {
+  margin: 0;
+  color: #475569;
+  font-weight: 750;
+}
+
+.disclaimer-summary button {
+  flex: 0 0 auto;
+}
+
+.disclaimer-summary button span:first-child {
+  display: inline-block;
+  min-width: 1ch;
+  margin-right: 6px;
+  font-weight: 900;
+}
+
+.disclaimer-content {
+  padding: 0 12px 12px;
+  border-top: 1px solid var(--border);
+}
+
 .lead {
   max-width: none;
   margin: 10px 0 0;
@@ -824,6 +861,14 @@ input[type="range"] {
   overflow-wrap: anywhere;
 }
 
+.catalog-table tr.is-selected td {
+  background: #eff6ff;
+}
+
+.catalog-table tr.is-selected td:first-child {
+  background: #dbeafe;
+}
+
 .catalog-table th:first-child,
 .catalog-table td:first-child {
   position: sticky;
@@ -847,6 +892,77 @@ input[type="range"] {
   width: 100%;
   margin-bottom: 6px;
   text-align: left;
+}
+
+.catalog-badge {
+  display: inline-flex;
+  align-items: center;
+  min-width: max-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.review-needs-review,
+.complete-partial,
+.quality-expert-opinion,
+.quality-unclear {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.review-reviewed,
+.complete-complete,
+.quality-high,
+.quality-moderate {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.review-draft,
+.complete-minimal,
+.quality-low {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.catalog-detail-panel {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.catalog-detail-panel h4 {
+  margin: 0 0 8px;
+}
+
+.catalog-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.catalog-detail-panel dl {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.24fr) minmax(0, 1fr);
+  gap: 8px 14px;
+  margin: 0 0 12px;
+}
+
+.catalog-detail-panel dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.catalog-detail-panel dd {
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .full {
@@ -1061,6 +1177,11 @@ canvas {
 
   .hero-top .menu-button {
     justify-self: start;
+  }
+
+  .disclaimer-summary {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .calculator-grid {

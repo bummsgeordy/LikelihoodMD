@@ -41,6 +41,7 @@ Nach einer Änderung an Daten oder Code:
 npm run validate:data
 npm run test:run
 npm run build
+npm run check:pages
 git add .
 git commit -m "Update curated diagnostic data"
 git push
@@ -62,11 +63,20 @@ Empfohlenes Vorgehen ohne Backend:
    npm run validate:data
    npm run test:run
    npm run build
+   npm run check:pages
    ```
 
 6. Erst danach committen und pushen.
 
 Damit bleiben öffentliche Daten unter deiner Kontrolle. Online-Nutzer können nur ihre lokale Browserkopie ändern; andere Besucher sehen weiterhin die kuratierten Repository-Daten.
+
+## Empfohlene Repository-Einstellungen
+
+- `Settings -> Pages`: Quelle `GitHub Actions`.
+- `Settings -> Branches`: Branch Protection für `main` aktivieren.
+- Pull Requests nur mergen, wenn `validate`, Tests und Build grün sind.
+- Externe Vorschläge bevorzugt über Issue-Templates oder JSON-Vorschläge sammeln.
+- `reviewed` erst setzen, wenn du den medizinischen Inhalt fachlich geprüft hast.
 
 ## Direkte Beiträge über GitHub
 

@@ -22,7 +22,11 @@
         "note": "Leitlinie betont gezieltes Testen bei klinischem Verdacht statt Screening unselektierter Populationen."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "cushing-endocrine-direct",
@@ -47,7 +51,11 @@
         "note": "Aus klinischen Testindikationen abgeleitete Setting-Annahme."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "cushing-general-fallback",
@@ -72,7 +80,11 @@
         "note": "Allgemeine Fallback-Annahme aus Testindikationen abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "pa-nephrology-direct",
@@ -97,7 +109,11 @@
         "note": "Leitlinie benennt Hochrisikogruppen für Screening."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "pa-general-fallback",
@@ -122,7 +138,11 @@
         "note": "Fallback aus beschriebenen Screening-Indikationen und Hochrisikogruppen abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "ppgl-primary-care-direct",
@@ -147,7 +167,11 @@
         "note": "Leitlinie unterstützt gezielte biochemische Testung bei passenden Risikokonstellationen."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "ppgl-general-fallback",
@@ -172,7 +196,11 @@
         "note": "Fallback aus Testindikationen der Leitlinie abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "heart-failure-primary-care-direct",
@@ -197,7 +225,11 @@
         "note": "Diagnostischer Kontext für natriuretische Peptide in der ambulanten Abklärung."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "heart-failure-general-fallback",
@@ -222,7 +254,11 @@
         "note": "Allgemeiner Fallback aus diagnostischem Versorgungskontext abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "adrenal-insufficiency-general-fallback",
@@ -247,7 +283,11 @@
         "note": "Fallback aus klinischer Testindikation für den Cosyntropin-Test abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "graves-general-fallback",
@@ -272,7 +312,11 @@
         "note": "Fallback aus diagnostischem Kontext der TRAb-Testung abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "mtc-general-fallback",
@@ -297,7 +341,11 @@
         "note": "Fallback für diagnostischen Kontext der basalen Calcitoninbestimmung."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   },
   {
     "id": "celiac-general-fallback",
@@ -322,6 +370,10 @@
         "note": "Fallback aus diagnostischem Kontext der tTG-IgA-Testung abgeleitet."
       }
     ],
-    "kind": "curated"
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
   }
 ]

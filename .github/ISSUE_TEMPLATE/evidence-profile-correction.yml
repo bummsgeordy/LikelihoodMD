@@ -1,0 +1,51 @@
+name: Evidenzprofil korrigieren
+description: Korrektur fuer Sensitivitaet, Spezifitaet, LR, Cut-off, Population oder Quelle
+title: "[Evidenzprofil] "
+labels: ["clinical-data", "evidence-profile", "correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Konkurrierende Studienwerte sollen als eigenes Evidenzprofil vorgeschlagen werden, nicht als stilles Ueberschreiben.
+  - type: input
+    id: test
+    attributes:
+      label: Betroffener Test
+      placeholder: z. B. Aldosteron-Renin-Ratio
+    validations:
+      required: true
+  - type: input
+    id: profile
+    attributes:
+      label: Betroffenes Evidenzprofil oder neuer Profilname
+      placeholder: z. B. ARR-Screening, Leitlinienannahme
+    validations:
+      required: true
+  - type: textarea
+    id: corrected-values
+    attributes:
+      label: Vorgeschlagene Werte
+      placeholder: "Cut-off: ...\nSensitivitaet: ...\nSpezifitaet: ...\nLR+: ...\nLR−: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: population
+    attributes:
+      label: Population und intended use
+      description: Fuer welche Patientengruppe und welches Setting gelten die Werte?
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Grund der Korrektur
+      description: Warum sollte dieser Wert angepasst oder als neues Profil ergaenzt werden?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Quellen
+      description: Titel, Jahr, URL/DOI/PubMed-Link und kurze Notiz zur Uebertragbarkeit.
+    validations:
+      required: true

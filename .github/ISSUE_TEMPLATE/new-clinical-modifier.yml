@@ -1,0 +1,60 @@
+name: Klinischen Modifikator vorschlagen
+description: Symptom, Zeichen, Anamnese- oder Kontextfaktor mit Richtung und Quelle vorschlagen
+title: "[Modifikator] "
+labels: ["clinical-data", "modifier"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bitte keine Patientendaten eintragen. Quantifizierte Faktoren oder LR-Werte brauchen eine nachvollziehbare Quelle.
+  - type: input
+    id: condition
+    attributes:
+      label: Erkrankung / Fragestellung
+      placeholder: z. B. Primaerer Hyperaldosteronismus
+    validations:
+      required: true
+  - type: input
+    id: label
+    attributes:
+      label: Modifikator
+      placeholder: z. B. Hypokaliaemie, resistente Hypertonie, paroxysmale Symptome
+    validations:
+      required: true
+  - type: dropdown
+    id: direction
+    attributes:
+      label: Erwartete Richtung
+      options:
+        - erhoeht Praetestwahrscheinlichkeit
+        - senkt Praetestwahrscheinlichkeit
+        - unklar / kontextabhaengig
+    validations:
+      required: true
+  - type: textarea
+    id: quantification
+    attributes:
+      label: Quantifizierung, falls vorhanden
+      description: Bitte nur ausfuellen, wenn ein belastbarer Faktor oder LR mit Quelle vorliegt.
+      placeholder: "LR: ...\noder Wahrscheinlichkeitsfaktor: ..."
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Begründung
+      description: Warum verändert dieser Faktor die Praetestwahrscheinlichkeit?
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Grenzen / Doppelzaehlung
+      description: Kann dieser Faktor bereits in einer Setting-Annahme enthalten sein?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Quellen
+      description: Titel, Jahr, URL/DOI/PubMed-Link und kurze Notiz zur Uebertragbarkeit.
+    validations:
+      required: true

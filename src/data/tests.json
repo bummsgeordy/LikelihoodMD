@@ -31,7 +31,11 @@
             "kind": "Studie",
             "note": "Berichtet Sensitivität 88,24 % und Spezifität 88,46 % bei Cut-off 11,3 nmol/l."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       },
       {
         "id": "lnsc-meta-analysis",
@@ -58,7 +62,11 @@
             "kind": "Review",
             "note": "Als historische Vergleichsannahme dokumentiert."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -94,7 +102,11 @@
             "kind": "Lehrtext",
             "note": "Zusammenfassende Angaben zu Sensitivität und diagnostischer Anwendung des Overnight-DST."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -130,7 +142,11 @@
             "kind": "Lehrtext",
             "note": "Beschreibt Einsatz und Grenzen des 48-h-DST."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -166,7 +182,11 @@
             "kind": "Leitlinie",
             "note": "Leitlinie zur Indikation, Präanalytik und Interpretation des Screenings."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -202,7 +222,11 @@
             "kind": "Leitlinie",
             "note": "Leitlinie dokumentiert hohe Sensitivität und nennt Studiendaten zu Plasma- und Urin-Metanephrinen."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -238,7 +262,11 @@
             "kind": "Leitlinie",
             "note": "Berichtet für urinfraktionierte Metanephrine per Massenspektrometrie Sensitivität 97 % und Spezifität 91 %."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -274,7 +302,11 @@
             "kind": "Studie",
             "note": "Als Basisannahme für den niedrigen ambulanten Cut-off aufgenommen."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       },
       {
         "id": "ntprobnp-400",
@@ -301,7 +333,11 @@
             "kind": "Studie",
             "note": "Als Basisannahme für den höheren ambulanten Cut-off aufgenommen."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -337,7 +373,11 @@
             "kind": "Lehrtext",
             "note": "Beschreibt Protokoll und nennt Sensitivität 96 % sowie Spezifität 93 % für den oralen Salzbelastungstest."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -373,7 +413,11 @@
             "kind": "Review",
             "note": "Meta-Analyse diagnostischer Tests; berichtet für 24-h-Urinfreies Cortisol gepoolte Sensitivität und Spezifität."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -409,7 +453,11 @@
             "kind": "Lehrtext",
             "note": "Berichtet für sekundäre Nebenniereninsuffizienz Sensitivität 64 % und Spezifität 93 %."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -445,7 +493,11 @@
             "kind": "Review",
             "note": "Berichtet für TRAb-Assays der 3. Generation Sensitivität 98,3 % und Spezifität 99,2 %."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       },
       {
         "id": "trab-second-generation-meta",
@@ -472,7 +524,11 @@
             "kind": "Review",
             "note": "Berichtet für TRAb-Assays der 2. Generation Sensitivität 97,1 % und Spezifität 97,4 %."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -508,7 +564,11 @@
             "kind": "Review",
             "note": "Umbrella Review; berichtet für basales Calcitonin bei 10 pg/ml Sensitivität 100 % und Spezifität 97,2 %."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   },
@@ -544,7 +604,11 @@
             "kind": "Review",
             "note": "AHRQ Review; berichtet für tTG-IgA bei Erwachsenen Sensitivität 93,0 % und Spezifität 96,5 %."
           }
-        ]
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "complete",
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
       }
     ]
   }
