@@ -64,7 +64,10 @@ app.innerHTML = `
     <header class="hero">
       <div class="hero-top">
         <h1>Likelihood-Ratio-Rechner</h1>
-        <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
+        <div class="hero-actions">
+          <a class="secondary-button info-link" href="./info/vierfeldertafel/">Diagnostische Kennzahlen</a>
+          <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
+        </div>
       </div>
       <section class="disclaimer-box" aria-labelledby="disclaimerTitle">
         <div class="disclaimer-summary">

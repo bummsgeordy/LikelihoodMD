@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagnostische Kennzahlen verstehen</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f3f6fa;
+        --surface: #ffffff;
+        --surface-muted: #f8fafc;
+        --text: #111827;
+        --muted: #5b6472;
+        --border: #d1d5db;
+        --accent: #0a84ff;
+        --tp: #dcfce7;
+        --fp: #fee2e2;
+        --fn: #ffedd5;
+        --tn: #dbeafe;
+        --note: #fffbeb;
+        --note-border: #f59e0b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: #075db3;
+      }
+
+      code,
+      pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .diagnostic-info-page {
+        width: min(1040px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 48px;
+      }
+
+      .info-hero,
+      .info-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface);
+        box-shadow: 0 16px 35px rgba(15, 23, 42, 0.06);
+      }
+
+      .info-hero {
+        padding: 24px;
+        margin-bottom: 18px;
+      }
+
+      .top-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        margin-bottom: 16px;
+        padding: 6px 10px;
+        border: 1px solid #b7d8ff;
+        border-radius: 8px;
+        background: #f8fbff;
+        color: #064d94;
+        font-weight: 750;
+        text-decoration: none;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1.18;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3.25rem);
+      }
+
+      h2 {
+        margin-bottom: 10px;
+        font-size: clamp(1.4rem, 2.6vw, 2rem);
+      }
+
+      h3 {
+        font-size: 1.04rem;
+      }
+
+      .lead {
+        max-width: 78ch;
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .info-card {
+        padding: 18px;
+        margin: 18px 0;
+      }
+
+      .diagnostic-2x2 table,
+      .example-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 0;
+        background: var(--surface);
+      }
+
+      .diagnostic-2x2 th,
+      .diagnostic-2x2 td,
+      .example-table th,
+      .example-table td {
+        border: 1px solid var(--border);
+        padding: 0.75rem;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .diagnostic-2x2 th,
+      .example-table th {
+        background: #f3f4f6;
+        font-weight: 850;
+      }
+
+      .diagnostic-2x2 td code,
+      .example-table td code {
+        white-space: nowrap;
+      }
+
+      .tp {
+        background: var(--tp);
+      }
+
+      .fp {
+        background: var(--fp);
+      }
+
+      .fn {
+        background: var(--fn);
+      }
+
+      .tn {
+        background: var(--tn);
+      }
+
+      .ascii-box {
+        margin: 1rem 0 0;
+        overflow-x: auto;
+        border-radius: 10px;
+        background: #111827;
+        color: #f9fafb;
+        padding: 1rem;
+        white-space: pre;
+        font-size: 0.88rem;
+      }
+
+      .metric-grid,
+      .scenario-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .metric-card,
+      .scenario-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface-muted);
+        padding: 14px;
+      }
+
+      .metric-card p,
+      .scenario-card p {
+        margin: 8px 0 0;
+      }
+
+      .formula {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 7px;
+        border-radius: 6px;
+        background: #eef2ff;
+        color: #1e3a8a;
+        font-weight: 750;
+      }
+
+      .evidence-note {
+        border: 1px solid #fde68a;
+        border-left: 4px solid var(--note-border);
+        border-radius: 10px;
+        background: var(--note);
+        padding: 14px;
+      }
+
+      .clinical-relevance ul,
+      .scenario-card ul {
+        margin: 10px 0 0 18px;
+        padding: 0;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #e0f2fe;
+        color: #075985;
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .mnemonic {
+        border-left: 5px solid var(--accent);
+        background: #eef6ff;
+        font-weight: 760;
+      }
+
+      @media (max-width: 720px) {
+        .diagnostic-info-page {
+          width: min(100% - 20px, 1040px);
+          padding-top: 18px;
+        }
+
+        .info-hero,
+        .info-card {
+          padding: 14px;
+        }
+
+        .diagnostic-2x2 th,
+        .diagnostic-2x2 td,
+        .example-table th,
+        .example-table td {
+          padding: 0.6rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="diagnostic-info-page">
+      <section class="info-hero">
+        <a class="top-link" href="../../">← Zurück zum Rechner</a>
+        <h1>Diagnostische Kennzahlen verstehen</h1>
+        <p class="lead">
+          Diagnostische Tests verändern Wahrscheinlichkeiten. Die Vierfeldertafel zeigt, wie Testergebnis
+          und tatsächlicher Krankheitsstatus zusammenhängen.
+        </p>
+        <div class="tag-row" aria-label="Kernaussagen">
+          <span class="tag">Sensitivität und Spezifität: Testeigenschaften</span>
+          <span class="tag">PPV und NPV: Bedeutung im Kontext</span>
+          <span class="tag">LR+ und LR−: Brücke zur Prätestwahrscheinlichkeit</span>
+        </div>
+      </section>
+
+      <section class="info-card diagnostic-2x2">
+        <h2>Vierfeldertafel diagnostischer Tests</h2>
+        <p>
+          Die Vierfeldertafel verbindet das Testergebnis mit dem tatsächlichen Krankheitsstatus.
+          Daraus entstehen Sensitivität, Spezifität, positiver Vorhersagewert, negativer
+          Vorhersagewert und Likelihood Ratios.
+        </p>
+        <div class="table-scroll">
+          <table aria-label="Vierfeldertafel diagnostischer Tests">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Krankheit vorhanden</th>
+                <th>Krankheit nicht vorhanden</th>
+                <th>Bedeutung des Testergebnisses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Test positiv</th>
+                <td class="tp"><strong>richtig positiv</strong><br />TP</td>
+                <td class="fp"><strong>falsch positiv</strong><br />FP</td>
+                <td><strong>PPV</strong><br /><code>TP / (TP + FP)</code></td>
+              </tr>
+              <tr>
+                <th>Test negativ</th>
+                <td class="fn"><strong>falsch negativ</strong><br />FN</td>
+                <td class="tn"><strong>richtig negativ</strong><br />TN</td>
+                <td><strong>NPV</strong><br /><code>TN / (FN + TN)</code></td>
+              </tr>
+              <tr>
+                <th>Testgüte</th>
+                <td><strong>Sensitivität</strong><br /><code>TP / (TP + FN)</code></td>
+                <td><strong>Spezifität</strong><br /><code>TN / (FP + TN)</code></td>
+                <td><strong>Prävalenz</strong><br /><code>(TP + FN) / alle</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pre class="ascii-box" aria-label="Schema der Vierfeldertafel">                  Tatsächlicher Status
+               ┌──────────────┬──────────────┐
+               │ krank        │ nicht krank  │
+┌──────────────┼──────────────┼──────────────┤
+│ Test positiv │ TP           │ FP           │  → PPV = TP / (TP + FP)
+├──────────────┼──────────────┼──────────────┤
+│ Test negativ │ FN           │ TN           │  → NPV = TN / (FN + TN)
+└──────────────┴──────────────┴──────────────┘
+                 ↓              ↓
+      Sensitivität = TP/(TP+FN)  Spezifität = TN/(FP+TN)</pre>
+      </section>
+
+      <section class="info-card">
+        <h2>Kennzahlen kurz erklärt</h2>
+        <div class="metric-grid">
+          <article class="metric-card">
+            <h3>Sensitivität</h3>
+            <p>Anteil der Kranken, die der Test erkennt.</p>
+            <code class="formula">TP / (TP + FN)</code>
+            <p>Hohe Sensitivität hilft besonders beim Ausschluss, wenn ein sensitiver Test negativ ist.</p>
+          </article>
+          <article class="metric-card">
+            <h3>Spezifität</h3>
+            <p>Anteil der Nicht-Kranken, die korrekt negativ getestet werden.</p>
+            <code class="formula">TN / (FP + TN)</code>
+            <p>Hohe Spezifität hilft besonders beim Bestätigen, wenn ein spezifischer Test positiv ist.</p>
+          </article>
+          <article class="metric-card">
+            <h3>PPV / positiver Vorhersagewert</h3>
+            <p>Anteil der positiven Tests, die wirklich krank sind.</p>
+            <code class="formula">TP / (TP + FP)</code>
+            <p>Der PPV hängt stark von Prävalenz beziehungsweise Prätestwahrscheinlichkeit ab.</p>
+          </article>
+          <article class="metric-card">
+            <h3>NPV / negativer Vorhersagewert</h3>
+            <p>Anteil der negativen Tests, die wirklich nicht krank sind.</p>
+            <code class="formula">TN / (FN + TN)</code>
+            <p>Der NPV hängt ebenfalls stark von Prävalenz beziehungsweise Prätestwahrscheinlichkeit ab.</p>
+          </article>
+          <article class="metric-card">
+            <h3>LR+</h3>
+            <p>Wie stark erhöht ein positives Testergebnis die Wahrscheinlichkeit der Erkrankung?</p>
+            <code class="formula">Sensitivität / (1 − Spezifität)</code>
+            <p>Faustregel: &gt; 10 starkes Rule-in, 5-10 mäßig, 2-5 eher schwach bis mäßig, ≈ 1 kaum Nutzen.</p>
+          </article>
+          <article class="metric-card">
+            <h3>LR−</h3>
+            <p>Wie stark senkt ein negatives Testergebnis die Wahrscheinlichkeit der Erkrankung?</p>
+            <code class="formula">(1 − Sensitivität) / Spezifität</code>
+            <p>Faustregel: &lt; 0,1 starkes Rule-out, 0,1-0,2 mäßig, &gt; 0,5 gering, ≈ 1 kaum Nutzen.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="info-card evidence-note">
+        <h2>Warum hängen PPV und NPV von der Prävalenz ab?</h2>
+        <p>
+          Sensitivität und Spezifität betrachten die Spalten der Vierfeldertafel: Sie fragen,
+          wie sich der Test bei Kranken und Nicht-Kranken verhält. PPV und NPV betrachten die Zeilen:
+          Sie fragen, was ein positives oder negatives Testergebnis bedeutet.
+        </p>
+        <p>
+          Wenn die Erkrankung selten ist, gibt es sehr viele Nicht-Kranke. Selbst bei guter Spezifität
+          können aus dieser großen Gruppe viele falsch positive Ergebnisse entstehen. Dadurch kann der
+          PPV niedrig sein, obwohl der Test scheinbar gut ist. Wenn die Erkrankung häufig ist, steigt
+          der Anteil richtig positiver Ergebnisse unter allen positiven Tests; gleichzeitig kann der NPV sinken.
+        </p>
+      </section>
+
+      <section class="info-card prevalence-example">
+        <h2>Zahlenbeispiel: gleicher Test, andere Prävalenz</h2>
+        <p>Gleicher Test: Sensitivität 90 %, Spezifität 90 %, Kohorte 1000 Personen.</p>
+        <div class="table-scroll">
+          <table class="example-table" aria-label="Beispiel zur Prävalenzabhängigkeit">
+            <thead>
+              <tr>
+                <th>Szenario</th>
+                <th>Prävalenz</th>
+                <th>TP</th>
+                <th>FP</th>
+                <th>FN</th>
+                <th>TN</th>
+                <th>PPV</th>
+                <th>NPV</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>seltene Erkrankung</td>
+                <td>1 %</td>
+                <td>9</td>
+                <td>99</td>
+                <td>1</td>
+                <td>891</td>
+                <td>8,3 %</td>
+                <td>99,9 %</td>
+              </tr>
+              <tr>
+                <td>häufige Erkrankung</td>
+                <td>50 %</td>
+                <td>450</td>
+                <td>50</td>
+                <td>50</td>
+                <td>450</td>
+                <td>90 %</td>
+                <td>90 %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="scenario-grid">
+          <article class="scenario-card">
+            <h3>Szenario A: Prävalenz 1 %</h3>
+            <ul>
+              <li>10 krank, 990 nicht krank</li>
+              <li>9 richtig positiv, 1 falsch negativ</li>
+              <li>99 falsch positiv, 891 richtig negativ</li>
+              <li>PPV = 9 / (9 + 99) = 8,3 %</li>
+              <li>NPV = 891 / (891 + 1) = 99,9 %</li>
+            </ul>
+            <p>
+              Obwohl der Test 90 % Sensitivität und 90 % Spezifität hat, ist ein positives Ergebnis
+              bei niedriger Prävalenz nur begrenzt überzeugend.
+            </p>
+          </article>
+          <article class="scenario-card">
+            <h3>Szenario B: Prävalenz 50 %</h3>
+            <ul>
+              <li>500 krank, 500 nicht krank</li>
+              <li>450 richtig positiv, 50 falsch negativ</li>
+              <li>50 falsch positiv, 450 richtig negativ</li>
+              <li>PPV = 450 / (450 + 50) = 90 %</li>
+              <li>NPV = 450 / (450 + 50) = 90 %</li>
+            </ul>
+            <p>
+              Derselbe Test hat bei hoher Prävalenz einen deutlich höheren PPV. Das Testergebnis
+              ist klinisch anders zu bewerten.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="info-card clinical-relevance">
+        <h2>Warum ist das in der Praxis notwendig?</h2>
+        <p>
+          Diagnostische Tests liefern keine absolute Wahrheit. Sie verändern eine bereits bestehende
+          Wahrscheinlichkeit. Diese Ausgangswahrscheinlichkeit entsteht aus Prävalenz, Risikofaktoren,
+          Symptomen, klinischem Eindruck und Vorbefunden.
+        </p>
+        <p>
+          Ohne Prätestwahrscheinlichkeit kann ein Testergebnis leicht falsch interpretiert werden.
+          Besonders bei seltenen Erkrankungen können positive Tests trotz guter Testgüte überwiegend
+          falsch positiv sein. Umgekehrt kann ein negativer Test bei hoher klinischer Wahrscheinlichkeit
+          nicht immer ausreichend beruhigen.
+        </p>
+        <ul>
+          <li>weniger Base-rate neglect</li>
+          <li>weniger unnötige Testkaskaden</li>
+          <li>bessere Einschätzung falsch positiver und falsch negativer Risiken</li>
+          <li>bessere Kommunikation mit Patientinnen und Patienten</li>
+          <li>klarere Entscheidung, ob ein Test das Management wirklich verändert</li>
+        </ul>
+      </section>
+
+      <section class="info-card mnemonic">
+        <h2>Merksatz</h2>
+        <p>
+          Sensitivität und Spezifität beschreiben den Test. PPV und NPV beschreiben die Bedeutung
+          des Testergebnisses im jeweiligen Kontext. LR+ und LR− verbinden beides mit der Prätestwahrscheinlichkeit.
+        </p>
+        <p>
+          Die medizinisch wichtige Frage lautet nicht nur: Ist der Test gut? Sondern:
+          Ändert dieser Test bei dieser Prätestwahrscheinlichkeit meine klinische Entscheidung?
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

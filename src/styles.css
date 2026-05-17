@@ -115,6 +115,20 @@ button:hover {
   flex: 0 0 auto;
 }
 
+.hero-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.info-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .hero h1 {
   min-width: 0;
   margin: 0;
@@ -1175,8 +1189,9 @@ canvas {
     grid-template-columns: 1fr;
   }
 
-  .hero-top .menu-button {
+  .hero-actions {
     justify-self: start;
+    justify-content: flex-start;
   }
 
   .disclaimer-summary {

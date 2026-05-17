@@ -8,6 +8,25 @@ Diese Anwendung zeigt, wie Prätestwahrscheinlichkeit, Sensitivität, Spezifitä
 
 Bitte keine Patientendaten eingeben. Eigene Tests und Prätest-Annahmen werden nur lokal im Browser gespeichert und können als JSON exportiert werden.
 
+## Diagnostischer Hintergrund
+
+Das Projekt basiert auf dem Prinzip, dass diagnostische Tests Wahrscheinlichkeiten verändern, aber Diagnosen nicht isoliert beweisen oder ausschließen. Die zentrale Grundlage ist die Vierfeldertafel:
+
+| | Krankheit vorhanden | Krankheit nicht vorhanden | Aussage |
+|---|---:|---:|---|
+| **Test positiv** | TP = richtig positiv | FP = falsch positiv | **PPV** = TP / (TP + FP) |
+| **Test negativ** | FN = falsch negativ | TN = richtig negativ | **NPV** = TN / (FN + TN) |
+| **Testgüte** | **Sensitivität** = TP / (TP + FN) | **Spezifität** = TN / (FP + TN) | **Prävalenz** = (TP + FN) / alle |
+
+Sensitivität und Spezifität beschreiben den Test. PPV und NPV beschreiben die Bedeutung des Testergebnisses in einer konkreten Population und hängen daher stark von Prävalenz beziehungsweise Prätestwahrscheinlichkeit ab.
+
+Likelihood Ratios verbinden Testgüte und Prätestwahrscheinlichkeit:
+
+    LR+ = Sensitivität / (1 − Spezifität)
+    LR− = (1 − Sensitivität) / Spezifität
+
+Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht die automatische Diagnose, sondern eine transparentere, rationalere und weniger biasanfällige diagnostische Entscheidungsfindung. Eine ausführlichere Erklärung steht auf der Info-Seite [Diagnostische Kennzahlen verstehen](public/info/vierfeldertafel/index.html).
+
 ## Funktionen
 
 - Kuratierte diagnostische Tests mit auswählbaren Evidenzprofilen für unterschiedliche Quellen, Cut-offs oder Populationen.
