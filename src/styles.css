@@ -729,12 +729,13 @@ input[type="range"] {
 
 .admin-filter-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
 .admin-overview {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -785,7 +786,7 @@ input[type="range"] {
 }
 
 .catalog-table-wrap {
-  max-height: min(68vh, 760px);
+  max-height: min(72vh, 820px);
   overflow: auto;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -794,9 +795,10 @@ input[type="range"] {
 
 .catalog-table {
   width: 100%;
-  min-width: 980px;
-  border-collapse: collapse;
-  font-size: 0.86rem;
+  min-width: 2200px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.82rem;
 }
 
 .catalog-table th,
@@ -810,7 +812,7 @@ input[type="range"] {
 .catalog-table th {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   background: #f8fafc;
   color: var(--muted);
   font-size: 0.78rem;
@@ -820,6 +822,21 @@ input[type="range"] {
 
 .catalog-table td {
   overflow-wrap: anywhere;
+}
+
+.catalog-table th:first-child,
+.catalog-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  min-width: 150px;
+  background: #fff;
+  box-shadow: 1px 0 0 var(--border);
+}
+
+.catalog-table th:first-child {
+  z-index: 4;
+  background: #f8fafc;
 }
 
 .catalog-table td:last-child {
@@ -903,22 +920,25 @@ input[type="range"] {
 
 .admin-drawer {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 12px;
+  left: 12px;
+  bottom: 12px;
   z-index: 30;
-  width: min(620px, calc(100vw - 18px));
-  height: 100vh;
-  padding: 18px;
+  width: auto;
+  height: auto;
+  padding: 20px;
   overflow-y: auto;
   background: var(--surface);
-  border-left: 1px solid var(--border);
-  box-shadow: -18px 0 34px rgba(15, 23, 42, 0.2);
-  transform: translateX(104%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 22px 58px rgba(15, 23, 42, 0.26);
+  transform: translateY(104%);
   transition: transform 0.2s ease;
 }
 
 .admin-drawer.is-open {
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .drawer-header {
@@ -1027,6 +1047,7 @@ canvas {
   .calculator-grid,
   .editor-grid,
   .admin-filter-grid,
+  .admin-overview,
   .metric-grid,
   .section-heading-row,
   .split-input {

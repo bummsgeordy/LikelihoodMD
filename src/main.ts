@@ -245,10 +245,20 @@ app.innerHTML = `
             <thead>
               <tr>
                 <th>Typ</th>
-                <th>Kontext</th>
-                <th>Parameter</th>
-                <th>Quelle / Begründung</th>
-                <th>Grenzen / Fallstricke</th>
+                <th>Erkrankung</th>
+                <th>Setting</th>
+                <th>Prätest</th>
+                <th>Modifikator</th>
+                <th>Test</th>
+                <th>Evidenzprofil</th>
+                <th>Cut-off</th>
+                <th>Sens.</th>
+                <th>Spez.</th>
+                <th>LR+</th>
+                <th>LR−</th>
+                <th>PPV/NPV</th>
+                <th>Quelle</th>
+                <th>Begründung / Grenzen</th>
                 <th>Aktionen</th>
               </tr>
             </thead>
@@ -1128,15 +1138,35 @@ interface CatalogRow {
   conditionId: string;
   settingId?: string;
   testId?: string;
-  cells: [string, string, string, string, string];
+  cells: string[];
 }
 
 function sourceSummary(sources: EvidenceSource[]): string {
   return sources.length > 0 ? sources.map(source => `${source.title} (${source.year})`).join('; ') : 'Keine Quelle hinterlegt';
 }
 
+function conditionLabelForId(conditionId: string): string {
+  return allConditions().find(condition => condition.id === conditionId)?.label ?? conditionId;
+}
+
+function settingLabelForId(settingId: string | undefined, fallback = 'Alle Settings'): string {
+  if (!settingId) return fallback;
+  if (settingId === 'general') return 'Allgemeine Erkrankungsannahme';
+  return allSettings().find(setting => setting.id === settingId)?.label ?? settingId;
+}
+
+function assumptionsForCondition(conditionId: string): PretestAssumption[] {
+  return normalizedAssumptions().filter(assumption => assumption.conditionId === conditionId);
+}
+
+function modifierSummaryForCondition(conditionId: string): string {
+  const modifiers = modifiersForCondition(conditionId);
+  if (modifiers.length === 0) return 'Keine hinterlegt';
+  return modifiers.map(modifier => `${modifier.label} (${directionLabel(modifier.direction)})`).join('; ');
+}
+
 function catalogRows(): CatalogRow[] {
-  const assumptionRows: CatalogRow[] = allAssumptions().map(assumption => ({
+  const assumptionRows: CatalogRow[] = normalizedAssumptions().map(assumption => ({
     kind: 'assumption',
     id: assumption.id,
     status: assumption.kind,
@@ -1144,10 +1174,20 @@ function catalogRows(): CatalogRow[] {
     settingId: assumption.settingId,
     cells: [
       'Prätest-Annahme',
-      `${assumption.condition} / ${assumption.setting}`,
-      `Prätest ${formatPercent(assumption.probability)}${assumption.rangeLow != null && assumption.rangeHigh != null ? ` (${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)})` : ''}`,
-      `${assumption.rationale} Quelle: ${sourceSummary(assumption.sources)}`,
-      assumption.limitations
+      assumption.condition,
+      assumption.setting,
+      `${formatPercent(assumption.probability)}${assumption.rangeLow != null && assumption.rangeHigh != null ? ` (${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)})` : ''}`,
+      modifierSummaryForCondition(assumption.conditionId ?? conditionIdForLabel(assumption.condition)),
+      '–',
+      '–',
+      '–',
+      '–',
+      '–',
+      '–',
+      '–',
+      '–',
+      sourceSummary(assumption.sources),
+      `${assumption.rationale} Grenzen: ${assumption.limitations}`
     ]
   }));
   const modifierRows: CatalogRow[] = allModifiers().map(modifier => ({
@@ -1157,30 +1197,57 @@ function catalogRows(): CatalogRow[] {
     conditionId: modifier.conditionId,
     cells: [
       'Klinischer Modifikator',
-      `${allConditions().find(condition => condition.id === modifier.conditionId)?.label ?? modifier.conditionId} / ${modifier.category}`,
-      `${modifier.label}; Richtung: ${directionLabel(modifier.direction)}${modifier.likelihoodRatio != null ? `; LR ${formatRatio(modifier.likelihoodRatio)}` : ''}${modifier.probabilityFactor != null ? `; Faktor ${formatRatio(modifier.probabilityFactor)}` : ''}`,
-      `${modifier.rationale} Quelle: ${sourceSummary(modifier.sources)}`,
-      modifier.limitations
+      conditionLabelForId(modifier.conditionId),
+      '–',
+      'wirkt auf Prätest',
+      `${modifier.label}; ${modifier.category}; Richtung: ${directionLabel(modifier.direction)}${modifier.likelihoodRatio != null ? `; LR ${formatRatio(modifier.likelihoodRatio)}` : ''}${modifier.probabilityFactor != null ? `; Faktor ${formatRatio(modifier.probabilityFactor)}` : ''}`,
+      '–',
+      '–',
+      '–',
+      '–',
+      '–',
+      modifier.likelihoodRatio != null ? formatRatio(modifier.likelihoodRatio) : '–',
+      modifier.likelihoodRatio != null ? formatRatio(modifier.likelihoodRatio) : '–',
+      '–',
+      sourceSummary(modifier.sources),
+      `${modifier.rationale} Grenzen: ${modifier.limitations}`
     ]
   }));
   const profileRows: CatalogRow[] = allProfiles().flatMap(profile => {
     const test = allTests().find(candidate => candidate.id === profile.testId);
     if (!test) return [];
+    const conditionId = conditionIdForLabel(test.condition);
     const ratios = resolveLikelihoodRatios(profile);
-    return [{
+    const assumptions = assumptionsForCondition(conditionId);
+    const assumptionsForRows = assumptions.length > 0 ? assumptions : [undefined];
+    return assumptionsForRows.map(assumption => {
+      const result = assumption ? calculateResult(profile, assumption.probability) : null;
+      return {
       kind: 'profile',
       id: profile.id,
       status: profile.kind,
-      conditionId: conditionIdForLabel(test.condition),
+      conditionId,
+      settingId: assumption?.settingId,
       testId: test.id,
       cells: [
         'Test / Evidenzprofil',
-        `${test.condition} / ${test.name}`,
-        `${profile.label}; Cut-off: ${profile.cutoff}; Sens ${formatPercent(profile.sensitivity)}, Spez ${formatPercent(profile.specificity)}, LR+ ${formatRatio(ratios.lrPositive)}, LR− ${formatRatio(ratios.lrNegative)}`,
-        `${profile.rationale} Quelle: ${sourceSummary(profile.sources)}`,
-        `${profile.procedure ?? 'Durchführung nach Laborprotokoll.'} ${profile.limitations}`
+        test.condition,
+        settingLabelForId(assumption?.settingId, 'Keine Prätest-Annahme'),
+        assumption ? formatPercent(assumption.probability) : '–',
+        modifierSummaryForCondition(conditionId),
+        test.name,
+        profile.label,
+        profile.cutoff,
+        formatPercent(profile.sensitivity),
+        formatPercent(profile.specificity),
+        formatRatio(ratios.lrPositive),
+        formatRatio(ratios.lrNegative),
+        result ? `${formatPercent(result.ppv)} / ${formatPercent(result.npv)}` : '–',
+        sourceSummary(profile.sources),
+        `Methode: ${profile.method}. Durchführung: ${profile.procedure ?? 'Nach Laborprotokoll.'} Begründung: ${profile.rationale} Grenzen: ${profile.limitations}`
       ]
-    }];
+    };
+    });
   });
   return [...assumptionRows, ...modifierRows, ...profileRows];
 }
@@ -1190,10 +1257,15 @@ function renderDataCatalog(): void {
   const settingFilter = controls.catalogSettingFilter.value || 'all';
   const testFilter = controls.catalogTestFilter.value || 'all';
   const statusFilter = controls.catalogStatusFilter.value || 'all';
+  const testFilterConditionId = testFilter === 'all'
+    ? null
+    : conditionIdForLabel(allTests().find(test => test.id === testFilter)?.condition ?? '');
   const rows = catalogRows().filter(row => {
     if (conditionFilter !== 'all' && row.conditionId !== conditionFilter) return false;
-    if (settingFilter !== 'all' && row.kind === 'assumption' && row.settingId !== settingFilter) return false;
+    if (settingFilter !== 'all' && row.settingId && row.settingId !== settingFilter) return false;
+    if (settingFilter !== 'all' && row.kind === 'profile' && !row.settingId) return false;
     if (testFilter !== 'all' && row.kind === 'profile' && row.testId !== testFilter) return false;
+    if (testFilter !== 'all' && row.kind !== 'profile' && testFilterConditionId && row.conditionId !== testFilterConditionId) return false;
     if (statusFilter !== 'all' && row.status !== statusFilter) return false;
     return true;
   });
@@ -1202,6 +1274,7 @@ function renderDataCatalog(): void {
     const tr = document.createElement('tr');
     tr.dataset.kind = row.kind;
     tr.dataset.id = row.id;
+    if (row.settingId) tr.dataset.settingId = row.settingId;
     row.cells.forEach(value => {
       const td = document.createElement('td');
       td.textContent = value;
@@ -1230,7 +1303,7 @@ function renderDataCatalog(): void {
   if (rows.length === 0) {
     const tr = document.createElement('tr');
     const td = document.createElement('td');
-    td.colSpan = 6;
+    td.colSpan = 16;
     td.textContent = 'Keine Einträge für diese Filter.';
     tr.append(td);
     controls.catalogTableBody.append(tr);
@@ -1805,7 +1878,7 @@ function catalogItem(kind: CatalogRowKind, id: string): PretestAssumption | Clin
   return allProfiles().find(item => item.id === id);
 }
 
-function selectCatalogItem(kind: CatalogRowKind, id: string): void {
+function selectCatalogItem(kind: CatalogRowKind, id: string, settingId?: string): void {
   const item = catalogItem(kind, id);
   if (!item) return;
   if (kind === 'assumption') {
@@ -1824,6 +1897,14 @@ function selectCatalogItem(kind: CatalogRowKind, id: string): void {
     state.selectedTestId = profile.testId;
     state.selectedEvidenceProfileId = profile.id;
     if (test) state.selectedConditionId = conditionIdForLabel(test.condition);
+    if (settingId && settingId !== 'general') {
+      state.selectedSettingId = settingId;
+      const assumption = normalizedAssumptions().find(candidate => candidate.conditionId === state.selectedConditionId && candidate.settingId === settingId);
+      if (assumption) {
+        state.selectedAssumptionId = assumption.id;
+        state.manualPretestPercent = clampProbabilityPercent(assumption.probability * 100);
+      }
+    }
   }
   setMessage(controls.actionMessage, 'Katalogeintrag im Rechner ausgewählt.');
   saveAndRender();
@@ -1986,7 +2067,7 @@ controls.catalogTableBody.addEventListener('click', event => {
   if (!button || !row) return;
   const kind = row.dataset.kind as CatalogRowKind;
   const id = row.dataset.id ?? '';
-  if (button.dataset.catalogAction === 'select') selectCatalogItem(kind, id);
+  if (button.dataset.catalogAction === 'select') selectCatalogItem(kind, id, row.dataset.settingId);
   if (button.dataset.catalogAction === 'correct') openCatalogItemForCorrection(kind, id);
   if (button.dataset.catalogAction === 'export') exportCatalogProposal(kind, id);
 });
