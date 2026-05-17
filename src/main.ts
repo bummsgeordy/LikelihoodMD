@@ -1,5 +1,7 @@
 import './styles.css';
 import clinicalSettingsRaw from './data/clinical-settings.json';
+import conditionsRaw from './data/conditions.json';
+import diagnosticChainsRaw from './data/diagnostic-chains.json';
 import curatedModifiersRaw from './data/clinical-modifiers.json';
 import curatedAssumptionsRaw from './data/pretest-assumptions.json';
 import curatedTestsRaw from './data/tests.json';
@@ -29,6 +31,9 @@ import {
   type CatalogRowKind,
   type CatalogSortKey
 } from './app/catalog';
+import { clinicalIdFromLabel, conditionIdForTest, conditionLabel, mergeConditions } from './app/conditions';
+import { calculateDiagnosticChain, chainsForContext } from './app/diagnosticChains';
+import { renderDiagnosticChains } from './ui/renderDiagnosticChains';
 import { validateClinicalModifier, validateDiagnosticTest, validateEvidenceProfile, validatePretestAssumption } from './lib/validation';
 import type {
   CalculationResult,
@@ -38,6 +43,7 @@ import type {
   ClinicalModifierDirection,
   ClinicalSetting,
   DataCompleteness,
+  DiagnosticChain,
   DiagnosticTest,
   EvidenceProfile,
   EvidenceQuality,
@@ -52,9 +58,13 @@ const curatedTests = curatedTestsRaw as DiagnosticTest[];
 const curatedAssumptions = curatedAssumptionsRaw as PretestAssumption[];
 const curatedModifiers = curatedModifiersRaw as ClinicalModifier[];
 const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
+const clinicalConditions = conditionsRaw as ClinicalCondition[];
+const diagnosticChains = diagnosticChainsRaw as DiagnosticChain[];
 let state: CalculatorState = loadState();
 let lastFocusBeforeDrawer: HTMLElement | null = null;
 let selectedCatalogRowKey = '';
+let catalogFiltersLoaded = false;
+const CATALOG_FILTER_KEY = 'likelihood-ratio-rechner-catalog-filters-v1';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) throw new Error('App root not found.');
@@ -65,7 +75,7 @@ app.innerHTML = `
       <div class="hero-top">
         <h1>Likelihood-Ratio-Rechner</h1>
         <div class="hero-actions">
-          <a class="secondary-button info-link" href="./info/vierfeldertafel/">Diagnostische Kennzahlen</a>
+          <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Diagnostische Kennzahlen</a>
           <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
         </div>
       </div>
@@ -80,6 +90,7 @@ app.innerHTML = `
         <div id="disclaimerContent" class="disclaimer-content hidden">
           <p class="lead">Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
           <div class="notice" role="note">Dieses Tool ist keine alleinige Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
+          <p class="data-version">Datenstand: 2026-05-17 · Schema v5 · Kuratierte Daten starten konservativ als needs-review.</p>
         </div>
       </section>
     </header>
@@ -191,6 +202,15 @@ app.innerHTML = `
         </div>
       </section>
 
+      <section class="card diagnostic-chain-card" id="diagnosticChainCard" aria-labelledby="diagnosticChainTitle">
+        <div class="section-heading-row">
+          <h2 id="diagnosticChainTitle">Diagnostikketten</h2>
+          <span class="badge badge-info">Schema v5</span>
+        </div>
+        <p class="muted">Vordefinierte Ketten nutzen die Nachtestwahrscheinlichkeit einer Stufe als neue Prätestwahrscheinlichkeit der nächsten Stufe.</p>
+        <div id="diagnosticChainsPanel"></div>
+      </section>
+
       <aside class="side-column">
         <section class="card" id="detailsCard" aria-labelledby="detailsTitle">
           <h2 id="detailsTitle">Zahlen, Herkunft und Begründung</h2>
@@ -249,7 +269,10 @@ app.innerHTML = `
       </section>
 
       <section class="admin-panel" data-panel="catalog">
-        <h3>Datenkatalog</h3>
+        <div class="section-heading-row">
+          <h3>Datenkatalog</h3>
+          <button id="catalogFullscreenButton" class="secondary-button compact-button" type="button">Vollbildmodus</button>
+        </div>
         <p class="muted">Zusammenführung von Setting, Erkrankung, Prätest-Annahmen, klinischen Modifikatoren, Tests, Evidenzprofilen, Quellen und Fallstricken. Korrekturen werden als lokale Vorschläge angelegt.</p>
         <div class="admin-filter-grid">
           <div class="field full"><label for="catalogSearchInput">Textsuche</label><input id="catalogSearchInput" type="search" placeholder="Erkrankung, Test, Quelle, Setting, Begründung ..."></div>
@@ -291,6 +314,10 @@ app.innerHTML = `
           </table>
         </div>
         <aside id="catalogDetailPanel" class="catalog-detail-panel" aria-live="polite"></aside>
+        <div class="button-row">
+          <button id="markCatalogNeedsReviewButton" type="button">Als needs-review markieren</button>
+          <button id="markCatalogReviewedButton" class="secondary-button" type="button">Lokal als reviewed markieren</button>
+        </div>
       </section>
 
       <section class="admin-panel" data-panel="test">
@@ -438,6 +465,7 @@ const controls = {
   nomogramPositive: $<HTMLCanvasElement>('nomogramPositive'),
   nomogramNegative: $<HTMLCanvasElement>('nomogramNegative'),
   nomogramSizeToggle: $<HTMLInputElement>('nomogramSizeToggle'),
+  diagnosticChainsPanel: $('diagnosticChainsPanel'),
   drawer: $('adminDrawer'),
   drawerBackdrop: $('drawerBackdrop'),
   drawerOpenButton: $('drawerOpenButton'),
@@ -456,6 +484,9 @@ const controls = {
   catalogQualityFilter: $<HTMLSelectElement>('catalogQualityFilter'),
   catalogCompletenessFilter: $<HTMLSelectElement>('catalogCompletenessFilter'),
   catalogSortSelect: $<HTMLSelectElement>('catalogSortSelect'),
+  catalogFullscreenButton: $<HTMLButtonElement>('catalogFullscreenButton'),
+  markCatalogNeedsReviewButton: $<HTMLButtonElement>('markCatalogNeedsReviewButton'),
+  markCatalogReviewedButton: $<HTMLButtonElement>('markCatalogReviewedButton'),
   catalogTableBody: $('catalogTableBody'),
   catalogDetailPanel: $('catalogDetailPanel'),
   adminOverview: $('adminOverview'),
@@ -493,17 +524,8 @@ function selectedModifiers(): ClinicalModifier[] {
   return modifiersForCondition(state.selectedConditionId).filter(modifier => state.selectedModifierIds.includes(modifier.id));
 }
 
-function clinicalIdFromLabel(value: string): string {
-  return value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
 function conditionIdForLabel(condition: string): string {
-  return clinicalIdFromLabel(condition);
+  return clinicalConditions.find(candidate => candidate.label === condition)?.id ?? clinicalIdFromLabel(condition);
 }
 
 function settingIdForLabel(setting: string): string {
@@ -545,17 +567,7 @@ function allSettings(): ClinicalSetting[] {
 }
 
 function allConditions(): ClinicalCondition[] {
-  const conditions = new Map<string, ClinicalCondition>();
-  allTests().forEach(test => {
-    conditions.set(conditionIdForLabel(test.condition), { id: conditionIdForLabel(test.condition), label: test.condition });
-  });
-  normalizedAssumptions().forEach(assumption => {
-    conditions.set(assumption.conditionId ?? conditionIdForLabel(assumption.condition), {
-      id: assumption.conditionId ?? conditionIdForLabel(assumption.condition),
-      label: assumption.condition
-    });
-  });
-  return [...conditions.values()];
+  return mergeConditions(clinicalConditions, allTests(), normalizedAssumptions());
 }
 
 function getSelectedCondition(): ClinicalCondition {
@@ -617,7 +629,7 @@ function resolvePretestAssumption(): PretestResolution {
 }
 
 function selectedTestMatchesCondition(test: DiagnosticTest): boolean {
-  return conditionIdForLabel(test.condition) === state.selectedConditionId;
+  return conditionIdForTest(test) === state.selectedConditionId;
 }
 
 function directionLabel(direction: ClinicalModifierDirection): string {
@@ -778,8 +790,8 @@ function populateSelectors(): void {
   const profiles = profilesForTest(selectedTest.id);
   const selectedProfile = getSelectedProfile();
   const orderedTests = [...tests].sort((a, b) => {
-    const aMatch = conditionIdForLabel(a.condition) === selectedCondition.id ? 0 : 1;
-    const bMatch = conditionIdForLabel(b.condition) === selectedCondition.id ? 0 : 1;
+    const aMatch = conditionIdForTest(a) === selectedCondition.id ? 0 : 1;
+    const bMatch = conditionIdForTest(b) === selectedCondition.id ? 0 : 1;
     return aMatch - bMatch || a.name.localeCompare(b.name, 'de');
   });
 
@@ -832,8 +844,8 @@ function populateAdminSelectors(): void {
   const profiles = profilesForTest(selectedTest.id);
   const selectedProfile = getSelectedProfile();
   const orderedTests = [...allTests()].sort((a, b) => {
-    const aMatch = conditionIdForLabel(a.condition) === selectedCondition.id ? 0 : 1;
-    const bMatch = conditionIdForLabel(b.condition) === selectedCondition.id ? 0 : 1;
+    const aMatch = conditionIdForTest(a) === selectedCondition.id ? 0 : 1;
+    const bMatch = conditionIdForTest(b) === selectedCondition.id ? 0 : 1;
     return aMatch - bMatch || a.name.localeCompare(b.name, 'de');
   });
   populateSelect(
@@ -877,6 +889,41 @@ function populateAdminSelectors(): void {
     [{ value: 'all', label: 'Alle Tests' }, ...allTests().map(test => ({ value: test.id, label: test.name }))],
     controls.catalogTestFilter.value || 'all'
   );
+  if (!catalogFiltersLoaded) {
+    loadCatalogFilters();
+    catalogFiltersLoaded = true;
+  }
+}
+
+function loadCatalogFilters(): void {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(CATALOG_FILTER_KEY) ?? '{}') as Record<string, string>;
+    controls.catalogSearchInput.value = parsed.search ?? controls.catalogSearchInput.value;
+    controls.catalogConditionFilter.value = parsed.conditionId ?? controls.catalogConditionFilter.value;
+    controls.catalogSettingFilter.value = parsed.settingId ?? controls.catalogSettingFilter.value;
+    controls.catalogTestFilter.value = parsed.testId ?? controls.catalogTestFilter.value;
+    controls.catalogStatusFilter.value = parsed.status ?? controls.catalogStatusFilter.value;
+    controls.catalogReviewFilter.value = parsed.reviewStatus ?? controls.catalogReviewFilter.value;
+    controls.catalogQualityFilter.value = parsed.evidenceQuality ?? controls.catalogQualityFilter.value;
+    controls.catalogCompletenessFilter.value = parsed.dataCompleteness ?? controls.catalogCompletenessFilter.value;
+    controls.catalogSortSelect.value = parsed.sortBy ?? controls.catalogSortSelect.value;
+  } catch {
+    window.localStorage.removeItem(CATALOG_FILTER_KEY);
+  }
+}
+
+function saveCatalogFilters(): void {
+  window.localStorage.setItem(CATALOG_FILTER_KEY, JSON.stringify({
+    search: controls.catalogSearchInput.value,
+    conditionId: controls.catalogConditionFilter.value,
+    settingId: controls.catalogSettingFilter.value,
+    testId: controls.catalogTestFilter.value,
+    status: controls.catalogStatusFilter.value,
+    reviewStatus: controls.catalogReviewFilter.value,
+    evidenceQuality: controls.catalogQualityFilter.value,
+    dataCompleteness: controls.catalogCompletenessFilter.value,
+    sortBy: controls.catalogSortSelect.value
+  }));
 }
 
 function setBar(element: HTMLElement, probability: number): void {
@@ -1223,7 +1270,7 @@ function profileStructuredNotes(profile: EvidenceProfile): string {
 }
 
 function conditionLabelForId(conditionId: string): string {
-  return allConditions().find(condition => condition.id === conditionId)?.label ?? conditionId;
+  return conditionLabel(conditionId, allConditions());
 }
 
 function settingLabelForId(settingId: string | undefined, fallback = 'Alle Settings'): string {
@@ -1371,7 +1418,7 @@ function catalogRows(): CatalogRow[] {
   const profileRows: CatalogRow[] = allProfiles().flatMap(profile => {
     const test = allTests().find(candidate => candidate.id === profile.testId);
     if (!test) return [];
-    const conditionId = conditionIdForLabel(test.condition);
+    const conditionId = conditionIdForTest(test);
     const assumptions = assumptionsForCondition(conditionId);
     const assumptionsForRows = assumptions.length > 0 ? assumptions : [undefined];
     return assumptionsForRows.map(assumption => {
@@ -1443,7 +1490,10 @@ function renderDataCatalog(): void {
   const testFilter = controls.catalogTestFilter.value || 'all';
   const testFilterConditionId = testFilter === 'all'
     ? null
-    : conditionIdForLabel(allTests().find(test => test.id === testFilter)?.condition ?? '');
+    : (() => {
+        const test = allTests().find(candidate => candidate.id === testFilter);
+        return test ? conditionIdForTest(test) : '';
+      })();
   const rows = sortCatalogRows(
     filterCatalogRows(
       catalogRows(),
@@ -1675,12 +1725,17 @@ function renderMain(): void {
   renderModifierImpact(profile, result);
   renderDetails(test, profile, assumption, result, pretestResolution);
   renderEvidence(profile, assumption, pretestResolution);
+  const chainViewModels = chainsForContext(diagnosticChains, state.selectedConditionId, state.selectedSettingId)
+    .map(chain => calculateDiagnosticChain(chain, allTests(), allProfiles(), result.pretestProbability))
+    .filter((chain): chain is NonNullable<typeof chain> => chain != null);
+  renderDiagnosticChains(controls.diagnosticChainsPanel, chainViewModels, result.pretestProbability);
   drawNomogram(result);
 }
 
 function renderDrawer(): void {
   populateAdminSelectors();
   controls.drawer.classList.toggle('is-open', state.drawerOpen);
+  controls.drawer.classList.toggle('is-fullscreen', Boolean(state.catalogFullscreen && state.adminMode === 'catalog'));
   controls.drawer.setAttribute('aria-hidden', String(!state.drawerOpen));
   controls.drawerBackdrop.classList.toggle('hidden', !state.drawerOpen);
   controls.drawerOpenButton.setAttribute('aria-expanded', String(state.drawerOpen));
@@ -1691,6 +1746,7 @@ function renderDrawer(): void {
     panel.classList.toggle('hidden', panel.dataset.panel !== state.adminMode);
   });
   controls.customDataSummary.textContent = `${state.customTests.length} eigene Tests, ${state.customEvidenceProfiles.length} eigene Evidenzprofile/Szenarien, ${state.customAssumptions.length} eigene Prätest-Annahmen und ${state.customModifiers.length} eigene Modifikatoren lokal gespeichert.`;
+  controls.catalogFullscreenButton.textContent = state.catalogFullscreen ? 'Normalbreite' : 'Vollbildmodus';
   renderAdminOverview();
   renderDataCatalog();
   renderProfilePreview();
@@ -1760,6 +1816,10 @@ function profileFromForm(kind: 'custom' | 'scenario'): EvidenceProfile {
       lrPositive: ratios.lrPositive,
       lrNegative: ratios.lrNegative,
       procedure: $<HTMLInputElement>('scenarioProcedure').value.trim() || baseProfile.procedure,
+      intendedUse: baseProfile.intendedUse ?? baseProfile.purpose ?? 'scenario',
+      preanalyticRisk: baseProfile.preanalyticRisk ?? 'unclear',
+      applicabilityWarning: baseProfile.applicabilityWarning ?? baseProfile.limitations,
+      reviewPriority: 'medium',
       rationale: `Abweichendes Szenario zu ${baseProfile.label}.`,
       limitations: baseProfile.limitations,
       deviationFromProfileId: baseProfile.id,
@@ -1779,6 +1839,10 @@ function profileFromForm(kind: 'custom' | 'scenario'): EvidenceProfile {
     method: $<HTMLInputElement>('profileMethod').value.trim(),
     cutoff: $<HTMLInputElement>('profileCutoff').value.trim(),
     procedure: $<HTMLInputElement>('profileProcedure').value.trim(),
+    intendedUse: 'lokales Evidenzprofil',
+    preanalyticRisk: 'unclear',
+    applicabilityWarning: $<HTMLTextAreaElement>('profileLimitations').value.trim(),
+    reviewPriority: 'medium',
     sensitivity,
     specificity,
     lrPositive: ratios.lrPositive,
@@ -1816,6 +1880,7 @@ function saveCustomTest(): void {
     name: $<HTMLInputElement>('customTestName').value.trim(),
     category: $<HTMLInputElement>('customTestCategory').value.trim(),
     condition: $<HTMLInputElement>('customTestCondition').value.trim(),
+    conditionId: conditionIdForLabel($<HTMLInputElement>('customTestCondition').value.trim()),
     description: $<HTMLTextAreaElement>('customTestDescription').value.trim(),
     evidenceProfiles: [],
     custom: true
@@ -2031,7 +2096,7 @@ function selectCatalogItem(kind: CatalogRowKind, id: string, settingId?: string)
     const test = allTests().find(candidate => candidate.id === profile.testId);
     state.selectedTestId = profile.testId;
     state.selectedEvidenceProfileId = profile.id;
-    if (test) state.selectedConditionId = conditionIdForLabel(test.condition);
+    if (test) state.selectedConditionId = conditionIdForTest(test);
     if (settingId && settingId !== 'general') {
       state.selectedSettingId = settingId;
       const assumption = normalizedAssumptions().find(candidate => candidate.conditionId === state.selectedConditionId && candidate.settingId === settingId);
@@ -2084,8 +2149,32 @@ function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
     kind === 'assumption' ? [proposal as PretestAssumption] : [],
     kind === 'modifier' ? [proposal as ClinicalModifier] : []
   );
-  downloadJson('likelihood-ratio-vorschlag-v4.json', payload);
+  downloadJson('likelihood-ratio-vorschlag-v5.json', payload);
   setMessage(controls.actionMessage, 'JSON-Vorschlag exportiert.');
+}
+
+function selectedCatalogParts(): { kind: CatalogRowKind; id: string } | null {
+  if (!selectedCatalogRowKey) return null;
+  const [kind, id] = selectedCatalogRowKey.split(':');
+  if ((kind === 'assumption' || kind === 'modifier' || kind === 'profile') && id) return { kind, id };
+  return null;
+}
+
+function markSelectedCatalogReviewStatus(reviewStatus: ReviewStatus): void {
+  const parts = selectedCatalogParts();
+  if (!parts) return;
+  const item = catalogItem(parts.kind, parts.id);
+  if (!item) return;
+  const proposal = {
+    ...cloneAsProposal(item),
+    reviewStatus,
+    reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`
+  };
+  if (parts.kind === 'assumption') state.customAssumptions = [...state.customAssumptions, proposal as PretestAssumption];
+  if (parts.kind === 'modifier') state.customModifiers = [...state.customModifiers, proposal as ClinicalModifier];
+  if (parts.kind === 'profile') state.customEvidenceProfiles = [...state.customEvidenceProfiles, proposal as EvidenceProfile];
+  setMessage(controls.actionMessage, `Katalogeintrag lokal als ${reviewStatus} vorgeschlagen.`);
+  saveAndRender();
 }
 
 async function copySummary(): Promise<void> {
@@ -2142,6 +2231,12 @@ controls.drawerOpenButton.addEventListener('click', () => openDrawer('data'));
 controls.disclaimerToggleButton.addEventListener('click', toggleDisclaimer);
 controls.drawerCloseButton.addEventListener('click', closeDrawer);
 controls.drawerBackdrop.addEventListener('click', closeDrawer);
+controls.catalogFullscreenButton.addEventListener('click', () => {
+  state.catalogFullscreen = !state.catalogFullscreen;
+  saveAndRender();
+});
+controls.markCatalogNeedsReviewButton.addEventListener('click', () => markSelectedCatalogReviewStatus('needs-review'));
+controls.markCatalogReviewedButton.addEventListener('click', () => markSelectedCatalogReviewStatus('reviewed'));
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && state.drawerOpen) closeDrawer();
 });
@@ -2201,7 +2296,11 @@ controls.adminProfileSelect.addEventListener('change', () => {
   controls.catalogCompletenessFilter,
   controls.catalogSortSelect
 ].forEach(control => {
-  control.addEventListener(control instanceof HTMLInputElement ? 'input' : 'change', renderDataCatalog);
+  control.addEventListener(control instanceof HTMLInputElement ? 'input' : 'change', () => {
+    saveCatalogFilters();
+    selectedCatalogRowKey = '';
+    renderDataCatalog();
+  });
 });
 
 function handleCatalogAction(button: HTMLButtonElement, row?: HTMLTableRowElement): void {

@@ -49,6 +49,8 @@ jobs:
         run: npm run build
       - name: Check GitHub Pages asset references
         run: npm run check:pages
+      - name: Smoke test static build
+        run: npm run smoke:test
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

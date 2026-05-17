@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && npm run validate:data && vite build",
     "check:pages": "node scripts/check-pages-build.mjs",
+    "smoke:test": "node scripts/smoke-test.mjs",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",

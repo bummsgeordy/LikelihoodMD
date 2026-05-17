@@ -1,0 +1,96 @@
+[
+  {
+    "id": "pa-arr-to-saline-infusion",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "settingIds": ["hausarztpraxis", "ambulant-nephrologie", "ambulant-endokrinologie"],
+    "label": "PA: ARR → Kochsalzinfusionstest",
+    "description": "Modulare Screening- und Bestätigungskette bei Verdacht auf primären Hyperaldosteronismus.",
+    "rationale": "Ein auffälliger Aldosteron-Renin-Quotient verändert die Wahrscheinlichkeit und kann als neue Vortestwahrscheinlichkeit für einen Bestätigungstest genutzt werden.",
+    "limitations": "Nur didaktische Sequenz. ARR-Präanalytik, Kalium, Medikation, Körperhaltung, Kontraindikationen und Bestätigungstest-Protokoll müssen separat geprüft werden.",
+    "stages": [
+      {
+        "id": "pa-arr-screen",
+        "testId": "arr",
+        "evidenceProfileId": "arr-screening-guideline",
+        "label": "Screening: Aldosteron-Renin-Ratio",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "pa-saline-confirmation",
+        "testId": "saline-infusion-test",
+        "evidenceProfileId": "saline-infusion-lcms-prosaldo",
+        "label": "Bestätigung: Kochsalzinfusionstest",
+        "expectedUse": "confirmation"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Beschreibt Screening mit ARR und Rolle von Bestätigungstests im diagnostischen Ablauf."
+      },
+      {
+        "title": "Saline Infusion Test for Primary Aldosteronism: Implications of Immunoassay Inaccuracy",
+        "year": 2022,
+        "url": "https://academic.oup.com/jcem/article/107/5/e2027/6485559",
+        "kind": "Studie",
+        "note": "Unterstreicht Protokoll- und Methodeneinfluss beim Kochsalzinfusionstest."
+      }
+    ],
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Didaktische Kette; lokale Protokolle und Leitlinienpfade fachlich prüfen."
+  },
+  {
+    "id": "cushing-lnsc-to-dst",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "settingIds": ["hausarztpraxis", "ambulant-endokrinologie"],
+    "label": "Cushing: LNSC → 1-mg-DST",
+    "description": "Beispielhafte Sequenz zweier Screeningtests bei klinischem Verdacht auf Hyperkortisolismus.",
+    "rationale": "Mehrere unabhängige auffällige Tests erhöhen die Nachtestwahrscheinlichkeit stärker als ein einzelner Test.",
+    "limitations": "Nicht als starres Leitlinienprotokoll verstehen. Schichtarbeit, Schlafrhythmus, Pseudo-Cushing-Konstellationen, Dexamethasonspiegel und Medikamente können beide Stufen beeinflussen.",
+    "stages": [
+      {
+        "id": "cushing-lnsc-screen",
+        "testId": "lnsc",
+        "evidenceProfileId": "lnsc-elecsys-2024",
+        "label": "Screening: Late-night salivary cortisol",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "cushing-dst-screen",
+        "testId": "dst-1mg",
+        "evidenceProfileId": "dst-1mg-statpearls",
+        "label": "Zweiter Screeningtest: 1-mg-DST",
+        "expectedUse": "follow-up"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt initiale Testoptionen und wiederholte/alternative Testung bei passender klinischer Fragestellung."
+      },
+      {
+        "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
+        "year": 2008,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18334594/",
+        "kind": "Review",
+        "note": "Vergleicht diagnostische Genauigkeit mehrerer Cushing-Screeningtests."
+      }
+    ],
+    "lastReviewed": "2026-05-17",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Didaktische Kette; Testabhängigkeit und Pseudo-Cushing-Konstellationen weiter prüfen."
+  }
+]

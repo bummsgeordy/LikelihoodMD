@@ -1,0 +1,37 @@
+name: Fachlichen Review beantragen
+description: Einen Datensatz als reviewed vorschlagen oder Reviewbedarf priorisieren
+title: "[Review] "
+labels: ["clinical-data", "review"]
+body:
+  - type: input
+    id: entry-id
+    attributes:
+      label: Datensatz-ID
+      placeholder: z. B. pa-arr-to-saline-infusion oder metanephrines-plasma-fractionated-conservative
+    validations:
+      required: true
+  - type: dropdown
+    id: entry-type
+    attributes:
+      label: Datensatztyp
+      options:
+        - Prätest-Annahme
+        - Klinischer Modifikator
+        - Evidenzprofil
+        - Diagnostikkette
+    validations:
+      required: true
+  - type: textarea
+    id: review-summary
+    attributes:
+      label: Review-Zusammenfassung
+      description: Was wurde fachlich geprüft? Bitte Population, Cut-off, Quelle und Grenzen erwähnen.
+    validations:
+      required: true
+  - type: textarea
+    id: remaining-uncertainty
+    attributes:
+      label: Verbleibende Unsicherheit
+      description: Was sollte weiterhin als Einschränkung sichtbar bleiben?
+    validations:
+      required: true

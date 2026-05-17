@@ -1,0 +1,58 @@
+[
+  {
+    "id": "cushing-syndrom-hyperkortisolismus",
+    "label": "Cushing-Syndrom / Hyperkortisolismus",
+    "category": "Nebenniere",
+    "synonyms": ["Cushing-Syndrom", "Hyperkortisolismus", "Hypercortisolism"],
+    "description": "Endogener oder autonomer Hyperkortisolismus und klinische Fragestellungen zur Cushing-Diagnostik."
+  },
+  {
+    "id": "primarer-hyperaldosteronismus",
+    "label": "Primärer Hyperaldosteronismus",
+    "category": "Nebenniere / Hypertonie",
+    "synonyms": ["PA", "Conn-Syndrom", "Primary aldosteronism"],
+    "description": "Screening und Bestätigung eines inadäquaten Aldosteronexzesses bei Hypertonie-Risikokonstellationen."
+  },
+  {
+    "id": "phaochromozytom-paragangliom",
+    "label": "Phäochromozytom / Paragangliom",
+    "category": "Nebenniere / Neuroendokrin",
+    "synonyms": ["PPGL", "Pheochromocytoma", "Paraganglioma"],
+    "description": "Biochemische Diagnostik bei Verdacht auf katecholaminproduzierende Tumoren."
+  },
+  {
+    "id": "herzinsuffizienz",
+    "label": "Herzinsuffizienz",
+    "category": "Kardiologie",
+    "synonyms": ["Heart failure", "HF"],
+    "description": "Diagnostische Einordnung einer möglichen Herzinsuffizienz in ambulanten oder akuten Settings."
+  },
+  {
+    "id": "nebenniereninsuffizienz",
+    "label": "Nebenniereninsuffizienz",
+    "category": "Nebenniere",
+    "synonyms": ["Adrenal insufficiency", "NNI"],
+    "description": "Abklärung primärer oder sekundärer Nebenniereninsuffizienz."
+  },
+  {
+    "id": "morbus-basedow",
+    "label": "Morbus Basedow",
+    "category": "Schilddrüse",
+    "synonyms": ["Graves disease", "Autoimmunhyperthyreose"],
+    "description": "Differenzialdiagnose einer Hyperthyreose mit Autoantikörperdiagnostik."
+  },
+  {
+    "id": "medullares-schilddrusenkarzinom",
+    "label": "Medulläres Schilddrüsenkarzinom",
+    "category": "Schilddrüse",
+    "synonyms": ["MTC", "Medullary thyroid carcinoma"],
+    "description": "Einordnung von Calcitonin bei Schilddrüsenknoten oder Risikokonstellationen."
+  },
+  {
+    "id": "zoliakie",
+    "label": "Zöliakie",
+    "category": "Diabetologie / Gastroenterologie",
+    "synonyms": ["Celiac disease", "Coeliac disease"],
+    "description": "Serologische Diagnostik bei Zöliakieverdacht oder Risikokonstellationen."
+  }
+]

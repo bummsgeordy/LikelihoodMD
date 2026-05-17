@@ -3,6 +3,8 @@ import {
   EVIDENCE_QUALITIES,
   QUANTIFICATION_STATUSES,
   REVIEW_STATUSES,
+  type ClinicalCondition,
+  type DiagnosticChain,
   type ClinicalModifier,
   type DiagnosticTest,
   type EvidenceProfile,
@@ -26,6 +28,8 @@ const evidenceQualities = new Set(EVIDENCE_QUALITIES);
 const dataCompletenessLevels = new Set(DATA_COMPLETENESS_LEVELS);
 const quantificationStatuses = new Set(QUANTIFICATION_STATUSES);
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
+const preanalyticRisks = new Set(['low', 'moderate', 'high', 'unclear']);
+const reviewPriorities = new Set(['low', 'medium', 'high']);
 
 function hasText(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
@@ -45,6 +49,8 @@ function sourceIssues(source: EvidenceSource, prefix: string): ValidationIssue[]
     issues.push({ field: `${prefix}.url`, message: 'Quelle benötigt eine URL.' });
   } else if (!/^https?:\/\//i.test(source.url)) {
     issues.push({ field: `${prefix}.url`, message: 'Quellen-URL muss mit http:// oder https:// beginnen.' });
+  } else if (source.url.includes('pubmed.ncbi.nlm.nih.gov/?term=')) {
+    issues.push({ field: `${prefix}.url`, message: 'Kuratierte Quellen dürfen keine PubMed-Suchlinks verwenden.' });
   }
   if (!sourceKinds.has(source.kind)) issues.push({ field: `${prefix}.kind`, message: 'Quelle benötigt einen gültigen Typ.' });
   if (!hasText(source.note)) issues.push({ field: `${prefix}.note`, message: 'Quelle benötigt eine Kurznotiz.' });
@@ -61,6 +67,9 @@ function reviewIssues(item: ReviewMetadata, prefix = 'review'): ValidationIssue[
   }
   if (!dataCompletenessLevels.has(item.dataCompleteness)) {
     issues.push({ field: `${prefix}.dataCompleteness`, message: 'Datenvollständigkeit ist ungültig.' });
+  }
+  if (item.reviewStatus === 'reviewed' && !hasText(item.reviewNote)) {
+    issues.push({ field: `${prefix}.reviewNote`, message: 'Reviewed-Daten brauchen eine Reviewnotiz.' });
   }
   return issues;
 }
@@ -101,6 +110,12 @@ export function validateEvidenceProfile(profile: EvidenceProfile): ValidationIss
   if (profile.kind === 'scenario' && !hasText(profile.deviationReason)) {
     issues.push({ field: 'deviationReason', message: 'Szenarien brauchen eine Begründung der Abweichung.' });
   }
+  if (profile.preanalyticRisk != null && !preanalyticRisks.has(profile.preanalyticRisk)) {
+    issues.push({ field: 'preanalyticRisk', message: 'Präanalytik-Risiko ist ungültig.' });
+  }
+  if (profile.reviewPriority != null && !reviewPriorities.has(profile.reviewPriority)) {
+    issues.push({ field: 'reviewPriority', message: 'Review-Priorität ist ungültig.' });
+  }
   const profileDateIssue = dateIssue(profile.lastReviewed);
   if (profileDateIssue) issues.push(profileDateIssue);
   issues.push(...reviewIssues(profile, 'profile'));
@@ -110,7 +125,7 @@ export function validateEvidenceProfile(profile: EvidenceProfile): ValidationIss
 
 export function validateDiagnosticTest(test: DiagnosticTest): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
-  ['id', 'name', 'category', 'condition', 'description'].forEach(field => {
+  ['id', 'name', 'category', 'conditionId', 'condition', 'description'].forEach(field => {
     if (!hasText(test[field as keyof DiagnosticTest])) {
       issues.push({ field, message: `${field} darf nicht leer sein.` });
     }
@@ -209,9 +224,77 @@ export function validateClinicalModifier(modifier: ClinicalModifier): Validation
   if (modifier.quantificationStatus === 'qualitative' && (modifier.likelihoodRatio != null || modifier.probabilityFactor != null)) {
     issues.push({ field: 'quantificationStatus', message: 'Qualitative Modifikatoren dürfen keinen Rechenfaktor tragen.' });
   }
+  if (modifier.mapsToPretestAssumptionId != null && !hasText(modifier.overlapWarning)) {
+    issues.push({ field: 'overlapWarning', message: 'Modifikatoren mit Mapping zu Prätest-Annahmen brauchen eine Doppelzählungswarnung.' });
+  }
   const modifierDateIssue = dateIssue(modifier.lastReviewed);
   if (modifierDateIssue) issues.push(modifierDateIssue);
   issues.push(...reviewIssues(modifier, 'modifier'));
   issues.push(...validateSources(modifier.sources, 'sources'));
+  return issues;
+}
+
+export function validateKnownConditionIds(
+  conditions: ClinicalCondition[],
+  tests: DiagnosticTest[],
+  assumptions: PretestAssumption[],
+  modifiers: ClinicalModifier[]
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const known = new Set(conditions.map(condition => condition.id));
+  tests.forEach(test => {
+    if (!known.has(test.conditionId)) {
+      issues.push({ field: `test.${test.id}.conditionId`, message: 'Test verweist auf unbekannte Erkrankung.' });
+    }
+  });
+  assumptions.forEach(assumption => {
+    if (assumption.conditionId && !known.has(assumption.conditionId)) {
+      issues.push({ field: `assumption.${assumption.id}.conditionId`, message: 'Prätest-Annahme verweist auf unbekannte Erkrankung.' });
+    }
+  });
+  modifiers.forEach(modifier => {
+    if (!known.has(modifier.conditionId)) {
+      issues.push({ field: `modifier.${modifier.id}.conditionId`, message: 'Modifikator verweist auf unbekannte Erkrankung.' });
+    }
+  });
+  return issues;
+}
+
+export function validateDiagnosticChain(
+  chain: DiagnosticChain,
+  conditions: ClinicalCondition[],
+  tests: DiagnosticTest[],
+  profiles: EvidenceProfile[]
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const knownConditions = new Set(conditions.map(condition => condition.id));
+  ['id', 'conditionId', 'label', 'description', 'rationale', 'limitations', 'lastReviewed'].forEach(field => {
+    if (!hasText(chain[field as keyof DiagnosticChain])) {
+      issues.push({ field, message: `${field} darf nicht leer sein.` });
+    }
+  });
+  if (!knownConditions.has(chain.conditionId)) {
+    issues.push({ field: 'conditionId', message: 'Diagnostikkette verweist auf unbekannte Erkrankung.' });
+  }
+  if (!Array.isArray(chain.stages) || chain.stages.length < 2) {
+    issues.push({ field: 'stages', message: 'Diagnostikketten brauchen mindestens zwei Stufen.' });
+  } else {
+    chain.stages.forEach((stage, index) => {
+      const test = tests.find(candidate => candidate.id === stage.testId);
+      const profile = profiles.find(candidate => candidate.id === stage.evidenceProfileId);
+      if (!test) issues.push({ field: `stages.${index}.testId`, message: 'Kettenstufe verweist auf unbekannten Test.' });
+      if (!profile) issues.push({ field: `stages.${index}.evidenceProfileId`, message: 'Kettenstufe verweist auf unbekanntes Evidenzprofil.' });
+      if (test && test.conditionId !== chain.conditionId) {
+        issues.push({ field: `stages.${index}.testId`, message: 'Kettenstufe nutzt Test einer anderen Erkrankung.' });
+      }
+      if (profile && test && profile.testId !== test.id) {
+        issues.push({ field: `stages.${index}.evidenceProfileId`, message: 'Evidenzprofil passt nicht zum Test der Kettenstufe.' });
+      }
+    });
+  }
+  const chainDateIssue = dateIssue(chain.lastReviewed);
+  if (chainDateIssue) issues.push(chainDateIssue);
+  issues.push(...reviewIssues(chain, 'chain'));
+  issues.push(...validateSources(chain.sources, 'sources'));
   return issues;
 }

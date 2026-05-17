@@ -37,7 +37,9 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-    "overlapWarning": "Wenn das Setting Nephrologie/Hypertonie mit resistenter Hypertonie bereits gewählt ist, diesen Modifikator nicht zusätzlich als quantitativen Faktor verwenden."
+    "overlapWarning": "Wenn das Setting Nephrologie/Hypertonie mit resistenter Hypertonie bereits gewählt ist, diesen Modifikator nicht zusätzlich als quantitativen Faktor verwenden.",
+    "riskStratum": "resistente-hypertonie",
+    "mapsToPretestAssumptionId": "pa-nephrology-direct"
   },
   {
     "id": "pa-hypokalemia",
@@ -108,7 +110,8 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "low",
     "dataCompleteness": "partial",
-    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "riskStratum": "nebenniereninzidentalom-mit-hypertonie"
   },
   {
     "id": "ppgl-paroxysmal-symptoms",
@@ -142,7 +145,9 @@
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "likelihoodRatio": 6,
-    "overlapWarning": "Wenn bereits eine Hochrisiko-Prätest-Annahme für typische Symptome oder Inzidentalom gewählt wurde, kann eine zusätzliche Anwendung den Verdacht doppelt gewichten."
+    "overlapWarning": "Wenn bereits eine Hochrisiko-Prätest-Annahme für typische Symptome oder Inzidentalom gewählt wurde, kann eine zusätzliche Anwendung den Verdacht doppelt gewichten.",
+    "riskStratum": "klassische-symptomtrias",
+    "mapsToPretestAssumptionId": "ppgl-endocrine-high-suspicion-direct"
   },
   {
     "id": "ppgl-adrenal-incidentaloma",
@@ -182,7 +187,9 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-    "overlapWarning": "Nicht zusätzlich anwenden, wenn eine Inzidentalom-spezifische Prätest-Annahme bereits gewählt ist."
+    "overlapWarning": "Nicht zusätzlich anwenden, wenn eine Inzidentalom-spezifische Prätest-Annahme bereits gewählt ist.",
+    "riskStratum": "nebenniereninzidentalom",
+    "mapsToPretestAssumptionId": "ppgl-endocrine-high-suspicion-direct"
   },
   {
     "id": "ppgl-genetic-risk",
@@ -214,7 +221,8 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "riskStratum": "genetisches-risiko"
   },
   {
     "id": "cushing-typical-stigmata",
@@ -247,7 +255,9 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-    "overlapWarning": "Wenn eine Prätest-Annahme für diskriminative Cushing-Zeichen gewählt ist, kann eine zusätzliche Gewichtung doppelt zählen."
+    "overlapWarning": "Wenn eine Prätest-Annahme für diskriminative Cushing-Zeichen gewählt ist, kann eine zusätzliche Gewichtung doppelt zählen.",
+    "riskStratum": "diskriminative-cushing-zeichen",
+    "mapsToPretestAssumptionId": "cushing-endocrine-direct"
   },
   {
     "id": "cushing-adrenal-incidentaloma",
@@ -372,7 +382,10 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-17",
-    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "riskStratum": "unspezifische-metabolische-merkmale",
+    "mapsToPretestAssumptionId": "cushing-primary-care-direct",
+    "overlapWarning": "Dieser Modifikator kann bereits in der gewählten Prätest-Annahme enthalten sein; Doppelzählung vermeiden."
   },
   {
     "id": "ai-hyponatremia-hyperkalemia",
@@ -437,6 +450,8 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-17",
-    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "riskStratum": "glukokortikoidexposition",
+    "mapsToPretestAssumptionId": "adrenal-insufficiency-endocrine-steroid-exposure-direct"
   }
 ]

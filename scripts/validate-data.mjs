@@ -3,6 +3,8 @@ import path from 'node:path';
 
 const root = process.cwd();
 const tests = JSON.parse(fs.readFileSync(path.join(root, 'src/data/tests.json'), 'utf8'));
+const conditions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/conditions.json'), 'utf8'));
+const diagnosticChains = JSON.parse(fs.readFileSync(path.join(root, 'src/data/diagnostic-chains.json'), 'utf8'));
 const assumptions = JSON.parse(
   fs.readFileSync(path.join(root, 'src/data/pretest-assumptions.json'), 'utf8')
 );
@@ -19,8 +21,11 @@ const reviewStatuses = new Set(['draft', 'reviewed', 'needs-review']);
 const evidenceQualities = new Set(['high', 'moderate', 'low', 'expert-opinion', 'unclear']);
 const dataCompletenessLevels = new Set(['complete', 'partial', 'minimal']);
 const quantificationStatuses = new Set(['qualitative', 'probability-factor', 'likelihood-ratio']);
+const preanalyticRisks = new Set(['low', 'moderate', 'high', 'unclear']);
+const reviewPriorities = new Set(['low', 'medium', 'high']);
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const errors = [];
+const knownConditionIds = new Set(conditions.map(condition => condition.id));
 
 function slugifyClinicalLabel(value) {
   return String(value)
@@ -50,6 +55,9 @@ function validateSources(sources, prefix) {
     if (!Number.isInteger(source.year) || source.year < 1900) errors.push(`${sourcePrefix}.year unplausibel`);
     if (!hasText(source.url)) errors.push(`${sourcePrefix}.url fehlt`);
     if (hasText(source.url) && !/^https?:\/\//i.test(source.url)) errors.push(`${sourcePrefix}.url muss http/https sein`);
+    if (hasText(source.url) && source.url.includes('pubmed.ncbi.nlm.nih.gov/?term=')) {
+      errors.push(`${sourcePrefix}.url darf kein PubMed-Suchlink sein`);
+    }
     if (!sourceKinds.has(source.kind)) errors.push(`${sourcePrefix}.kind unbekannt`);
     if (!hasText(source.note)) errors.push(`${sourcePrefix}.note fehlt`);
   });
@@ -59,6 +67,7 @@ function validateReview(item, prefix) {
   if (!reviewStatuses.has(item.reviewStatus)) errors.push(`${prefix}.reviewStatus unbekannt`);
   if (!evidenceQualities.has(item.evidenceQuality)) errors.push(`${prefix}.evidenceQuality unbekannt`);
   if (!dataCompletenessLevels.has(item.dataCompleteness)) errors.push(`${prefix}.dataCompleteness unbekannt`);
+  if (item.reviewStatus === 'reviewed' && !hasText(item.reviewNote)) errors.push(`${prefix}.reviewNote fehlt für reviewed`);
   if (!isoDatePattern.test(item.lastReviewed || '')) errors.push(`${prefix}.lastReviewed muss YYYY-MM-DD sein`);
 }
 
@@ -76,15 +85,22 @@ function validateProfile(profile, prefix) {
     errors.push(`${prefix}.lrNegative ungültig`);
   }
   if (profile.kind === 'scenario' && !hasText(profile.deviationReason)) errors.push(`${prefix}.deviationReason fehlt`);
+  if (profile.preanalyticRisk !== undefined && !preanalyticRisks.has(profile.preanalyticRisk)) {
+    errors.push(`${prefix}.preanalyticRisk unbekannt`);
+  }
+  if (profile.reviewPriority !== undefined && !reviewPriorities.has(profile.reviewPriority)) {
+    errors.push(`${prefix}.reviewPriority unbekannt`);
+  }
   validateReview(profile, prefix);
   validateSources(profile.sources, prefix);
 }
 
 tests.forEach((test, index) => {
   const prefix = `tests[${index}]`;
-  ['id', 'name', 'category', 'condition', 'description'].forEach(field => {
+  ['id', 'name', 'category', 'conditionId', 'condition', 'description'].forEach(field => {
     if (!hasText(test[field])) errors.push(`${prefix}.${field} fehlt`);
   });
+  if (!knownConditionIds.has(test.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
   if (!Array.isArray(test.evidenceProfiles) || test.evidenceProfiles.length === 0) {
     errors.push(`${prefix}.evidenceProfiles fehlt`);
     return;
@@ -113,6 +129,7 @@ assumptions.forEach((assumption, index) => {
     errors.push(`${prefix}.direct braucht konkretes Setting`);
   }
   if (!profileKinds.has(assumption.kind)) errors.push(`${prefix}.kind unbekannt`);
+  if (!knownConditionIds.has(assumption.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
   if (!probability(assumption.probability)) errors.push(`${prefix}.probability ungültig`);
   if (assumption.rangeLow !== undefined && !probability(assumption.rangeLow)) errors.push(`${prefix}.rangeLow ungültig`);
   if (assumption.rangeHigh !== undefined && !probability(assumption.rangeHigh)) errors.push(`${prefix}.rangeHigh ungültig`);
@@ -128,6 +145,7 @@ modifiers.forEach((modifier, index) => {
   });
   if (!modifierCategories.has(modifier.category)) errors.push(`${prefix}.category unbekannt`);
   if (!modifierDirections.has(modifier.direction)) errors.push(`${prefix}.direction unbekannt`);
+  if (!knownConditionIds.has(modifier.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
   if (!profileKinds.has(modifier.kind)) errors.push(`${prefix}.kind unbekannt`);
   if (!quantificationStatuses.has(modifier.quantificationStatus)) errors.push(`${prefix}.quantificationStatus unbekannt`);
   if (modifier.probabilityFactor !== undefined && (!Number.isFinite(modifier.probabilityFactor) || modifier.probabilityFactor <= 0)) {
@@ -145,8 +163,35 @@ modifiers.forEach((modifier, index) => {
   if (modifier.quantificationStatus === 'qualitative' && (modifier.likelihoodRatio !== undefined || modifier.probabilityFactor !== undefined)) {
     errors.push(`${prefix}.qualitative Modifikatoren dürfen keinen Faktor/LR tragen`);
   }
+  if (modifier.mapsToPretestAssumptionId !== undefined && !hasText(modifier.overlapWarning)) {
+    errors.push(`${prefix}.overlapWarning fehlt bei mapsToPretestAssumptionId`);
+  }
   validateReview(modifier, prefix);
   validateSources(modifier.sources, prefix);
+});
+
+const profiles = tests.flatMap(test => test.evidenceProfiles);
+diagnosticChains.forEach((chain, index) => {
+  const prefix = `diagnosticChains[${index}]`;
+  ['id', 'conditionId', 'label', 'description', 'rationale', 'limitations', 'lastReviewed'].forEach(field => {
+    if (!hasText(chain[field])) errors.push(`${prefix}.${field} fehlt`);
+  });
+  if (!knownConditionIds.has(chain.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
+  if (!Array.isArray(chain.stages) || chain.stages.length < 2) {
+    errors.push(`${prefix}.stages braucht mindestens zwei Stufen`);
+  } else {
+    chain.stages.forEach((stage, stageIndex) => {
+      const test = tests.find(candidate => candidate.id === stage.testId);
+      const profile = profiles.find(candidate => candidate.id === stage.evidenceProfileId);
+      if (!test) errors.push(`${prefix}.stages[${stageIndex}].testId unbekannt`);
+      if (!profile) errors.push(`${prefix}.stages[${stageIndex}].evidenceProfileId unbekannt`);
+      if (test && test.conditionId !== chain.conditionId) errors.push(`${prefix}.stages[${stageIndex}].testId passt nicht zur Erkrankung`);
+      if (test && profile && profile.testId !== test.id) errors.push(`${prefix}.stages[${stageIndex}].profile passt nicht zum Test`);
+    });
+  }
+  if (!profileKinds.has(chain.kind)) errors.push(`${prefix}.kind unbekannt`);
+  validateReview(chain, prefix);
+  validateSources(chain.sources, prefix);
 });
 
 const fallbackConditionIds = new Set(
@@ -154,7 +199,7 @@ const fallbackConditionIds = new Set(
     .filter(assumption => assumption.evidenceLevel === 'fallback')
     .map(assumption => assumption.conditionId)
 );
-const testConditionIds = new Set(tests.map(test => slugifyClinicalLabel(test.condition)));
+const testConditionIds = new Set(tests.map(test => test.conditionId));
 testConditionIds.forEach(conditionId => {
   if (!fallbackConditionIds.has(conditionId)) {
     errors.push(`condition ${conditionId} hat keinen Fallback`);
@@ -166,4 +211,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${tests.length} tests, ${assumptions.length} pretest assumptions and ${modifiers.length} clinical modifiers.`);
+console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${modifiers.length} clinical modifiers and ${diagnosticChains.length} diagnostic chains.`);

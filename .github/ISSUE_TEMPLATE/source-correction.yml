@@ -1,0 +1,33 @@
+name: Quelle ersetzen oder korrigieren
+description: Einen Quellenlink, DOI/PubMed-Link oder eine Quellenangabe korrigieren
+title: "[Quelle] "
+labels: ["clinical-data", "source", "correction"]
+body:
+  - type: input
+    id: affected-entry
+    attributes:
+      label: Betroffener Eintrag
+      placeholder: z. B. ntprobnp-125, arr-screening-guideline
+    validations:
+      required: true
+  - type: textarea
+    id: current-source
+    attributes:
+      label: Aktuelle Quelle
+      description: Welche Quelle oder URL ist aktuell problematisch?
+    validations:
+      required: true
+  - type: textarea
+    id: replacement-source
+    attributes:
+      label: Vorgeschlagene Ersatzquelle
+      description: Titel, Jahr, DOI/PubMed/Journal-Link und kurze Notiz zur Übertragbarkeit.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Begründung
+      description: Warum ist diese Quelle besser oder die aktuelle Angabe falsch?
+    validations:
+      required: true

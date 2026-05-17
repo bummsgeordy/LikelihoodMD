@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["schemaVersion", "exportedAt", "customTests", "customEvidenceProfiles", "customAssumptions", "customModifiers"],
   "properties": {
-    "schemaVersion": { "const": 4 },
+    "schemaVersion": { "const": 5 },
     "exportedAt": { "type": "string", "format": "date-time" },
     "customTests": {
       "type": "array",

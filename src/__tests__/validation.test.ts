@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import modifiers from '../data/clinical-modifiers.json';
+import conditions from '../data/conditions.json';
+import diagnosticChains from '../data/diagnostic-chains.json';
 import assumptions from '../data/pretest-assumptions.json';
 import tests from '../data/tests.json';
-import { validateClinicalModifier, validateDiagnosticTest, validatePretestAssumption } from '../lib/validation';
-import type { ClinicalModifier, DiagnosticTest, PretestAssumption } from '../types';
+import {
+  validateClinicalModifier,
+  validateDiagnosticChain,
+  validateDiagnosticTest,
+  validateKnownConditionIds,
+  validatePretestAssumption
+} from '../lib/validation';
+import type { ClinicalCondition, ClinicalModifier, DiagnosticChain, DiagnosticTest, PretestAssumption } from '../types';
 
 describe('curated data', () => {
   it('validates all curated diagnostic tests', () => {
@@ -21,22 +29,41 @@ describe('curated data', () => {
     expect(issues).toEqual([]);
   });
 
+  it('validates all curated diagnostic chains', () => {
+    const curatedTests = tests as DiagnosticTest[];
+    const issues = (diagnosticChains as DiagnosticChain[]).flatMap(chain =>
+      validateDiagnosticChain(chain, conditions as ClinicalCondition[], curatedTests, curatedTests.flatMap(test => test.evidenceProfiles))
+    );
+    expect(issues).toEqual([]);
+  });
+
+  it('uses known centralized condition ids', () => {
+    const issues = validateKnownConditionIds(
+      conditions as ClinicalCondition[],
+      tests as DiagnosticTest[],
+      assumptions as PretestAssumption[],
+      modifiers as ClinicalModifier[]
+    );
+    expect(issues).toEqual([]);
+  });
+
+  it('does not use PubMed search URLs as curated sources', () => {
+    const sourceUrls = [
+      ...(tests as DiagnosticTest[]).flatMap(test => test.evidenceProfiles.flatMap(profile => profile.sources.map(source => source.url))),
+      ...(assumptions as PretestAssumption[]).flatMap(assumption => assumption.sources.map(source => source.url)),
+      ...(modifiers as ClinicalModifier[]).flatMap(modifier => modifier.sources.map(source => source.url)),
+      ...(diagnosticChains as DiagnosticChain[]).flatMap(chain => chain.sources.map(source => source.url))
+    ];
+    expect(sourceUrls.filter(url => url.includes('pubmed.ncbi.nlm.nih.gov/?term='))).toEqual([]);
+  });
+
   it('has a fallback pretest assumption for every curated test condition', () => {
     const fallbackConditionIds = new Set(
       (assumptions as PretestAssumption[])
         .filter(assumption => assumption.evidenceLevel === 'fallback')
         .map(assumption => assumption.conditionId)
     );
-    const testConditionIds = new Set(
-      (tests as DiagnosticTest[]).map(test =>
-        test.condition
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-+|-+$/g, '')
-      )
-    );
+    const testConditionIds = new Set((tests as DiagnosticTest[]).map(test => test.conditionId));
     expect([...testConditionIds].filter(conditionId => !fallbackConditionIds.has(conditionId))).toEqual([]);
   });
 });

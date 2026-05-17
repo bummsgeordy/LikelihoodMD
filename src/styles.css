@@ -197,7 +197,8 @@ button:hover {
   grid-template-columns: minmax(310px, 0.9fr) minmax(430px, 1.4fr) minmax(320px, 1fr);
   grid-template-areas:
     "settings nomogram results"
-    "settings nomogram details";
+    "settings nomogram details"
+    "settings chains details";
   gap: 16px;
   align-items: start;
 }
@@ -218,12 +219,17 @@ button:hover {
   grid-area: nomogram;
 }
 
+.diagnostic-chain-card {
+  grid-area: chains;
+}
+
 .calculator-grid.nomogram-focus,
 .calculator-grid:has(.nomogram-size-toggle:checked) {
   grid-template-columns: 1fr;
   grid-template-areas:
     "settings"
     "nomogram"
+    "chains"
     "results"
     "details";
 }
@@ -979,6 +985,68 @@ input[type="range"] {
   overflow-wrap: anywhere;
 }
 
+.chain-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-muted);
+}
+
+.chain-card + .chain-card {
+  margin-top: 12px;
+}
+
+.chain-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.chain-heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.chain-stages {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.chain-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.chain-table th,
+.chain-table td {
+  padding: 8px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.chain-table th {
+  background: #f8fafc;
+  color: var(--muted);
+}
+
+.chain-limitations,
+.data-version {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.admin-drawer.is-fullscreen {
+  inset: 0;
+  border-radius: 0;
+}
+
 .full {
   grid-column: 1 / -1;
 }
@@ -1159,6 +1227,7 @@ canvas {
   .calculator-grid {
     grid-template-areas:
       "settings nomogram"
+      "chains nomogram"
       "results details";
   }
 
@@ -1203,6 +1272,7 @@ canvas {
     grid-template-areas:
       "settings"
       "nomogram"
+      "chains"
       "results"
       "details";
   }

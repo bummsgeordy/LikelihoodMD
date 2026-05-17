@@ -13,6 +13,7 @@ const customTest: DiagnosticTest = {
   id: 'custom-test',
   name: 'Custom test',
   category: 'Eigene Tests',
+  conditionId: 'condition',
   condition: 'Condition',
   description: 'Description',
   evidenceProfiles: [],
@@ -100,9 +101,9 @@ const customModifier: ClinicalModifier = {
 };
 
 describe('user data export', () => {
-  it('builds a versioned v4 export bundle', () => {
+  it('builds a versioned v5 export bundle', () => {
     const payload = buildExport([customTest], [customProfile, scenarioProfile], [customAssumption], [customModifier]);
-    expect(payload.schemaVersion).toBe(4);
+    expect(payload.schemaVersion).toBe(5);
     expect(payload.customTests).toHaveLength(1);
     expect(payload.customEvidenceProfiles).toHaveLength(2);
     expect(payload.customAssumptions).toHaveLength(1);
@@ -110,7 +111,7 @@ describe('user data export', () => {
     expect(new Date(payload.exportedAt).toString()).not.toBe('Invalid Date');
   });
 
-  it('parses a valid v4 export bundle', () => {
+  it('parses a valid v5 export bundle', () => {
     const payload = buildExport([customTest], [customProfile], [customAssumption], [customModifier]);
     const parsed = parseUserDataExport(JSON.stringify(payload));
     expect(parsed.customTests[0].id).toBe('custom-test');
@@ -119,7 +120,7 @@ describe('user data export', () => {
     expect(parsed.customModifiers[0].id).toBe('custom-modifier');
   });
 
-  it('migrates a valid v3 export bundle to v4', () => {
+  it('migrates a valid v3 export bundle to v5', () => {
     const parsed = parseUserDataExport(
       JSON.stringify({
         schemaVersion: 3,
@@ -130,13 +131,14 @@ describe('user data export', () => {
         customModifiers: [{ ...customModifier, reviewStatus: undefined, evidenceQuality: undefined, dataCompleteness: undefined, quantificationStatus: undefined }]
       })
     );
-    expect(parsed.schemaVersion).toBe(4);
+    expect(parsed.schemaVersion).toBe(5);
+    expect(parsed.customTests[0].conditionId).toBe('condition');
     expect(parsed.customEvidenceProfiles[0].reviewStatus).toBe('draft');
     expect(parsed.customAssumptions[0].dataCompleteness).toBe('minimal');
     expect(parsed.customModifiers[0].quantificationStatus).toBe('likelihood-ratio');
   });
 
-  it('migrates a valid v2 export bundle to v4', () => {
+  it('migrates a valid v2 export bundle to v5', () => {
     const parsed = parseUserDataExport(
       JSON.stringify({
         schemaVersion: 2,
@@ -146,7 +148,7 @@ describe('user data export', () => {
         customAssumptions: [customAssumption]
       })
     );
-    expect(parsed.schemaVersion).toBe(4);
+    expect(parsed.schemaVersion).toBe(5);
     expect(parsed.customModifiers).toEqual([]);
     expect(parsed.customEvidenceProfiles[0].reviewStatus).toBe('draft');
   });
@@ -177,7 +179,7 @@ describe('user data export', () => {
         selectedAssumptionId: 'pa-resistant-hypertension'
       })
     );
-    expect(parsed.schemaVersion).toBe(4);
+    expect(parsed.schemaVersion).toBe(5);
     expect(parsed.customEvidenceProfiles[0].testId).toBe('legacy-test');
     expect(parsed.customAssumptions[0].conditionId).toBe('condition');
     expect(parsed.customAssumptions[0].evidenceLevel).toBe('direct');

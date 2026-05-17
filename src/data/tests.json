@@ -64,7 +64,11 @@
         "interpretationCautions": [
           "Nicht bei fehlender nächtlicher Ruhephase unkritisch interpretieren.",
           "Assay-spezifische Cut-offs verwenden."
-        ]
+        ],
+        "intendedUse": "screening",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus und Präanalytik können Ergebnisse beeinflussen.",
+        "reviewPriority": "medium"
       },
       {
         "id": "lnsc-meta-analysis",
@@ -85,19 +89,24 @@
         "isDefault": false,
         "sources": [
           {
-            "title": "Meta-analysis of late-night salivary cortisol for Cushing syndrome",
+            "title": "Late-night salivary cortisol for the diagnosis of Cushing syndrome: a meta-analysis",
             "year": 2009,
-            "url": "https://pubmed.ncbi.nlm.nih.gov/?term=late-night+salivary+cortisol+meta-analysis+sensitivity+specificity",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/19502211/",
             "kind": "Review",
-            "note": "Als historische Vergleichsannahme dokumentiert."
+            "note": "Meta-Analyse mit gepoolter Sensitivität 92% und Spezifität 96%."
           }
         ],
         "reviewStatus": "needs-review",
         "evidenceQuality": "expert-opinion",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Assays, Cut-offs und Patientenselektion unterscheiden sich deutlich; nicht als Standardwert für jedes Labor übernehmen.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "cushing-syndrom-hyperkortisolismus"
   },
   {
     "id": "dst-1mg",
@@ -177,9 +186,14 @@
         "interpretationCautions": [
           "Bei niedriger Prätestwahrscheinlichkeit relevante falsch-positive Befunde möglich.",
           "Leitlinien empfehlen gezielte Testung, kein breites Screening bei jedem Diabetes/Adipositas."
-        ]
+        ],
+        "intendedUse": "screening",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Falsch-positive Ergebnisse bei Medikamenteninteraktionen, Depression, Alkohol, Stress und unzureichender Dexamethason-Exposition möglich.",
+        "reviewPriority": "high"
       }
-    ]
+    ],
+    "conditionId": "cushing-syndrom-hyperkortisolismus"
   },
   {
     "id": "dst-2mg-48h",
@@ -217,9 +231,14 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "low",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Protokoll, Cut-off und Präanalytik müssen lokal geprüft werden; nicht als isolierte Entscheidungsgrundlage verwenden.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "cushing-syndrom-hyperkortisolismus"
   },
   {
     "id": "arr",
@@ -307,7 +326,11 @@
           "ARR ist Screeningtest, kein alleiniger Diagnosenachweis.",
           "ARR ohne absolut erhöhtes oder inadäquat hohes Aldosteron kann irreführend sein.",
           "Cut-offs sind methoden- und einheitenabhängig."
-        ]
+        ],
+        "intendedUse": "screening",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
+        "reviewPriority": "medium"
       },
       {
         "id": "arr-direct-renin-li-2016",
@@ -356,9 +379,14 @@
         "dataCompleteness": "partial",
         "lastReviewed": "2026-05-17",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-        "testId": "arr"
+        "testId": "arr",
+        "intendedUse": "screening",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Gepoolte Werte sind cut-off-, einheiten- und laborabhängig; lokale Validierung nötig.",
+        "reviewPriority": "high"
       }
-    ]
+    ],
+    "conditionId": "primarer-hyperaldosteronismus"
   },
   {
     "id": "metanephrines-plasma",
@@ -412,7 +440,11 @@
         ],
         "interpretationCautions": [
           "Alternatives optimistischeres Profil; bei niedriger Prätestwahrscheinlichkeit positive Grenzwerte vorsichtig interpretieren."
-        ]
+        ],
+        "intendedUse": "rule_out",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Lage bei Blutabnahme, Stress, Medikamente und Referenzbereiche können die Spezifität beeinflussen.",
+        "reviewPriority": "medium"
       },
       {
         "id": "metanephrines-plasma-fractionated-conservative",
@@ -491,9 +523,14 @@
         "dataCompleteness": "complete",
         "lastReviewed": "2026-05-17",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-        "testId": "metanephrines-plasma"
+        "testId": "metanephrines-plasma",
+        "intendedUse": "rule_out",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente und Referenzbereiche beeinflussen vor allem die Spezifität.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "phaochromozytom-paragangliom"
   },
   {
     "id": "metanephrines-urine",
@@ -566,9 +603,14 @@
         "interpretationCautions": [
           "Alternative zu Plasma-Metanephrinen; Sammelqualität ist zentral.",
           "Positive Grenzwerte brauchen Kontext und Bestätigung."
-        ]
+        ],
+        "intendedUse": "rule_out",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Sammelqualität, Nierenfunktion, Medikamente und Laborverfahren begrenzen die Übertragbarkeit.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "phaochromozytom-paragangliom"
   },
   {
     "id": "ntprobnp",
@@ -585,10 +627,10 @@
         "method": "NT-proBNP",
         "cutoff": "125 pg/ml",
         "procedure": "Blutentnahme für NT-proBNP nach lokalem Laborstandard.",
-        "sensitivity": 0.929,
-        "specificity": 0.538,
-        "lrPositive": 2.01,
-        "lrNegative": 0.13,
+        "sensitivity": 0.946,
+        "specificity": 0.5,
+        "lrPositive": 1.89,
+        "lrNegative": 0.11,
         "population": "Patienten ohne Vorhofflimmern mit Verdacht auf Herzinsuffizienz.",
         "rationale": "Niedriger Cut-off mit hoher Sensitivität und begrenztem Rule-in-Effekt.",
         "limitations": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
@@ -596,17 +638,21 @@
         "isDefault": true,
         "sources": [
           {
-            "title": "NT-proBNP thresholds for heart failure diagnosis",
+            "title": "Natriuretic peptide testing and heart failure diagnosis in primary care: diagnostic accuracy study",
             "year": 2025,
-            "url": "https://pubmed.ncbi.nlm.nih.gov/?term=NT-proBNP+125+400+sensitivity+specificity+heart+failure+2025",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36543554/",
             "kind": "Studie",
-            "note": "Als Basisannahme für den niedrigen ambulanten Cut-off aufgenommen."
+            "note": "Primärversorgungsstudie: ESC-125-pg/ml-Schwelle Sensitivität 94,6%/Spezifität 50,0%; NICE-400-pg/ml-Schwelle 81,7%/80,3%."
           }
         ],
         "reviewStatus": "needs-review",
-        "evidenceQuality": "expert-opinion",
+        "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
+        "reviewPriority": "medium"
       },
       {
         "id": "ntprobnp-400",
@@ -616,10 +662,10 @@
         "method": "NT-proBNP",
         "cutoff": "400 pg/ml",
         "procedure": "Blutentnahme für NT-proBNP nach lokalem Laborstandard.",
-        "sensitivity": 0.771,
-        "specificity": 0.849,
-        "lrPositive": 5.09,
-        "lrNegative": 0.27,
+        "sensitivity": 0.817,
+        "specificity": 0.803,
+        "lrPositive": 4.15,
+        "lrNegative": 0.23,
         "population": "Patienten ohne Vorhofflimmern mit Verdacht auf Herzinsuffizienz.",
         "rationale": "Höherer Cut-off mit besserem Rule-in-Effekt und schwächerem Rule-out-Effekt.",
         "limitations": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
@@ -627,19 +673,24 @@
         "isDefault": false,
         "sources": [
           {
-            "title": "NT-proBNP thresholds for heart failure diagnosis",
+            "title": "Natriuretic peptide testing and heart failure diagnosis in primary care: diagnostic accuracy study",
             "year": 2025,
-            "url": "https://pubmed.ncbi.nlm.nih.gov/?term=NT-proBNP+400+sensitivity+specificity+heart+failure+2025",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36543554/",
             "kind": "Studie",
-            "note": "Als Basisannahme für den höheren ambulanten Cut-off aufgenommen."
+            "note": "Primärversorgungsstudie: ESC-125-pg/ml-Schwelle Sensitivität 94,6%/Spezifität 50,0%; NICE-400-pg/ml-Schwelle 81,7%/80,3%."
           }
         ],
         "reviewStatus": "needs-review",
-        "evidenceQuality": "expert-opinion",
+        "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "herzinsuffizienz"
   },
   {
     "id": "oral-sodium-loading",
@@ -677,9 +728,14 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "low",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "primarer-hyperaldosteronismus"
   },
   {
     "id": "urinary-free-cortisol-24h",
@@ -755,9 +811,14 @@
         "interpretationCautions": [
           "Testgüte hängt stark von Cut-off und Referenzstandard ab.",
           "Bei mildem oder zyklischem Cushing nicht allein ausreichend."
-        ]
+        ],
+        "intendedUse": "screening",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus und Assay-Unterschiede begrenzen die Übertragbarkeit.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "cushing-syndrom-hyperkortisolismus"
   },
   {
     "id": "acth-stimulation-250",
@@ -832,9 +893,14 @@
           "Bei sekundärer NNI eher Rule-in als sicherer Rule-out.",
           "Cut-offs alter Immunoassays nicht unkritisch auf moderne Assays übertragen.",
           "Bei hoher klinischer Wahrscheinlichkeit ggf. weiterführende Diagnostik trotz unauffälligem Test."
-        ]
+        ],
+        "intendedUse": "rule_in",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Cut-off ist assayabhängig; frühe zentrale Insuffizienz kann übersehen werden.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "nebenniereninsuffizienz"
   },
   {
     "id": "trab-graves",
@@ -872,7 +938,11 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Assaygeneration und Vortestpopulation beeinflussen die Übertragbarkeit.",
+        "reviewPriority": "medium"
       },
       {
         "id": "trab-second-generation-meta",
@@ -903,9 +973,14 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Assaygeneration und lokale Grenzwerte prüfen.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "morbus-basedow"
   },
   {
     "id": "basal-calcitonin-thyroid-nodule",
@@ -943,9 +1018,14 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "medullares-schilddrusenkarzinom"
   },
   {
     "id": "ttg-iga-celiac",
@@ -983,9 +1063,14 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen."
+        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "unclear",
+        "applicabilityWarning": "IgA-Mangel, glutenarme Ernährung, Alter und Assay beeinflussen die Aussagekraft.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "zoliakie"
   },
   {
     "id": "saline-infusion-test",
@@ -1054,9 +1139,14 @@
         "evidenceQuality": "low",
         "dataCompleteness": "partial",
         "lastReviewed": "2026-05-17",
-        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "intendedUse": "confirmation",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nicht als Primärscreening verwenden. Kontraindikationen, Körperhaltung, Kalium, Volumenstatus, Medikamente und Methode/Cut-off sind entscheidend.",
+        "reviewPriority": "high"
       }
-    ]
+    ],
+    "conditionId": "primarer-hyperaldosteronismus"
   },
   {
     "id": "acth-stimulation-1",
@@ -1124,8 +1214,13 @@
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
         "lastReviewed": "2026-05-17",
-        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+        "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+        "intendedUse": "rule_in",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Verdünnungs- und Timingfehler können die Testgüte stark verschlechtern; Cut-offs alter Immunoassays nicht unkritisch übertragen.",
+        "reviewPriority": "medium"
       }
-    ]
+    ],
+    "conditionId": "nebenniereninsuffizienz"
   }
 ]

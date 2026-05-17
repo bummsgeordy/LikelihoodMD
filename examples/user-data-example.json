@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "exportedAt": "2026-05-17T00:00:00.000Z",
   "customTests": [
     {
       "id": "custom-test-example",
       "name": "Beispieltest",
       "category": "Eigene Tests",
+      "conditionId": "beispiel-krankheitsbild",
       "condition": "Beispiel-Krankheitsbild",
       "description": "Beispielhafter diagnostischer Test. Die Testgüte liegt separat im Evidenzprofil.",
       "custom": true,
@@ -40,7 +41,11 @@
       "reviewStatus": "draft",
       "evidenceQuality": "expert-opinion",
       "dataCompleteness": "partial",
-      "reviewNote": "Beispieldatensatz, nicht kuratiert."
+      "reviewNote": "Beispieldatensatz, nicht kuratiert.",
+      "intendedUse": "Lokale Beispielanwendung",
+      "preanalyticRisk": "unclear",
+      "applicabilityWarning": "Nur Demonstrationsdatensatz, keine kuratierte Testgüte.",
+      "reviewPriority": "medium"
     },
     {
       "id": "custom-scenario-example",
@@ -71,7 +76,11 @@
       "reviewStatus": "draft",
       "evidenceQuality": "expert-opinion",
       "dataCompleteness": "partial",
-      "reviewNote": "Beispieldatensatz, nicht kuratiert."
+      "reviewNote": "Beispieldatensatz, nicht kuratiert.",
+      "intendedUse": "Lokales Szenario",
+      "preanalyticRisk": "unclear",
+      "applicabilityWarning": "Bewusst abweichende Annahme, nicht als Standardprofil verwenden.",
+      "reviewPriority": "medium"
     }
   ],
   "customAssumptions": [

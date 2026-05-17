@@ -25,18 +25,19 @@ Likelihood Ratios verbinden Testgüte und Prätestwahrscheinlichkeit:
     LR+ = Sensitivität / (1 − Spezifität)
     LR− = (1 − Sensitivität) / Spezifität
 
-Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht die automatische Diagnose, sondern eine transparentere, rationalere und weniger biasanfällige diagnostische Entscheidungsfindung. Eine ausführlichere Erklärung steht auf der Info-Seite [Diagnostische Kennzahlen verstehen](public/info/vierfeldertafel/index.html).
+Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht die automatische Diagnose, sondern eine transparentere, rationalere und weniger biasanfällige diagnostische Entscheidungsfindung. Eine ausführlichere Erklärung steht auf der Info-Seite [Diagnostische Kennzahlen verstehen](public/info/vierfeldertafel/index.html); veröffentlicht ist sie unter [GitHub Pages](https://bummsgeordy.github.io/LikelihoodMD/info/vierfeldertafel/).
 
 ## Funktionen
 
 - Kuratierte diagnostische Tests mit auswählbaren Evidenzprofilen für unterschiedliche Quellen, Cut-offs oder Populationen.
+- Vordefinierte Diagnostikketten, die Nachtestwahrscheinlichkeiten einer Stufe als Prätestwahrscheinlichkeit der nächsten Stufe nutzen.
 - Kuratierte Prätest-Annahmen nach Setting und Erkrankung mit grüner Direktdaten- oder oranger Fallback-Markierung.
 - Manuelle Prätestwahrscheinlichkeit.
 - Klinische Modifikatoren wie Symptome, Zeichen oder Kontextfaktoren: qualitativ sichtbar, rechnerisch nur bei explizit hinterlegtem Faktor/LR und aktiver Übernahme.
 - Eigene Tests, Evidenzprofile, Szenarien und Prätest-Annahmen in einem getrennten Verwaltungs-Drawer.
 - Datenkatalog im Verwaltungs-Drawer mit tabellarischer Sicht auf Setting, Erkrankung, Prätest-Annahmen, Modifikatoren, Tests, Evidenzprofile, Quellen und Grenzen.
 - Szenarien markieren bewusst abweichende Werte mit Begründung, statt kuratierte Quellen still zu überschreiben.
-- Lokale Speicherung, JSON-Import und JSON-Export im Schema `schemaVersion: 4`.
+- Lokale Speicherung, JSON-Import und JSON-Export im Schema `schemaVersion: 5`.
 - Review- und Qualitätsfelder für Datenpflege: `reviewStatus`, `evidenceQuality` und `dataCompleteness`.
 - Kurzbericht zum Kopieren.
 - Fagan-ähnliches Nomogramm und Balkendarstellung.

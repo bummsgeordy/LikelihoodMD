@@ -28,6 +28,9 @@ export interface ClinicalSetting {
 export interface ClinicalCondition {
   id: string;
   label: string;
+  category?: string;
+  synonyms?: string[];
+  description?: string;
 }
 
 export interface EvidenceSource {
@@ -45,6 +48,10 @@ export interface EvidenceProfile extends ReviewMetadata {
   kind: EvidenceProfileKind;
   purpose?: string;
   specimen?: string;
+  intendedUse?: string;
+  preanalyticRisk?: 'low' | 'moderate' | 'high' | 'unclear';
+  applicabilityWarning?: string;
+  reviewPriority?: 'low' | 'medium' | 'high';
   method: string;
   cutoff: string;
   procedure?: string;
@@ -72,6 +79,7 @@ export interface DiagnosticTest {
   id: string;
   name: string;
   category: string;
+  conditionId: string;
   condition: string;
   description: string;
   evidenceProfiles: EvidenceProfile[];
@@ -107,6 +115,8 @@ export interface ClinicalModifier extends ReviewMetadata {
   probabilityFactor?: number;
   likelihoodRatio?: number;
   quantificationStatus: QuantificationStatus;
+  riskStratum?: string;
+  mapsToPretestAssumptionId?: string;
   overlapWarning?: string;
   rationale: string;
   limitations: string;
@@ -132,6 +142,30 @@ export interface CalculatorState {
   customModifiers: ClinicalModifier[];
   drawerOpen: boolean;
   adminMode: 'test' | 'profile' | 'assumption' | 'scenario' | 'modifier' | 'data' | 'catalog';
+  catalogFullscreen?: boolean;
+  catalogVisibleColumns?: string[];
+}
+
+export interface DiagnosticChainStage {
+  id: string;
+  testId: string;
+  evidenceProfileId: string;
+  label: string;
+  expectedUse: 'screening' | 'confirmation' | 'parallel' | 'follow-up';
+}
+
+export interface DiagnosticChain extends ReviewMetadata {
+  id: string;
+  conditionId: string;
+  settingIds: string[];
+  label: string;
+  description: string;
+  rationale: string;
+  limitations: string;
+  stages: DiagnosticChainStage[];
+  sources: EvidenceSource[];
+  lastReviewed: string;
+  kind: EvidenceProfileKind;
 }
 
 export interface CalculationResult {
@@ -145,7 +179,7 @@ export interface CalculationResult {
 }
 
 export interface UserDataExport {
-  schemaVersion: 4;
+  schemaVersion: 5;
   exportedAt: string;
   customTests: DiagnosticTest[];
   customEvidenceProfiles: EvidenceProfile[];
