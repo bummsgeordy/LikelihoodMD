@@ -352,6 +352,7 @@ input[type="range"] {
 
 .range-with-marker {
   --pretest-suggestion-left: 10%;
+  --pretest-suggestion-arrow-left: clamp(8px, var(--pretest-suggestion-left), calc(100% - 8px));
   position: relative;
   min-width: 0;
   padding-bottom: 34px;
@@ -364,9 +365,10 @@ input[type="range"] {
 
 .pretest-suggestion-marker {
   position: absolute;
-  left: clamp(0px, calc(var(--pretest-suggestion-left) - 5.2rem), calc(100% - 10.4rem));
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 10.4rem;
+  width: 100%;
   min-width: 0;
   height: 30px;
   min-height: 0;
@@ -377,7 +379,7 @@ input[type="range"] {
   font-size: 0.76rem;
   font-weight: 800;
   line-height: 1;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -385,7 +387,7 @@ input[type="range"] {
 .pretest-suggestion-marker::before {
   content: "";
   position: absolute;
-  left: 50%;
+  left: var(--pretest-suggestion-arrow-left);
   top: 8px;
   width: 3px;
   height: 7px;
@@ -397,7 +399,7 @@ input[type="range"] {
 .pretest-suggestion-marker::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: var(--pretest-suggestion-arrow-left);
   top: 0;
   border: 6px solid transparent;
   border-bottom-color: #0a84ff;
@@ -1074,6 +1076,9 @@ input[type="range"] {
   border: 1px solid var(--border);
   text-align: left;
   vertical-align: top;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .chain-table th {
