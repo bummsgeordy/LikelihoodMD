@@ -294,6 +294,13 @@
             "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
           },
           {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Screeninghinweise für endokrine Hypertonie, ARR-Präanalytik und häufig genutzte ARR-Cut-offs."
+          },
+          {
             "title": "Validity of the aldosterone-renin ratio used to screen for primary aldosteronism",
             "year": 2001,
             "url": "https://pubmed.ncbi.nlm.nih.gov/11560297/",
@@ -392,6 +399,13 @@
             "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
             "kind": "Leitlinie",
             "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+          },
+          {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt präanalytische Anforderungen an Aldosteron/Renin-Proben und die Einordnung von ARR im Hypertonie-Kontext."
           }
         ],
         "isDefault": false,
@@ -440,6 +454,13 @@
             "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
             "kind": "Leitlinie",
             "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+          },
+          {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt PPGL-Testindikationen, klassische Symptomtrias und Plasma-/Urin-Metanephrine als Screeningtests."
           },
           {
             "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
@@ -536,6 +557,13 @@
             "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
             "kind": "Leitlinie",
             "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+          },
+          {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Indikationen, Präanalytik und Interpretation von plasmafreien bzw. urinfraktionierten Metanephrinen."
           }
         ],
         "isDefault": true,
@@ -584,6 +612,13 @@
             "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
             "kind": "Leitlinie",
             "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+          },
+          {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt PPGL-Testindikationen und praktische Probenhinweise für Katecholamin-/Metanephrin-Diagnostik."
           },
           {
             "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
@@ -744,6 +779,13 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK279065/",
             "kind": "Lehrtext",
             "note": "Beschreibt Protokoll und nennt Sensitivität 96 % sowie Spezifität 93 % für den oralen Salzbelastungstest."
+          },
+          {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Listet Bestätigungstests nach positiver ARR und betont Kontraindikationen sowie korrekte Aldosteron-/Urin-Proben."
           }
         ],
         "reviewStatus": "needs-review",
@@ -1167,6 +1209,13 @@
             "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
             "kind": "Leitlinie",
             "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
+          },
+          {
+            "title": "Endotext: Testing for Endocrine Hypertension",
+            "year": 2016,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+            "kind": "Lehrtext",
+            "note": "Ordnet Kochsalzbelastungstests als PA-Bestätigungstests nach positivem Screening ein."
           }
         ],
         "isDefault": true,

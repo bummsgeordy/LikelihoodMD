@@ -18,6 +18,13 @@
         "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
       },
       {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Nennt resistente Hypertonie, Hypokaliämie und Nebenniereninzidentalom als Hinweise auf endokrine Hypertonie bzw. PA."
+      },
+      {
         "title": "Primary aldosteronism: a common cause of resistant hypertension",
         "year": 2016,
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5461126/",
@@ -60,6 +67,13 @@
         "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
       },
       {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt Hypokaliämie und metabolische Alkalose als klinische Hinweise auf primären Hyperaldosteronismus."
+      },
+      {
         "title": "Validity of the aldosterone-renin ratio used to screen for primary aldosteronism",
         "year": 2001,
         "url": "https://pubmed.ncbi.nlm.nih.gov/11560297/",
@@ -99,6 +113,13 @@
         "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
       },
       {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Nennt Hypertonie plus Nebenniereninzidentalom als Hinweis, endokrine Hypertonieursachen einschließlich PA zu prüfen."
+      },
+      {
         "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
         "year": 2016,
         "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
@@ -130,6 +151,13 @@
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
         "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+      },
+      {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt klassische PPGL-Symptomtrias mit Kopfschmerz, Schwitzen und Palpitationen sowie deren diagnostische Grenzen."
       },
       {
         "title": "Pheochromocytoma: Symptom to Diagnosis, An Evidence-Based Guide",
@@ -166,6 +194,13 @@
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
         "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+      },
+      {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Nennt Nebenniereninzidentalom als Indikation zur PPGL-Testung auch ohne Hypertonie."
       },
       {
         "title": "Pheochromocytoma: Symptom to Diagnosis, An Evidence-Based Guide",
@@ -208,6 +243,13 @@
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
         "note": "Leitlinie zu klinischen Risikokonstellationen, Metanephrin-Testung und Interpretation."
+      },
+      {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Nennt MEN2, VHL, NF1 und SDHx-Kontext als Indikationen für PPGL-Testung."
       },
       {
         "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",

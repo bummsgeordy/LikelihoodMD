@@ -38,6 +38,13 @@
         "note": "Praktische Protokolle, Präanalytik und Grenzen von Cortisol-, DST-, UFC-, LNSC- und ACTH-Testung."
       },
       {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Ordnet Cushing-Syndrom als seltene endokrine Hypertonieursache ein und nennt typische klinische Hinweise."
+      },
+      {
         "title": "ESE/ENSAT Guideline: Adrenal Incidentalomas",
         "year": 2023,
         "url": "https://www.ese-hormones.org/publications/directory/ese-clinical-practice-guideline-on-the-management-of-adrenal-incidentalomas-in-collaboration-with-the-european-network-for-the-study-of-adrenal-tumors/",
@@ -64,6 +71,110 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative Prävalenzwerte bleiben settingabhängig und sollten separat geprüft werden."
+  },
+  {
+    "conditionId": "primarer-hyperaldosteronismus",
+    "summary": "Primärer Hyperaldosteronismus ist eine häufige und potenziell behandelbare Ursache endokriner Hypertonie. Der diagnostische Einstieg ist das Verhältnis aus Aldosteron und Renin; positive oder unklare Screeningbefunde brauchen je nach Konstellation Bestätigung und später Subtypisierung.",
+    "whenToTest": [
+      "Screening bei resistenter Hypertonie, kontrollierter Hypertonie mit mindestens vier Medikamenten, persistierend hohem Blutdruck oder Hypertonie mit Hypokaliämie.",
+      "Screening bei Hypertonie plus Nebenniereninzidentalom, Schlafapnoe, früher Familienanamnese oder erstgradigen Angehörigen mit PA.",
+      "Bei spontaner Hypokaliämie, supprimiertem Renin und deutlich erhöhtem Aldosteron kann eine direkte Subtypisierung ohne klassischen Bestätigungstest erwogen werden."
+    ],
+    "recommendedTests": [
+      "ARR als Screeningtest: Aldosteron, Renin, Kalium, Medikation, Salzstatus, Körperhaltung und Uhrzeit dokumentieren.",
+      "Bestätigung je nach Setting mit Kochsalzinfusion, oralem Kochsalzbelastungstest, Fludrocortison-Suppression oder Captopril-Test.",
+      "Bestätigungstests nicht als Primärscreening interpretieren; Kontraindikationen wie relevante CKD, Herzinsuffizienz oder schwere Hypokaliämie beachten."
+    ],
+    "pitfalls": [
+      "Hypokaliämie kann Aldosteron senken und falsch negative Ergebnisse begünstigen.",
+      "Diuretika, ACE-Hemmer, AT1-Blocker, Betablocker, MR-Antagonisten, ENaC-Inhibitoren und Salzrestriktion können ARR und Bestätigungstests deutlich verschieben.",
+      "ARR-Cut-offs sind methoden-, einheiten- und laborabhängig; ein Quotient ohne absolut inadäquat hohes Aldosteron kann irreführend sein."
+    ],
+    "settingNotes": [
+      "In unselektierter Hypertonie ist die Prätestwahrscheinlichkeit deutlich niedriger als in Hypertonie-/Nephrologie-/Endokrinologie-Spezialambulanzen.",
+      "Resistente Hypertonie und Hypokaliämie sollten eher als eigenes Risikostratum bzw. Setting gewertet werden, um Doppelzählung mit Modifikatoren zu vermeiden.",
+      "Endotext nennt häufig verwendete ARR-Cut-offs und Probenhinweise, liefert aber keine universell übertragbare Testgüte für jedes Labor."
+    ],
+    "links": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Aktuelle Leitlinienquelle zu Screeningindikationen, Präanalytik, Bestätigungstests und Subtypisierung."
+      },
+      {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Kompakte Übersicht zu endokriner Hypertonie, Screening-Hinweisen, ARR-Probenhandling und Bestätigungstests."
+      },
+      {
+        "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
+        "kind": "Review",
+        "note": "Systematischer Review zur Heterogenität von Prävalenzschätzungen nach Population und Teststrategie."
+      }
+    ],
+    "lastReviewed": "2026-05-18",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; lokale ARR- und Bestätigungstest-Cut-offs müssen separat kuratiert werden."
+  },
+  {
+    "conditionId": "phaochromozytom-paragangliom",
+    "summary": "PPGL ist in unselektierter Hypertonie selten, aber klinisch wichtig, weil falsch-positive Grenzwerte bei niedriger Prätestwahrscheinlichkeit häufig problematisch sind und übersehene Tumoren relevant gefährlich sein können. Die beste Testwahl hängt stark von Risiko, Präanalytik und Vorbefunden ab.",
+    "whenToTest": [
+      "Testen bei paroxysmalen oder typischen Symptomen wie Kopfschmerz, Palpitationen und Schwitzen, besonders bei Blutdruckkrisen oder Triggern.",
+      "Testen bei Nebenniereninzidentalom, vorherigem PPGL oder hereditärem Risiko, z. B. MEN2, VHL, NF1 oder SDHx-Kontext.",
+      "Auch normotensive PPGL kommen vor; klinischer Kontext und Bildgebung entscheiden über die Prätestwahrscheinlichkeit."
+    ],
+    "recommendedTests": [
+      "Plasmafreie oder urinfraktionierte Metanephrine sind die zentralen biochemischen Screeningtests.",
+      "Plasmafreie Metanephrine sind besonders stark zum Ausschluss geeignet, brauchen aber standardisierte Ruhe, Körperlage und Referenzbereiche.",
+      "Urinfraktionierte Metanephrine sind eine Alternative, benötigen aber korrekte 24-h-Sammlung und Plausibilitätsprüfung."
+    ],
+    "pitfalls": [
+      "Stress, Schmerz, akute Erkrankung, Koffein/Nikotin, körperliche Belastung und Medikamente können falsch positive Werte begünstigen.",
+      "Körperlage und Ruhephase sind bei Plasma-Metanephrinen entscheidend; sitzende Abnahme kann bei liegend validierten Cut-offs die Spezifität senken.",
+      "Grenzwertige Erhöhungen beweisen PPGL nicht; Grad der Erhöhung, Prätestwahrscheinlichkeit und Präanalytik müssen gemeinsam bewertet werden."
+    ],
+    "settingNotes": [
+      "Endotext nennt PPGL bei Hypertonie als seltene Ursache mit ungefähr 0,3% Prävalenz in Hypertoniepopulationen.",
+      "Die klassische Symptomtrias wird als sensitiv und spezifisch beschrieben, tritt aber nur bei einem Teil der Fälle auf.",
+      "Nebenniereninzidentalom und genetischer Kontext sind eigene Hochrisikosituationen und sollten nicht zusätzlich doppelt als Modifikator und Setting gezählt werden."
+    ],
+    "links": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Leitlinienquelle zu PPGL-Testindikation, Metanephrin-Diagnostik und genetischem Kontext."
+      },
+      {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt PPGL als endokrine Hypertonieursache, Symptomtrias, Testindikationen und Metanephrin-Diagnostik."
+      },
+      {
+        "title": "A comparison of biochemical tests for pheochromocytoma",
+        "year": 2004,
+        "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+        "kind": "Review",
+        "note": "Systematischer Vergleich biochemischer PPGL-Tests."
+      }
+    ],
+    "lastReviewed": "2026-05-18",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; konkrete Prätestwahrscheinlichkeiten nach Inzidentalom-/genetischem Setting bleiben weiter zu kuratieren."
   },
   {
     "conditionId": "nebenniereninsuffizienz",
