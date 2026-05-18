@@ -96,6 +96,7 @@ app.innerHTML = `
     </header>
 
     <section class="calculator-grid" id="calculatorGrid" aria-label="Likelihood-Ratio-Rechner">
+      <div class="calculator-column calculator-column-primary">
       <section class="card settings-card" aria-labelledby="settingsTitle">
         <h2 id="settingsTitle">Rechner</h2>
         <div class="field">
@@ -127,7 +128,6 @@ app.innerHTML = `
             <input id="pretestNumber" class="pretest-number-input" type="text" inputmode="decimal" autocomplete="off" maxlength="5" aria-label="Prätestwahrscheinlichkeit in Prozent">
           </div>
           <p class="pretest-suggestion-hint" id="pretestSuggestionHint"></p>
-          <p class="muted">Bereich 0,1-99,9 %, damit Odds endlich bleiben.</p>
         </div>
         <div class="pretest-status" id="pretestStatus"></div>
         <div class="field modifier-field">
@@ -170,6 +170,8 @@ app.innerHTML = `
         <div class="modifier-impact hidden" id="resultModifierImpact"></div>
       </section>
 
+      </div>
+      <div class="calculator-column calculator-column-secondary">
       <section class="card nomogram-card" id="nomogramCard" aria-labelledby="nomogramTitle">
         <input id="nomogramSizeToggle" class="nomogram-size-toggle" type="checkbox">
         <div class="section-heading-row">
@@ -219,6 +221,7 @@ app.innerHTML = `
           <div id="evidencePanel"></div>
         </section>
       </aside>
+      </div>
     </section>
 
     <div id="drawerBackdrop" class="drawer-backdrop hidden"></div>
@@ -857,8 +860,8 @@ function populateSelectors(): void {
   );
   controls.profileHint.textContent =
     profiles.length > 1
-      ? `${profiles.length} Evidenzprofile verfügbar. Wähle aktiv die passende Quelle, Population oder den passenden Cut-off.`
-      : 'Für diesen Test ist aktuell ein Evidenzprofil verfügbar.';
+      ? `${profiles.length} Profile verfügbar. Passend zu Population/Cut-off wählen.`
+      : '1 Profil verfügbar.';
 }
 
 function populateAdminSelectors(): void {
@@ -973,28 +976,37 @@ function renderMismatchWarning(test: DiagnosticTest): void {
     return;
   }
   const selectedCondition = getSelectedCondition();
-  controls.mismatchWarning.textContent = `Warnung: Der gewählte Test ist für „${test.condition}“ hinterlegt, nicht für „${selectedCondition.label}“. Die berechnete Prätestwahrscheinlichkeit bezieht sich auf „${selectedCondition.label}“; die Testgüte stammt aus einem anderen Kontext.`;
+  controls.mismatchWarning.textContent = `⚠ Test passt nicht zur gewählten Erkrankung: hinterlegt für „${test.condition}“, berechnet für „${selectedCondition.label}“.`;
   controls.mismatchWarning.classList.remove('hidden');
 }
 
 function renderPretestStatus(resolution: PretestResolution): void {
   controls.pretestStatus.className = `pretest-status ${resolution.status}`;
   const source = resolution.assumption.sources[0];
-  controls.pretestStatus.textContent = `${resolution.status === 'direct' ? '✓ ' : resolution.status === 'fallback' ? '! ' : ''}${resolution.title}: ${formatPercent(resolution.probability)}. ${resolution.message}${source ? ` Quelle: ${source.title} (${source.year}).` : ''}`;
+  const selectedCondition = getSelectedCondition().label;
+  const selectedSetting = getSelectedSetting().label;
+  const statusLabel =
+    resolution.status === 'direct'
+      ? 'Setting-Daten'
+      : resolution.status === 'fallback'
+        ? 'Allgemeine Annahme'
+        : 'Manuell';
+  const statusIcon = resolution.status === 'direct' ? '✓' : resolution.status === 'fallback' ? '!' : '';
+  const statusMessage =
+    resolution.status === 'direct'
+      ? `Für ${selectedCondition} im Setting ${selectedSetting} ist eine kuratierte Annahme hinterlegt.`
+      : resolution.status === 'fallback'
+        ? `Keine spezifischen Setting-Daten für ${selectedCondition} im Setting ${selectedSetting}; allgemeine Annahme genutzt.`
+        : resolution.message;
+  controls.pretestStatus.textContent = `${statusIcon ? `${statusIcon} ` : ''}${statusLabel}: ${formatPercent(resolution.probability)}. ${statusMessage}${source ? ` Quelle: ${source.title} (${source.year}).` : ''}`;
   const suggestedPercent = clampProbabilityPercent(resolution.probability * 100);
   const markerLeft = ((suggestedPercent - 0.1) / (99.9 - 0.1)) * 100;
+  const suggestionContext = resolution.status === 'direct' ? 'Setting' : resolution.status === 'fallback' ? 'allgemein' : 'manuell';
   controls.pretestRangeWrap.style.setProperty('--pretest-suggestion-left', `${markerLeft}%`);
   controls.pretestSuggestionMarker.title = `Vorschlag übernehmen: ${suggestedPercent.toFixed(1).replace('.', ',')} %`;
   controls.pretestSuggestionMarker.setAttribute('aria-label', `Vorgeschlagene Prätestwahrscheinlichkeit ${suggestedPercent.toFixed(1).replace('.', ',')} Prozent übernehmen`);
+  controls.pretestSuggestionMarker.textContent = `Vorschlag ${formatPercent(resolution.probability)} (${suggestionContext})`;
   controls.pretestSuggestionHint.textContent = '';
-  const sourceText = source ? ` Quelle: ${source.title} (${source.year}).` : '';
-  controls.pretestSuggestionHint.append(
-    document.createTextNode(`Vorschlag: ${formatPercent(resolution.probability)} aus „${resolution.title}“. ${resolution.message}${sourceText} `)
-  );
-  const detailsLink = document.createElement('a');
-  detailsLink.href = '#detailsCard';
-  detailsLink.textContent = 'Details in Zahlen, Herkunft und Begründung';
-  controls.pretestSuggestionHint.append(detailsLink, document.createTextNode('.'));
 }
 
 function renderModifierSelector(result: CalculationResult): void {
