@@ -355,6 +355,7 @@ input[type="range"] {
   position: relative;
   min-width: 0;
   padding-bottom: 34px;
+  overflow: hidden;
 }
 
 .range-with-marker input[type="range"] {
@@ -363,9 +364,9 @@ input[type="range"] {
 
 .pretest-suggestion-marker {
   position: absolute;
-  left: var(--pretest-suggestion-left);
+  left: clamp(0px, calc(var(--pretest-suggestion-left) - 5.2rem), calc(100% - 10.4rem));
   bottom: 0;
-  width: max-content;
+  width: 10.4rem;
   min-width: 0;
   height: 30px;
   min-height: 0;
@@ -376,8 +377,8 @@ input[type="range"] {
   font-size: 0.76rem;
   font-weight: 800;
   line-height: 1;
+  text-align: center;
   white-space: nowrap;
-  transform: translateX(-50%);
   cursor: pointer;
 }
 
@@ -657,6 +658,25 @@ input[type="range"] {
 
 .section-heading-row h3 {
   margin: 0;
+}
+
+.chain-title-row {
+  align-items: end;
+}
+
+.chain-select-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.chain-select-label select {
+  min-height: 34px;
+  padding: 5px 8px;
+  font-size: 0.9rem;
 }
 
 .compact-button {
@@ -1045,6 +1065,7 @@ input[type="range"] {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.86rem;
+  table-layout: fixed;
 }
 
 .chain-table th,
@@ -1060,8 +1081,7 @@ input[type="range"] {
   color: var(--muted);
 }
 
-.chain-limitations,
-.data-version {
+.chain-limitations {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;

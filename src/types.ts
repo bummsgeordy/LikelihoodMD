@@ -144,6 +144,7 @@ export interface CalculatorState {
   adminMode: 'test' | 'profile' | 'assumption' | 'scenario' | 'modifier' | 'data' | 'catalog';
   catalogFullscreen?: boolean;
   catalogVisibleColumns?: string[];
+  selectedDiagnosticChainId?: string;
 }
 
 export interface DiagnosticChainStage {

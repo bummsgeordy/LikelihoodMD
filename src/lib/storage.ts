@@ -105,7 +105,8 @@ export const defaultState: CalculatorState = {
   customAssumptions: [],
   customModifiers: [],
   drawerOpen: false,
-  adminMode: 'data'
+  adminMode: 'data',
+  selectedDiagnosticChainId: 'cushing-lnsc-to-dst'
 };
 
 function migrateLegacyTest(test: Record<string, unknown>): { test: DiagnosticTest; profile: EvidenceProfile } {

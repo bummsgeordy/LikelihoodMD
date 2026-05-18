@@ -1,5 +1,11 @@
-import { chainPathFinalProbability, describeChainPath, type DiagnosticChainViewModel } from '../app/diagnosticChains';
+import { chainPathFinalProbability, type DiagnosticChainPath, type DiagnosticChainViewModel } from '../app/diagnosticChains';
 import { formatPercent } from '../lib/calculations';
+
+function resultLabel(path: DiagnosticChainPath): string {
+  const first = path.firstResultLabel === 'positiv' ? 'Test 1 positiv' : 'Test 1 negativ';
+  const second = path.secondResultLabel === 'positiv' ? 'Test 2 positiv' : 'Test 2 negativ';
+  return `${first} → ${second}`;
+}
 
 export function renderDiagnosticChains(
   container: HTMLElement,
@@ -46,9 +52,8 @@ export function renderDiagnosticChains(
       <thead>
         <tr>
           <th>Pfad</th>
-          <th>Nach Test 1</th>
-          <th>Nach Test 2</th>
-          <th>Interpretation</th>
+          <th>Posttestwahrscheinlichkeit nach Test 1</th>
+          <th>Posttestwahrscheinlichkeit nach Test 2</th>
         </tr>
       </thead>
     `;
@@ -57,10 +62,9 @@ export function renderDiagnosticChains(
       const row = document.createElement('tr');
       const finalProbability = chainPathFinalProbability(path);
       row.innerHTML = `
-        <td>${path.label}</td>
+        <td>${resultLabel(path)}</td>
         <td>${formatPercent(path.intermediateProbability)}</td>
         <td>${formatPercent(finalProbability)}</td>
-        <td>${describeChainPath(path)}</td>
       `;
       body.append(row);
     });

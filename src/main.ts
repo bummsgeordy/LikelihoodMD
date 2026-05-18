@@ -32,7 +32,7 @@ import {
   type CatalogSortKey
 } from './app/catalog';
 import { clinicalIdFromLabel, conditionIdForTest, conditionLabel, mergeConditions } from './app/conditions';
-import { calculateDiagnosticChain, chainsForContext } from './app/diagnosticChains';
+import { calculateDiagnosticChain } from './app/diagnosticChains';
 import { renderDiagnosticChains } from './ui/renderDiagnosticChains';
 import { validateClinicalModifier, validateDiagnosticTest, validateEvidenceProfile, validatePretestAssumption } from './lib/validation';
 import type {
@@ -90,7 +90,6 @@ app.innerHTML = `
         <div id="disclaimerContent" class="disclaimer-content hidden">
           <p class="lead">Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
           <div class="notice" role="note">Dieses Tool ist keine alleinige Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
-          <p class="data-version">Datenstand: 2026-05-17 · Schema v5 · Kuratierte Daten starten konservativ als needs-review.</p>
         </div>
       </section>
     </header>
@@ -177,7 +176,7 @@ app.innerHTML = `
         <div class="section-heading-row">
           <h2 id="nomogramTitle">Nomogramm</h2>
           <label for="nomogramSizeToggle" class="secondary-button compact-button nomogram-toggle">
-            <span class="toggle-small">Fokus anzeigen</span>
+            <span class="toggle-small">Nomogramm auf ganzer Breite</span>
             <span class="toggle-large">Normal anzeigen</span>
           </label>
         </div>
@@ -194,22 +193,20 @@ app.innerHTML = `
         <div class="modifier-impact hidden" id="nomogramModifierImpact"></div>
         <div class="nomogram-guide">
           <h3>Nomogramm interpretieren</h3>
-          <p>Eine Gerade von der Prätestwahrscheinlichkeit über die Likelihood-Ratio zur Posttest-Achse zeigt die Nachtestwahrscheinlichkeit.</p>
-          <ul>
-            <li>Das grüne Nomogramm nutzt LR+ für ein positives Testergebnis.</li>
-            <li>Das orange Nomogramm nutzt LR− für ein negatives Testergebnis.</li>
-            <li>Die LR-Achse ist je Nomogramm auf die aktuelle Prätestwahrscheinlichkeit kalibriert, damit der Verlauf intuitiv ansteigt oder abfällt.</li>
-          </ul>
+          <p>Das Nomogramm macht sichtbar, wie ein Testergebnis die Wahrscheinlichkeit einer Erkrankung verändert: links steht die Ausgangswahrscheinlichkeit, in der Mitte die Likelihood-Ratio und rechts die daraus entstehende Posttestwahrscheinlichkeit. So wird erkennbar, ob ein Test die klinische Entscheidung wahrscheinlich wirklich verändert.</p>
           <p class="muted">Weiterlesen: <a href="https://www.healthknowledge.org.uk/content/pre-and-post-test-probability" target="_blank" rel="noopener noreferrer">Health Knowledge</a> und <a href="https://ebm.bmj.com/content/18/4/125" target="_blank" rel="noopener noreferrer">BMJ Evidence-Based Medicine</a>.</p>
         </div>
       </section>
 
       <section class="card diagnostic-chain-card" id="diagnosticChainCard" aria-labelledby="diagnosticChainTitle">
-        <div class="section-heading-row">
+        <div class="section-heading-row chain-title-row">
           <h2 id="diagnosticChainTitle">Diagnostikketten</h2>
-          <span class="badge badge-info">Schema v5</span>
+          <label class="chain-select-label" for="diagnosticChainSelect">
+            <span>Beispiel wählen</span>
+            <select id="diagnosticChainSelect"></select>
+          </label>
         </div>
-        <p class="muted">Vordefinierte Ketten nutzen die Nachtestwahrscheinlichkeit einer Stufe als neue Prätestwahrscheinlichkeit der nächsten Stufe.</p>
+        <p class="muted">Vordefinierte Beispiele zeigen, wie eine Posttestwahrscheinlichkeit zur neuen Prätestwahrscheinlichkeit des nächsten Tests wird.</p>
         <div id="diagnosticChainsPanel"></div>
       </section>
 
@@ -468,6 +465,7 @@ const controls = {
   nomogramPositive: $<HTMLCanvasElement>('nomogramPositive'),
   nomogramNegative: $<HTMLCanvasElement>('nomogramNegative'),
   nomogramSizeToggle: $<HTMLInputElement>('nomogramSizeToggle'),
+  diagnosticChainSelect: $<HTMLSelectElement>('diagnosticChainSelect'),
   diagnosticChainsPanel: $('diagnosticChainsPanel'),
   drawer: $('adminDrawer'),
   drawerBackdrop: $('drawerBackdrop'),
@@ -857,6 +855,11 @@ function populateSelectors(): void {
     controls.modifierConditionSelect,
     allConditions().map(condition => ({ value: condition.id, label: condition.label })),
     selectedCondition.id
+  );
+  populateSelect(
+    controls.diagnosticChainSelect,
+    diagnosticChains.map(chain => ({ value: chain.id, label: chain.label })),
+    state.selectedDiagnosticChainId ?? diagnosticChains[0]?.id ?? ''
   );
   controls.profileHint.textContent =
     profiles.length > 1
@@ -1762,9 +1765,13 @@ function renderMain(): void {
   renderModifierImpact(profile, result);
   renderDetails(test, profile, assumption, result, pretestResolution);
   renderEvidence(profile, assumption, pretestResolution);
-  const chainViewModels = chainsForContext(diagnosticChains, state.selectedConditionId, state.selectedSettingId)
-    .map(chain => calculateDiagnosticChain(chain, allTests(), allProfiles(), result.pretestProbability))
-    .filter((chain): chain is NonNullable<typeof chain> => chain != null);
+  const selectedChain = diagnosticChains.find(chain => chain.id === state.selectedDiagnosticChainId) ?? diagnosticChains[0];
+  state.selectedDiagnosticChainId = selectedChain?.id;
+  const chainViewModels = selectedChain
+    ? [calculateDiagnosticChain(selectedChain, allTests(), allProfiles(), result.pretestProbability)].filter(
+        (chain): chain is NonNullable<typeof chain> => chain != null
+      )
+    : [];
   renderDiagnosticChains(controls.diagnosticChainsPanel, chainViewModels, result.pretestProbability);
   drawNomogram(result);
 }
@@ -2394,6 +2401,10 @@ controls.pretestNumber.addEventListener('keydown', event => {
   }
 });
 controls.pretestSuggestionMarker.addEventListener('click', useSuggestedPretest);
+controls.diagnosticChainSelect.addEventListener('change', () => {
+  state.selectedDiagnosticChainId = controls.diagnosticChainSelect.value;
+  saveAndRender();
+});
 controls.modifierOptions.addEventListener('change', event => {
   const input = event.target as HTMLInputElement;
   if (input.type !== 'checkbox') return;
