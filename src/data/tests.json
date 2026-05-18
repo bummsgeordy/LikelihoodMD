@@ -937,6 +937,13 @@
             "note": "Ordnet die Diagnostik der zentralen ACTH-Defizienz bei Hypopituitarismus ein und beschreibt Grenzen basaler und dynamischer HPA-Achsen-Tests."
           },
           {
+            "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
+            "year": 2011,
+            "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt bei Hypophyseninzidentalomen Screening auf Hypopituitarismus; bei auffälligem Basisscreening sollen passende Stimulationstests erfolgen."
+          },
+          {
             "title": "ESE/Endocrine Society Guideline: Glucocorticoid-induced Adrenal Insufficiency",
             "year": 2024,
             "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
@@ -1305,6 +1312,13 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
             "kind": "Lehrtext",
             "note": "Ergänzt den Hypopituitarismus-Kontext bei zentraler ACTH-Defizienz und dynamischer HPA-Achsen-Diagnostik."
+          },
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
+            "year": 2011,
+            "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
+            "kind": "Leitlinie",
+            "note": "Ordnet Hypophyseninzidentalome als Kontext für Hypopituitarismus-Screening und nachfolgende dynamische HPA-Achsen-Diagnostik ein."
           }
         ],
         "isDefault": true,

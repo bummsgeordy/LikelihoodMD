@@ -520,12 +520,12 @@
   {
     "id": "ai-pituitary-sellar-disease",
     "conditionId": "nebenniereninsuffizienz",
-    "label": "Hypophysen-/Hypothalamuserkrankung oder selläre Raumforderung",
+    "label": "Hypophysen-/Hypothalamuserkrankung oder Hypophyseninzidentalom",
     "category": "Kontext",
     "direction": "increases",
     "quantificationStatus": "qualitative",
-    "rationale": "Hypopituitarismus kann isolierte oder kombinierte Hypophysenachsen-Ausfälle verursachen; zentrale ACTH-Defizienz ist dabei ein relevanter Kontext für Nebenniereninsuffizienz.",
-    "limitations": "Das Risiko hängt von Ursache, Größe, Verlauf, Voroperation, Bestrahlung, Hypophysitis und bereits betroffenen Achsen ab. Nicht automatisch mit primärer Nebenniereninsuffizienz gleichsetzen.",
+    "rationale": "Hypopituitarismus kann isolierte oder kombinierte Hypophysenachsen-Ausfälle verursachen; zentrale ACTH-Defizienz ist dabei ein relevanter Kontext für Nebenniereninsuffizienz. Hypophyseninzidentalome sollen laut Leitlinie auch ohne Symptome auf Hypopituitarismus geprüft werden.",
+    "limitations": "Das Risiko hängt von Ursache, Größe, Makro- vs. Mikroinzidentalom, Verlauf, Voroperation, Bestrahlung, Hypophysitis und bereits betroffenen Achsen ab. Nicht automatisch mit primärer Nebenniereninsuffizienz gleichsetzen.",
     "sources": [
       {
         "title": "Endotext: Hypopituitarism",
@@ -533,6 +533,13 @@
         "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
         "kind": "Lehrtext",
         "note": "Übersicht zu Ursachen, Manifestationen und Diagnostik von Hypopituitarismus inklusive zentraler ACTH-Defizienz."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
+        "year": 2011,
+        "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt bei Hypophyseninzidentalom klinische und laborchemische Evaluation auf Hypopituitarismus; Makroinzidentalome brauchen Verlaufskontrollen."
       }
     ],
     "kind": "curated",
@@ -540,7 +547,7 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-18",
-    "reviewNote": "Qualitativer Modifikator für zentrale Nebenniereninsuffizienz; kein quantifizierter Faktor hinterlegt.",
+    "reviewNote": "Qualitativer Modifikator für zentrale Nebenniereninsuffizienz; Inzidentalom-Serien berichten relevante Achsendefizite, aber kein allgemein übertragbarer Faktor ist hinterlegt.",
     "riskStratum": "hypophysen-hypothalamus-erkrankung"
   },
   {
@@ -585,6 +592,13 @@
         "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
         "kind": "Lehrtext",
         "note": "Beschreibt Hypopituitarismus als isolierten oder kombinierten Ausfall von Hypophysenhormonen und die Rolle basaler sowie dynamischer Tests."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
+        "year": 2011,
+        "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
+        "kind": "Leitlinie",
+        "note": "Nennt in kleinen Inzidentalom-Serien Defizite mehrerer Hypophysenachsen, darunter ACTH/Cortisol-, Schilddrüsen- und Gonadenachse."
       }
     ],
     "kind": "curated",

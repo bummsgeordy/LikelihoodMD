@@ -20,7 +20,8 @@
     "settingNotes": [
       "In Primärversorgung mit nur unspezifischen metabolischen Merkmalen bleibt die Prätestwahrscheinlichkeit sehr niedrig.",
       "In der Endokrinologie steigt die Prätestwahrscheinlichkeit vor allem durch Zuweisungsselektion, Progression und diskriminative Zeichen.",
-      "Für MACS bei Nebenniereninzidentalom berichten Quellen breite Prävalenzbereiche; diese betreffen nicht automatisch manifestes Cushing-Syndrom."
+      "Für MACS bei Nebenniereninzidentalom berichten Quellen breite Prävalenzbereiche; diese betreffen nicht automatisch manifestes Cushing-Syndrom.",
+      "Bei Hypophyseninzidentalom empfiehlt die Leitlinie Screening auf Hormonexzess; Glukokortikoidexzess sollte wegen falsch positiver Tests vor allem bei klinischem Verdacht gezielt geprüft werden."
     ],
     "links": [
       {
@@ -50,6 +51,13 @@
         "url": "https://www.ese-hormones.org/publications/directory/ese-clinical-practice-guideline-on-the-management-of-adrenal-incidentalomas-in-collaboration-with-the-european-network-for-the-study-of-adrenal-tumors/",
         "kind": "Leitlinie",
         "note": "Aktuelle europäische Leitlinie zu Nebenniereninzidentalomen und mild autonomous cortisol secretion."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
+        "year": 2011,
+        "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt bei Hypophyseninzidentalomen Evaluation auf Hormonexzess; Cushing-Testung vor allem bei klinischem Verdacht einordnen."
       },
       {
         "title": "Endotext: Adrenal Incidentaloma",
@@ -182,6 +190,7 @@
     "whenToTest": [
       "Testen bei klinischem Verdacht, relevanter Glukokortikoidexposition oder bilateraler Nebennierenerkrankung.",
       "Bei Hypophysen-/Hypothalamuserkrankung, sellärer Raumforderung, Hypophysenoperation, Schädelbestrahlung oder erwartbarer progredienter Hypophyseninsuffizienz die HPA-Achse gezielt prüfen.",
+      "Bei Hypophyseninzidentalom initial klinisch und laborchemisch auf Hypopituitarismus prüfen; bei Makroinzidentalomen werden Verlaufskontrollen empfohlen.",
       "Bei akuter schwerer Erkrankung oder instabiler Situation darf Diagnostik die Behandlung nicht verzögern.",
       "Morgen-Cortisol kann als Screening dienen; grenzwertige Ergebnisse brauchen dynamische Testung."
     ],
@@ -189,6 +198,7 @@
       "250-µg-ACTH-Stimulationstest mit 0-, 30- und/oder 60-Minuten-Cortisol nach lokalem Protokoll.",
       "ACTH basal hilft bei der Einordnung primär vs. zentral, muss aber präanalytisch korrekt verarbeitet werden.",
       "Bei Hypopituitarismus können 7-9-Uhr-Cortisol und ACTH orientieren; bei 100 bis 400-500 nmol/l Cortisol beschreibt Endotext dynamische Testung der ACTH-Reserve als erforderlich.",
+      "Bei Hypophyseninzidentalom können freies T4, Morgen-Cortisol, Gonadenachse und je nach Befund Stimulationstests zur Einordnung der Hypophysenfunktion gehören.",
       "Assay-spezifische Cortisol-Cut-offs dokumentieren; historische Cut-offs nicht unkritisch übertragen."
     ],
     "pitfalls": [
@@ -200,7 +210,8 @@
     "settingNotes": [
       "Nach exogener Steroidexposition hängt die Prätestwahrscheinlichkeit von Dosis, Dauer, Applikationsweg und Zeit seit Absetzen ab.",
       "Bei primärer Nebenniereninsuffizienz erhöhen Hyperpigmentierung, Salzverlangen, Hyponatriämie und Hyperkaliämie den Verdacht.",
-      "Bei zentraler Nebenniereninsuffizienz sprechen bekannte Hypophysenerkrankung, mehrere Hypophysenachsen-Ausfälle, selläre Operation/Bestrahlung oder Hypophysitis eher für eine höhere Prätestwahrscheinlichkeit."
+      "Bei zentraler Nebenniereninsuffizienz sprechen bekannte Hypophysenerkrankung, mehrere Hypophysenachsen-Ausfälle, selläre Operation/Bestrahlung oder Hypophysitis eher für eine höhere Prätestwahrscheinlichkeit.",
+      "Die Inzidentalom-Leitlinie berichtet in kleinen Serien Hypopituitarismus bei relevanten Anteilen der Betroffenen; ACTH/Cortisol-Achsen-Defizite wurden bis etwa 18% beschrieben, aber nicht als universelle Prätestwahrscheinlichkeit."
     ],
     "links": [
       {
@@ -209,6 +220,13 @@
         "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
         "kind": "Lehrtext",
         "note": "Beschreibt Ursachen, Basaldiagnostik und dynamische Testung bei Hypopituitarismus, inklusive zentraler ACTH-Defizienz und Hormonreihenfolge."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
+        "year": 2011,
+        "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt initiale und verlaufsbezogene Evaluation auf Hypopituitarismus; nennt beobachtete ACTH/Cortisol-Achsen-Defizite in Inzidentalom-Serien."
       },
       {
         "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
