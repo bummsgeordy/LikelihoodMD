@@ -663,12 +663,17 @@ input[type="range"] {
 }
 
 .chain-title-row {
-  align-items: end;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: start;
+  justify-items: start;
+  align-items: start;
 }
 
 .chain-select-label {
   display: grid;
-  min-width: min(100%, 260px);
+  width: min(100%, 340px);
+  min-width: 0;
   gap: 4px;
   color: var(--muted);
   font-size: 0.78rem;
@@ -676,6 +681,8 @@ input[type="range"] {
 }
 
 .chain-select-label select {
+  width: 100%;
+  min-width: 0;
   min-height: 34px;
   padding: 5px 8px;
   font-size: 0.9rem;
