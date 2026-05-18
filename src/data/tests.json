@@ -930,6 +930,13 @@
             "note": "Beschreibt Cosyntropin-Testprotokoll, Probenzeitpunkte, klassische Cut-offs und CBG-/Albumin-/Steroid-Einflüsse."
           },
           {
+            "title": "Endotext: Hypopituitarism",
+            "year": 2025,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+            "kind": "Lehrtext",
+            "note": "Ordnet die Diagnostik der zentralen ACTH-Defizienz bei Hypopituitarismus ein und beschreibt Grenzen basaler und dynamischer HPA-Achsen-Tests."
+          },
+          {
             "title": "ESE/Endocrine Society Guideline: Glucocorticoid-induced Adrenal Insufficiency",
             "year": 2024,
             "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
@@ -1291,6 +1298,13 @@
             "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
             "kind": "Leitlinie",
             "note": "Beschreibt relevante Glukokortikoidexposition und Erholung der HPA-Achse."
+          },
+          {
+            "title": "Endotext: Hypopituitarism",
+            "year": 2025,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+            "kind": "Lehrtext",
+            "note": "Ergänzt den Hypopituitarismus-Kontext bei zentraler ACTH-Defizienz und dynamischer HPA-Achsen-Diagnostik."
           }
         ],
         "isDefault": true,

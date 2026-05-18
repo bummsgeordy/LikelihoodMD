@@ -466,6 +466,13 @@
         "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
         "kind": "Review",
         "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Stimulationstests bei Nebenniereninsuffizienz."
+      },
+      {
+        "title": "Endotext: Hypopituitarism",
+        "year": 2025,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt Hyponatriämie und zentrale ACTH-Defizienz als Kontext bei Hypopituitarismus und Hypophysenachsen-Ausfällen."
       }
     ],
     "kind": "curated",
@@ -509,5 +516,83 @@
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "riskStratum": "glukokortikoidexposition",
     "mapsToPretestAssumptionId": "adrenal-insufficiency-endocrine-steroid-exposure-direct"
+  },
+  {
+    "id": "ai-pituitary-sellar-disease",
+    "conditionId": "nebenniereninsuffizienz",
+    "label": "Hypophysen-/Hypothalamuserkrankung oder selläre Raumforderung",
+    "category": "Kontext",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Hypopituitarismus kann isolierte oder kombinierte Hypophysenachsen-Ausfälle verursachen; zentrale ACTH-Defizienz ist dabei ein relevanter Kontext für Nebenniereninsuffizienz.",
+    "limitations": "Das Risiko hängt von Ursache, Größe, Verlauf, Voroperation, Bestrahlung, Hypophysitis und bereits betroffenen Achsen ab. Nicht automatisch mit primärer Nebenniereninsuffizienz gleichsetzen.",
+    "sources": [
+      {
+        "title": "Endotext: Hypopituitarism",
+        "year": 2025,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+        "kind": "Lehrtext",
+        "note": "Übersicht zu Ursachen, Manifestationen und Diagnostik von Hypopituitarismus inklusive zentraler ACTH-Defizienz."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-18",
+    "reviewNote": "Qualitativer Modifikator für zentrale Nebenniereninsuffizienz; kein quantifizierter Faktor hinterlegt.",
+    "riskStratum": "hypophysen-hypothalamus-erkrankung"
+  },
+  {
+    "id": "ai-pituitary-surgery-radiation",
+    "conditionId": "nebenniereninsuffizienz",
+    "label": "Hypophysenoperation oder Schädel-/Sellabestrahlung",
+    "category": "Anamnese",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Operationen und Bestrahlung im Hypophysen-/Hypothalamusbereich können Hypopituitarismus und zentrale ACTH-Defizienz verursachen oder verstärken.",
+    "limitations": "Zeitlicher Abstand, Dosis/Feld der Bestrahlung, Operationsausmaß und Verlauf der übrigen Hypophysenachsen bestimmen die Prätestwahrscheinlichkeit.",
+    "sources": [
+      {
+        "title": "Endotext: Hypopituitarism",
+        "year": 2025,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+        "kind": "Lehrtext",
+        "note": "Nennt Hypophysenchirurgie und Bestrahlung als relevante Ursachen erworbener Hypophyseninsuffizienz."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-18",
+    "reviewNote": "Qualitativer Modifikator für zentrale Nebenniereninsuffizienz; quantitative Risiken müssen nach Entität/Behandlung separat kuratiert werden.",
+    "riskStratum": "hypophysenoperation-bestrahlung"
+  },
+  {
+    "id": "ai-multiple-pituitary-axis-deficits",
+    "conditionId": "nebenniereninsuffizienz",
+    "label": "Weitere Hypophysenachsen-Ausfälle",
+    "category": "Labor/Vorbefund",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Kombinierte Hypophyseninsuffizienz erhöht die Plausibilität einer zentralen ACTH-Defizienz und sollte die HPA-Achsen-Abklärung priorisieren.",
+    "limitations": "Einzelne Achsen können unabhängig betroffen sein; ACTH-Reserve muss bei unklarem Morgen-Cortisol dynamisch geprüft werden.",
+    "sources": [
+      {
+        "title": "Endotext: Hypopituitarism",
+        "year": 2025,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt Hypopituitarismus als isolierten oder kombinierten Ausfall von Hypophysenhormonen und die Rolle basaler sowie dynamischer Tests."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-18",
+    "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung, um Doppelzählung mit Setting/Überweisungsselektion zu vermeiden.",
+    "riskStratum": "multiple-hypophysenachsen-ausfaelle"
   }
 ]

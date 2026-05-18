@@ -178,27 +178,38 @@
   },
   {
     "conditionId": "nebenniereninsuffizienz",
-    "summary": "Die Abklärung einer Nebenniereninsuffizienz bleibt eine HPA-Achsen-Fragestellung: basale Messungen können Hinweise geben, dynamische Tests prüfen die Cortisolreserve. Die Interpretation hängt stark von Akutsituation, Glukokortikoidexposition, Assay, CBG/Albumin und Zeitpunkt der letzten Steroidgabe ab.",
+    "summary": "Die Abklärung einer Nebenniereninsuffizienz bleibt eine HPA-Achsen-Fragestellung: basale Messungen können Hinweise geben, dynamische Tests prüfen die Cortisolreserve. Bei Hypopituitarismus ist besonders die zentrale ACTH-Defizienz relevant; die Interpretation hängt stark von Akutsituation, Glukokortikoidexposition, Assay, CBG/Albumin und Zeitpunkt der letzten Steroidgabe ab.",
     "whenToTest": [
       "Testen bei klinischem Verdacht, relevanter Glukokortikoidexposition oder bilateraler Nebennierenerkrankung.",
+      "Bei Hypophysen-/Hypothalamuserkrankung, sellärer Raumforderung, Hypophysenoperation, Schädelbestrahlung oder erwartbarer progredienter Hypophyseninsuffizienz die HPA-Achse gezielt prüfen.",
       "Bei akuter schwerer Erkrankung oder instabiler Situation darf Diagnostik die Behandlung nicht verzögern.",
       "Morgen-Cortisol kann als Screening dienen; grenzwertige Ergebnisse brauchen dynamische Testung."
     ],
     "recommendedTests": [
       "250-µg-ACTH-Stimulationstest mit 0-, 30- und/oder 60-Minuten-Cortisol nach lokalem Protokoll.",
       "ACTH basal hilft bei der Einordnung primär vs. zentral, muss aber präanalytisch korrekt verarbeitet werden.",
+      "Bei Hypopituitarismus können 7-9-Uhr-Cortisol und ACTH orientieren; bei 100 bis 400-500 nmol/l Cortisol beschreibt Endotext dynamische Testung der ACTH-Reserve als erforderlich.",
       "Assay-spezifische Cortisol-Cut-offs dokumentieren; historische Cut-offs nicht unkritisch übertragen."
     ],
     "pitfalls": [
       "Hydrocortison, Cortisonacetat und Prednisolon können Messungen beeinflussen.",
       "Orale Östrogene erhöhen CBG und damit Gesamtcortisol.",
-      "Frische zentrale Nebenniereninsuffizienz kann trotz erhaltener Nebennierenantwort übersehen werden."
+      "Frische zentrale Nebenniereninsuffizienz kann trotz erhaltener Nebennierenantwort übersehen werden.",
+      "Bei kombinierter Hypophyseninsuffizienz sollte Cortisolmangel vor Beginn einer Thyroxintherapie abgesichert oder behandelt werden, da unbehandelte ACTH-Defizienz durch Schilddrüsenhormon klinisch dekompensieren kann."
     ],
     "settingNotes": [
       "Nach exogener Steroidexposition hängt die Prätestwahrscheinlichkeit von Dosis, Dauer, Applikationsweg und Zeit seit Absetzen ab.",
-      "Bei primärer Nebenniereninsuffizienz erhöhen Hyperpigmentierung, Salzverlangen, Hyponatriämie und Hyperkaliämie den Verdacht."
+      "Bei primärer Nebenniereninsuffizienz erhöhen Hyperpigmentierung, Salzverlangen, Hyponatriämie und Hyperkaliämie den Verdacht.",
+      "Bei zentraler Nebenniereninsuffizienz sprechen bekannte Hypophysenerkrankung, mehrere Hypophysenachsen-Ausfälle, selläre Operation/Bestrahlung oder Hypophysitis eher für eine höhere Prätestwahrscheinlichkeit."
     ],
     "links": [
+      {
+        "title": "Endotext: Hypopituitarism",
+        "year": 2025,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt Ursachen, Basaldiagnostik und dynamische Testung bei Hypopituitarismus, inklusive zentraler ACTH-Defizienz und Hormonreihenfolge."
+      },
       {
         "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
         "year": 2023,
