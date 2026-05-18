@@ -194,11 +194,11 @@ button:hover {
 
 .calculator-grid {
   display: grid;
-  grid-template-columns: minmax(310px, 0.9fr) minmax(430px, 1.4fr) minmax(320px, 1fr);
+  grid-template-columns: minmax(340px, 0.85fr) minmax(520px, 1.15fr);
   grid-template-areas:
-    "settings nomogram results"
-    "settings nomogram details"
-    "settings chains details";
+    "settings nomogram"
+    "settings chains"
+    "results details";
   gap: 16px;
   align-items: start;
 }
@@ -326,9 +326,16 @@ input[type="range"] {
 
 .pretest-control {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 116px;
+  grid-template-columns: minmax(0, 1fr) 5.8rem;
   gap: 10px;
   align-items: center;
+}
+
+.pretest-number-input {
+  width: 5.8rem;
+  min-width: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .range-with-marker {
@@ -1218,17 +1225,19 @@ canvas {
   background: #fff;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 980px) {
   .calculator-grid,
   .editor-layout {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .calculator-grid {
     grid-template-areas:
-      "settings nomogram"
-      "chains nomogram"
-      "results details";
+      "settings"
+      "nomogram"
+      "chains"
+      "results"
+      "details";
   }
 
   .nomogram-card.is-focused,

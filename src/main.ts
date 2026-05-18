@@ -124,7 +124,7 @@ app.innerHTML = `
               <input id="pretestRange" type="range" min="0.1" max="99.9" step="0.1">
               <button id="pretestSuggestionMarker" class="pretest-suggestion-marker" type="button" aria-label="Vorgeschlagene Prätestwahrscheinlichkeit übernehmen"></button>
             </div>
-            <input id="pretestNumber" type="number" min="0.1" max="99.9" step="0.1" aria-label="Prätestwahrscheinlichkeit in Prozent">
+            <input id="pretestNumber" class="pretest-number-input" type="text" inputmode="decimal" autocomplete="off" maxlength="5" aria-label="Prätestwahrscheinlichkeit in Prozent">
           </div>
           <p class="pretest-suggestion-hint" id="pretestSuggestionHint"></p>
           <p class="muted">Bereich 0,1-99,9 %, damit Odds endlich bleiben.</p>
@@ -722,6 +722,29 @@ function modifierImpact(profile: EvidenceProfile, result: CalculationResult): Mo
 function snapPretestPercent(percent: number, suggestedPercent = resolvePretestAssumption().probability * 100): number {
   const clamped = clampProbabilityPercent(percent);
   return Math.abs(clamped - suggestedPercent) <= 1 ? clampProbabilityPercent(suggestedPercent) : clamped;
+}
+
+function parsePretestPercentInput(value: string): number | null {
+  const normalized = value.trim().replace(',', '.');
+  if (!normalized || normalized === '.' || normalized === '-') return null;
+  const parsed = Number.parseFloat(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function formatPretestPercentInput(percent: number): string {
+  return clampProbabilityPercent(percent).toFixed(1).replace('.', ',');
+}
+
+function commitPretestNumberInput(options: { snap: boolean; render: boolean }): void {
+  const parsed = parsePretestPercentInput(controls.pretestNumber.value);
+  if (parsed == null) {
+    controls.pretestNumber.value = formatPretestPercentInput(state.manualPretestPercent);
+    return;
+  }
+  state.manualPretestPercent = options.snap ? snapPretestPercent(parsed) : clampProbabilityPercent(parsed);
+  if (options.render) {
+    saveAndRender();
+  }
 }
 
 function useSuggestedPretest(): void {
@@ -1708,7 +1731,9 @@ function renderMain(): void {
   const pretestPercent = clampProbabilityPercent(result.pretestProbability * 100);
   state.selectedEvidenceProfileId = profile.id;
   controls.pretestRange.value = String(pretestPercent);
-  controls.pretestNumber.value = pretestPercent.toFixed(1);
+  if (document.activeElement !== controls.pretestNumber) {
+    controls.pretestNumber.value = formatPretestPercentInput(pretestPercent);
+  }
   controls.lrPositive.textContent = formatRatio(result.lrPositive);
   controls.lrNegative.textContent = formatRatio(result.lrNegative);
   controls.pretestValue.textContent = formatPercent(result.pretestProbability);
@@ -2337,13 +2362,24 @@ controls.pretestRange.addEventListener('input', () => {
   state.manualPretestPercent = snapPretestPercent(Number.parseFloat(controls.pretestRange.value));
   saveAndRender();
 });
-controls.pretestNumber.addEventListener('change', () => {
-  state.manualPretestPercent = snapPretestPercent(Number.parseFloat(controls.pretestNumber.value));
+controls.pretestNumber.addEventListener('input', () => {
+  const parsed = parsePretestPercentInput(controls.pretestNumber.value);
+  if (parsed == null) return;
+  state.manualPretestPercent = clampProbabilityPercent(parsed);
   saveAndRender();
 });
-controls.pretestNumber.addEventListener('input', () => {
-  state.manualPretestPercent = snapPretestPercent(Number.parseFloat(controls.pretestNumber.value));
-  saveAndRender();
+controls.pretestNumber.addEventListener('change', () => {
+  commitPretestNumberInput({ snap: false, render: true });
+});
+controls.pretestNumber.addEventListener('blur', () => {
+  commitPretestNumberInput({ snap: false, render: true });
+});
+controls.pretestNumber.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    commitPretestNumberInput({ snap: false, render: true });
+    controls.pretestNumber.blur();
+  }
 });
 controls.pretestSuggestionMarker.addEventListener('click', useSuggestedPretest);
 controls.modifierOptions.addEventListener('change', event => {
