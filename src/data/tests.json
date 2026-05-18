@@ -20,7 +20,7 @@
         "lrNegative": 0.13,
         "population": "Prospektive Diagnostikpopulation bei Verdacht auf Hyperkortisolismus.",
         "rationale": "Konservative aktuelle Basiseinstellung aus einer methodenspezifischen Studie.",
-        "limitations": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus und Präanalytik können Ergebnisse beeinflussen.",
+        "limitations": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus, Probenzeit und Präanalytik können vor allem die Spezifität beeinflussen.",
         "lastReviewed": "2026-05-17",
         "isDefault": true,
         "sources": [
@@ -30,6 +30,13 @@
             "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
             "kind": "Leitlinie",
             "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+          },
+          {
+            "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+            "year": 2023,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt LNSC als First-line-Test und betont Schlafrhythmus, Probenzeit, Methodik und Population als wichtige Grenzen."
           },
           {
             "title": "ECE 2024 Poster EP917: Late-night salivary cortisol using Elecsys Cortisol II",
@@ -67,7 +74,7 @@
         ],
         "intendedUse": "screening",
         "preanalyticRisk": "moderate",
-        "applicabilityWarning": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus und Präanalytik können Ergebnisse beeinflussen.",
+        "applicabilityWarning": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus, Probenzeit und Präanalytik können vor allem die Spezifität beeinflussen.",
         "reviewPriority": "medium"
       },
       {
@@ -122,7 +129,7 @@
         "kind": "curated",
         "method": "Overnight-Dexamethason-Suppressionstest",
         "cutoff": "typisch Cortisol nach DST < 1,8 µg/dl bzw. < 50 nmol/l als Suppression; assayabhängig prüfen",
-        "procedure": "1 mg Dexamethason abends, Serumcortisol morgens bestimmen; Einnahmezeit dokumentieren.",
+        "procedure": "1 mg Dexamethason gegen 23 Uhr, Serumcortisol gegen 8 Uhr bestimmen; Einnahmezeit dokumentieren.",
         "sensitivity": 0.95,
         "specificity": 0.8,
         "lrPositive": 4.75,
@@ -139,6 +146,13 @@
             "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
             "kind": "Leitlinie",
             "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+          },
+          {
+            "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+            "year": 2023,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Durchführung und Grenzen von Dexamethason-Suppressionstests einschließlich Cut-off, Medikamenten- und CBG-Effekten."
           },
           {
             "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
@@ -216,7 +230,7 @@
         "lrNegative": 0.06,
         "population": "Bestätigende Diagnostik bei weiter bestehendem Verdacht.",
         "rationale": "Als zweite DST-Option mit separater Annahme geführt.",
-        "limitations": "Protokoll, Cut-off und Präanalytik müssen lokal geprüft werden; nicht als isolierte Entscheidungsgrundlage verwenden.",
+        "limitations": "Protokoll, Cut-off, Assay und Präanalytik müssen lokal geprüft werden; die LR-Werte bleiben wegen starker Protokoll- und Populationsabhängigkeit needs-review.",
         "lastReviewed": "2026-05-17",
         "isDefault": true,
         "sources": [
@@ -226,6 +240,13 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK542317/",
             "kind": "Lehrtext",
             "note": "Beschreibt Einsatz und Grenzen des 48-h-DST."
+          },
+          {
+            "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+            "year": 2023,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+            "kind": "Lehrtext",
+            "note": "Führt verschiedene Dexamethason-Testprotokolle auf und betont protokoll- und assayabhängige Interpretation."
           }
         ],
         "reviewStatus": "needs-review",
@@ -234,7 +255,7 @@
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
-        "applicabilityWarning": "Protokoll, Cut-off und Präanalytik müssen lokal geprüft werden; nicht als isolierte Entscheidungsgrundlage verwenden.",
+        "applicabilityWarning": "Protokoll, Cut-off, Assay und Präanalytik müssen lokal geprüft werden; die LR-Werte bleiben wegen starker Protokoll- und Populationsabhängigkeit needs-review.",
         "reviewPriority": "medium"
       }
     ],
@@ -757,8 +778,8 @@
         "lrPositive": 13.4,
         "lrNegative": 0.06,
         "population": "Erwachsene mit klinischem Verdacht auf Cushing-Syndrom.",
-        "rationale": "Gepoolte Schätzung aus diagnostischen Studien; als robuste Startannahme geeignet.",
-        "limitations": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus und Assay-Unterschiede begrenzen die Übertragbarkeit.",
+        "rationale": "Gepoolte Schätzung aus diagnostischen Studien; als Startannahme geeignet, aber wegen breiter publizierter Leistungsbereiche weiterhin reviewbedürftig.",
+        "limitations": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus, biologische Variabilität und Assay-Unterschiede begrenzen die Übertragbarkeit; Endotext berichtet breite Sensitivitäts-/Spezifitätsbereiche.",
         "lastReviewed": "2026-05-17",
         "isDefault": true,
         "sources": [
@@ -768,6 +789,13 @@
             "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
             "kind": "Leitlinie",
             "note": "Empfiehlt gezielte Testung bei diskriminativen/progredienten Zeichen und beschreibt typische Fallstricke der Screeningtests."
+          },
+          {
+            "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+            "year": 2023,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt UFC als First-line-Test, aber mit breiter Sensitivitäts-/Spezifitätsstreuung, biologischer Variabilität und Sammelproblemen."
           },
           {
             "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
@@ -814,7 +842,7 @@
         ],
         "intendedUse": "screening",
         "preanalyticRisk": "moderate",
-        "applicabilityWarning": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus und Assay-Unterschiede begrenzen die Übertragbarkeit.",
+        "applicabilityWarning": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus, biologische Variabilität und Assay-Unterschiede begrenzen die Übertragbarkeit.",
         "reviewPriority": "medium"
       }
     ],
@@ -851,6 +879,13 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
             "kind": "Review",
             "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Stimulationstests bei Nebenniereninsuffizienz."
+          },
+          {
+            "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+            "year": 2023,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Cosyntropin-Testprotokoll, Probenzeitpunkte, klassische Cut-offs und CBG-/Albumin-/Steroid-Einflüsse."
           },
           {
             "title": "ESE/Endocrine Society Guideline: Glucocorticoid-induced Adrenal Insufficiency",

@@ -1,0 +1,119 @@
+[
+  {
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "summary": "Cushing-Syndrom und autonomer Hyperkortisolismus sind klinische Wahrscheinlichkeitsdiagnosen, die biochemisch bestätigt werden müssen. Die Leitlinien betonen gezielte Testung bei progredienten oder diskriminativen Zeichen und raten von breitem Screening bei nur unspezifischer Adipositas, Diabetes oder Hypertonie ab.",
+    "whenToTest": [
+      "Vor biochemischer Testung exogene Glukokortikoidexposition aktiv ausschließen.",
+      "Testen bei multiplen/progredienten oder altersuntypischen Befunden, z. B. proximale Myopathie, breite violette Striae, Hämatomneigung, frühe Osteoporose oder schwer kontrollierbare Komorbidität.",
+      "Nebenniereninzidentalom ist ein eigener Kontext: auf autonome Cortisolsekretion prüfen, aber MACS nicht mit manifestem Cushing-Syndrom gleichsetzen."
+    ],
+    "recommendedTests": [
+      "Geeignete Initialtests sind 24-h-Urin auf freies Cortisol, Late-night salivary cortisol, 1-mg-Overnight-DST oder 2-mg/48-h-Low-dose-DST.",
+      "Bei auffälligem Ersttest empfiehlt die Leitlinie eine Bestätigung mit einem zweiten geeigneten Test.",
+      "Bei Nebenniereninzidentalom ist der 1-mg-DST der zentrale Screeningtest auf milde autonome Cortisolsekretion."
+    ],
+    "pitfalls": [
+      "LNSC ist anfällig für Schichtarbeit, gestörten Schlafrhythmus, falsche Probenzeit und Glukokortikoid-Kontamination.",
+      "UFC benötigt korrekte 24-h-Sammlung, Plausibilitätsprüfung mit Volumen/Kreatinin und ist bei eingeschränkter Nierenfunktion oder zyklischem Verlauf begrenzt.",
+      "DST kann durch CYP3A4-Induktoren, Östrogene/CBG-Erhöhung, Adhärenzprobleme und unzureichende Dexamethasonexposition falsch auffällig werden."
+    ],
+    "settingNotes": [
+      "In Primärversorgung mit nur unspezifischen metabolischen Merkmalen bleibt die Prätestwahrscheinlichkeit sehr niedrig.",
+      "In der Endokrinologie steigt die Prätestwahrscheinlichkeit vor allem durch Zuweisungsselektion, Progression und diskriminative Zeichen.",
+      "Für MACS bei Nebenniereninzidentalom berichten Quellen breite Prävalenzbereiche; diese betreffen nicht automatisch manifestes Cushing-Syndrom."
+    ],
+    "links": [
+      {
+        "title": "Endocrine Society: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/diagnosis-of-cushing-syndrome",
+        "kind": "Leitlinie",
+        "note": "Zentrale Leitlinie zur Frage, wen man testen sollte und welche Initialtests geeignet sind."
+      },
+      {
+        "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+        "year": 2023,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+        "kind": "Lehrtext",
+        "note": "Praktische Protokolle, Präanalytik und Grenzen von Cortisol-, DST-, UFC-, LNSC- und ACTH-Testung."
+      },
+      {
+        "title": "ESE/ENSAT Guideline: Adrenal Incidentalomas",
+        "year": 2023,
+        "url": "https://www.ese-hormones.org/publications/directory/ese-clinical-practice-guideline-on-the-management-of-adrenal-incidentalomas-in-collaboration-with-the-european-network-for-the-study-of-adrenal-tumors/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Leitlinie zu Nebenniereninzidentalomen und mild autonomous cortisol secretion."
+      },
+      {
+        "title": "Endotext: Adrenal Incidentaloma",
+        "year": 2024,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK279021/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Einordnung von MACS, 1-mg-DST und weiteren hormonellen Abklärungen beim Nebenniereninzidentalom."
+      },
+      {
+        "title": "AWMF S1: Cushing-Syndrom im Kindesalter",
+        "year": 2020,
+        "url": "https://register.awmf.org/assets/guidelines/174-010l_S1_Cushing_Syndrom_Hyperkortisolismus_2020-03.pdf",
+        "kind": "Leitlinie",
+        "note": "Pädiatrische deutsche S1-Leitlinie; nicht als Standardquelle für erwachsene ambulante Endokrinologie verwenden."
+      }
+    ],
+    "lastReviewed": "2026-05-18",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative Prävalenzwerte bleiben settingabhängig und sollten separat geprüft werden."
+  },
+  {
+    "conditionId": "nebenniereninsuffizienz",
+    "summary": "Die Abklärung einer Nebenniereninsuffizienz bleibt eine HPA-Achsen-Fragestellung: basale Messungen können Hinweise geben, dynamische Tests prüfen die Cortisolreserve. Die Interpretation hängt stark von Akutsituation, Glukokortikoidexposition, Assay, CBG/Albumin und Zeitpunkt der letzten Steroidgabe ab.",
+    "whenToTest": [
+      "Testen bei klinischem Verdacht, relevanter Glukokortikoidexposition oder bilateraler Nebennierenerkrankung.",
+      "Bei akuter schwerer Erkrankung oder instabiler Situation darf Diagnostik die Behandlung nicht verzögern.",
+      "Morgen-Cortisol kann als Screening dienen; grenzwertige Ergebnisse brauchen dynamische Testung."
+    ],
+    "recommendedTests": [
+      "250-µg-ACTH-Stimulationstest mit 0-, 30- und/oder 60-Minuten-Cortisol nach lokalem Protokoll.",
+      "ACTH basal hilft bei der Einordnung primär vs. zentral, muss aber präanalytisch korrekt verarbeitet werden.",
+      "Assay-spezifische Cortisol-Cut-offs dokumentieren; historische Cut-offs nicht unkritisch übertragen."
+    ],
+    "pitfalls": [
+      "Hydrocortison, Cortisonacetat und Prednisolon können Messungen beeinflussen.",
+      "Orale Östrogene erhöhen CBG und damit Gesamtcortisol.",
+      "Frische zentrale Nebenniereninsuffizienz kann trotz erhaltener Nebennierenantwort übersehen werden."
+    ],
+    "settingNotes": [
+      "Nach exogener Steroidexposition hängt die Prätestwahrscheinlichkeit von Dosis, Dauer, Applikationsweg und Zeit seit Absetzen ab.",
+      "Bei primärer Nebenniereninsuffizienz erhöhen Hyperpigmentierung, Salzverlangen, Hyponatriämie und Hyperkaliämie den Verdacht."
+    ],
+    "links": [
+      {
+        "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+        "year": 2023,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt ACTH-Stimulation, Probenhandling, Cut-offs und relevante präanalytische Einschränkungen."
+      },
+      {
+        "title": "Endocrine Society: Primary Adrenal Insufficiency",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/2/364/2804860",
+        "kind": "Leitlinie",
+        "note": "Leitlinie zu Diagnose und Management primärer Nebenniereninsuffizienz."
+      },
+      {
+        "title": "ESE/Endocrine Society: Glucocorticoid-induced Adrenal Insufficiency",
+        "year": 2024,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
+        "kind": "Leitlinie",
+        "note": "Leitlinie zur HPA-Achsen-Suppression nach Glukokortikoiden."
+      }
+    ],
+    "lastReviewed": "2026-05-18",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; konkrete Cut-offs müssen labor- und assaybezogen geprüft werden."
+  }
+]

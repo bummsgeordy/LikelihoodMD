@@ -33,6 +33,17 @@ export interface ClinicalCondition {
   description?: string;
 }
 
+export interface ConditionGuidance extends ReviewMetadata {
+  conditionId: string;
+  summary: string;
+  whenToTest: string[];
+  recommendedTests: string[];
+  pitfalls: string[];
+  settingNotes: string[];
+  links: EvidenceSource[];
+  lastReviewed: string;
+}
+
 export interface EvidenceSource {
   title: string;
   year: number;

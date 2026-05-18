@@ -1,5 +1,6 @@
 import './styles.css';
 import clinicalSettingsRaw from './data/clinical-settings.json';
+import conditionGuidanceRaw from './data/condition-guidance.json';
 import conditionsRaw from './data/conditions.json';
 import diagnosticChainsRaw from './data/diagnostic-chains.json';
 import curatedModifiersRaw from './data/clinical-modifiers.json';
@@ -39,6 +40,7 @@ import type {
   CalculationResult,
   CalculatorState,
   ClinicalCondition,
+  ConditionGuidance,
   ClinicalModifier,
   ClinicalModifierDirection,
   ClinicalSetting,
@@ -59,6 +61,7 @@ const curatedAssumptions = curatedAssumptionsRaw as PretestAssumption[];
 const curatedModifiers = curatedModifiersRaw as ClinicalModifier[];
 const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
 const clinicalConditions = conditionsRaw as ClinicalCondition[];
+const conditionGuidance = conditionGuidanceRaw as ConditionGuidance[];
 const diagnosticChains = diagnosticChainsRaw as DiagnosticChain[];
 let state: CalculatorState = loadState();
 let lastFocusBeforeDrawer: HTMLElement | null = null;
@@ -216,6 +219,10 @@ app.innerHTML = `
           <div class="details" id="details"></div>
           <div class="evidence-divider" aria-hidden="true"></div>
           <div id="evidencePanel"></div>
+        </section>
+        <section class="card condition-guidance-card" id="conditionGuidanceCard" aria-labelledby="conditionGuidanceTitle">
+          <h2 id="conditionGuidanceTitle">Weiterführende Informationen</h2>
+          <div id="conditionGuidanceContent"></div>
         </section>
       </aside>
       </div>
@@ -461,6 +468,8 @@ const controls = {
   nomogramCard: $('nomogramCard'),
   details: $('details'),
   evidencePanel: $('evidencePanel'),
+  conditionGuidanceTitle: $('conditionGuidanceTitle'),
+  conditionGuidanceContent: $('conditionGuidanceContent'),
   actionMessage: $('actionMessage'),
   nomogramPositive: $<HTMLCanvasElement>('nomogramPositive'),
   nomogramNegative: $<HTMLCanvasElement>('nomogramNegative'),
@@ -1707,6 +1716,79 @@ function renderEvidence(profile: EvidenceProfile, assumption: PretestAssumption,
   }
 }
 
+function guidanceForCondition(conditionId: string): ConditionGuidance | undefined {
+  return conditionGuidance.find(guidance => guidance.conditionId === conditionId);
+}
+
+function appendGuidanceList(parent: HTMLElement, title: string, items: string[]): void {
+  if (items.length === 0) return;
+  const section = document.createElement('section');
+  section.className = 'guidance-section';
+  const heading = document.createElement('h3');
+  heading.textContent = title;
+  const list = document.createElement('ul');
+  items.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    list.append(li);
+  });
+  section.append(heading, list);
+  parent.append(section);
+}
+
+function renderGuidanceLinks(parent: HTMLElement, links: EvidenceSource[]): void {
+  const section = document.createElement('section');
+  section.className = 'guidance-section';
+  const heading = document.createElement('h3');
+  heading.textContent = 'Leitlinien und Quellen';
+  const list = document.createElement('ul');
+  list.className = 'source-list guidance-link-list';
+  links.forEach(source => {
+    const item = document.createElement('li');
+    item.className = 'source-item';
+    const badge = document.createElement('span');
+    badge.className = 'badge';
+    badge.textContent = source.kind;
+    const link = document.createElement('a');
+    link.href = source.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = `${source.title} (${source.year})`;
+    const note = document.createElement('p');
+    note.className = 'muted';
+    note.textContent = source.note;
+    item.append(badge, link, note);
+    list.append(item);
+  });
+  section.append(heading, list);
+  parent.append(section);
+}
+
+function renderConditionGuidance(): void {
+  const selectedCondition = getSelectedCondition();
+  const guidance = guidanceForCondition(selectedCondition.id);
+  controls.conditionGuidanceTitle.textContent = `Weiterführende Informationen: ${selectedCondition.label}`;
+  controls.conditionGuidanceContent.textContent = '';
+
+  if (!guidance) {
+    const note = document.createElement('p');
+    note.className = 'muted';
+    note.textContent = 'Für diese Erkrankung ist noch keine kuratierte Kurznotiz hinterlegt. Die testbezogenen Quellen bleiben in „Zahlen, Herkunft und Begründung“ sichtbar.';
+    controls.conditionGuidanceContent.append(note);
+    return;
+  }
+
+  const summary = document.createElement('p');
+  summary.className = 'guidance-summary';
+  summary.textContent = guidance.summary;
+  controls.conditionGuidanceContent.append(summary);
+  appendGuidanceList(controls.conditionGuidanceContent, 'Wann testen?', guidance.whenToTest);
+  appendGuidanceList(controls.conditionGuidanceContent, 'Geeignete Tests', guidance.recommendedTests);
+  appendGuidanceList(controls.conditionGuidanceContent, 'Wichtige Fallstricke', guidance.pitfalls);
+  appendGuidanceList(controls.conditionGuidanceContent, 'Setting-Hinweise', guidance.settingNotes);
+  renderGuidanceLinks(controls.conditionGuidanceContent, guidance.links);
+}
+
 function describeResult(result: CalculationResult): string {
   const gain = result.postPositiveProbability - result.pretestProbability;
   const drop = result.pretestProbability - result.postNegativeProbability;
@@ -1765,6 +1847,7 @@ function renderMain(): void {
   renderModifierImpact(profile, result);
   renderDetails(test, profile, assumption, result, pretestResolution);
   renderEvidence(profile, assumption, pretestResolution);
+  renderConditionGuidance();
   const selectedChain = diagnosticChains.find(chain => chain.id === state.selectedDiagnosticChainId) ?? diagnosticChains[0];
   state.selectedDiagnosticChainId = selectedChain?.id;
   const chainViewModels = selectedChain

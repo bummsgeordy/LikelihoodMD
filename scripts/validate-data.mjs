@@ -5,6 +5,7 @@ const root = process.cwd();
 const tests = JSON.parse(fs.readFileSync(path.join(root, 'src/data/tests.json'), 'utf8'));
 const conditions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/conditions.json'), 'utf8'));
 const diagnosticChains = JSON.parse(fs.readFileSync(path.join(root, 'src/data/diagnostic-chains.json'), 'utf8'));
+const conditionGuidance = JSON.parse(fs.readFileSync(path.join(root, 'src/data/condition-guidance.json'), 'utf8'));
 const assumptions = JSON.parse(
   fs.readFileSync(path.join(root, 'src/data/pretest-assumptions.json'), 'utf8')
 );
@@ -194,6 +195,25 @@ diagnosticChains.forEach((chain, index) => {
   validateSources(chain.sources, prefix);
 });
 
+conditionGuidance.forEach((guidance, index) => {
+  const prefix = `conditionGuidance[${index}]`;
+  ['conditionId', 'summary', 'lastReviewed'].forEach(field => {
+    if (!hasText(guidance[field])) errors.push(`${prefix}.${field} fehlt`);
+  });
+  if (!knownConditionIds.has(guidance.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
+  ['whenToTest', 'recommendedTests', 'pitfalls', 'settingNotes'].forEach(field => {
+    if (!Array.isArray(guidance[field]) || guidance[field].length === 0) {
+      errors.push(`${prefix}.${field} braucht mindestens einen Eintrag`);
+      return;
+    }
+    guidance[field].forEach((item, itemIndex) => {
+      if (!hasText(item)) errors.push(`${prefix}.${field}[${itemIndex}] fehlt`);
+    });
+  });
+  validateReview(guidance, prefix);
+  validateSources(guidance.links, `${prefix}.links`);
+});
+
 const fallbackConditionIds = new Set(
   assumptions
     .filter(assumption => assumption.evidenceLevel === 'fallback')
@@ -211,4 +231,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${modifiers.length} clinical modifiers and ${diagnosticChains.length} diagnostic chains.`);
+console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains and ${conditionGuidance.length} condition guidance entries.`);

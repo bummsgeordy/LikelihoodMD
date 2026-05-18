@@ -205,6 +205,12 @@ button:hover {
   align-content: start;
 }
 
+.side-column {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
 .calculator-grid.nomogram-focus,
 .calculator-grid:has(.nomogram-size-toggle:checked) {
   grid-template-columns: 1fr;
@@ -748,6 +754,31 @@ input[type="range"] {
 .details {
   display: grid;
   gap: 10px;
+}
+
+.condition-guidance-card {
+  overflow-wrap: anywhere;
+}
+
+.guidance-summary {
+  margin-top: 0;
+}
+
+.guidance-section {
+  margin-top: 14px;
+}
+
+.guidance-section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.guidance-section li + li {
+  margin-top: 6px;
+}
+
+.guidance-link-list {
+  padding-left: 0;
 }
 
 .detail-row {

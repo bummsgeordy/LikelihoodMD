@@ -265,8 +265,8 @@
     "label": "Nebenniereninzidentalom",
     "category": "Kontext",
     "direction": "increases",
-    "rationale": "Nebenniereninzidentalom ist ein relevanter Kontext für die Abklärung auf autonome Cortisolsekretion.",
-    "limitations": "Wahrscheinlichkeit hängt von Bildgebung, Komorbidität und lokaler Definition autonomer Cortisolsekretion ab.",
+    "rationale": "Nebenniereninzidentalom ist ein relevanter Kontext für die Abklärung auf autonome Cortisolsekretion; der 1-mg-DST ist dafür der zentrale Screeningtest.",
+    "limitations": "Wahrscheinlichkeit hängt von Bildgebung, Komorbidität und Definition autonomer Cortisolsekretion ab. MACS ist nicht automatisch manifestes Cushing-Syndrom.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
     "sources": [
@@ -276,6 +276,20 @@
         "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
         "kind": "Leitlinie",
         "note": "Unterstützt Testung in passenden klinischen Kontexten."
+      },
+      {
+        "title": "ESE/ENSAT Guideline: Adrenal Incidentalomas",
+        "year": 2023,
+        "url": "https://www.ese-hormones.org/publications/directory/ese-clinical-practice-guideline-on-the-management-of-adrenal-incidentalomas-in-collaboration-with-the-european-network-for-the-study-of-adrenal-tumors/",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt strukturierte Abklärung hormoneller Aktivität bei Nebenniereninzidentalomen und ordnet MACS ein."
+      },
+      {
+        "title": "Endotext: Adrenal Incidentaloma",
+        "year": 2024,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK279021/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Beschreibt MACS, 1-mg-DST, breite Prävalenzbereiche und wichtige Grenzen der Interpretation."
       }
     ],
     "quantificationStatus": "qualitative",
