@@ -10,7 +10,7 @@
     "recommendedTests": [
       "Geeignete Initialtests sind 24-h-Urin auf freies Cortisol, Late-night salivary cortisol, 1-mg-Overnight-DST oder 2-mg/48-h-Low-dose-DST.",
       "Bei auffälligem Ersttest empfiehlt die Leitlinie eine Bestätigung mit einem zweiten geeigneten Test.",
-      "Bei Nebenniereninzidentalom ist der 1-mg-DST der zentrale Screeningtest auf milde autonome Cortisolsekretion."
+      "Bei Nebenniereninzidentalom ist der 1-mg-DST der zentrale Screeningtest auf milde autonome Cortisolsekretion; Cortisol ≤50 nmol/l (≤1,8 µg/dl) nach DST spricht gegen autonome Cortisolsekretion."
     ],
     "pitfalls": [
       "LNSC ist anfällig für Schichtarbeit, gestörten Schlafrhythmus, falsche Probenzeit und Glukokortikoid-Kontamination.",
@@ -20,7 +20,7 @@
     "settingNotes": [
       "In Primärversorgung mit nur unspezifischen metabolischen Merkmalen bleibt die Prätestwahrscheinlichkeit sehr niedrig.",
       "In der Endokrinologie steigt die Prätestwahrscheinlichkeit vor allem durch Zuweisungsselektion, Progression und diskriminative Zeichen.",
-      "Für MACS bei Nebenniereninzidentalom berichten Quellen breite Prävalenzbereiche; diese betreffen nicht automatisch manifestes Cushing-Syndrom.",
+      "Für MACS bei Nebenniereninzidentalom berichten Quellen breite Häufigkeitsbereiche; diese betreffen nicht automatisch manifestes Cushing-Syndrom.",
       "Bei Hypophyseninzidentalom empfiehlt die Leitlinie Screening auf Hormonexzess; Glukokortikoidexzess sollte wegen falsch positiver Tests vor allem bei klinischem Verdacht gezielt geprüft werden."
     ],
     "links": [
@@ -367,5 +367,110 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative LR-Werte für IGF-1 und OGTT sind noch nicht kuratiert."
+  },
+  {
+    "conditionId": "tiefe-venenthrombose",
+    "summary": "Bei Verdacht auf tiefe Venenthrombose ist D-Dimer kein isolierter Diagnosetest. Die Leitlinien koppeln die Interpretation an die klinische Wahrscheinlichkeit, typischerweise den 2-Level-Wells-TVT-Score. Ein negatives hochsensitives D-Dimer kann bei niedriger oder geeigneter mittlerer Wahrscheinlichkeit eine TVT ausschließen; ein positives Ergebnis ist unspezifisch.",
+    "whenToTest": [
+      "D-Dimer nur nach klinischer Wahrscheinlichkeitsabschätzung einsetzen.",
+      "Bei Wells-TVT unwahrscheinlich und negativem hochsensitivem D-Dimer kann eine TVT meist ausgeschlossen werden.",
+      "Bei Wells-TVT wahrscheinlich oder hoher klinischer Sorge ist Sonographie der zentrale nächste Schritt; D-Dimer soll Bildgebung nicht verzögern."
+    ],
+    "recommendedTests": [
+      "2-Level-Wells-TVT-Score zur Prätesteinordnung.",
+      "Hochsensitives D-Dimer bei niedriger oder mittlerer klinischer Wahrscheinlichkeit.",
+      "Kompressionssonographie bei positiver D-Dimer-Konstellation, hoher Wahrscheinlichkeit oder fortbestehendem klinischem Verdacht."
+    ],
+    "pitfalls": [
+      "D-Dimer ist häufig falsch positiv bei Alter, Infektion/Entzündung, Malignom, Schwangerschaft/Wochenbett, Trauma, Operation und stationärer Erkrankung.",
+      "Bereits begonnene Antikoagulation, kleine/distale Thrombosen oder ungünstiger Testzeitpunkt können die Aussagekraft senken.",
+      "Assay, Einheit und Cut-off müssen lokal geprüft werden; FEU und DDU sind nicht austauschbar."
+    ],
+    "settingNotes": [
+      "ASH beschreibt grobe TVT-Präteststrata: niedrig ≤10%, intermediär etwa 25%, hoch ≥50%.",
+      "Die hinterlegten Prätestwerte sind Arbeitsannahmen; Wells-Score und lokales Akutsetting sollten vorrangig genutzt werden.",
+      "Bei hoher klinischer Wahrscheinlichkeit ist die wichtigste Frage nicht der D-Dimer-Wert, sondern die passende Bildgebung und zeitgerechte Behandlung nach lokalem Pfad."
+    ],
+    "links": [
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Leitlinie zu TVT/LE-Diagnostik nach Prätestwahrscheinlichkeit, D-Dimer und Bildgebung."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt 2-Level-Wells-Score, D-Dimer und Sonographie-Pfade für TVT."
+      }
+    ],
+    "lastReviewed": "2026-05-19",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative D-Dimer-LR-Werte bleiben assay- und settingabhängig."
+  },
+  {
+    "conditionId": "lungenembolie",
+    "summary": "Bei Verdacht auf akute Lungenembolie beginnt die Diagnostik mit klinischer Wahrscheinlichkeit. D-Dimer ist ein Rule-out-Test bei niedriger oder mittlerer bzw. nicht-hoher Wahrscheinlichkeit. Bei hoher Wahrscheinlichkeit, instabiler Patientin oder instabilem Patienten und starker klinischer Sorge steht Bildgebung bzw. Akutpfad im Vordergrund.",
+    "whenToTest": [
+      "Bei niedriger klinischer Suspicion und plausibler Alternativdiagnose kann PERC helfen, unnötige weitere Diagnostik zu vermeiden.",
+      "Bei niedriger/mittlerer oder nicht-hoher klinischer Wahrscheinlichkeit D-Dimer als Rule-out-Test nutzen.",
+      "Bei hoher klinischer Wahrscheinlichkeit oder hämodynamischer Instabilität nicht auf D-Dimer als Ausschluss setzen; Bildgebung/Akutpfad priorisieren."
+    ],
+    "recommendedTests": [
+      "Wells- oder revidierter Genf-Score zur Prätesteinordnung.",
+      "PERC nur bei sehr niedriger klinischer Wahrscheinlichkeit.",
+      "Hochsensitives D-Dimer mit lokal validiertem Cut-off; bei >50 Jahren altersadjustierten Cut-off erwägen, wenn passend validiert.",
+      "YEARS ist eine eigene wahrscheinlichkeitsadaptierte Strategie und sollte nicht beliebig mit anderen Scores gemischt werden."
+    ],
+    "pitfalls": [
+      "D-Dimer ist häufig falsch positiv bei Alter, Infektion/Entzündung, Malignom, Schwangerschaft/Wochenbett, Trauma, Operation und stationärer Erkrankung.",
+      "Positive D-Dimer-Werte beweisen keine Lungenembolie.",
+      "Altersadjustierte oder wahrscheinlichkeitsadaptierte Cut-offs setzen voraus, dass Assay, Einheit und Strategie korrekt umgesetzt werden."
+    ],
+    "settingNotes": [
+      "Niedrige Prätestwahrscheinlichkeit plus negatives hochsensitives D-Dimer senkt die Wahrscheinlichkeit stark; der Nutzen ist primär Rule-out.",
+      "Bei niedriger Prätestwahrscheinlichkeit hat ein positives D-Dimer einen geringen Rule-in-Wert und kann zu unnötiger Bildgebung führen.",
+      "Die hinterlegten Prätestwerte sind Arbeitsannahmen; Wells/Genf/PERC/YEARS und klinisches Setting sollen die Annahme konkretisieren."
+    ],
+    "links": [
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Leitlinie zu klinischer Wahrscheinlichkeit, D-Dimer, alters- und wahrscheinlichkeitsadjustierten Cut-offs sowie Bildgebung."
+      },
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt D-Dimer-basierte Rule-out-Pfade bei niedriger oder mittlerer Prätestwahrscheinlichkeit."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt PERC bei niedriger klinischer Suspicion, 2-Level-PE-Wells-Score und D-Dimer/Bildgebungspfade."
+      },
+      {
+        "title": "YEARS study: Simplified diagnostic management of suspected pulmonary embolism",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28549662/",
+        "kind": "Studie",
+        "note": "Validierte eine wahrscheinlichkeitsadaptierte D-Dimer-Strategie mit drei YEARS-Items."
+      }
+    ],
+    "lastReviewed": "2026-05-19",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative D-Dimer-LR-Werte bleiben assay-, strategie- und settingabhängig."
   }
 ]

@@ -61,5 +61,19 @@
     "category": "Hypophyse",
     "synonyms": ["Acromegaly", "GH-Exzess", "Wachstumshormonexzess"],
     "description": "Biochemische Abklärung eines Wachstumshormon-/IGF-1-Exzesses bei klinischem Verdacht oder Hypophysenmasse."
+  },
+  {
+    "id": "tiefe-venenthrombose",
+    "label": "Tiefe Venenthrombose",
+    "category": "Gefäßmedizin / Akutmedizin",
+    "synonyms": ["TVT", "DVT", "Deep vein thrombosis", "Venenthrombose"],
+    "description": "Diagnostische Einordnung bei Verdacht auf Beinvenenthrombose mit klinischer Wahrscheinlichkeit, Wells-Score, D-Dimer und Kompressionssonographie."
+  },
+  {
+    "id": "lungenembolie",
+    "label": "Lungenembolie",
+    "category": "Pneumologie / Kardiologie / Akutmedizin",
+    "synonyms": ["LE", "PE", "Pulmonary embolism"],
+    "description": "Diagnostische Einordnung bei Verdacht auf akute Lungenembolie mit klinischer Wahrscheinlichkeit, Wells-/Genf-Score, PERC, YEARS, D-Dimer und Bildgebung."
   }
 ]

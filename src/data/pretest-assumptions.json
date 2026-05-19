@@ -716,5 +716,149 @@
     "reviewStatus": "needs-review",
     "lastReviewed": "2026-05-19",
     "reviewNote": "Klinischer Platzhalter für selektierte Verdachtsfälle; sollte durch lokale/Studien-basierte Settingdaten ersetzt werden."
+  },
+  {
+    "id": "dvt-general-fallback",
+    "condition": "Tiefe Venenthrombose",
+    "conditionId": "tiefe-venenthrombose",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Personen mit klinischem Verdacht auf Beinvenenthrombose ohne genaueres Setting oder Score-Stratum.",
+    "probability": 0.15,
+    "rangeLow": 0.05,
+    "rangeHigh": 0.35,
+    "rationale": "Pragmatische Arbeitsannahme für Verdachtsfälle. ASH beschreibt niedrige, mittlere und hohe Prätestwahrscheinlichkeit bei TVT ungefähr als ≤10%, 25% und ≥50%; ohne Score-Stratum wird ein konservativer Zwischenwert genutzt.",
+    "limitations": "Nicht für asymptomatische Screening-Situationen, stationäre Hochrisikopatienten oder hohe klinische Wahrscheinlichkeit geeignet. Wells-Score und lokale Sonographie-Indikation sollen die Annahme ersetzen.",
+    "sources": [
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Nennt für DVT niedrige, mittlere und hohe Prätestwahrscheinlichkeit als grobe Prävalenzstrata und empfiehlt Score-basierte Diagnostik."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt den 2-Level-DVT-Wells-Score als Einstieg in die Diagnostik."
+      }
+    ],
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Arbeitsannahme aus Leitlinien-Strata; konkrete Prätestwahrscheinlichkeit sollte über Wells/klinisches Setting bestimmt werden."
+  },
+  {
+    "id": "dvt-ed-direct",
+    "condition": "Tiefe Venenthrombose",
+    "conditionId": "tiefe-venenthrombose",
+    "setting": "Klinik-Notaufnahme",
+    "settingId": "klinik-notaufnahme",
+    "evidenceLevel": "direct",
+    "population": "Notaufnahme- oder ambulante Akutvorstellung mit Verdacht auf Beinvenenthrombose vor Bildgebung.",
+    "probability": 0.2,
+    "rangeLow": 0.1,
+    "rangeHigh": 0.35,
+    "rationale": "Arbeitsannahme für eine selektierte Akutpopulation mit Verdacht auf TVT; die tatsächliche Wahrscheinlichkeit hängt stark vom 2-Level-Wells-Score ab.",
+    "limitations": "Wells-unwahrscheinlich kann deutlich niedriger liegen, Wells-wahrscheinlich oder typische Hochrisikokonstellation deutlich höher. Nicht für stationäre Screening- oder Hochrisikopopulationen verwenden.",
+    "sources": [
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "DVT-Präteststrata werden als niedrig ≤10%, intermediär etwa 25% und hoch ≥50% beschrieben."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Strukturiert die TVT-Diagnostik nach 2-Level-Wells-Score, D-Dimer und Sonographie."
+      }
+    ],
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Pragmatischer Settingwert; Wells-Kategorie sollte vorrangig die Prätestannahme steuern."
+  },
+  {
+    "id": "pe-general-fallback",
+    "condition": "Lungenembolie",
+    "conditionId": "lungenembolie",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Personen mit klinischem Verdacht auf akute Lungenembolie ohne genaueres Setting oder Score-Stratum.",
+    "probability": 0.1,
+    "rangeLow": 0.03,
+    "rangeHigh": 0.3,
+    "rationale": "Pragmatische Arbeitsannahme für Verdachtsfälle. ASH und ESC betonen, dass die diagnostische Strategie an niedrige, mittlere oder hohe klinische Wahrscheinlichkeit gekoppelt werden muss.",
+    "limitations": "Nicht als Populationsprävalenz verwenden. Bei sehr niedriger klinischer Wahrscheinlichkeit kann PERC weitere Testung vermeiden; bei hoher Wahrscheinlichkeit soll Bildgebung nicht durch D-Dimer verzögert werden.",
+    "sources": [
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt diagnostische Strategien nach Prätestwahrscheinlichkeit und D-Dimer vor allem bei niedriger/mittlerer Wahrscheinlichkeit."
+      },
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt klinische Wahrscheinlichkeitsabschätzung mit Wells/Genf und D-Dimer bei niedriger/intermediärer Wahrscheinlichkeit."
+      }
+    ],
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Arbeitsannahme aus Leitlinienlogik; konkrete Prätestwahrscheinlichkeit sollte über Wells/Genf/PERC/YEARS und Setting bestimmt werden."
+  },
+  {
+    "id": "pe-ed-direct",
+    "condition": "Lungenembolie",
+    "conditionId": "lungenembolie",
+    "setting": "Klinik-Notaufnahme",
+    "settingId": "klinik-notaufnahme",
+    "evidenceLevel": "direct",
+    "population": "Notaufnahme- oder ambulante Akutvorstellung mit Verdacht auf akute Lungenembolie vor Bildgebung.",
+    "probability": 0.15,
+    "rangeLow": 0.05,
+    "rangeHigh": 0.3,
+    "rationale": "Arbeitsannahme für eine selektierte Akutpopulation mit PE-Verdacht; die tatsächliche Wahrscheinlichkeit hängt stark von klinischer Einschätzung und Score-Stratum ab.",
+    "limitations": "Sehr niedrige klinische Wahrscheinlichkeit und negative PERC-Kriterien können die Testindikation senken; hohe Wahrscheinlichkeit braucht Bildgebung statt D-Dimer-Rule-out.",
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt PERC bei niedriger klinischer Suspicion und 2-Level-PE-Wells-Score mit D-Dimer/Bildgebungspfad."
+      },
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Beschreibt Wells/Genf, niedrige/intermediäre Wahrscheinlichkeit und D-Dimer-Strategien."
+      }
+    ],
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Pragmatischer Settingwert; Score-Kategorie und klinische Einschätzung sollten vorrangig steuern."
   }
 ]

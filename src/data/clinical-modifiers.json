@@ -356,9 +356,9 @@
     "label": "Nebenniereninzidentalom",
     "category": "Kontext",
     "direction": "increases",
-    "rationale": "Nebenniereninzidentalom ist ein relevanter Kontext für die Abklärung auf autonome Cortisolsekretion; der 1-mg-DST ist dafür der zentrale Screeningtest.",
-    "limitations": "Wahrscheinlichkeit hängt von Bildgebung, Komorbidität und Definition autonomer Cortisolsekretion ab. MACS ist nicht automatisch manifestes Cushing-Syndrom.",
-    "lastReviewed": "2026-05-17",
+    "rationale": "Nebenniereninzidentalom ist ein relevanter Kontext für die Abklärung auf autonome Cortisolsekretion; die ESE/ENSAT-Leitlinie empfiehlt den 1-mg-DST und nutzt Cortisol ≤50 nmol/l nach DST als Ausschlusskriterium für autonome Cortisolsekretion.",
+    "limitations": "MACS ist nicht automatisch manifestes Cushing-Syndrom. Die Wahrscheinlichkeit hängt von Bildgebung, Komorbidität, Cortisol-Cut-off und Definition autonomer Cortisolsekretion ab; Quellen berichten breite Häufigkeitsbereiche für MACS.",
+    "lastReviewed": "2026-05-19",
     "kind": "curated",
     "sources": [
       {
@@ -387,7 +387,10 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet.",
+    "riskStratum": "nebenniereninzidentalom-macs",
+    "mapsToPretestAssumptionId": "cushing-endocrine-direct",
+    "overlapWarning": "Nicht zusätzlich quantifizieren, wenn die gewählte Prätest-Annahme bereits Nebenniereninzidentalom/MACS als Zuweisungskontext abbildet."
   },
   {
     "id": "cushing-severe-comorbidity",
@@ -758,5 +761,197 @@
     "lastReviewed": "2026-05-19",
     "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung.",
     "riskStratum": "hypophysenmasse"
+  },
+  {
+    "id": "dvt-wells-unlikely",
+    "conditionId": "tiefe-venenthrombose",
+    "label": "Wells-TVT: unwahrscheinlich (≤1 Punkt)",
+    "category": "Kontext",
+    "direction": "decreases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Ein niedriger 2-Level-Wells-Score senkt die klinische Wahrscheinlichkeit und macht ein negatives hochsensitives D-Dimer als Rule-out-Test sinnvoll.",
+    "limitations": "Der Score ersetzt nicht die klinische Einschätzung; bei starker klinischer Sorge, Schwangerschaft, Malignom, stationärem Kontext oder atypischer Präsentation kann Bildgebung dennoch nötig sein.",
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt den 2-Level-DVT-Wells-Score und D-Dimer bei unwahrscheinlicher TVT."
+      },
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt D-Dimer-basierte Rule-out-Pfade bei niedriger oder geeigneter mittlerer Prätestwahrscheinlichkeit."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+  },
+  {
+    "id": "dvt-wells-likely",
+    "conditionId": "tiefe-venenthrombose",
+    "label": "Wells-TVT: wahrscheinlich (≥2 Punkte)",
+    "category": "Kontext",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Ein hoher 2-Level-Wells-Score erhöht die klinische Wahrscheinlichkeit; D-Dimer allein ist dann kein ausreichender Ausschlusstest.",
+    "limitations": "Bei hoher Wahrscheinlichkeit soll eine Kompressionssonographie oder ein lokaler Bildgebungspfad im Vordergrund stehen; positives D-Dimer bringt wenig Zusatzinformation.",
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Strukturiert den TVT-Pfad nach 2-Level-Wells-Score, D-Dimer und Sonographie."
+      },
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Bei hoher Prätestwahrscheinlichkeit werden bildgebungsbasierte Strategien priorisiert."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+  },
+  {
+    "id": "pe-perc-negative",
+    "conditionId": "lungenembolie",
+    "label": "PERC negativ bei sehr niedriger klinischer Wahrscheinlichkeit",
+    "category": "Kontext",
+    "direction": "decreases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Bei sehr niedriger klinischer Wahrscheinlichkeit kann ein negativer PERC-Check die Notwendigkeit weiterer PE-Diagnostik senken.",
+    "limitations": "PERC ist nur für sehr niedrige klinische Wahrscheinlichkeit gedacht; bei höherer Suspicion oder nicht erfüllten Kriterien ist D-Dimer/Bildgebung nach Pfad nötig.",
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt, PERC bei niedriger klinischer Suspicion und plausiblen Alternativdiagnosen zu erwägen."
+      },
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Betont klinische Wahrscheinlichkeitsabschätzung vor D-Dimer oder Bildgebung."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung."
+  },
+  {
+    "id": "pe-wells-unlikely",
+    "conditionId": "lungenembolie",
+    "label": "Wells-LE: nicht wahrscheinlich (≤4 Punkte)",
+    "category": "Kontext",
+    "direction": "decreases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Ein niedriger 2-Level-Wells-Score erlaubt bei passender Klinik einen D-Dimer-basierten Rule-out-Pfad.",
+    "limitations": "D-Dimer bleibt nur bei niedriger oder mittlerer bzw. nicht-hoher klinischer Wahrscheinlichkeit sinnvoll; positives D-Dimer ist unspezifisch.",
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt den 2-Level-PE-Wells-Score und D-Dimer bei PE-unwahrscheinlicher Konstellation."
+      },
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "D-Dimer wird bei niedriger/intermediärer klinischer Wahrscheinlichkeit empfohlen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+  },
+  {
+    "id": "pe-wells-likely",
+    "conditionId": "lungenembolie",
+    "label": "Wells-LE: wahrscheinlich (>4 Punkte)",
+    "category": "Kontext",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Ein hoher Wells-Score erhöht die klinische Wahrscheinlichkeit; die diagnostische Strategie sollte primär Bildgebung statt D-Dimer-Rule-out priorisieren.",
+    "limitations": "Bei hoher klinischer Wahrscheinlichkeit soll ein negatives D-Dimer die Diagnostik nicht beenden; lokale Akutpfade und hämodynamische Stabilität sind entscheidend.",
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Strukturiert die PE-Diagnostik nach 2-Level-Wells-Score, D-Dimer und CTPA/VQ."
+      },
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Bei hoher Prätestwahrscheinlichkeit werden bildgebungsbasierte Strategien priorisiert."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+  },
+  {
+    "id": "pe-years-no-items",
+    "conditionId": "lungenembolie",
+    "label": "YEARS: keine Kriterien",
+    "category": "Kontext",
+    "direction": "decreases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Die YEARS-Strategie nutzt drei klinische Items und einen höheren D-Dimer-Grenzwert, wenn kein Item vorliegt; sie ist ein strukturierter diagnostischer Pfad, kein isolierter LR-Modifikator.",
+    "limitations": "Nur konsistent mit der validierten YEARS-Strategie verwenden. Nicht mit Wells/PERC oder altersadjustierten Cut-offs beliebig mischen.",
+    "sources": [
+      {
+        "title": "YEARS study: Simplified diagnostic management of suspected pulmonary embolism",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28549662/",
+        "kind": "Studie",
+        "note": "Validierte eine PE-Strategie mit drei YEARS-Items und wahrscheinlichkeitsadaptierter D-Dimer-Schwelle."
+      },
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Nimmt alters- oder wahrscheinlichkeitsadjustierte D-Dimer-Cut-offs als mögliche Alternative zum festen Cut-off auf."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung, um Mischstrategien zu vermeiden."
   }
 ]

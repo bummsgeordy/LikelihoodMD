@@ -162,6 +162,13 @@
             "note": "Beschreibt Durchführung und Grenzen von Dexamethason-Suppressionstests einschließlich Cut-off, Medikamenten- und CBG-Effekten."
           },
           {
+            "title": "ESE/ENSAT Guideline: Adrenal Incidentalomas",
+            "year": 2023,
+            "url": "https://academic.oup.com/ejendo/article/189/1/G1/7198474",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt bei Nebenniereninzidentalom den 1-mg-DST und nutzt Cortisol ≤50 nmol/l nach DST als Ausschlusskriterium für autonome Cortisolsekretion."
+          },
+          {
             "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
             "year": 2008,
             "url": "https://academic.oup.com/jcem/article-abstract/93/5/1553/2598176?redirectedFrom=fulltext",
@@ -206,6 +213,7 @@
         ],
         "interpretationCautions": [
           "Bei niedriger Prätestwahrscheinlichkeit relevante falsch-positive Befunde möglich.",
+          "Beim Nebenniereninzidentalom dient der DST der Einordnung autonomer Cortisolsekretion/MACS; MACS ist nicht gleich manifestes Cushing-Syndrom.",
           "Leitlinien empfehlen gezielte Testung, kein breites Screening bei jedem Diabetes/Adipositas."
         ],
         "intendedUse": "screening",
@@ -1579,5 +1587,170 @@
       }
     ],
     "conditionId": "akromegalie"
+  },
+  {
+    "id": "d-dimer-dvt",
+    "name": "D-Dimer bei Verdacht auf TVT",
+    "category": "Innere Medizin / Akutmedizin",
+    "condition": "Tiefe Venenthrombose",
+    "description": "Hochsensitives D-Dimer als Rule-out-Test bei niedriger oder mittlerer klinischer Wahrscheinlichkeit für TVT.",
+    "evidenceProfiles": [
+      {
+        "id": "d-dimer-dvt-high-sensitivity",
+        "testId": "d-dimer-dvt",
+        "label": "Hochsensitives D-Dimer, Standard-Cut-off",
+        "kind": "curated",
+        "purpose": "rule_out",
+        "specimen": "Citratplasma",
+        "method": "D-Dimer, hochsensitiver Assay",
+        "cutoff": "typisch 500 µg/l FEU bzw. 0,5 mg/l FEU; assay- und einheitenabhängig prüfen",
+        "procedure": "Klinische Wahrscheinlichkeit mit 2-Level-Wells-TVT einschätzen; D-Dimer bei niedriger/mittlerer Wahrscheinlichkeit nutzen, bei hoher Wahrscheinlichkeit primär Sonographie.",
+        "sensitivity": 0.96,
+        "specificity": 0.4,
+        "lrPositive": 1.6,
+        "lrNegative": 0.1,
+        "population": "Ambulante oder Notaufnahme-Patienten mit Verdacht auf erste Beinvenenthrombose und niedriger bis mittlerer klinischer Wahrscheinlichkeit.",
+        "rationale": "D-Dimer ist wegen hoher Sensitivität vor allem zum Ausschluss einer TVT bei niedriger bis mittlerer Prätestwahrscheinlichkeit geeignet; ein positiver Test ist unspezifisch.",
+        "limitations": "Approximate Arbeitswerte für ein hochsensitives D-Dimer; Assay, Alter, Schwangerschaft, Malignom, Entzündung, Operation, Trauma, stationärer Kontext und Dauer der Symptome beeinflussen die Aussagekraft.",
+        "preanalytics": [
+          "D-Dimer nur zusammen mit klinischer Wahrscheinlichkeit interpretieren",
+          "Assay, Einheit und Cut-off dokumentieren",
+          "Bei hoher klinischer Wahrscheinlichkeit nicht als alleinigen Ausschlusstest verwenden",
+          "Alter, Schwangerschaft, Tumorerkrankung, Infektion/Entzündung, OP/Trauma und Hospitalisierung als Kontext dokumentieren"
+        ],
+        "falsePositiveReasons": [
+          "Alter",
+          "Entzündung oder Infektion",
+          "Malignom",
+          "Schwangerschaft oder Wochenbett",
+          "frische Operation, Trauma oder Blutung",
+          "stationäre oder schwer kranke Patienten"
+        ],
+        "falseNegativeReasons": [
+          "sehr frühe oder sehr späte Testung",
+          "kleine oder distale Thrombosen",
+          "bereits begonnene Antikoagulation",
+          "nicht hochsensitiver Assay oder falscher Cut-off"
+        ],
+        "interpretationCautions": [
+          "Negatives D-Dimer kann bei niedriger/mittlerer klinischer Wahrscheinlichkeit eine TVT ausschließen.",
+          "Positives D-Dimer beweist keine TVT und führt meist zur Bildgebung.",
+          "Bei hoher klinischer Wahrscheinlichkeit ist Sonographie der zentrale nächste Schritt."
+        ],
+        "sources": [
+          {
+            "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+            "year": 2018,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Strategien nach Prätestwahrscheinlichkeit; D-Dimer ist vor allem bei niedriger/mittlerer Wahrscheinlichkeit ein Rule-out-Test."
+          },
+          {
+            "title": "NICE NG158: Venous thromboembolic diseases",
+            "year": 2020,
+            "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt den 2-Level-DVT-Wells-Score und D-Dimer im diagnostischen Pfad bei unwahrscheinlicher TVT."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-05-19",
+        "reviewNote": "Quantitative Werte sind konservative Arbeitswerte für hochsensitive Assays und müssen assay-/settingbezogen geprüft werden.",
+        "intendedUse": "rule_out",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nur sinnvoll nach klinischer Wahrscheinlichkeitsabschätzung; positives D-Dimer ist unspezifisch.",
+        "reviewPriority": "high"
+      }
+    ],
+    "conditionId": "tiefe-venenthrombose"
+  },
+  {
+    "id": "d-dimer-pe",
+    "name": "D-Dimer bei Verdacht auf Lungenembolie",
+    "category": "Innere Medizin / Akutmedizin",
+    "condition": "Lungenembolie",
+    "description": "Hochsensitives D-Dimer als Rule-out-Test bei niedriger oder mittlerer klinischer Wahrscheinlichkeit für akute Lungenembolie.",
+    "evidenceProfiles": [
+      {
+        "id": "d-dimer-pe-high-sensitivity",
+        "testId": "d-dimer-pe",
+        "label": "Hochsensitives D-Dimer, Standard-Cut-off",
+        "kind": "curated",
+        "purpose": "rule_out",
+        "specimen": "Citratplasma",
+        "method": "D-Dimer, hochsensitiver Assay",
+        "cutoff": "typisch 500 µg/l FEU bzw. 0,5 mg/l FEU; alters- oder wahrscheinlichkeitsadjustierte Cut-offs je nach Strategie möglich",
+        "procedure": "Klinische Wahrscheinlichkeit mit Wells/Genf einschätzen; bei sehr niedriger Wahrscheinlichkeit PERC erwägen; D-Dimer bei niedriger/mittlerer Wahrscheinlichkeit nutzen, bei hoher Wahrscheinlichkeit Bildgebung.",
+        "sensitivity": 0.97,
+        "specificity": 0.41,
+        "lrPositive": 1.64,
+        "lrNegative": 0.07,
+        "population": "Ambulante oder Notaufnahme-Patienten mit Verdacht auf akute Lungenembolie und niedriger bis mittlerer bzw. nicht-hoher klinischer Wahrscheinlichkeit.",
+        "rationale": "D-Dimer ist wegen hoher Sensitivität vor allem zum Ausschluss einer Lungenembolie in geeigneten Niedrig-/Intermediär-Risiko-Konstellationen geeignet; ein positiver Test ist unspezifisch.",
+        "limitations": "Approximate Arbeitswerte für ein hochsensitives D-Dimer; Testgüte und Cut-off hängen von Assay, Alter, Strategie, Population, Schwangerschaft, Malignom, Entzündung, Operation/Trauma und stationärem Kontext ab.",
+        "preanalytics": [
+          "D-Dimer nur zusammen mit klinischer Wahrscheinlichkeit interpretieren",
+          "Assay, Einheit und Cut-off dokumentieren",
+          "Altersadjustierte Cut-offs bei Patienten >50 Jahre prüfen, wenn lokal validiert",
+          "YEARS- oder andere wahrscheinlichkeitsadaptierte Strategien nur konsistent mit ihrer Originaldefinition nutzen"
+        ],
+        "falsePositiveReasons": [
+          "Alter",
+          "Entzündung oder Infektion",
+          "Malignom",
+          "Schwangerschaft oder Wochenbett",
+          "frische Operation, Trauma oder Blutung",
+          "stationäre oder schwer kranke Patienten"
+        ],
+        "falseNegativeReasons": [
+          "sehr frühe oder sehr späte Testung",
+          "kleine embolische Last",
+          "bereits begonnene Antikoagulation",
+          "nicht hochsensitiver Assay oder nicht passende Cut-off-Strategie"
+        ],
+        "interpretationCautions": [
+          "Negatives D-Dimer kann bei niedriger/mittlerer klinischer Wahrscheinlichkeit eine LE ausschließen.",
+          "Positives D-Dimer beweist keine LE und muss im Kontext zu Bildgebung/weiterer Diagnostik führen.",
+          "Bei hoher klinischer Wahrscheinlichkeit soll D-Dimer die Bildgebung nicht verzögern."
+        ],
+        "sources": [
+          {
+            "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+            "year": 2018,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt D-Dimer-basierte Rule-out-Strategien bei niedriger oder mittlerer Prätestwahrscheinlichkeit für PE."
+          },
+          {
+            "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+            "year": 2019,
+            "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt klinische Wahrscheinlichkeitsabschätzung und D-Dimer bei niedriger/intermediärer Wahrscheinlichkeit; alters- oder wahrscheinlichkeitsadjustierte Cut-offs können genutzt werden."
+          },
+          {
+            "title": "NICE NG158: Venous thromboembolic diseases",
+            "year": 2020,
+            "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt den 2-Level-PE-Wells-Score, PERC bei niedriger klinischer Suspicion und D-Dimer im diagnostischen Pfad."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-05-19",
+        "reviewNote": "Quantitative Werte sind konservative Arbeitswerte für hochsensitive Assays und müssen assay-/strategiebezogen geprüft werden.",
+        "intendedUse": "rule_out",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nur sinnvoll nach klinischer Wahrscheinlichkeitsabschätzung; positives D-Dimer ist unspezifisch.",
+        "reviewPriority": "high"
+      }
+    ],
+    "conditionId": "lungenembolie"
   }
 ]

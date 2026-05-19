@@ -73,7 +73,9 @@ const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
   'phaochromozytom-paragangliom': 'metanephrines-plasma',
   'primarer-hyperaldosteronismus': 'arr',
   'zoliakie': 'ttg-iga-celiac',
-  'herzinsuffizienz': 'ntprobnp'
+  'herzinsuffizienz': 'ntprobnp',
+  'tiefe-venenthrombose': 'd-dimer-dvt',
+  'lungenembolie': 'd-dimer-pe'
 };
 
 let state: CalculatorState = loadState();
@@ -885,7 +887,7 @@ function populateSelect(select: HTMLSelectElement, options: { value: string; lab
 }
 
 function conditionGroupLabel(condition: ClinicalCondition): 'Endokrinologie' | 'Internistisch' {
-  return ['herzinsuffizienz', 'zoliakie'].includes(condition.id) ? 'Internistisch' : 'Endokrinologie';
+  return ['herzinsuffizienz', 'zoliakie', 'tiefe-venenthrombose', 'lungenembolie'].includes(condition.id) ? 'Internistisch' : 'Endokrinologie';
 }
 
 function populateConditionSelect(select: HTMLSelectElement, conditions: ClinicalCondition[], selected: string): void {
