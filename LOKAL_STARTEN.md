@@ -30,3 +30,17 @@ Danach im Browser öffnen:
 ```text
 http://127.0.0.1:5174/
 ```
+
+## iPhone/iPad offline nutzen
+
+Die GitHub-Pages-Version kann als PWA auf iPhone und iPad installiert werden:
+
+1. In Safari `https://bummsgeordy.github.io/LikelihoodMD/` öffnen.
+2. Warten, bis die Seite vollständig geladen ist.
+3. Teilen-Symbol antippen.
+4. **Zum Home-Bildschirm** auswählen.
+5. Die App danach über das neue Home-Screen-Symbol öffnen.
+
+Danach ist die App ohne Internet nutzbar. Für Aktualisierungen die App bei bestehender Internetverbindung erneut öffnen; der Offline-Cache wird dann aktualisiert.
+
+Hinweis: Eine erstmalige Installation ganz ohne Internet ist damit nicht möglich. Dafür müsste das Projekt separat als Dateienpaket oder native iOS-App verteilt werden.

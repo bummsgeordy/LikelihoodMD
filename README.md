@@ -38,6 +38,7 @@ Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht di
 - Datenkatalog im Verwaltungs-Drawer mit tabellarischer Sicht auf Setting, Erkrankung, Prätest-Annahmen, Modifikatoren, Tests, Evidenzprofile, Quellen und Grenzen.
 - Szenarien markieren bewusst abweichende Werte mit Begründung, statt kuratierte Quellen still zu überschreiben.
 - Lokale Speicherung, JSON-Import und JSON-Export im Schema `schemaVersion: 5`.
+- Installierbare PWA: Nach dem ersten vollständigen Laden kann die GitHub-Pages-Version auf iPhone/iPad offline genutzt werden.
 - Review- und Qualitätsfelder für Datenpflege: `reviewStatus`, `evidenceQuality` und `dataCompleteness`.
 - Kurzbericht zum Kopieren.
 - Fagan-ähnliches Nomogramm und Balkendarstellung.
@@ -54,6 +55,18 @@ npm run dev
 Auf macOS die Datei `Likelihood-Ratio-Rechner starten.command` doppelklicken. Sie baut die App bei Bedarf und öffnet sie lokal unter `http://127.0.0.1:5174/`.
 
 Mehr Details stehen in [LOKAL_STARTEN.md](LOKAL_STARTEN.md).
+
+## Offline auf iPhone und iPad
+
+Die veröffentlichte GitHub-Pages-Version ist als PWA vorbereitet. Für die Offline-Nutzung auf iPhone/iPad:
+
+1. In Safari `https://bummsgeordy.github.io/LikelihoodMD/` öffnen.
+2. Einmal vollständig laden lassen.
+3. Teilen-Symbol antippen.
+4. **Zum Home-Bildschirm** wählen.
+5. Die App danach über das Home-Screen-Symbol starten.
+
+Nach diesem Erstaufruf sind App, kuratierte Daten und Info-Seite offline verfügbar. Updates werden beim nächsten Online-Besuch automatisch in den Cache übernommen. Eigene Daten bleiben lokal im Browser-/App-Speicher des Geräts.
 
 Build und Prüfungen:
 

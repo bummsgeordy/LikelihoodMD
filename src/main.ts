@@ -79,6 +79,7 @@ app.innerHTML = `
         <h1>Likelihood-Ratio-Rechner</h1>
         <div class="hero-actions">
           <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Diagnostische Kennzahlen</a>
+          <span id="offlineStatus" class="offline-status" role="status">Offline nutzbar nach erstem Laden</span>
           <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
         </div>
       </div>
@@ -423,6 +424,39 @@ app.innerHTML = `
     </aside>
   </main>
 `;
+
+function registerServiceWorker(): void {
+  const offlineStatus = document.querySelector<HTMLElement>('#offlineStatus');
+  const setOfflineStatus = (text: string, status: 'ready' | 'pending' | 'unsupported' = 'pending') => {
+    if (!offlineStatus) return;
+    offlineStatus.textContent = text;
+    offlineStatus.dataset.status = status;
+  };
+
+  if (!('serviceWorker' in navigator)) {
+    setOfflineStatus('Offline-Modus nicht verfügbar', 'unsupported');
+    return;
+  }
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      setOfflineStatus('Offline verfügbar', 'ready');
+    });
+
+    navigator.serviceWorker
+      .register('./sw.js')
+      .then(registration => {
+        setOfflineStatus(navigator.serviceWorker.controller ? 'Offline verfügbar' : 'Offline wird vorbereitet', 'pending');
+        navigator.serviceWorker.ready.then(() => setOfflineStatus('Offline verfügbar', 'ready'));
+        registration.addEventListener('updatefound', () => {
+          setOfflineStatus('Offline-Version wird aktualisiert', 'pending');
+        });
+      })
+      .catch(() => setOfflineStatus('Offline-Modus nicht verfügbar', 'unsupported'));
+  });
+}
+
+registerServiceWorker();
 
 const $ = <T extends HTMLElement>(id: string): T => {
   const element = document.getElementById(id);
