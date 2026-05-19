@@ -629,5 +629,106 @@
     "lastReviewed": "2026-05-18",
     "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung, um Doppelzählung mit Setting/Überweisungsselektion zu vermeiden.",
     "riskStratum": "multiple-hypophysenachsen-ausfaelle"
+  },
+  {
+    "id": "acromegaly-acral-facial-changes",
+    "conditionId": "akromegalie",
+    "label": "Akral-faziale Vergröberung oder Vergrößerung von Händen/Füßen",
+    "category": "Klinisches Zeichen",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Typische akrale und faziale Veränderungen sind zentrale klinische Hinweise und klare Leitlinienindikation zur IGF-1-Messung.",
+    "limitations": "Langsame Progression und retrospektive Veränderung erschweren die Einschätzung; Fotos, Ring-/Schuhgröße und Fremdanamnese können helfen.",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt IGF-1 bei typischen Manifestationen, besonders akralen und fazialen Merkmalen."
+      },
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt typische klinische Erscheinung und häufige diagnostische Verzögerung."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung, weil kein belastbarer Faktor hinterlegt ist.",
+    "riskStratum": "typische-akromegalie-zeichen",
+    "mapsToPretestAssumptionId": "acromegaly-endocrine-suspicion-direct",
+    "overlapWarning": "Nicht zusätzlich quantifizieren, wenn die gewählte Prätest-Annahme bereits typische Akromegalie-Zeichen abbildet."
+  },
+  {
+    "id": "acromegaly-associated-comorbidities",
+    "conditionId": "akromegalie",
+    "label": "Mehrere assoziierte Befunde: Schlafapnoe, Typ-2-Diabetes, Hypertonie, Karpaltunnel, Arthropathie",
+    "category": "Kontext",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Die Leitlinie schlägt IGF-1-Messung vor, wenn mehrere typische Begleitkonstellationen gemeinsam auftreten, auch ohne eindeutige klassische Zeichen.",
+    "limitations": "Einzelne Befunde sind häufig und unspezifisch; erst die Kombination und Progression erhöht die klinische Plausibilität.",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Nennt Schlafapnoe, Typ-2-Diabetes, Arthropathie, Karpaltunnelsyndrom, Hyperhidrose und Hypertonie als assoziierte Konstellationen für IGF-1-Testung."
+      },
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt systemische Komplikationen und Komorbiditäten bei GH-/IGF-1-Exzess."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Modifikator; häufige Einzelbefunde nicht isoliert übergewichten.",
+    "riskStratum": "akromegalie-assoziierte-komorbiditaeten"
+  },
+  {
+    "id": "acromegaly-pituitary-mass",
+    "conditionId": "akromegalie",
+    "label": "Hypophysenmasse",
+    "category": "Kontext",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Bei Hypophysenmasse empfiehlt die Leitlinie IGF-1 zur Abklärung eines GH-Exzesses.",
+    "limitations": "Eine Hypophysenmasse beweist keinen GH-Exzess; weitere Hypophysenachsen und Bildgebungskontext bleiben entscheidend.",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serum-IGF-1 zum Ausschluss von Akromegalie bei Hypophysenmasse."
+      },
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Mehr als 99% der Fälle beruhen auf einem GH-sezernierenden Hypophysenadenom."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung.",
+    "riskStratum": "hypophysenmasse"
   }
 ]

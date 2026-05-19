@@ -54,5 +54,12 @@
     "category": "Diabetologie / Gastroenterologie",
     "synonyms": ["Celiac disease", "Coeliac disease"],
     "description": "Serologische Diagnostik bei Zöliakieverdacht oder Risikokonstellationen."
+  },
+  {
+    "id": "akromegalie",
+    "label": "Akromegalie",
+    "category": "Hypophyse",
+    "synonyms": ["Acromegaly", "GH-Exzess", "Wachstumshormonexzess"],
+    "description": "Biochemische Abklärung eines Wachstumshormon-/IGF-1-Exzesses bei klinischem Verdacht oder Hypophysenmasse."
   }
 ]

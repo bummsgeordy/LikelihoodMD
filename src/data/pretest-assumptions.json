@@ -595,5 +595,77 @@
     "reviewStatus": "needs-review",
     "lastReviewed": "2026-05-17",
     "reviewNote": "Aktualisiert aus bereitgestellten Setting-Annahmen und Quellenabgleich; lokale Übertragbarkeit weiter fachlich prüfen."
+  },
+  {
+    "id": "acromegaly-general-fallback",
+    "condition": "Akromegalie",
+    "conditionId": "akromegalie",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Personen ohne spezifischere Setting-Daten; Akromegalie ist in der Allgemeinbevölkerung selten.",
+    "probability": 0.00006,
+    "rangeLow": 0.00003,
+    "rangeHigh": 0.0001,
+    "rationale": "Endotext nennt eine Prävalenz von ungefähr 60 pro Million. Dieser Wert dient nur als populationsbezogener Fallback und nicht als Wert für selektierte klinische Verdachtsfälle.",
+    "limitations": "Bei typischen progredienten akralen/fazialen Veränderungen, Hypophysenmasse oder mehreren assoziierten Komorbiditäten deutlich höher ansetzen.",
+    "sources": [
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Nennt grob 3-11 Neuerkrankungen pro Million/Jahr und ungefähr 60 pro Million Prävalenz."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Definiert klinische Konstellationen, in denen IGF-1 gemessen werden sollte."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Populationsprävalenz aus Endotext; nicht als Prätestwert bei gezielter endokrinologischer Vorstellung verwenden."
+  },
+  {
+    "id": "acromegaly-endocrine-suspicion-direct",
+    "condition": "Akromegalie",
+    "conditionId": "akromegalie",
+    "setting": "Ambulant: Endokrinologie",
+    "settingId": "ambulant-endokrinologie",
+    "evidenceLevel": "direct",
+    "population": "Gezielte endokrinologische Abklärung bei typischen progredienten Merkmalen, Hypophysenmasse oder mehreren assoziierten Komorbiditäten.",
+    "probability": 0.05,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.2,
+    "rationale": "Pragmatische Arbeitsannahme für selektierte Verdachtsfälle. Die Leitlinie gibt Testindikationen, aber keine universelle Prätestwahrscheinlichkeit für diese heterogene Gruppe.",
+    "limitations": "Stark abhängig von Zuweisungsselektion, Merkmalqualität, Vorbefunden und Hypophysenbildgebung; als needs-review-Platzhalter behandeln.",
+    "sources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt IGF-1 bei typischen klinischen Zeichen, Hypophysenmasse oder mehreren assoziierten Komorbiditäten."
+      },
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt typische klinische Erscheinung, Komorbiditäten und diagnostische Verzögerung."
+      }
+    ],
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "minimal",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-05-19",
+    "reviewNote": "Klinischer Platzhalter für selektierte Verdachtsfälle; sollte durch lokale/Studien-basierte Settingdaten ersetzt werden."
   }
 ]

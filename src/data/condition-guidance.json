@@ -263,5 +263,57 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Leitlinienbasierte Kurznotiz; konkrete Cut-offs müssen labor- und assaybezogen geprüft werden."
+  },
+  {
+    "conditionId": "akromegalie",
+    "summary": "Akromegalie ist eine seltene, oft verzögert erkannte Hypophysenerkrankung durch GH-/IGF-1-Exzess. Die Quellen betonen: IGF-1 ist der erste biochemische Screeningtest; bei erhöhtem oder grenzwertigem IGF-1 wird die Diagnose durch fehlende GH-Suppression im oralen Glukosebelastungstest bestätigt.",
+    "whenToTest": [
+      "IGF-1 messen bei typischen klinischen Merkmalen wie akraler oder fazialer Vergröberung, vergrößerten Händen/Füßen, Kiefer-/Zahnstellungsveränderungen oder Hyperhidrose.",
+      "IGF-1 erwägen bei mehreren assoziierten Konstellationen wie Schlafapnoe, Typ-2-Diabetes, Hypertonie, Karpaltunnelsyndrom, belastender Arthropathie oder Hyperhidrose auch ohne eindeutige klassische Zeichen.",
+      "Bei Hypophysenmasse empfiehlt die Leitlinie IGF-1 zur Abklärung eines GH-Exzesses."
+    ],
+    "recommendedTests": [
+      "Alters- und geschlechtsadjustiertes Serum-IGF-1 als erster Screeningtest; ein normaler Wert schließt Akromegalie in der Regel effektiv aus.",
+      "Bei erhöhtem oder unklarem IGF-1: 75-g-oraler Glukosetest mit dokumentierter Hyperglykämie und GH-Messung über 2 Stunden.",
+      "Ein randomisiertes Einzel-GH sollte nicht zur Diagnose genutzt werden, weil GH pulsatil sezerniert wird."
+    ],
+    "pitfalls": [
+      "IGF-1-Referenzbereiche sind assay-, alters-, geschlechts- und populationsabhängig.",
+      "Unterernährung, Lebererkrankung, schlecht kontrollierter Diabetes, Schilddrüsenfunktionsstörungen und Östrogene können IGF-1/GH-Interpretation beeinflussen.",
+      "Beim OGTT müssen Glukoseanstieg, GH-Assay und Cut-off berücksichtigt werden; Adipositas, Alter und Geschlecht können die GH-Suppression beeinflussen."
+    ],
+    "settingNotes": [
+      "Die allgemeine Prävalenz ist sehr niedrig; Endotext nennt grob 3-11 Neuerkrankungen pro Million pro Jahr und etwa 60 pro Million Prävalenz.",
+      "In endokrinologischer Abklärung steigt die Prätestwahrscheinlichkeit vor allem durch typische progrediente körperliche Veränderungen oder Kombination mehrerer Komorbiditäten.",
+      "Für die aktuell hinterlegten IGF-1-/OGTT-Profile sind keine belastbaren LR-Werte kuratiert; sie werden daher als qualitative Leitlinienprofile geführt."
+    ],
+    "links": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt IGF-1 als initialen Screeningtest, OGTT/GH-Suppression zur Bestätigung und keine Diagnosestellung über zufälliges Einzel-GH."
+      },
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Übersicht zu Epidemiologie, klinischer Präsentation, IGF-1, OGTT und wichtigen Störfaktoren der GH-/IGF-1-Achse."
+      },
+      {
+        "title": "Endocrine Society: Acromegaly Guideline",
+        "year": 2014,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/acromegaly",
+        "kind": "Leitlinie",
+        "note": "Leitlinienseite mit Zusammenfassung und Zugang zur vollständigen JCEM-Leitlinie."
+      }
+    ],
+    "lastReviewed": "2026-05-19",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative LR-Werte für IGF-1 und OGTT sind noch nicht kuratiert."
   }
 ]

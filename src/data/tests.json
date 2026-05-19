@@ -1362,5 +1362,155 @@
       }
     ],
     "conditionId": "nebenniereninsuffizienz"
+  },
+  {
+    "id": "igf1-acromegaly",
+    "name": "Serum-IGF-1",
+    "category": "Endokrinologie / Hypophyse",
+    "condition": "Akromegalie",
+    "description": "Initialer Screeningtest bei Verdacht auf Akromegalie oder Hypophysenmasse.",
+    "evidenceProfiles": [
+      {
+        "id": "igf1-acromegaly-guideline-qualitative",
+        "testId": "igf1-acromegaly",
+        "label": "IGF-1, Leitlinienprofil ohne LR",
+        "kind": "curated",
+        "purpose": "screening",
+        "specimen": "Serum",
+        "method": "Serum-IGF-1",
+        "cutoff": "Alters-, geschlechts- und assayabhängiger Referenzbereich",
+        "procedure": "Serum-IGF-1 bestimmen und gegen alters-/geschlechtsadjustierten Laborreferenzbereich interpretieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "population": "Patienten mit klinischem Verdacht auf Akromegalie, mehreren assoziierten Komorbiditäten oder Hypophysenmasse.",
+        "rationale": "Leitlinien empfehlen IGF-1 als initialen Screeningtest; ein normaler IGF-1-Wert schließt Akromegalie in der Regel effektiv aus. Es ist jedoch kein kuratierter quantitativer LR-Wert hinterlegt.",
+        "limitations": "Dieses Profil ist qualitativ: LR+ und LR− sind als neutrale Platzhalter gesetzt und dürfen nicht als echte Testgüte interpretiert werden.",
+        "preanalytics": [
+          "alters- und geschlechtsadjustierte Referenzbereiche verwenden",
+          "Assay und Laborreferenz dokumentieren",
+          "Ernährungszustand, Lebererkrankung, Diabeteskontrolle, Schilddrüsenstatus und Östrogene berücksichtigen"
+        ],
+        "falsePositiveReasons": [
+          "ungeeigneter Referenzbereich",
+          "Assay-/Laborvariation",
+          "physiologische oder methodische Grenzbefunde"
+        ],
+        "falseNegativeReasons": [
+          "milde oder diskrepante biochemische Konstellationen",
+          "falscher Referenzbereich",
+          "Einfluss von Erkrankungen oder Medikamenten auf IGF-1"
+        ],
+        "interpretationCautions": [
+          "Normales IGF-1 spricht stark gegen Akromegalie, muss aber zum klinischen Kontext passen.",
+          "Erhöhtes oder grenzwertiges IGF-1 soll mit OGTT/GH-Suppression bestätigt werden.",
+          "Die berechneten Posttestwerte sind für dieses Profil nicht aussagekräftig, solange keine validierten LR-Werte kuratiert sind."
+        ],
+        "sources": [
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+            "year": 2014,
+            "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt IGF-1 als initialen Screeningtest und beschreibt, dass normales IGF-1 Akromegalie in der Regel effektiv ausschließt."
+          },
+          {
+            "title": "Endotext: Acromegaly",
+            "year": 2022,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt IGF-1 als First-line-Test und relevante Einflussfaktoren der GH-/IGF-1-Achse."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "minimal",
+        "lastReviewed": "2026-05-19",
+        "reviewNote": "Qualitatives Leitlinienprofil; quantitative Sensitivität/Spezifität bzw. LR-Werte müssen separat kuratiert werden.",
+        "intendedUse": "screening",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Keine validierten LR-Werte hinterlegt; die Wahrscheinlichkeitsberechnung ist hier nur ein Platzhalter.",
+        "reviewPriority": "high"
+      }
+    ],
+    "conditionId": "akromegalie"
+  },
+  {
+    "id": "gh-suppression-ogtt-acromegaly",
+    "name": "GH-Suppression im oralen Glukosetest",
+    "category": "Endokrinologie / Hypophyse",
+    "condition": "Akromegalie",
+    "description": "Bestätigungstest bei erhöhtem oder grenzwertigem IGF-1.",
+    "evidenceProfiles": [
+      {
+        "id": "gh-ogtt-acromegaly-guideline-qualitative",
+        "testId": "gh-suppression-ogtt-acromegaly",
+        "label": "75-g-OGTT/GH-Suppression, Leitlinienprofil ohne LR",
+        "kind": "curated",
+        "purpose": "confirmation",
+        "specimen": "Serum-GH und Plasma/Serum-Glukose",
+        "method": "Oraler Glukosetest mit GH-Suppression",
+        "cutoff": "GH-Nadir < 1 µg/l nach 75 g Glukose schließt meist aus; assayabhängig teils < 0,4 µg/l diskutiert",
+        "procedure": "75 g Glukose nüchtern geben; Glukose und GH basal sowie typischerweise über 2 h seriell messen und Hyperglykämie dokumentieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "population": "Patienten mit erhöhtem oder grenzwertigem IGF-1 zur biochemischen Bestätigung einer Akromegalie.",
+        "rationale": "Die Leitlinie empfiehlt bei erhöhtem oder unklarem IGF-1 die Bestätigung durch fehlende GH-Suppression unter dokumentierter Hyperglykämie. Es ist kein kuratierter quantitativer LR-Wert hinterlegt.",
+        "limitations": "Dieses Profil ist qualitativ: LR+ und LR− sind neutrale Platzhalter. GH-Assays, Cut-offs, BMI, Alter, Geschlecht und Diabetes beeinflussen die Interpretation.",
+        "preanalytics": [
+          "Nüchternstatus und 75-g-Glukosegabe dokumentieren",
+          "Glukose vor und nach Belastung messen, um Hyperglykämie zu belegen",
+          "GH-Assay und lokalen Cut-off dokumentieren",
+          "Diabeteskontrolle, BMI, Alter und Geschlecht kontextualisieren"
+        ],
+        "falsePositiveReasons": [
+          "assayabhängig unzureichende GH-Suppression",
+          "ungeeigneter Cut-off",
+          "Adipositas, Alter oder Geschlecht als Einflussfaktoren",
+          "fehlende Dokumentation ausreichender Hyperglykämie"
+        ],
+        "falseNegativeReasons": [
+          "milde oder diskrepante biochemische Aktivität",
+          "Assay-/Timingprobleme",
+          "Interpretation ohne IGF-1-Kontext"
+        ],
+        "interpretationCautions": [
+          "Nicht als Erstscreening bei jedem unspezifischen Befund verwenden.",
+          "Einzelnes random GH ist wegen pulsatiler Sekretion nicht diagnostisch ausreichend.",
+          "Die berechneten Posttestwerte sind für dieses Profil nicht aussagekräftig, solange keine validierten LR-Werte kuratiert sind."
+        ],
+        "sources": [
+          {
+            "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+            "year": 2014,
+            "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt fehlende GH-Suppression auf < 1 µg/l nach dokumentierter Hyperglykämie im oralen Glukosetest als Bestätigung bei erhöhtem/unklarem IGF-1."
+          },
+          {
+            "title": "Endotext: Acromegaly",
+            "year": 2022,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt den oralen Glukosetest als biochemischen Goldstandard und gibt das praktische 75-g-Protokoll mit seriellen GH-/Glukosemessungen an."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "minimal",
+        "lastReviewed": "2026-05-19",
+        "reviewNote": "Qualitatives Leitlinienprofil; quantitative Sensitivität/Spezifität bzw. LR-Werte müssen separat kuratiert werden.",
+        "intendedUse": "confirmation",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Keine validierten LR-Werte hinterlegt; die Wahrscheinlichkeitsberechnung ist hier nur ein Platzhalter.",
+        "reviewPriority": "high"
+      }
+    ],
+    "conditionId": "akromegalie"
   }
 ]
