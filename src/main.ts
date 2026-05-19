@@ -63,6 +63,19 @@ const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
 const clinicalConditions = conditionsRaw as ClinicalCondition[];
 const conditionGuidance = conditionGuidanceRaw as ConditionGuidance[];
 const diagnosticChains = diagnosticChainsRaw as DiagnosticChain[];
+
+const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
+  'akromegalie': 'igf1-acromegaly',
+  'cushing-syndrom-hyperkortisolismus': 'dst-1mg',
+  'morbus-basedow': 'trab-graves',
+  'medullares-schilddrusenkarzinom': 'basal-calcitonin-thyroid-nodule',
+  'nebenniereninsuffizienz': 'acth-stimulation-250',
+  'phaochromozytom-paragangliom': 'metanephrines-plasma',
+  'primarer-hyperaldosteronismus': 'arr',
+  'zoliakie': 'ttg-iga-celiac',
+  'herzinsuffizienz': 'ntprobnp'
+};
+
 let state: CalculatorState = loadState();
 let lastFocusBeforeDrawer: HTMLElement | null = null;
 let selectedCatalogRowKey = '';
@@ -550,6 +563,27 @@ function profilesForTest(testId: string): EvidenceProfile[] {
   return allProfiles().filter(profile => profile.testId === testId);
 }
 
+function testMatchesCondition(test: DiagnosticTest, conditionId: string): boolean {
+  return conditionIdForTest(test) === conditionId;
+}
+
+function preferredTestForCondition(conditionId: string): DiagnosticTest | undefined {
+  const tests = allTests();
+  const preferredId = DEFAULT_TEST_BY_CONDITION[conditionId];
+  return (
+    tests.find(test => test.id === preferredId && testMatchesCondition(test, conditionId)) ??
+    tests.find(test => testMatchesCondition(test, conditionId))
+  );
+}
+
+function selectDefaultTestForCondition(conditionId: string): void {
+  const preferredTest = preferredTestForCondition(conditionId);
+  if (!preferredTest) return;
+  state.selectedTestId = preferredTest.id;
+  const profiles = profilesForTest(preferredTest.id);
+  state.selectedEvidenceProfileId = profiles.find(profile => profile.isDefault)?.id ?? profiles[0]?.id ?? state.selectedEvidenceProfileId;
+}
+
 function allAssumptions(): PretestAssumption[] {
   return [...curatedAssumptions, ...state.customAssumptions];
 }
@@ -850,34 +884,60 @@ function populateSelect(select: HTMLSelectElement, options: { value: string; lab
   select.value = selected;
 }
 
+function conditionGroupLabel(condition: ClinicalCondition): 'Endokrinologie' | 'Internistisch' {
+  return ['herzinsuffizienz', 'zoliakie'].includes(condition.id) ? 'Internistisch' : 'Endokrinologie';
+}
+
+function populateConditionSelect(select: HTMLSelectElement, conditions: ClinicalCondition[], selected: string): void {
+  select.textContent = '';
+  (['Endokrinologie', 'Internistisch'] as const).forEach(groupLabel => {
+    const groupConditions = conditions
+      .filter(condition => conditionGroupLabel(condition) === groupLabel)
+      .sort((a, b) => a.label.localeCompare(b.label, 'de'));
+    if (!groupConditions.length) return;
+    const group = document.createElement('optgroup');
+    group.label = groupLabel;
+    groupConditions.forEach(condition => {
+      const option = document.createElement('option');
+      option.value = condition.id;
+      option.textContent = condition.label;
+      group.append(option);
+    });
+    select.append(group);
+  });
+  select.value = selected;
+}
+
+function orderedTestsForCondition(conditionId: string): DiagnosticTest[] {
+  const preferredId = DEFAULT_TEST_BY_CONDITION[conditionId];
+  return [...allTests()].sort((a, b) => {
+    const aPreferred = a.id === preferredId ? 0 : 1;
+    const bPreferred = b.id === preferredId ? 0 : 1;
+    const aMatch = testMatchesCondition(a, conditionId) ? 0 : 1;
+    const bMatch = testMatchesCondition(b, conditionId) ? 0 : 1;
+    return aPreferred - bPreferred || aMatch - bMatch || a.name.localeCompare(b.name, 'de');
+  });
+}
+
 function populateSelectors(): void {
-  const tests = allTests();
   const selectedCondition = getSelectedCondition();
   const selectedTest = getSelectedTest();
   const profiles = profilesForTest(selectedTest.id);
   const selectedProfile = getSelectedProfile();
-  const orderedTests = [...tests].sort((a, b) => {
-    const aMatch = conditionIdForTest(a) === selectedCondition.id ? 0 : 1;
-    const bMatch = conditionIdForTest(b) === selectedCondition.id ? 0 : 1;
-    return aMatch - bMatch || a.name.localeCompare(b.name, 'de');
-  });
+  const orderedTests = orderedTestsForCondition(selectedCondition.id);
 
   populateSelect(
     controls.settingSelect,
     allSettings().map(setting => ({ value: setting.id, label: setting.label })),
     getSelectedSetting().id
   );
-  populateSelect(
-    controls.conditionSelect,
-    allConditions().map(condition => ({ value: condition.id, label: condition.label })),
-    selectedCondition.id
-  );
+  populateConditionSelect(controls.conditionSelect, allConditions(), selectedCondition.id);
 
   populateSelect(
     controls.testSelect,
     orderedTests.map(test => ({
       value: test.id,
-      label: `${selectedTestMatchesCondition(test) ? '' : 'Nicht passend: '}${test.custom ? 'Eigener Test: ' : ''}${test.name}`
+      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? 'Standard: ' : ''}${selectedTestMatchesCondition(test) ? '' : 'Nicht passend: '}${test.custom ? 'Eigener Test: ' : ''}${test.name}`
     })),
     selectedTest.id
   );
@@ -891,7 +951,7 @@ function populateSelectors(): void {
   );
   populateSelect(
     controls.profileTestSelect,
-    tests.map(test => ({ value: test.id, label: test.name })),
+    allTests().map(test => ({ value: test.id, label: test.name })),
     selectedTest.id
   );
   populateSelect(
@@ -915,26 +975,18 @@ function populateAdminSelectors(): void {
   const selectedTest = getSelectedTest();
   const profiles = profilesForTest(selectedTest.id);
   const selectedProfile = getSelectedProfile();
-  const orderedTests = [...allTests()].sort((a, b) => {
-    const aMatch = conditionIdForTest(a) === selectedCondition.id ? 0 : 1;
-    const bMatch = conditionIdForTest(b) === selectedCondition.id ? 0 : 1;
-    return aMatch - bMatch || a.name.localeCompare(b.name, 'de');
-  });
+  const orderedTests = orderedTestsForCondition(selectedCondition.id);
   populateSelect(
     controls.adminSettingSelect,
     allSettings().map(setting => ({ value: setting.id, label: setting.label })),
     getSelectedSetting().id
   );
-  populateSelect(
-    controls.adminConditionSelect,
-    allConditions().map(condition => ({ value: condition.id, label: condition.label })),
-    selectedCondition.id
-  );
+  populateConditionSelect(controls.adminConditionSelect, allConditions(), selectedCondition.id);
   populateSelect(
     controls.adminTestSelect,
     orderedTests.map(test => ({
       value: test.id,
-      label: `${selectedTestMatchesCondition(test) ? '' : 'Nicht passend: '}${test.name}`
+      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? 'Standard: ' : ''}${selectedTestMatchesCondition(test) ? '' : 'Nicht passend: '}${test.name}`
     })),
     selectedTest.id
   );
@@ -2421,6 +2473,7 @@ controls.settingSelect.addEventListener('change', () => {
 });
 controls.conditionSelect.addEventListener('change', () => {
   state.selectedConditionId = controls.conditionSelect.value;
+  selectDefaultTestForCondition(state.selectedConditionId);
   state.selectedModifierIds = [];
   state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
   saveAndRender();
@@ -2432,6 +2485,7 @@ controls.adminSettingSelect.addEventListener('change', () => {
 });
 controls.adminConditionSelect.addEventListener('change', () => {
   state.selectedConditionId = controls.adminConditionSelect.value;
+  selectDefaultTestForCondition(state.selectedConditionId);
   state.selectedModifierIds = [];
   state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
   saveAndRender();

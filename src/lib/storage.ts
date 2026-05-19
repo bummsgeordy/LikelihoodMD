@@ -92,12 +92,12 @@ function legacySelectionFromAssumptionId(id: unknown): Pick<CalculatorState, 'se
 }
 
 export const defaultState: CalculatorState = {
-  selectedTestId: 'lnsc',
-  selectedEvidenceProfileId: 'lnsc-elecsys-2024',
+  selectedTestId: 'dst-1mg',
+  selectedEvidenceProfileId: 'dst-1mg-statpearls',
   selectedAssumptionId: 'cushing-endocrine-direct',
   selectedSettingId: 'ambulant-endokrinologie',
   selectedConditionId: 'cushing-syndrom-hyperkortisolismus',
-  manualPretestPercent: 10,
+  manualPretestPercent: 5,
   selectedModifierIds: [],
   modifierListExpanded: false,
   customTests: [],
