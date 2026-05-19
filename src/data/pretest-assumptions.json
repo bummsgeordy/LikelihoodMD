@@ -103,11 +103,18 @@
     "population": "Resistente Hypertonie, häufig in Kardiologie, Nephrologie, Hypertensiologie oder Endokrinologie abgeklärt.",
     "probability": 0.2,
     "rangeLow": 0.1,
-    "rangeHigh": 0.25,
-    "rationale": "Für resistente Hypertonie wird PA häufig ungefähr bei 10-20% oder höher gefunden; spezialisierte Zuweisung erhöht die Prätestwahrscheinlichkeit.",
+    "rangeHigh": 0.3,
+    "rationale": "Für resistente Hypertonie wird PA häufig ungefähr bei 10-20% oder höher gefunden; spezialisierte Zuweisung erhöht die Prätestwahrscheinlichkeit. Der 2025er systematische Review nennt bis etwa 29,8% in spezialisierten Referral-Zentren.",
     "limitations": "Definition der resistenten Hypertonie, Medikamentenlage, Kaliumstatus, Aldosteron-Cut-off und Bestätigungstest verändern die Schätzung erheblich.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "sources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Berichtet PA-Prävalenz ungefähr 5-14% in Primärversorgungs-Hypertoniepopulationen und bis etwa 29,8% in spezialisierten Referral-Zentren."
+      },
       {
         "title": "Primary aldosteronism: a common cause of resistant hypertension",
         "year": 2016,
@@ -153,11 +160,18 @@
     "population": "Patienten mit Hypertonie und klinischer Indikation zur Abklärung, ohne genaueres Setting.",
     "probability": 0.06,
     "rangeLow": 0.03,
-    "rangeHigh": 0.12,
-    "rationale": "Allgemeine Fallback-Annahme für Hypertonieabklärung. Monticone berichtete 3,9% bei Stadium 1, 5,9% insgesamt und 11,8% bei Stadium 3; daher mittlerer Wert für nicht näher spezifizierte Abklärung.",
+    "rangeHigh": 0.14,
+    "rationale": "Allgemeine Fallback-Annahme für Hypertonieabklärung. Monticone berichtete 3,9% bei Stadium 1, 5,9% insgesamt und 11,8% bei Stadium 3; der 2025er systematische Review nennt ungefähr 5-14% in Primärversorgungs-Hypertoniepopulationen.",
     "limitations": "Bei unselektierter Primärversorgung niedriger, bei resistenter Hypertonie/Hypokaliämie höher. Stadium-1- und Stadium-3-Werte sind im Kommentar dokumentiert, aber aktuell nicht als eigene Setting-Auswahl modelliert.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "sources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Systematischer Review zur 2025er PA-Leitlinie; nennt Prävalenzrahmen für Primärversorgung und spezialisierte Referral-Zentren."
+      },
       {
         "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
         "year": 2017,
@@ -461,12 +475,19 @@
     "settingId": "hausarztpraxis",
     "evidenceLevel": "direct",
     "population": "Patienten mit arterieller Hypertonie ohne starke Vorselektion auf sekundäre Hypertonie.",
-    "probability": 0.04,
-    "rangeLow": 0.03,
-    "rangeHigh": 0.06,
-    "rationale": "Startwert für unselektierte Hypertonie in Primärversorgung/allgemeiner internistischer Versorgung. Monticone fand in einer primärversorgungsnahen Hypertoniekohorte 5,9% PA; Kayser zeigte primärversorgungsnahe Schätzungen mit erheblicher Heterogenität.",
-    "limitations": "Bei Stadium-3-Hypertonie, Hypokaliämie, Nebenniereninzidentalom oder resistenter Hypertonie höher ansetzen; Präanalytik und Medikamente beeinflussen Screening stark.",
+    "probability": 0.06,
+    "rangeLow": 0.04,
+    "rangeHigh": 0.14,
+    "rationale": "Startwert für Hypertonie in Primärversorgung/allgemeiner internistischer Versorgung. Monticone fand in einer primärversorgungsnahen Hypertoniekohorte 5,9% PA; der 2025er systematische Review nennt ungefähr 5-14% in Primärversorgungs-Hypertoniepopulationen.",
+    "limitations": "Bei wirklich unselektierter milder Hypertonie kann der Wert niedriger liegen; bei Stadium-3-Hypertonie, Hypokaliämie, Nebenniereninzidentalom oder resistenter Hypertonie höher ansetzen. Präanalytik und Medikamente beeinflussen Screening stark.",
     "sources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Nennt PA-Prävalenz ungefähr 5-14% bei hypertensiven Personen in Primärversorgungssettings und bis etwa 29,8% in spezialisierten Zentren."
+      },
       {
         "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
         "year": 2017,
@@ -493,7 +514,7 @@
     "dataCompleteness": "complete",
     "kind": "curated",
     "reviewStatus": "needs-review",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "reviewNote": "Aktualisiert aus bereitgestellten Setting-Annahmen und Quellenabgleich; lokale Übertragbarkeit weiter fachlich prüfen."
   },
   {

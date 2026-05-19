@@ -82,7 +82,7 @@
   },
   {
     "conditionId": "primarer-hyperaldosteronismus",
-    "summary": "Primärer Hyperaldosteronismus ist eine häufige und potenziell behandelbare Ursache endokriner Hypertonie. Der diagnostische Einstieg ist das Verhältnis aus Aldosteron und Renin; positive oder unklare Screeningbefunde brauchen je nach Konstellation Bestätigung und später Subtypisierung.",
+    "summary": "Primärer Hyperaldosteronismus ist eine häufige, oft übersehene und potenziell behandelbare Ursache endokriner Hypertonie. Der diagnostische Einstieg ist das Verhältnis aus Aldosteron und Renin; positive oder unklare Screeningbefunde brauchen je nach Konstellation Bestätigung und später Subtypisierung.",
     "whenToTest": [
       "Screening bei resistenter Hypertonie, kontrollierter Hypertonie mit mindestens vier Medikamenten, persistierend hohem Blutdruck oder Hypertonie mit Hypokaliämie.",
       "Screening bei Hypertonie plus Nebenniereninzidentalom, Schlafapnoe, früher Familienanamnese oder erstgradigen Angehörigen mit PA.",
@@ -91,7 +91,8 @@
     "recommendedTests": [
       "ARR als Screeningtest: Aldosteron, Renin, Kalium, Medikation, Salzstatus, Körperhaltung und Uhrzeit dokumentieren.",
       "Bestätigung je nach Setting mit Kochsalzinfusion, oralem Kochsalzbelastungstest, Fludrocortison-Suppression oder Captopril-Test.",
-      "Bestätigungstests nicht als Primärscreening interpretieren; Kontraindikationen wie relevante CKD, Herzinsuffizienz oder schwere Hypokaliämie beachten."
+      "Bestätigungstests nicht als Primärscreening interpretieren; Kontraindikationen wie relevante CKD, Herzinsuffizienz oder schwere Hypokaliämie beachten.",
+      "Der 2025er systematische Review stützt die Leitlinienaktualisierung: Evidenz zu Screening-Outcomes bleibt begrenzt, gezielte PA-spezifische Therapie ist aber mit besserer Blutdruckkontrolle assoziiert."
     ],
     "pitfalls": [
       "Hypokaliämie kann Aldosteron senken und falsch negative Ergebnisse begünstigen.",
@@ -99,11 +100,18 @@
       "ARR-Cut-offs sind methoden-, einheiten- und laborabhängig; ein Quotient ohne absolut inadäquat hohes Aldosteron kann irreführend sein."
     ],
     "settingNotes": [
-      "In unselektierter Hypertonie ist die Prätestwahrscheinlichkeit deutlich niedriger als in Hypertonie-/Nephrologie-/Endokrinologie-Spezialambulanzen.",
+      "In Primärversorgungs-Hypertoniepopulationen berichtet der 2025er Review ungefähr 5-14% PA; in spezialisierten Zuweisungszentren können Werte bis etwa 30% erreicht werden.",
       "Resistente Hypertonie und Hypokaliämie sollten eher als eigenes Risikostratum bzw. Setting gewertet werden, um Doppelzählung mit Modifikatoren zu vermeiden.",
       "Endotext nennt häufig verwendete ARR-Cut-offs und Probenhinweise, liefert aber keine universell übertragbare Testgüte für jedes Labor."
     ],
     "links": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Systematischer Review zur 2025er PA-Leitlinie; fasst Prävalenzrahmen, Screening-/Management-Evidenz und PA-spezifische Therapiepfade zusammen."
+      },
       {
         "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
         "year": 2025,
@@ -126,7 +134,7 @@
         "note": "Systematischer Review zur Heterogenität von Prävalenzschätzungen nach Population und Teststrategie."
       }
     ],
-    "lastReviewed": "2026-05-18",
+    "lastReviewed": "2026-05-19",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",

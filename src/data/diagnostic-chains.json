@@ -25,6 +25,13 @@
     ],
     "sources": [
       {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Unterstützt die Leitlinienaktualisierung und ordnet Screening, Bestätigung, Subtypisierung und PA-spezifische Therapiepfade ein."
+      },
+      {
         "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
         "year": 2025,
         "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
@@ -39,7 +46,7 @@
         "note": "Unterstreicht Protokoll- und Methodeneinfluss beim Kochsalzinfusionstest."
       }
     ],
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",

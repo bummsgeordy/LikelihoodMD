@@ -283,9 +283,16 @@
         "population": "Patienten mit Hypertonie und klinischer Indikation zum Screening.",
         "rationale": "Plausible Standardannahme für ein gut vorbereitetes ARR-Screening.",
         "limitations": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-05-19",
         "isDefault": true,
         "sources": [
+          {
+            "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+            "kind": "Review",
+            "note": "Unterstützt die 2025er PA-Leitlinie; betont Unterdiagnose, Prävalenzrahmen und Rolle eines breit verfügbaren ARR-Screenings."
+          },
           {
             "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
             "year": 2025,
@@ -401,6 +408,13 @@
             "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
           },
           {
+            "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+            "kind": "Review",
+            "note": "Systematischer Review zur Leitlinienaktualisierung; unterstützt risikoadaptierte Diagnostik und PA-spezifische Therapiepfade."
+          },
+          {
             "title": "Endotext: Testing for Endocrine Hypertension",
             "year": 2016,
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
@@ -412,7 +426,7 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-05-19",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "testId": "arr",
         "intendedUse": "screening",
@@ -770,7 +784,7 @@
         "population": "Patienten mit Screening-Verdacht auf primären Hyperaldosteronismus.",
         "rationale": "Ambulant gut passender Bestätigungstest mit publizierten Sensitivitäts- und Spezifitätsangaben.",
         "limitations": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-05-19",
         "isDefault": true,
         "sources": [
           {
@@ -786,6 +800,13 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
             "kind": "Lehrtext",
             "note": "Listet Bestätigungstests nach positiver ARR und betont Kontraindikationen sowie korrekte Aldosteron-/Urin-Proben."
+          },
+          {
+            "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+            "kind": "Review",
+            "note": "Ordnet Bestätigung, Subtypisierung und PA-spezifisches Management im Rahmen der Leitlinienaktualisierung ein; keine universellen Cut-offs ableiten."
           }
         ],
         "reviewStatus": "needs-review",
@@ -1225,6 +1246,13 @@
             "note": "Benennt Screeningindikationen und wichtige präanalytische Einflussfaktoren für ARR und Bestätigungstests."
           },
           {
+            "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+            "kind": "Review",
+            "note": "Systematischer Review zur PA-Leitlinie; unterstützt risikoadaptierte Bestätigung und Subtypisierung, ersetzt aber keine lokalen Protokolle."
+          },
+          {
             "title": "Endotext: Testing for Endocrine Hypertension",
             "year": 2016,
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
@@ -1236,7 +1264,7 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "low",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-05-19",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "intendedUse": "confirmation",
         "preanalyticRisk": "high",

@@ -7,9 +7,16 @@
     "direction": "increases",
     "rationale": "Resistente Hypertonie ist eine Hochrisikokonstellation für PA und sollte primär über ein passendes Prätest-Setting abgebildet werden.",
     "limitations": "Die Höhe der Prätestwahrscheinlichkeit hängt von Definition, Medikamenten, Kaliumstatus und Bestätigungstest ab.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "kind": "curated",
     "sources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Nennt spezialisierte Referral-Zentren mit PA-Prävalenzen bis etwa 29,8% und stützt risikoadaptiertes Screening."
+      },
       {
         "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
         "year": 2025,
@@ -56,9 +63,16 @@
     "direction": "increases",
     "rationale": "Hypokaliämie ist ein klassischer Risikomarker für PA und eine leitlinienrelevante Screeningkonstellation.",
     "limitations": "Normokaliämie schließt PA nicht aus. Diuretika, Kaliumsubstitution und Salzstatus beeinflussen die Einordnung.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "kind": "curated",
     "sources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Stützt die Leitlinienaktualisierung und betont PA-Unterdiagnose sowie gezielte Abklärung bei Risikokonstellationen."
+      },
       {
         "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
         "year": 2025,
@@ -102,9 +116,16 @@
     "direction": "increases",
     "rationale": "Hypertonie plus Nebenniereninzidentalom ist eine leitlinienrelevante Screeningkonstellation für PA.",
     "limitations": "Ein konkreter Prätestwert ist noch nicht separat kuratiert; Bildgebung beweist keine Hormonaktivität.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "kind": "curated",
     "sources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Unterstützt risikoadaptiertes PA-Screening in klinischen Hochrisikokonstellationen."
+      },
       {
         "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
         "year": 2025,
