@@ -32,6 +32,13 @@
         "note": "Zentrale Leitlinie zur Frage, wen man testen sollte und welche Initialtests geeignet sind."
       },
       {
+        "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article-abstract/93/5/1553/2598176?redirectedFrom=fulltext",
+        "kind": "Review",
+        "note": "Systematischer Review zur Testgüte von UFC, LNSC und Dexamethason-Suppressionstests; konkrete Werte bleiben cut-off- und populationsabhängig."
+      },
+      {
         "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
         "year": 2023,
         "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
@@ -74,7 +81,7 @@
         "note": "Pädiatrische deutsche S1-Leitlinie; nicht als Standardquelle für erwachsene ambulante Endokrinologie verwenden."
       }
     ],
-    "lastReviewed": "2026-05-18",
+    "lastReviewed": "2026-05-19",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
@@ -101,6 +108,7 @@
     ],
     "settingNotes": [
       "In Primärversorgungs-Hypertoniepopulationen berichtet der 2025er Review ungefähr 5-14% PA; in spezialisierten Zuweisungszentren können Werte bis etwa 30% erreicht werden.",
+      "Ein älterer Literaturreview fand gewichtete PA-Prävalenzen von etwa 4,3% in Primärversorgung und 9,5% in überwiesenen Kollektiven; die Prävalenz steigt mit Hypertonieschwere.",
       "Resistente Hypertonie und Hypokaliämie sollten eher als eigenes Risikostratum bzw. Setting gewertet werden, um Doppelzählung mit Modifikatoren zu vermeiden.",
       "Endotext nennt häufig verwendete ARR-Cut-offs und Probenhinweise, liefert aber keine universell übertragbare Testgüte für jedes Labor."
     ],
@@ -111,6 +119,27 @@
         "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
         "kind": "Review",
         "note": "Systematischer Review zur 2025er PA-Leitlinie; fasst Prävalenzrahmen, Screening-/Management-Evidenz und PA-spezifische Therapiepfade zusammen."
+      },
+      {
+        "title": "Prevalence of primary aldosteronism in patient's cohorts and in population-based studies",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22135219/",
+        "kind": "Review",
+        "note": "Literaturreview: gewichtete PA-Prävalenz etwa 4,3% in Primärversorgung und 9,5% in überwiesenen Kollektiven; höhere Werte bei schwererer Hypertonie."
+      },
+      {
+        "title": "Primary aldosteronism: a common cause of resistant hypertension",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5461126/",
+        "kind": "Review",
+        "note": "Review zur hohen klinischen Relevanz und Prävalenz von PA bei resistenter Hypertonie."
+      },
+      {
+        "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
+        "year": 2017,
+        "url": "https://www.sciencedirect.com/science/article/pii/S0735109717305697",
+        "kind": "Studie",
+        "note": "Primärversorgungsnahe Hypertoniekohorte mit 5,9% PA insgesamt, 3,9% bei Stadium 1 und 11,8% bei Stadium 3."
       },
       {
         "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
@@ -161,6 +190,8 @@
     "settingNotes": [
       "Endotext nennt PPGL bei Hypertonie als seltene Ursache mit ungefähr 0,3% Prävalenz in Hypertoniepopulationen.",
       "Die klassische Symptomtrias wird als sensitiv und spezifisch beschrieben, tritt aber nur bei einem Teil der Fälle auf.",
+      "Eine große tertiäre Serie fand, dass viele Phäochromozytome heute über Nebenniereninzidentalome entdeckt werden; dieser Befund ist kein allgemeiner Prävalenzwert, stärkt aber die Inzidentalom-Abklärung.",
+      "Eine US-Retrospektive zeigte niedrige Screeningraten in Risikogruppen; besonders Hypertonie plus Nebennierenraumforderung wurde häufiger getestet als resistente oder frühe Hypertonie allein.",
       "Nebenniereninzidentalom und genetischer Kontext sind eigene Hochrisikosituationen und sollten nicht zusätzlich doppelt als Modifikator und Setting gezählt werden."
     ],
     "links": [
@@ -172,6 +203,20 @@
         "note": "Leitlinienquelle zu PPGL-Testindikation, Metanephrin-Diagnostik und genetischem Kontext."
       },
       {
+        "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+        "year": 2024,
+        "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+        "kind": "Studie",
+        "note": "Tertiärzentrums-Serie: die Mehrzahl nicht genetisch gescreenter Phäochromozytome wurde als Nebenniereninzidentalom entdeckt; Inzidentalome bleiben ein wichtiges Testsetting."
+      },
+      {
+        "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+        "kind": "Studie",
+        "note": "Retrospektive ambulante Hypertoniekohorte: Screening war selten bei resistenter/früher Hypertonie, aber häufiger bei Hypertonie plus Nebennierenraumforderung."
+      },
+      {
         "title": "Endotext: Testing for Endocrine Hypertension",
         "year": 2016,
         "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
@@ -181,12 +226,12 @@
       {
         "title": "A comparison of biochemical tests for pheochromocytoma",
         "year": 2004,
-        "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC459231/",
         "kind": "Review",
         "note": "Systematischer Vergleich biochemischer PPGL-Tests."
       }
     ],
-    "lastReviewed": "2026-05-18",
+    "lastReviewed": "2026-05-19",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
@@ -244,6 +289,13 @@
         "note": "Beschreibt ACTH-Stimulation, Probenhandling, Cut-offs und relevante präanalytische Einschränkungen."
       },
       {
+        "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
+        "year": 2016,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
+        "kind": "Review",
+        "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Tests; sekundäre Nebenniereninsuffizienz ist mit ACTH-Stimulation eher rule-in- als sicher rule-out-fähig."
+      },
+      {
         "title": "Endocrine Society: Primary Adrenal Insufficiency",
         "year": 2016,
         "url": "https://academic.oup.com/jcem/article/101/2/364/2804860",
@@ -258,7 +310,7 @@
         "note": "Leitlinie zur HPA-Achsen-Suppression nach Glukokortikoiden."
       }
     ],
-    "lastReviewed": "2026-05-18",
+    "lastReviewed": "2026-05-19",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",

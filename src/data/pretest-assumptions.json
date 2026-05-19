@@ -116,6 +116,13 @@
         "note": "Berichtet PA-Prävalenz ungefähr 5-14% in Primärversorgungs-Hypertoniepopulationen und bis etwa 29,8% in spezialisierten Referral-Zentren."
       },
       {
+        "title": "Prevalence of primary aldosteronism in patient's cohorts and in population-based studies",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22135219/",
+        "kind": "Review",
+        "note": "Literaturreview: gewichtete PA-Prävalenz etwa 4,3% in Primärversorgung und 9,5% in überwiesenen Kollektiven; Prävalenz steigt mit Hypertonieschwere."
+      },
+      {
         "title": "Primary aldosteronism: a common cause of resistant hypertension",
         "year": 2016,
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5461126/",
@@ -173,6 +180,13 @@
         "note": "Systematischer Review zur 2025er PA-Leitlinie; nennt Prävalenzrahmen für Primärversorgung und spezialisierte Referral-Zentren."
       },
       {
+        "title": "Prevalence of primary aldosteronism in patient's cohorts and in population-based studies",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22135219/",
+        "kind": "Review",
+        "note": "Aktualisiert ältere Meta-Analyse und bestätigt etwa 4,3% PA in Primärversorgung sowie etwa 9,5% in überwiesenen Populationen."
+      },
+      {
         "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
         "year": 2017,
         "url": "https://www.sciencedirect.com/science/article/pii/S0735109717305697",
@@ -206,7 +220,7 @@
     "rangeHigh": 0.006,
     "rationale": "PPGL ist in unselektierten Hypertoniepopulationen selten. Diese niedrige Prätestwahrscheinlichkeit macht falsch-positive biochemische Befunde klinisch relevant.",
     "limitations": "Bei Nebenniereninzidentalom, genetischem Risiko, syndromalem Kontext oder klassischer Symptomatik höher ansetzen.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "sources": [
       {
         "title": "Pheochromocytoma: Symptom to Diagnosis, An Evidence-Based Guide",
@@ -235,6 +249,20 @@
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
         "note": "Leitlinie unterstützt gezielte biochemische Testung bei passenden Risikokonstellationen."
+      },
+      {
+        "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+        "year": 2024,
+        "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+        "kind": "Studie",
+        "note": "Tertiäre Serie: Inzidentalome stellen eine wichtige Präsentationsform von Phäochromozytomen dar; nicht als allgemeiner Prävalenzwert verwenden."
+      },
+      {
+        "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+        "kind": "Studie",
+        "note": "Risikogruppenstudie in ambulanter Hypertonie: Screening war besonders bei Hypertonie plus Nebennierenraumforderung häufiger, insgesamt aber selten."
       }
     ],
     "kind": "curated",
@@ -256,7 +284,7 @@
     "rangeHigh": 0.08,
     "rationale": "Allgemeiner Fallback für gezielte PPGL-Abklärung, niedriger als selektierte Inzidentalom-/Hochrisiko-Konstellationen, höher als unselektierte Hypertonie.",
     "limitations": "Bei unselektierter Hypertonie niedriger; bei Nebenniereninzidentalom, genetischem Risiko oder klassischer Klinik höher.",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "sources": [
       {
         "title": "Pheochromocytoma: Symptom to Diagnosis, An Evidence-Based Guide",
@@ -278,6 +306,20 @@
         "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
         "kind": "Leitlinie",
         "note": "Leitlinie unterstützt gezielte biochemische Testung bei passenden Risikokonstellationen."
+      },
+      {
+        "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+        "year": 2024,
+        "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+        "kind": "Studie",
+        "note": "Unterstützt Nebenniereninzidentalom als relevantes Hochrisiko-Setting, ohne eine universelle Prätestwahrscheinlichkeit festzulegen."
+      },
+      {
+        "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+        "kind": "Studie",
+        "note": "Zeigt, dass PPGL-Screening bei Risikokonstellationen häufig nicht konsequent erfolgt; unterstützt explizite Setting-Dokumentation."
       }
     ],
     "kind": "curated",
@@ -489,6 +531,13 @@
         "note": "Nennt PA-Prävalenz ungefähr 5-14% bei hypertensiven Personen in Primärversorgungssettings und bis etwa 29,8% in spezialisierten Zentren."
       },
       {
+        "title": "Prevalence of primary aldosteronism in patient's cohorts and in population-based studies",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22135219/",
+        "kind": "Review",
+        "note": "Bestätigt ähnliche Mittelwerte wie ältere Metaanalyse: etwa 4,3% PA in Primärversorgung und etwa 9,5% in überwiesenen Kollektiven."
+      },
+      {
         "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
         "year": 2017,
         "url": "https://www.sciencedirect.com/science/article/pii/S0735109717305697",
@@ -557,7 +606,7 @@
     "dataCompleteness": "partial",
     "kind": "curated",
     "reviewStatus": "needs-review",
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-05-19",
     "reviewNote": "Aktualisiert aus bereitgestellten Setting-Annahmen und Quellenabgleich; lokale Übertragbarkeit weiter fachlich prüfen."
   },
   {

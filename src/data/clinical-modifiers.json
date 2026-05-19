@@ -39,6 +39,13 @@
         "note": "Review zur erhöhten PA-Prävalenz bei resistenter Hypertonie."
       },
       {
+        "title": "Prevalence of primary aldosteronism in patient's cohorts and in population-based studies",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22135219/",
+        "kind": "Review",
+        "note": "Bestätigt höhere PA-Prävalenz in überwiesenen Kollektiven und bei schwererer Hypertonie."
+      },
+      {
         "title": "Study Heterogeneity and Estimation of Prevalence of Primary Aldosteronism",
         "year": 2016,
         "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
@@ -186,6 +193,13 @@
         "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=2715&sectionid=249060850",
         "kind": "Lehrtext",
         "note": "Nennt niedrige Prätestwahrscheinlichkeit in unselektierter Hypertonie und höhere Werte bei Inzidentalom/Risikokontext."
+      },
+      {
+        "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+        "year": 2024,
+        "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+        "kind": "Studie",
+        "note": "Beschreibt klassische adrenerge Symptome/uncontrolled hypertension als Präsentationsgruppe neben Inzidentalom und genetischem Screening."
       }
     ],
     "quantificationStatus": "likelihood-ratio",
@@ -233,9 +247,23 @@
       {
         "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
         "year": 2004,
-        "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC459231/",
         "kind": "Review",
         "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
+      },
+      {
+        "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+        "year": 2024,
+        "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+        "kind": "Studie",
+        "note": "Tertiärzentrums-Serie: Nebenniereninzidentalome waren eine häufige Präsentationsform von Phäochromozytomen."
+      },
+      {
+        "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+        "kind": "Studie",
+        "note": "Hypertonie plus Nebennierenraumforderung war die Gruppe mit den höchsten PPGL-Screeningraten unter den untersuchten Risikokategorien."
       }
     ],
     "quantificationStatus": "qualitative",
@@ -275,7 +303,7 @@
       {
         "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
         "year": 2004,
-        "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC459231/",
         "kind": "Review",
         "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
       }

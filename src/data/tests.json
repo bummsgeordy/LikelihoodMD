@@ -39,6 +39,13 @@
             "note": "Beschreibt LNSC als First-line-Test und betont Schlafrhythmus, Probenzeit, Methodik und Population als wichtige Grenzen."
           },
           {
+            "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
+            "year": 2008,
+            "url": "https://academic.oup.com/jcem/article-abstract/93/5/1553/2598176?redirectedFrom=fulltext",
+            "kind": "Review",
+            "note": "Systematischer Review zur Testgüte von Cushing-Screeningtests; konkrete Werte hängen von Cut-off, Assay und Population ab."
+          },
+          {
             "title": "ECE 2024 Poster EP917: Late-night salivary cortisol using Elecsys Cortisol II",
             "year": 2024,
             "url": "https://www.endocrine-abstracts.org/ea/0099/ea0099ep917",
@@ -157,7 +164,7 @@
           {
             "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
             "year": 2008,
-            "url": "https://pubmed.ncbi.nlm.nih.gov/18334594/",
+            "url": "https://academic.oup.com/jcem/article-abstract/93/5/1553/2598176?redirectedFrom=fulltext",
             "kind": "Review",
             "note": "Evidenzreview zu diagnostischen Tests beim Cushing-Syndrom; konkrete Testprofile bleiben cut-off- und populationsabhängig."
           },
@@ -292,6 +299,20 @@
             "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
             "kind": "Review",
             "note": "Unterstützt die 2025er PA-Leitlinie; betont Unterdiagnose, Prävalenzrahmen und Rolle eines breit verfügbaren ARR-Screenings."
+          },
+          {
+            "title": "Prevalence of primary aldosteronism in patient's cohorts and in population-based studies",
+            "year": 2012,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/22135219/",
+            "kind": "Review",
+            "note": "Literaturreview zu PA-Prävalenz nach Versorgungssetting: ungefähr 4,3% in Primärversorgung und 9,5% in überwiesenen Kollektiven; höhere Werte bei schwererer Hypertonie."
+          },
+          {
+            "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
+            "year": 2017,
+            "url": "https://www.sciencedirect.com/science/article/pii/S0735109717305697",
+            "kind": "Studie",
+            "note": "Primärversorgungsnahe Hypertoniekohorte; unterstützt die Setting-Abstufung von PA-Prätestwahrscheinlichkeiten."
           },
           {
             "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
@@ -458,8 +479,8 @@
         "lrNegative": 0.02,
         "population": "Patienten mit Verdacht auf PPGL.",
         "rationale": "Hohe Sensitivität macht den Test besonders als Rule-out-Test nützlich.",
-        "limitations": "Lage bei Blutabnahme, Stress, Medikamente und Referenzbereiche können die Spezifität beeinflussen.",
-        "lastReviewed": "2026-05-17",
+        "limitations": "Lage bei Blutabnahme, Stress, Medikamente, Referenzbereiche und Risikokontext können die Spezifität und den PPV deutlich beeinflussen.",
+        "lastReviewed": "2026-05-19",
         "isDefault": false,
         "sources": [
           {
@@ -479,9 +500,23 @@
           {
             "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
             "year": 2004,
-            "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC459231/",
             "kind": "Review",
             "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
+          },
+          {
+            "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+            "year": 2024,
+            "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+            "kind": "Studie",
+            "note": "Tertiärzentrums-Serie: viele Phäochromozytome wurden über Nebenniereninzidentalome entdeckt; der Risikokontext beeinflusst die Testinterpretation."
+          },
+          {
+            "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+            "kind": "Studie",
+            "note": "Zeigt niedrige Screeningraten in Risikogruppen; Hypertonie plus Nebennierenraumforderung wurde am häufigsten gescreent."
           }
         ],
         "reviewStatus": "needs-review",
@@ -492,14 +527,16 @@
         "specimen": "Plasma",
         "preanalytics": [
           "Blutabnahme möglichst nach ausreichender Ruhephase",
-          "Körperlage und Medikamente dokumentieren"
+          "Körperlage und Medikamente dokumentieren",
+          "Risikokontext dokumentieren: unselektierte Hypertonie vs. Inzidentalom/genetischer Kontext"
         ],
         "interpretationCautions": [
-          "Alternatives optimistischeres Profil; bei niedriger Prätestwahrscheinlichkeit positive Grenzwerte vorsichtig interpretieren."
+          "Alternatives optimistischeres Profil; bei niedriger Prätestwahrscheinlichkeit positive Grenzwerte vorsichtig interpretieren.",
+          "Bei Nebenniereninzidentalom oder hereditärem Risiko ist die Prätestwahrscheinlichkeit deutlich anders als bei unselektierter Hypertonie."
         ],
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
-        "applicabilityWarning": "Lage bei Blutabnahme, Stress, Medikamente und Referenzbereiche können die Spezifität beeinflussen.",
+        "applicabilityWarning": "Lage bei Blutabnahme, Stress, Medikamente, Referenzbereiche und Risikokontext können die Spezifität und den PPV deutlich beeinflussen.",
         "reviewPriority": "medium"
       },
       {
@@ -517,7 +554,7 @@
         "lrNegative": 0.02,
         "population": "Patienten mit Verdacht auf PPGL; diagnostische Studienpopulationen mit unterschiedlicher Vorselektion.",
         "rationale": "Konservativeres Evidenzprofil: sehr starker Rule-out-Effekt, aber nur moderater Rule-in-Effekt bei niedriger Prätestwahrscheinlichkeit.",
-        "limitations": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente und Referenzbereiche beeinflussen vor allem die Spezifität.",
+        "limitations": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente, Referenzbereiche und Risikokontext beeinflussen vor allem Spezifität und PPV.",
         "preanalytics": [
           "Blutabnahme möglichst nach ausreichender Ruhephase",
           "Körperlage sitzend vs. liegend dokumentieren",
@@ -554,7 +591,7 @@
           {
             "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
             "year": 2004,
-            "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC459231/",
             "kind": "Review",
             "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
           },
@@ -578,18 +615,32 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
             "kind": "Lehrtext",
             "note": "Beschreibt Indikationen, Präanalytik und Interpretation von plasmafreien bzw. urinfraktionierten Metanephrinen."
+          },
+          {
+            "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+            "year": 2024,
+            "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+            "kind": "Studie",
+            "note": "Tertiärzentrums-Serie zur heutigen Präsentation von Phäochromozytomen, häufig als Nebenniereninzidentalom."
+          },
+          {
+            "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+            "kind": "Studie",
+            "note": "Unterstreicht, dass PPGL-Testung in Risikogruppen häufig nicht erfolgt und der klinische Kontext explizit erfasst werden sollte."
           }
         ],
         "isDefault": true,
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-05-19",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "testId": "metanephrines-plasma",
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
-        "applicabilityWarning": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente und Referenzbereiche beeinflussen vor allem die Spezifität.",
+        "applicabilityWarning": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente, Referenzbereiche und Risikokontext beeinflussen vor allem Spezifität und PPV.",
         "reviewPriority": "medium"
       }
     ],
@@ -616,8 +667,8 @@
         "lrNegative": 0.03,
         "population": "Patienten mit Verdacht auf PPGL.",
         "rationale": "Alternative zu Plasma-Metanephrinen mit ähnlicher diagnostischer Leistung.",
-        "limitations": "Sammelqualität, Nierenfunktion, Medikamente und Laborverfahren begrenzen die Übertragbarkeit.",
-        "lastReviewed": "2026-05-17",
+        "limitations": "Sammelqualität, Nierenfunktion, Medikamente, Laborverfahren und Risikokontext begrenzen die Übertragbarkeit.",
+        "lastReviewed": "2026-05-19",
         "isDefault": true,
         "sources": [
           {
@@ -637,9 +688,23 @@
           {
             "title": "A comparison of biochemical tests for pheochromocytoma: measurement of fractionated plasma metanephrines compared with other tests",
             "year": 2004,
-            "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/1472-6823-4-2",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC459231/",
             "kind": "Review",
             "note": "Systematischer Vergleich biochemischer PPGL-Tests; unterstützt hohe Sensitivität plasmafreier Metanephrine."
+          },
+          {
+            "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+            "year": 2024,
+            "url": "https://academic.oup.com/jcem/article/109/1/e389/7220962",
+            "kind": "Studie",
+            "note": "Tertiärzentrums-Serie: Inzidentalom-Kontext prägt die heutige Phäochromozytom-Diagnostik und damit die Prätestwahrscheinlichkeit."
+          },
+          {
+            "title": "Rates of Pheochromocytoma/Paraganglioma Screening in At-Risk Populations",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10188311/",
+            "kind": "Studie",
+            "note": "Zeigt niedrige Screeningraten in Risikogruppen; unterstützt explizite Dokumentation des Testsettings."
           }
         ],
         "reviewStatus": "needs-review",
@@ -652,7 +717,8 @@
           "korrekte 24-h-Sammlung sicherstellen",
           "Sammelvolumen und Kreatinin plausibilisieren",
           "Medikamente/Substanzen dokumentieren",
-          "Nierenfunktion berücksichtigen"
+          "Nierenfunktion berücksichtigen",
+          "Risikokontext dokumentieren: unselektierte Hypertonie vs. Inzidentalom/genetischer Kontext"
         ],
         "medicationInterferences": [
           "Sympathomimetika",
@@ -672,11 +738,12 @@
         ],
         "interpretationCautions": [
           "Alternative zu Plasma-Metanephrinen; Sammelqualität ist zentral.",
-          "Positive Grenzwerte brauchen Kontext und Bestätigung."
+          "Positive Grenzwerte brauchen Kontext und Bestätigung.",
+          "Bei Inzidentalom oder hereditärem Risiko ist die Prätestwahrscheinlichkeit deutlich anders als bei unselektierter Hypertonie."
         ],
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
-        "applicabilityWarning": "Sammelqualität, Nierenfunktion, Medikamente und Laborverfahren begrenzen die Übertragbarkeit.",
+        "applicabilityWarning": "Sammelqualität, Nierenfunktion, Medikamente, Laborverfahren und Risikokontext begrenzen die Übertragbarkeit.",
         "reviewPriority": "medium"
       }
     ],
@@ -863,7 +930,7 @@
           {
             "title": "Accuracy of diagnostic tests for Cushing's syndrome: a systematic review and metaanalyses",
             "year": 2008,
-            "url": "https://pubmed.ncbi.nlm.nih.gov/18334594/",
+            "url": "https://academic.oup.com/jcem/article-abstract/93/5/1553/2598176?redirectedFrom=fulltext",
             "kind": "Review",
             "note": "Evidenzreview zu diagnostischen Tests beim Cushing-Syndrom; konkrete Testprofile bleiben cut-off- und populationsabhängig."
           },
