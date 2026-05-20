@@ -129,46 +129,6 @@ button:hover {
   text-decoration: none;
 }
 
-.offline-status {
-  display: inline-flex;
-  align-items: center;
-  min-height: 38px;
-  padding: 7px 10px;
-  border: 1px solid #bbf7d0;
-  border-radius: 999px;
-  background: #f0fdf4;
-  color: #166534;
-  font-size: 0.92rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.offline-status::before {
-  content: "✓";
-  margin-right: 6px;
-  font-weight: 900;
-}
-
-.offline-status[data-status="pending"] {
-  border-color: #bfdbfe;
-  background: #eff6ff;
-  color: #1d4ed8;
-}
-
-.offline-status[data-status="pending"]::before {
-  content: "↻";
-}
-
-.offline-status[data-status="unsupported"] {
-  border-color: #fed7aa;
-  background: #fff7ed;
-  color: #9a3412;
-}
-
-.offline-status[data-status="unsupported"]::before {
-  content: "!";
-}
-
 .hero h1 {
   min-width: 0;
   margin: 0;
