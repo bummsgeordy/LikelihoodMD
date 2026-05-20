@@ -1,11 +1,13 @@
 import type { DataCompleteness, EvidenceProfileKind, EvidenceQuality, ReviewStatus } from '../types';
 
-export type CatalogRowKind = 'assumption' | 'modifier' | 'profile';
+export type CatalogRowKind = 'assumption' | 'modifier' | 'profile' | 'physical-finding';
 export type CatalogSortKey = 'condition' | 'setting' | 'test' | 'lrPositive' | 'lrNegative' | 'reviewStatus';
+export type CatalogDomain = 'diagnostic-tests' | 'physical-exam';
 
 export interface CatalogRow {
   key: string;
   kind: CatalogRowKind;
+  domain: CatalogDomain;
   id: string;
   status: EvidenceProfileKind;
   reviewStatus: ReviewStatus;
@@ -43,6 +45,7 @@ export interface CatalogFilters {
   evidenceQuality: string;
   dataCompleteness: string;
   search: string;
+  domain: string;
   sortBy: CatalogSortKey;
 }
 
@@ -50,10 +53,11 @@ export function filterCatalogRows(rows: CatalogRow[], filters: CatalogFilters, t
   const needle = filters.search.trim().toLowerCase();
   return rows.filter(row => {
     if (filters.conditionId !== 'all' && row.conditionId !== filters.conditionId) return false;
+    if (filters.domain !== 'all' && row.domain !== filters.domain) return false;
     if (filters.settingId !== 'all' && row.settingId && row.settingId !== filters.settingId) return false;
     if (filters.settingId !== 'all' && row.kind === 'profile' && !row.settingId) return false;
-    if (filters.testId !== 'all' && row.kind === 'profile' && row.testId !== filters.testId) return false;
-    if (filters.testId !== 'all' && row.kind !== 'profile' && testConditionId && row.conditionId !== testConditionId) return false;
+    if (filters.testId !== 'all' && row.testId && row.testId !== filters.testId) return false;
+    if (filters.testId !== 'all' && !row.testId && testConditionId && row.conditionId !== testConditionId) return false;
     if (filters.status !== 'all' && row.status !== filters.status) return false;
     if (filters.reviewStatus !== 'all' && row.reviewStatus !== filters.reviewStatus) return false;
     if (filters.evidenceQuality !== 'all' && row.evidenceQuality !== filters.evidenceQuality) return false;

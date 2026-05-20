@@ -1,0 +1,32 @@
+[
+  {
+    "id": "vitalzeichen-akut",
+    "label": "Vitalzeichen und Akutmedizin",
+    "sortOrder": 10
+  },
+  {
+    "id": "endokrinologie-diabetologie",
+    "label": "Endokrinologie und Diabetologie",
+    "sortOrder": 20
+  },
+  {
+    "id": "lunge-thorax",
+    "label": "Lunge und Thorax",
+    "sortOrder": 30
+  },
+  {
+    "id": "herz-kreislauf",
+    "label": "Herz und Kreislauf",
+    "sortOrder": 40
+  },
+  {
+    "id": "abdomen",
+    "label": "Abdomen",
+    "sortOrder": 50
+  },
+  {
+    "id": "gefaesse-thrombose",
+    "label": "Gefäße, Ödeme und Thrombose",
+    "sortOrder": 60
+  }
+]

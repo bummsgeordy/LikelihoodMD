@@ -12,6 +12,9 @@ const assumptions = JSON.parse(
 const modifiers = JSON.parse(
   fs.readFileSync(path.join(root, 'src/data/clinical-modifiers.json'), 'utf8')
 );
+const physicalSystems = JSON.parse(fs.readFileSync(path.join(root, 'src/data/physical-systems.json'), 'utf8'));
+const physicalConditions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/physical-conditions.json'), 'utf8'));
+const physicalFindings = JSON.parse(fs.readFileSync(path.join(root, 'src/data/physical-findings.json'), 'utf8'));
 
 const sourceKinds = new Set(['Leitlinie', 'Studie', 'Review', 'Lehrtext', 'Lokale Annahme']);
 const profileKinds = new Set(['curated', 'custom', 'scenario']);
@@ -214,6 +217,63 @@ conditionGuidance.forEach((guidance, index) => {
   validateSources(guidance.links, `${prefix}.links`);
 });
 
+const physicalSystemIds = new Set(physicalSystems.map(system => system.id));
+const physicalConditionIds = new Set(physicalConditions.map(condition => condition.id));
+const physicalFindingKeys = new Set();
+
+physicalSystems.forEach((system, index) => {
+  const prefix = `physicalSystems[${index}]`;
+  ['id', 'label'].forEach(field => {
+    if (!hasText(system[field])) errors.push(`${prefix}.${field} fehlt`);
+  });
+  if (!Number.isFinite(system.sortOrder)) errors.push(`${prefix}.sortOrder fehlt`);
+});
+
+physicalConditions.forEach((condition, index) => {
+  const prefix = `physicalConditions[${index}]`;
+  ['id', 'systemId', 'label', 'sourceBox'].forEach(field => {
+    if (!hasText(condition[field])) errors.push(`${prefix}.${field} fehlt`);
+  });
+  if (!physicalSystemIds.has(condition.systemId)) errors.push(`${prefix}.systemId unbekannt`);
+});
+
+function validatePhysicalLr(lr, prefix) {
+  if (typeof lr !== 'object' || lr === null) {
+    errors.push(`${prefix} fehlt`);
+    return;
+  }
+  if (lr.notReported) {
+    if (lr.value !== null) errors.push(`${prefix}.value muss null sein, wenn nicht berichtet`);
+    return;
+  }
+  if (!Number.isFinite(lr.value) || lr.value <= 0) errors.push(`${prefix}.value ungültig`);
+  if ((lr.ciLow === undefined) !== (lr.ciHigh === undefined)) errors.push(`${prefix}.CI unvollständig`);
+  if (lr.ciLow !== undefined && (lr.ciLow < 0 || lr.ciHigh < lr.ciLow)) errors.push(`${prefix}.CI unplausibel`);
+}
+
+physicalFindings.forEach((finding, index) => {
+  const prefix = `physicalFindings[${index}]`;
+  ['id', 'systemId', 'conditionId', 'findingLabel', 'originalFindingLabel', 'positiveCriterion', 'negativeCriterion', 'limitations', 'reviewStatus'].forEach(field => {
+    if (!hasText(finding[field])) errors.push(`${prefix}.${field} fehlt`);
+  });
+  if (!physicalSystemIds.has(finding.systemId)) errors.push(`${prefix}.systemId unbekannt`);
+  if (!physicalConditionIds.has(finding.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
+  if (!reviewStatuses.has(finding.reviewStatus)) errors.push(`${prefix}.reviewStatus unbekannt`);
+  if (!Number.isFinite(finding.pretestRange?.low) || !Number.isFinite(finding.pretestRange?.high) || finding.pretestRange.low < 0 || finding.pretestRange.high > 100 || finding.pretestRange.low > finding.pretestRange.high) {
+    errors.push(`${prefix}.pretestRange unplausibel`);
+  }
+  ['title', 'sourceBox', 'note'].forEach(field => {
+    if (!hasText(finding.source?.[field])) errors.push(`${prefix}.source.${field} fehlt`);
+  });
+  if (!Number.isFinite(finding.source?.sourcePage)) errors.push(`${prefix}.source.sourcePage fehlt`);
+  validatePhysicalLr(finding.lrPositive, `${prefix}.lrPositive`);
+  validatePhysicalLr(finding.lrNegative, `${prefix}.lrNegative`);
+  if (finding.lrPositive?.notReported && finding.lrNegative?.notReported) errors.push(`${prefix}.lr komplett fehlend`);
+  const duplicateKey = `${finding.conditionId}:${finding.id}:${finding.source?.sourceBox}`;
+  if (physicalFindingKeys.has(duplicateKey)) errors.push(`${prefix}.duplicate`);
+  physicalFindingKeys.add(duplicateKey);
+});
+
 const fallbackConditionIds = new Set(
   assumptions
     .filter(assumption => assumption.evidenceLevel === 'fallback')
@@ -231,4 +291,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains and ${conditionGuidance.length} condition guidance entries.`);
+console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains, ${conditionGuidance.length} condition guidance entries and ${physicalFindings.length} physical findings.`);

@@ -1,0 +1,488 @@
+[
+  {
+    "id": "abdomenauskultation",
+    "systemId": "abdomen",
+    "label": "Abdomenauskultation",
+    "sourceBox": "EBM Box 53.1 Auscultation of abdomen"
+  },
+  {
+    "id": "abdominalschmerz",
+    "systemId": "abdomen",
+    "label": "Abdominalschmerz",
+    "sourceBox": "Chapter 52 Abdominal pain and tenderness"
+  },
+  {
+    "id": "appendizitis",
+    "systemId": "abdomen",
+    "label": "Appendizitis",
+    "sourceBox": "EBM Box 52.2 Acute abdominal pain, detecting appendicitis"
+  },
+  {
+    "id": "aszites",
+    "systemId": "abdomen",
+    "label": "Aszites",
+    "sourceBox": "EBM Box 51.4 Ascites"
+  },
+  {
+    "id": "chronischer-oberbauchschmerz",
+    "systemId": "abdomen",
+    "label": "Chronischer Oberbauchschmerz",
+    "sourceBox": "EBM Box 52.5 Chronic upper abdominal pain"
+  },
+  {
+    "id": "darmobstruktion",
+    "systemId": "abdomen",
+    "label": "Darmobstruktion",
+    "sourceBox": "EBM Box 52.4 Acute abdominal pain, detecting obstruction"
+  },
+  {
+    "id": "gallenblase-harnblase-und-aorta",
+    "systemId": "abdomen",
+    "label": "Gallenblase, Harnblase und Aorta",
+    "sourceBox": "EBM Box 51.3 Palpation of gallbladder, bladder, and aorta"
+  },
+  {
+    "id": "leber-und-milzpalpation",
+    "systemId": "abdomen",
+    "label": "Leber- und Milzpalpation",
+    "sourceBox": "EBM Box 51.2 Palpation of liver and spleen"
+  },
+  {
+    "id": "peritonitis",
+    "systemId": "abdomen",
+    "label": "Peritonitis",
+    "sourceBox": "EBM Box 52.1 Acute abdominal pain, detecting peritonitis"
+  },
+  {
+    "id": "schmerz-im-rechten-oberbauch",
+    "systemId": "abdomen",
+    "label": "Schmerz im rechten Oberbauch",
+    "sourceBox": "EBM Box 52.3 Right upper quadrant tenderness"
+  },
+  {
+    "id": "vergroesserte-leber-milz",
+    "systemId": "abdomen",
+    "label": "Vergrößerte Leber / Milz",
+    "sourceBox": "EBM Box 51.1 Detecting enlarged liver and spleen"
+  },
+  {
+    "id": "cushing-syndrom",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Cushing-Syndrom",
+    "sourceBox": "EBM Box 14.1 Cushing syndrome"
+  },
+  {
+    "id": "diabetische-neuropathie",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Diabetische Neuropathie",
+    "sourceBox": "EBM Box 63.1 Diabetic neuropathy"
+  },
+  {
+    "id": "diabetische-retinopathie",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Diabetische Retinopathie",
+    "sourceBox": "EBM Box 22.1 Diabetic retinopathy"
+  },
+  {
+    "id": "diabetischer-fuss",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Diabetischer Fuß",
+    "sourceBox": "EBM Box 55.1 Diabetic foot"
+  },
+  {
+    "id": "hyperthyreose",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Hyperthyreose",
+    "sourceBox": "EBM Box 25.4 Hyperthyroidism"
+  },
+  {
+    "id": "hypothyreose",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Hypothyreose",
+    "sourceBox": "EBM Box 25.3 Hypothyroidism"
+  },
+  {
+    "id": "schilddruesenerkrankung",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Schilddrüsenerkrankung",
+    "sourceBox": "Chapter 25 Thyroid disease"
+  },
+  {
+    "id": "schilddruesenknoten-karzinomrisiko",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Schilddrüsenknoten / Karzinomrisiko",
+    "sourceBox": "EBM Box 25.2 Goiter and thyroid nodules, predicting carcinoma"
+  },
+  {
+    "id": "struma",
+    "systemId": "endokrinologie-diabetologie",
+    "label": "Struma",
+    "sourceBox": "EBM Box 25.1 Goiter"
+  },
+  {
+    "id": "armvenenthrombose",
+    "systemId": "gefaesse-thrombose",
+    "label": "Armvenenthrombose",
+    "sourceBox": "EBM Box 56.3 Arm DVT"
+  },
+  {
+    "id": "beinvenenthrombose",
+    "systemId": "gefaesse-thrombose",
+    "label": "Beinvenenthrombose",
+    "sourceBox": "EBM Box 56.2 Leg DVT"
+  },
+  {
+    "id": "periphere-arterielle-verschlusskrankheit",
+    "systemId": "gefaesse-thrombose",
+    "label": "Periphere arterielle Verschlusskrankheit",
+    "sourceBox": "EBM Box 54.1 Peripheral vascular disease"
+  },
+  {
+    "id": "oedem-und-tiefe-venenthrombose",
+    "systemId": "gefaesse-thrombose",
+    "label": "Ödem und tiefe Venenthrombose",
+    "sourceBox": "Chapter 56 Edema and deep vein thrombosis"
+  },
+  {
+    "id": "av-dissoziation-ventrikulaere-tachykardie",
+    "systemId": "herz-kreislauf",
+    "label": "AV-Dissoziation / ventrikuläre Tachykardie",
+    "sourceBox": "EBM Box 16.1 AV dissociation and ventricular tachycardia"
+  },
+  {
+    "id": "abnorme-palpable-herzbewegungen",
+    "systemId": "herz-kreislauf",
+    "label": "Abnorme palpable Herzbewegungen",
+    "sourceBox": "EBM Box 38.2 Abnormal palpable movements"
+  },
+  {
+    "id": "aortendissektion",
+    "systemId": "herz-kreislauf",
+    "label": "Aortendissektion",
+    "sourceBox": "EBM Box 17.2 Aortic dissection"
+  },
+  {
+    "id": "aortenregurgitation",
+    "systemId": "herz-kreislauf",
+    "label": "Aortenregurgitation",
+    "sourceBox": "EBM Box 45.1 Aortic regurgitation"
+  },
+  {
+    "id": "aortenstenose",
+    "systemId": "herz-kreislauf",
+    "label": "Aortenstenose",
+    "sourceBox": "Chapter 44 Aortic stenosis"
+  },
+  {
+    "id": "aortenstenose-geraeusch",
+    "systemId": "herz-kreislauf",
+    "label": "Aortenstenose-Geräusch",
+    "sourceBox": "EBM Box 44.1 Aortic stenosis murmur"
+  },
+  {
+    "id": "differenzialdiagnose-systolischer-geraeusche",
+    "systemId": "herz-kreislauf",
+    "label": "Differenzialdiagnose systolischer Geräusche",
+    "sourceBox": "EBM Box 43.2 Differential diagnosis of systolic murmurs in adults"
+  },
+  {
+    "id": "dritter-und-vierter-herzton",
+    "systemId": "herz-kreislauf",
+    "label": "Dritter und vierter Herzton",
+    "sourceBox": "EBM Box 41.1 Third and fourth heart sounds"
+  },
+  {
+    "id": "erhoehter-linksseitiger-fuellungsdruck",
+    "systemId": "herz-kreislauf",
+    "label": "Erhöhter linksseitiger Füllungsdruck",
+    "sourceBox": "EBM Box 48.1 Detecting elevated left heart filling pressure"
+  },
+  {
+    "id": "erster-und-zweiter-herzton",
+    "systemId": "herz-kreislauf",
+    "label": "Erster und zweiter Herzton",
+    "sourceBox": "EBM Box 40.1 First and second heart sounds"
+  },
+  {
+    "id": "halsvenenbefunde",
+    "systemId": "herz-kreislauf",
+    "label": "Halsvenenbefunde",
+    "sourceBox": "EBM Box 36.1 Inspection of neck veins"
+  },
+  {
+    "id": "herzgeraeusche-und-klappenerkrankung",
+    "systemId": "herz-kreislauf",
+    "label": "Herzgeräusche und Klappenerkrankung",
+    "sourceBox": "EBM Box 43.1 Murmurs and valvular heart disease"
+  },
+  {
+    "id": "herzinsuffizienz",
+    "systemId": "herz-kreislauf",
+    "label": "Herzinsuffizienz",
+    "sourceBox": "Chapter 48 Congestive heart failure"
+  },
+  {
+    "id": "herzrhythmusstoerung",
+    "systemId": "herz-kreislauf",
+    "label": "Herzrhythmusstörung",
+    "sourceBox": "Chapter 16 Abnormalities of pulse rhythm"
+  },
+  {
+    "id": "herzspitzenstoss",
+    "systemId": "herz-kreislauf",
+    "label": "Herzspitzenstoß",
+    "sourceBox": "EBM Box 38.1 Size and position of apical impulse"
+  },
+  {
+    "id": "koronare-herzerkrankung",
+    "systemId": "herz-kreislauf",
+    "label": "Koronare Herzerkrankung",
+    "sourceBox": "EBM Box 49.1 Coronary artery disease"
+  },
+  {
+    "id": "mitral-oder-trikuspidalregurgitation",
+    "systemId": "herz-kreislauf",
+    "label": "Mitral- oder Trikuspidalregurgitation",
+    "sourceBox": "EBM Box 46.1 Moderate-to-severe mitral or tricuspid regurgitation"
+  },
+  {
+    "id": "mitralstenose",
+    "systemId": "herz-kreislauf",
+    "label": "Mitralstenose",
+    "sourceBox": "EBM Box 46.2 Other findings in mitral stenosis"
+  },
+  {
+    "id": "moderate-bis-schwere-aortenregurgitation",
+    "systemId": "herz-kreislauf",
+    "label": "Moderate bis schwere Aortenregurgitation",
+    "sourceBox": "EBM Box 45.2 Moderate-to-severe aortic regurgitation"
+  },
+  {
+    "id": "myokardinfarkt",
+    "systemId": "herz-kreislauf",
+    "label": "Myokardinfarkt",
+    "sourceBox": "EBM Box 49.2 Myocardial infarction"
+  },
+  {
+    "id": "perikarderkrankung",
+    "systemId": "herz-kreislauf",
+    "label": "Perikarderkrankung",
+    "sourceBox": "Chapter 47 Disorders of the pericardium"
+  },
+  {
+    "id": "reduzierte-ejektionsfraktion",
+    "systemId": "herz-kreislauf",
+    "label": "Reduzierte Ejektionsfraktion",
+    "sourceBox": "EBM Box 48.2 Detecting low ejection fraction"
+  },
+  {
+    "id": "schwere-aortenstenose",
+    "systemId": "herz-kreislauf",
+    "label": "Schwere Aortenstenose",
+    "sourceBox": "EBM Box 44.2 Severe aortic stenosis"
+  },
+  {
+    "id": "sonstige-herzgeraeusche",
+    "systemId": "herz-kreislauf",
+    "label": "Sonstige Herzgeräusche",
+    "sourceBox": "Chapter 46 Miscellaneous heart murmurs"
+  },
+  {
+    "id": "systolische-geraeusche-und-manoever",
+    "systemId": "herz-kreislauf",
+    "label": "Systolische Geräusche und Manöver",
+    "sourceBox": "EBM Box 43.3 Systolic murmurs and maneuvers"
+  },
+  {
+    "id": "vorhofflimmern",
+    "systemId": "herz-kreislauf",
+    "label": "Vorhofflimmern",
+    "sourceBox": "EBM Box 16.2 Atrial fibrillation"
+  },
+  {
+    "id": "atemgeraeusche-und-stimmfremitus",
+    "systemId": "lunge-thorax",
+    "label": "Atemgeräusche und Stimmfremitus",
+    "sourceBox": "EBM Box 30.1 Breath sounds and vocal resonance"
+  },
+  {
+    "id": "copd",
+    "systemId": "lunge-thorax",
+    "label": "COPD",
+    "sourceBox": "EBM Box 33.1 Chronic obstructive pulmonary disease"
+  },
+  {
+    "id": "copd-prognose",
+    "systemId": "lunge-thorax",
+    "label": "COPD-Prognose",
+    "sourceBox": "EBM Box 33.2 Prognosis of COPD"
+  },
+  {
+    "id": "giemen-reiben-und-squawks",
+    "systemId": "lunge-thorax",
+    "label": "Giemen, Reiben und Squawks",
+    "sourceBox": "EBM Box 30.3 Wheezes, rubs, and squawks"
+  },
+  {
+    "id": "lungenauskultation",
+    "systemId": "lunge-thorax",
+    "label": "Lungenauskultation",
+    "sourceBox": "Chapter 30 Auscultation of the lungs"
+  },
+  {
+    "id": "lungenembolie",
+    "systemId": "lunge-thorax",
+    "label": "Lungenembolie",
+    "sourceBox": "EBM Box 34.1 Pulmonary embolism"
+  },
+  {
+    "id": "pleuraerguss",
+    "systemId": "lunge-thorax",
+    "label": "Pleuraerguss",
+    "sourceBox": "EBM Box 35.1 Pleural effusion"
+  },
+  {
+    "id": "pneumonie",
+    "systemId": "lunge-thorax",
+    "label": "Pneumonie",
+    "sourceBox": "EBM Box 32.1 Pneumonia"
+  },
+  {
+    "id": "pneumonie-mortalitaet",
+    "systemId": "lunge-thorax",
+    "label": "Pneumonie-Mortalität",
+    "sourceBox": "EBM Box 32.2 Pneumonia and mortality"
+  },
+  {
+    "id": "rasselgeraeusche",
+    "systemId": "lunge-thorax",
+    "label": "Rasselgeräusche",
+    "sourceBox": "EBM Box 30.2 Crackles"
+  },
+  {
+    "id": "thoraxinspektion",
+    "systemId": "lunge-thorax",
+    "label": "Thoraxinspektion",
+    "sourceBox": "EBM Box 28.2 Inspection of the chest"
+  },
+  {
+    "id": "trommelschlegelfinger",
+    "systemId": "lunge-thorax",
+    "label": "Trommelschlegelfinger",
+    "sourceBox": "EBM Box 28.1 Clubbing"
+  },
+  {
+    "id": "anaemie",
+    "systemId": "vitalzeichen-akut",
+    "label": "Anämie",
+    "sourceBox": "EBM Box 10.1 Anemia"
+  },
+  {
+    "id": "atemfrequenz-und-atemmuster",
+    "systemId": "vitalzeichen-akut",
+    "label": "Atemfrequenz und Atemmuster",
+    "sourceBox": "Chapter 19 Respiratory rate and patterns"
+  },
+  {
+    "id": "bakteriaemie",
+    "systemId": "vitalzeichen-akut",
+    "label": "Bakteriämie",
+    "sourceBox": "EBM Box 18.3 Detection of bacteremia"
+  },
+  {
+    "id": "bewusstseinsstoerung-bei-niedrigem-blutdruck",
+    "systemId": "vitalzeichen-akut",
+    "label": "Bewusstseinsstörung bei niedrigem Blutdruck",
+    "sourceBox": "EBM Box 17.3 Systolic blood pressure and impaired consciousness"
+  },
+  {
+    "id": "blutdruckbefunde",
+    "systemId": "vitalzeichen-akut",
+    "label": "Blutdruckbefunde",
+    "sourceBox": "Chapter 17 Blood pressure"
+  },
+  {
+    "id": "cheyne-stokes-atmung",
+    "systemId": "vitalzeichen-akut",
+    "label": "Cheyne-Stokes-Atmung",
+    "sourceBox": "EBM Box 19.2 Cheyne-Stokes respirations"
+  },
+  {
+    "id": "extreme-temperaturbefunde",
+    "systemId": "vitalzeichen-akut",
+    "label": "Extreme Temperaturbefunde",
+    "sourceBox": "EBM Box 18.4 Extremes of temperature"
+  },
+  {
+    "id": "fiebererkennung",
+    "systemId": "vitalzeichen-akut",
+    "label": "Fiebererkennung",
+    "sourceBox": "EBM Box 18.2 Detection of fever"
+  },
+  {
+    "id": "hypotonie-und-prognose",
+    "systemId": "vitalzeichen-akut",
+    "label": "Hypotonie und Prognose",
+    "sourceBox": "EBM Box 17.1 Hypotension and prognosis"
+  },
+  {
+    "id": "hypovolaemie",
+    "systemId": "vitalzeichen-akut",
+    "label": "Hypovolämie",
+    "sourceBox": "EBM Box 11.1 Hypovolemia"
+  },
+  {
+    "id": "hypovolaemischer-schock",
+    "systemId": "vitalzeichen-akut",
+    "label": "Hypovolämischer Schock",
+    "sourceBox": "EBM Box 15.3 Pulses and hypovolemic shock"
+  },
+  {
+    "id": "infektion",
+    "systemId": "vitalzeichen-akut",
+    "label": "Infektion",
+    "sourceBox": "EBM Box 18.1 Temperature, detecting infection"
+  },
+  {
+    "id": "pulsbefunde",
+    "systemId": "vitalzeichen-akut",
+    "label": "Pulsbefunde",
+    "sourceBox": "Chapter 15 Pulse rate and contour"
+  },
+  {
+    "id": "pulsoxymetrie",
+    "systemId": "vitalzeichen-akut",
+    "label": "Pulsoxymetrie",
+    "sourceBox": "EBM Box 20.1 Pulse oximetry"
+  },
+  {
+    "id": "pulsus-paradoxus-bei-asthma",
+    "systemId": "vitalzeichen-akut",
+    "label": "Pulsus paradoxus bei Asthma",
+    "sourceBox": "EBM Box 15.2 Pulsus paradoxus and asthma"
+  },
+  {
+    "id": "schwere-hypovolaemie",
+    "systemId": "vitalzeichen-akut",
+    "label": "Schwere Hypovolämie",
+    "sourceBox": "Chapter 11 Hypvolemia"
+  },
+  {
+    "id": "tachykardie",
+    "systemId": "vitalzeichen-akut",
+    "label": "Tachykardie",
+    "sourceBox": "EBM Box 15.1 Tachycardia"
+  },
+  {
+    "id": "tachypnoe",
+    "systemId": "vitalzeichen-akut",
+    "label": "Tachypnoe",
+    "sourceBox": "EBM Box 19.1 Tachypnea"
+  },
+  {
+    "id": "temperaturbefunde",
+    "systemId": "vitalzeichen-akut",
+    "label": "Temperaturbefunde",
+    "sourceBox": "Chapter 18 Temperature"
+  }
+]

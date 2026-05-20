@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import modifiers from '../data/clinical-modifiers.json';
 import conditions from '../data/conditions.json';
 import diagnosticChains from '../data/diagnostic-chains.json';
+import physicalConditions from '../data/physical-conditions.json';
+import physicalFindings from '../data/physical-findings.json';
+import physicalSystems from '../data/physical-systems.json';
 import assumptions from '../data/pretest-assumptions.json';
 import tests from '../data/tests.json';
 import {
@@ -9,9 +12,10 @@ import {
   validateDiagnosticChain,
   validateDiagnosticTest,
   validateKnownConditionIds,
+  validatePhysicalData,
   validatePretestAssumption
 } from '../lib/validation';
-import type { ClinicalCondition, ClinicalModifier, DiagnosticChain, DiagnosticTest, PretestAssumption } from '../types';
+import type { ClinicalCondition, ClinicalModifier, DiagnosticChain, DiagnosticTest, PhysicalCondition, PhysicalFinding, PhysicalSystem, PretestAssumption } from '../types';
 
 describe('curated data', () => {
   it('validates all curated diagnostic tests', () => {
@@ -33,6 +37,15 @@ describe('curated data', () => {
     const curatedTests = tests as DiagnosticTest[];
     const issues = (diagnosticChains as DiagnosticChain[]).flatMap(chain =>
       validateDiagnosticChain(chain, conditions as ClinicalCondition[], curatedTests, curatedTests.flatMap(test => test.evidenceProfiles))
+    );
+    expect(issues).toEqual([]);
+  });
+
+  it('validates McGee physical-exam data', () => {
+    const issues = validatePhysicalData(
+      physicalSystems as PhysicalSystem[],
+      physicalConditions as PhysicalCondition[],
+      physicalFindings as PhysicalFinding[]
     );
     expect(issues).toEqual([]);
   });

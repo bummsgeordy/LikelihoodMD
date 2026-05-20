@@ -30,6 +30,8 @@ Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht di
 ## Funktionen
 
 - Kuratierte diagnostische Tests mit auswählbaren Evidenzprofilen für unterschiedliche Quellen, Cut-offs oder Populationen.
+- Umschalter zwischen diagnostischen Tests und körperlicher Untersuchung.
+- Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*: priorisierte Akut-/Innere- und endokrinologie-nahe Befunde mit LR+, LR−, 95%-KI, Prätestbereich und Reviewstatus.
 - Vordefinierte Diagnostikketten, die Nachtestwahrscheinlichkeiten einer Stufe als Prätestwahrscheinlichkeit der nächsten Stufe nutzen.
 - Kuratierte Prätest-Annahmen nach Setting und Erkrankung mit grüner Direktdaten- oder oranger Fallback-Markierung.
 - Manuelle Prätestwahrscheinlichkeit.
@@ -88,6 +90,8 @@ Eine Schritt-für-Schritt-Anleitung steht in [docs/PUBLISHING.md](docs/PUBLISHIN
 ## Daten beitragen
 
 Kuratierte Tests liegen in `src/data/tests.json`, Prätest-Annahmen in `src/data/pretest-assumptions.json`, klinische Modifikatoren in `src/data/clinical-modifiers.json`, klinische Settings in `src/data/clinical-settings.json`. Ein Test beschreibt das diagnostische Verfahren; Sensitivität, Spezifität, LR-Werte, Cut-off, Methode, knappe Durchführung und Quellen stehen in Evidenzprofilen. So können mehrere Studien oder konkurrierende Annahmen zum gleichen Test transparent nebeneinander stehen.
+
+Körperliche Untersuchungsbefunde liegen in `src/data/physical-findings.json`, gruppiert über `src/data/physical-systems.json` und `src/data/physical-conditions.json`. Die Werte basieren auf McGee, *Evidence-Based Physical Diagnosis*, und sind als knappe, deutsch beschriftete Fakteneinträge kuratiert. Der Umfang ist in [docs/mcgee-data-overview.md](docs/mcgee-data-overview.md) dokumentiert. Öffentliche Daten sind bewusst knapp transformiert und nicht als Kopie der Originaltabellen angelegt.
 
 Jede Zahl braucht eine Quelle, eine Begründung, eine Zielpopulation, Grenzen der Übertragbarkeit, ein Datum der letzten Prüfung und konservativ gesetzte Review-/Qualitätsfelder. Eigene lokale Ergänzungen aus dem Drawer bleiben im Browser gespeichert und können als JSON exportiert werden.
 

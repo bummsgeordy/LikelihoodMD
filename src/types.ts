@@ -7,6 +7,7 @@ export type ReviewStatus = 'draft' | 'reviewed' | 'needs-review';
 export type EvidenceQuality = 'high' | 'moderate' | 'low' | 'expert-opinion' | 'unclear';
 export type DataCompleteness = 'complete' | 'partial' | 'minimal';
 export type QuantificationStatus = 'qualitative' | 'probability-factor' | 'likelihood-ratio';
+export type CalculatorMode = 'diagnostic-tests' | 'physical-exam';
 
 export const REVIEW_STATUSES: ReviewStatus[] = ['draft', 'reviewed', 'needs-review'];
 export const EVIDENCE_QUALITIES: EvidenceQuality[] = ['high', 'moderate', 'low', 'expert-opinion', 'unclear'];
@@ -138,7 +139,55 @@ export interface ClinicalModifier extends ReviewMetadata {
   deviationReason?: string;
 }
 
+export interface PhysicalSystem {
+  id: string;
+  label: string;
+  sortOrder: number;
+}
+
+export interface PhysicalCondition {
+  id: string;
+  systemId: string;
+  label: string;
+  sourceBox: string;
+}
+
+export interface PhysicalLikelihoodRatio {
+  value: number | null;
+  notReported: boolean;
+  ciLow?: number;
+  ciHigh?: number;
+}
+
+export interface PhysicalPretestRange {
+  low: number;
+  high: number;
+}
+
+export interface PhysicalFinding {
+  id: string;
+  systemId: string;
+  conditionId: string;
+  findingLabel: string;
+  originalFindingLabel: string;
+  positiveCriterion: string;
+  negativeCriterion: string;
+  lrPositive: PhysicalLikelihoodRatio;
+  lrNegative: PhysicalLikelihoodRatio;
+  pretestRange: PhysicalPretestRange;
+  source: {
+    title: string;
+    sourceBox: string;
+    sourcePage: number;
+    note: string;
+  };
+  limitations: string;
+  reviewStatus: ReviewStatus;
+  reviewNote?: string;
+}
+
 export interface CalculatorState {
+  appMode: CalculatorMode;
   selectedTestId: string;
   selectedEvidenceProfileId: string;
   selectedAssumptionId: string;
@@ -156,6 +205,10 @@ export interface CalculatorState {
   catalogFullscreen?: boolean;
   catalogVisibleColumns?: string[];
   selectedDiagnosticChainId?: string;
+  selectedPhysicalSystemId?: string;
+  selectedPhysicalConditionId?: string;
+  selectedPhysicalFindingId?: string;
+  physicalPretestPercent?: number;
 }
 
 export interface DiagnosticChainStage {

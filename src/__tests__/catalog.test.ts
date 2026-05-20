@@ -5,6 +5,7 @@ const rows: CatalogRow[] = [
   {
     key: 'profile:arr',
     kind: 'profile',
+    domain: 'diagnostic-tests',
     id: 'arr',
     status: 'curated',
     reviewStatus: 'needs-review',
@@ -34,6 +35,7 @@ const rows: CatalogRow[] = [
   {
     key: 'modifier:ppgl',
     kind: 'modifier',
+    domain: 'diagnostic-tests',
     id: 'ppgl',
     status: 'custom',
     reviewStatus: 'draft',
@@ -68,6 +70,7 @@ const baseFilters = {
   reviewStatus: 'all',
   evidenceQuality: 'all',
   dataCompleteness: 'all',
+  domain: 'all',
   search: '',
   sortBy: 'condition' as const
 };

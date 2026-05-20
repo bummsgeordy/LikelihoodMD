@@ -92,6 +92,7 @@ function legacySelectionFromAssumptionId(id: unknown): Pick<CalculatorState, 'se
 }
 
 export const defaultState: CalculatorState = {
+  appMode: 'diagnostic-tests',
   selectedTestId: 'dst-1mg',
   selectedEvidenceProfileId: 'dst-1mg-statpearls',
   selectedAssumptionId: 'cushing-endocrine-direct',
@@ -106,7 +107,11 @@ export const defaultState: CalculatorState = {
   customModifiers: [],
   drawerOpen: false,
   adminMode: 'data',
-  selectedDiagnosticChainId: 'cushing-lnsc-to-dst'
+  selectedDiagnosticChainId: 'cushing-lnsc-to-dst',
+  selectedPhysicalSystemId: 'vitalzeichen-akut',
+  selectedPhysicalConditionId: 'anaemie',
+  selectedPhysicalFindingId: 'anaemie-pallor-at-any-site',
+  physicalPretestPercent: 20
 };
 
 function migrateLegacyTest(test: Record<string, unknown>): { test: DiagnosticTest; profile: EvidenceProfile } {

@@ -215,6 +215,29 @@ button:hover {
   border-top: 1px solid var(--border);
 }
 
+.mode-tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin: 0 0 16px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #e9eef5;
+}
+
+.mode-tabs button {
+  border-color: transparent;
+  background: transparent;
+  color: #475569;
+}
+
+.mode-tabs button.is-active {
+  border-color: #b7d8ff;
+  background: #fff;
+  color: var(--accent-strong);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
 .lead {
   max-width: none;
   margin: 10px 0 0;
@@ -1370,6 +1393,10 @@ canvas {
   }
 
   #resultsCard {
+    grid-area: results;
+  }
+
+  #physicalResultsCard {
     grid-area: results;
   }
 

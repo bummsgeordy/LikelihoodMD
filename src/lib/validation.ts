@@ -9,6 +9,9 @@ import {
   type DiagnosticTest,
   type EvidenceProfile,
   type EvidenceSource,
+  type PhysicalCondition,
+  type PhysicalFinding,
+  type PhysicalSystem,
   type PretestAssumption,
   type ReviewMetadata
 } from '../types';
@@ -296,5 +299,74 @@ export function validateDiagnosticChain(
   if (chainDateIssue) issues.push(chainDateIssue);
   issues.push(...reviewIssues(chain, 'chain'));
   issues.push(...validateSources(chain.sources, 'sources'));
+  return issues;
+}
+
+function lrIssues(lr: PhysicalFinding['lrPositive'], prefix: string): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  if (typeof lr !== 'object' || lr == null) {
+    return [{ field: prefix, message: 'LR-Struktur fehlt.' }];
+  }
+  if (lr.notReported) {
+    if (lr.value != null) issues.push({ field: `${prefix}.value`, message: 'Nicht berichtete LR darf keinen Wert tragen.' });
+    return issues;
+  }
+  if (typeof lr.value !== 'number' || !Number.isFinite(lr.value) || lr.value <= 0) {
+    issues.push({ field: `${prefix}.value`, message: 'LR-Wert muss positiv sein oder als nicht berichtet markiert werden.' });
+  }
+  if ((lr.ciLow == null) !== (lr.ciHigh == null)) {
+    issues.push({ field: prefix, message: 'Konfidenzintervall braucht unteren und oberen Wert.' });
+  }
+  if (lr.ciLow != null && lr.ciHigh != null && (lr.ciLow < 0 || lr.ciHigh < lr.ciLow)) {
+    issues.push({ field: prefix, message: 'Konfidenzintervall ist unplausibel.' });
+  }
+  return issues;
+}
+
+export function validatePhysicalData(
+  systems: PhysicalSystem[],
+  conditions: PhysicalCondition[],
+  findings: PhysicalFinding[]
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const systemIds = new Set(systems.map(system => system.id));
+  const conditionIds = new Set(conditions.map(condition => condition.id));
+  const seenFindings = new Set<string>();
+  systems.forEach((system, index) => {
+    ['id', 'label'].forEach(field => {
+      if (!hasText(system[field as keyof PhysicalSystem])) issues.push({ field: `physicalSystems.${index}.${field}`, message: 'Feld fehlt.' });
+    });
+    if (!Number.isFinite(system.sortOrder)) issues.push({ field: `physicalSystems.${index}.sortOrder`, message: 'Sortierung fehlt.' });
+  });
+  conditions.forEach((condition, index) => {
+    ['id', 'systemId', 'label', 'sourceBox'].forEach(field => {
+      if (!hasText(condition[field as keyof PhysicalCondition])) issues.push({ field: `physicalConditions.${index}.${field}`, message: 'Feld fehlt.' });
+    });
+    if (!systemIds.has(condition.systemId)) issues.push({ field: `physicalConditions.${index}.systemId`, message: 'Unbekanntes Körpersystem.' });
+  });
+  findings.forEach((finding, index) => {
+    const prefix = `physicalFindings.${index}`;
+    ['id', 'systemId', 'conditionId', 'findingLabel', 'originalFindingLabel', 'positiveCriterion', 'negativeCriterion', 'limitations', 'reviewStatus'].forEach(field => {
+      if (!hasText(finding[field as keyof PhysicalFinding])) issues.push({ field: `${prefix}.${field}`, message: 'Feld fehlt.' });
+    });
+    if (!systemIds.has(finding.systemId)) issues.push({ field: `${prefix}.systemId`, message: 'Unbekanntes Körpersystem.' });
+    if (!conditionIds.has(finding.conditionId)) issues.push({ field: `${prefix}.conditionId`, message: 'Unbekanntes Krankheitsbild.' });
+    const duplicateKey = `${finding.conditionId}:${finding.id}:${finding.source?.sourceBox ?? ''}`;
+    if (seenFindings.has(duplicateKey)) issues.push({ field: `${prefix}.id`, message: 'Doppelter Untersuchungsbefund.' });
+    seenFindings.add(duplicateKey);
+    if (!reviewStatuses.has(finding.reviewStatus)) issues.push({ field: `${prefix}.reviewStatus`, message: 'Reviewstatus ist ungültig.' });
+    if (!Number.isFinite(finding.pretestRange?.low) || !Number.isFinite(finding.pretestRange?.high) || finding.pretestRange.low < 0 || finding.pretestRange.high > 100 || finding.pretestRange.low > finding.pretestRange.high) {
+      issues.push({ field: `${prefix}.pretestRange`, message: 'Prätestbereich ist unplausibel.' });
+    }
+    ['title', 'sourceBox', 'note'].forEach(field => {
+      if (!hasText(finding.source?.[field as keyof PhysicalFinding['source']])) issues.push({ field: `${prefix}.source.${field}`, message: 'Quelle ist unvollständig.' });
+    });
+    if (!Number.isFinite(finding.source?.sourcePage)) issues.push({ field: `${prefix}.source.sourcePage`, message: 'Quellseite fehlt.' });
+    issues.push(...lrIssues(finding.lrPositive, `${prefix}.lrPositive`));
+    issues.push(...lrIssues(finding.lrNegative, `${prefix}.lrNegative`));
+    if (finding.lrPositive?.notReported && finding.lrNegative?.notReported) {
+      issues.push({ field: `${prefix}.lr`, message: 'Mindestens ein LR-Wert muss berichtet sein.' });
+    }
+  });
   return issues;
 }

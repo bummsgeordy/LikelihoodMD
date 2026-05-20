@@ -6,6 +6,9 @@ import diagnosticChainsRaw from './data/diagnostic-chains.json';
 import curatedModifiersRaw from './data/clinical-modifiers.json';
 import curatedAssumptionsRaw from './data/pretest-assumptions.json';
 import curatedTestsRaw from './data/tests.json';
+import physicalSystemsRaw from './data/physical-systems.json';
+import physicalConditionsRaw from './data/physical-conditions.json';
+import physicalFindingsRaw from './data/physical-findings.json';
 import {
   calculateResult,
   clamp,
@@ -50,6 +53,9 @@ import type {
   EvidenceProfile,
   EvidenceQuality,
   EvidenceSource,
+  PhysicalCondition,
+  PhysicalFinding,
+  PhysicalSystem,
   PretestAssumption,
   ReviewMetadata,
   ReviewStatus,
@@ -63,6 +69,9 @@ const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
 const clinicalConditions = conditionsRaw as ClinicalCondition[];
 const conditionGuidance = conditionGuidanceRaw as ConditionGuidance[];
 const diagnosticChains = diagnosticChainsRaw as DiagnosticChain[];
+const physicalSystems = physicalSystemsRaw as PhysicalSystem[];
+const physicalConditions = physicalConditionsRaw as PhysicalCondition[];
+const physicalFindings = physicalFindingsRaw as PhysicalFinding[];
 
 const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
   'akromegalie': 'igf1-acromegaly',
@@ -112,6 +121,11 @@ app.innerHTML = `
         </div>
       </section>
     </header>
+
+    <nav class="mode-tabs" aria-label="Rechner-Modus">
+      <button id="diagnosticModeTab" type="button" data-mode-tab="diagnostic-tests">Diagnostische Tests</button>
+      <button id="physicalModeTab" type="button" data-mode-tab="physical-exam">Körperliche Untersuchung</button>
+    </nav>
 
     <section class="calculator-grid" id="calculatorGrid" aria-label="Likelihood-Ratio-Rechner">
       <div class="calculator-column calculator-column-primary">
@@ -244,6 +258,86 @@ app.innerHTML = `
       </div>
     </section>
 
+    <section class="calculator-grid hidden" id="physicalExamGrid" aria-label="Likelihood-Ratio-Rechner für körperliche Untersuchung">
+      <div class="calculator-column calculator-column-primary">
+        <section class="card settings-card" aria-labelledby="physicalSettingsTitle">
+          <h2 id="physicalSettingsTitle">Körperliche Untersuchung</h2>
+          <div class="field">
+            <label for="physicalSystemSelect">Körpersystem wählen</label>
+            <select id="physicalSystemSelect"></select>
+          </div>
+          <div class="field">
+            <label for="physicalConditionSelect">Fragestellung wählen</label>
+            <select id="physicalConditionSelect"></select>
+          </div>
+          <div class="field">
+            <label for="physicalFindingSelect">Befund wählen</label>
+            <select id="physicalFindingSelect"></select>
+            <p class="muted" id="physicalFindingHint">Quelle: McGee, Evidence-Based Physical Diagnosis. Die Werte sind redaktionell kuratiert und als needs-review markiert.</p>
+          </div>
+          <div class="field">
+            <label for="physicalPretestRange">Prätestwahrscheinlichkeit (%)</label>
+            <div class="pretest-control">
+              <input id="physicalPretestRange" type="range" min="0.1" max="99.9" step="0.1">
+              <input id="physicalPretestNumber" class="pretest-number-input" type="text" inputmode="decimal" autocomplete="off" maxlength="5" aria-label="Prätestwahrscheinlichkeit in Prozent">
+            </div>
+            <p class="pretest-suggestion-hint" id="physicalPretestHint"></p>
+          </div>
+          <div class="metric-grid" aria-label="Likelihood-Ratios körperlicher Befunde">
+            <div class="metric"><span class="label">LR bei Befund vorhanden</span><span class="value" id="physicalLrPositive">–</span></div>
+            <div class="metric"><span class="label">LR bei Befund fehlend</span><span class="value" id="physicalLrNegative">–</span></div>
+          </div>
+          <p class="message hidden" id="physicalActionMessage" role="status"></p>
+        </section>
+
+        <section class="card" id="physicalResultsCard" aria-labelledby="physicalResultsTitle" aria-live="polite">
+          <h2 id="physicalResultsTitle">Ergebnisse</h2>
+          <div class="bars">
+            <div>
+              <div class="bar-heading"><span>Prätest</span><span id="physicalPretestValue">–</span></div>
+              <div class="bar-track" aria-hidden="true"><div class="bar pretest" id="physicalPretestBar"></div></div>
+            </div>
+            <div>
+              <div class="bar-heading"><span>Befund vorhanden</span><span id="physicalPostPositiveValue">–</span></div>
+              <div class="bar-track" aria-hidden="true"><div class="bar positive" id="physicalPostPositiveBar"></div></div>
+            </div>
+            <div>
+              <div class="bar-heading"><span>Befund fehlend</span><span id="physicalPostNegativeValue">–</span></div>
+              <div class="bar-track" aria-hidden="true"><div class="bar negative" id="physicalPostNegativeBar"></div></div>
+            </div>
+          </div>
+          <div class="interpretation" id="physicalInterpretation">–</div>
+        </section>
+      </div>
+
+      <div class="calculator-column calculator-column-secondary">
+        <section class="card nomogram-card" aria-labelledby="physicalNomogramTitle">
+          <h2 id="physicalNomogramTitle">Nomogramm</h2>
+          <div class="nomogram-panels">
+            <section class="nomogram-panel" aria-labelledby="physicalNomogramPositiveTitle">
+              <h3 id="physicalNomogramPositiveTitle">Befund vorhanden (LR+)</h3>
+              <canvas id="physicalNomogramPositive" width="720" height="405" aria-label="Fagan-Nomogramm für vorhandenen körperlichen Befund"></canvas>
+            </section>
+            <section class="nomogram-panel" aria-labelledby="physicalNomogramNegativeTitle">
+              <h3 id="physicalNomogramNegativeTitle">Befund fehlend (LR−)</h3>
+              <canvas id="physicalNomogramNegative" width="720" height="405" aria-label="Fagan-Nomogramm für fehlenden körperlichen Befund"></canvas>
+            </section>
+          </div>
+          <div class="nomogram-guide">
+            <h3>Körperliche Befunde interpretieren</h3>
+            <p>Die Darstellung zeigt, wie ein einzelner Untersuchungsbefund die Ausgangswahrscheinlichkeit verändert. Ein vorhandener Befund nutzt LR+, ein fehlender Befund nutzt LR−. Der in McGee angegebene Prätestbereich dient nur als Orientierung.</p>
+          </div>
+        </section>
+
+        <aside class="side-column">
+          <section class="card" aria-labelledby="physicalEvidenceTitle">
+            <h2 id="physicalEvidenceTitle">Befund, Evidenz und Quelle</h2>
+            <div class="details" id="physicalDetails"></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
     <div id="drawerBackdrop" class="drawer-backdrop hidden"></div>
     <aside id="adminDrawer" class="admin-drawer" aria-labelledby="drawerTitle" aria-hidden="true">
       <div class="drawer-header">
@@ -299,6 +393,7 @@ app.innerHTML = `
         <p class="muted">Zusammenführung von Setting, Erkrankung, Prätest-Annahmen, klinischen Modifikatoren, Tests, Evidenzprofilen, Quellen und Fallstricken. Korrekturen werden als lokale Vorschläge angelegt.</p>
         <div class="admin-filter-grid">
           <div class="field full"><label for="catalogSearchInput">Textsuche</label><input id="catalogSearchInput" type="search" placeholder="Erkrankung, Test, Quelle, Setting, Begründung ..."></div>
+          <div class="field"><label for="catalogDomainFilter">Datenbereich</label><select id="catalogDomainFilter"><option value="all">Alle</option><option value="diagnostic-tests">Diagnostische Tests</option><option value="physical-exam">Körperliche Untersuchung</option></select></div>
           <div class="field"><label for="catalogConditionFilter">Erkrankung</label><select id="catalogConditionFilter"></select></div>
           <div class="field"><label for="catalogSettingFilter">Setting</label><select id="catalogSettingFilter"></select></div>
           <div class="field"><label for="catalogTestFilter">Test</label><select id="catalogTestFilter"></select></div>
@@ -480,6 +575,9 @@ const $ = <T extends HTMLElement>(id: string): T => {
 };
 
 const controls = {
+  diagnosticModeTab: $<HTMLButtonElement>('diagnosticModeTab'),
+  physicalModeTab: $<HTMLButtonElement>('physicalModeTab'),
+  physicalExamGrid: $('physicalExamGrid'),
   settingSelect: $<HTMLSelectElement>('settingSelect'),
   disclaimerToggleButton: $<HTMLButtonElement>('disclaimerToggleButton'),
   disclaimerToggleIcon: $('disclaimerToggleIcon'),
@@ -535,6 +633,7 @@ const controls = {
   adminTestSelect: $<HTMLSelectElement>('adminTestSelect'),
   adminProfileSelect: $<HTMLSelectElement>('adminProfileSelect'),
   catalogSearchInput: $<HTMLInputElement>('catalogSearchInput'),
+  catalogDomainFilter: $<HTMLSelectElement>('catalogDomainFilter'),
   catalogConditionFilter: $<HTMLSelectElement>('catalogConditionFilter'),
   catalogSettingFilter: $<HTMLSelectElement>('catalogSettingFilter'),
   catalogTestFilter: $<HTMLSelectElement>('catalogTestFilter'),
@@ -551,6 +650,29 @@ const controls = {
   adminOverview: $('adminOverview'),
   profileTestSelect: $<HTMLSelectElement>('profileTestSelect'),
   modifierConditionSelect: $<HTMLSelectElement>('modifierConditionSelect')
+};
+
+const physicalControls = {
+  systemSelect: $<HTMLSelectElement>('physicalSystemSelect'),
+  conditionSelect: $<HTMLSelectElement>('physicalConditionSelect'),
+  findingSelect: $<HTMLSelectElement>('physicalFindingSelect'),
+  findingHint: $('physicalFindingHint'),
+  pretestRange: $<HTMLInputElement>('physicalPretestRange'),
+  pretestNumber: $<HTMLInputElement>('physicalPretestNumber'),
+  pretestHint: $('physicalPretestHint'),
+  lrPositive: $('physicalLrPositive'),
+  lrNegative: $('physicalLrNegative'),
+  pretestValue: $('physicalPretestValue'),
+  postPositiveValue: $('physicalPostPositiveValue'),
+  postNegativeValue: $('physicalPostNegativeValue'),
+  pretestBar: $('physicalPretestBar'),
+  postPositiveBar: $('physicalPostPositiveBar'),
+  postNegativeBar: $('physicalPostNegativeBar'),
+  interpretation: $('physicalInterpretation'),
+  nomogramPositive: $<HTMLCanvasElement>('physicalNomogramPositive'),
+  nomogramNegative: $<HTMLCanvasElement>('physicalNomogramNegative'),
+  details: $('physicalDetails'),
+  actionMessage: $('physicalActionMessage')
 };
 
 function allTests(): DiagnosticTest[] {
@@ -1002,7 +1124,11 @@ function populateAdminSelectors(): void {
   );
   populateSelect(
     controls.catalogConditionFilter,
-    [{ value: 'all', label: 'Alle Erkrankungen' }, ...allConditions().map(condition => ({ value: condition.id, label: condition.label }))],
+    [
+      { value: 'all', label: 'Alle Erkrankungen' },
+      ...allConditions().map(condition => ({ value: condition.id, label: condition.label })),
+      ...physicalConditions.map(condition => ({ value: condition.id, label: `Körperlich: ${condition.label}` }))
+    ],
     controls.catalogConditionFilter.value || 'all'
   );
   populateSelect(
@@ -1012,7 +1138,11 @@ function populateAdminSelectors(): void {
   );
   populateSelect(
     controls.catalogTestFilter,
-    [{ value: 'all', label: 'Alle Tests' }, ...allTests().map(test => ({ value: test.id, label: test.name }))],
+    [
+      { value: 'all', label: 'Alle Tests und Befunde' },
+      ...allTests().map(test => ({ value: test.id, label: test.name })),
+      ...physicalFindings.map(finding => ({ value: finding.id, label: `Befund: ${finding.findingLabel}` }))
+    ],
     controls.catalogTestFilter.value || 'all'
   );
   if (!catalogFiltersLoaded) {
@@ -1025,6 +1155,7 @@ function loadCatalogFilters(): void {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(CATALOG_FILTER_KEY) ?? '{}') as Record<string, string>;
     controls.catalogSearchInput.value = parsed.search ?? controls.catalogSearchInput.value;
+    controls.catalogDomainFilter.value = parsed.domain ?? controls.catalogDomainFilter.value;
     controls.catalogConditionFilter.value = parsed.conditionId ?? controls.catalogConditionFilter.value;
     controls.catalogSettingFilter.value = parsed.settingId ?? controls.catalogSettingFilter.value;
     controls.catalogTestFilter.value = parsed.testId ?? controls.catalogTestFilter.value;
@@ -1041,6 +1172,7 @@ function loadCatalogFilters(): void {
 function saveCatalogFilters(): void {
   window.localStorage.setItem(CATALOG_FILTER_KEY, JSON.stringify({
     search: controls.catalogSearchInput.value,
+    domain: controls.catalogDomainFilter.value,
     conditionId: controls.catalogConditionFilter.value,
     settingId: controls.catalogSettingFilter.value,
     testId: controls.catalogTestFilter.value,
@@ -1178,6 +1310,19 @@ function renderModifierImpact(profile: EvidenceProfile, result: CalculationResul
     element.append(arrow, text);
   });
   return impact;
+}
+
+function detailRow(label: string, value: string): HTMLElement {
+  const row = document.createElement('div');
+  row.className = 'detail-row';
+  const labelElement = document.createElement('strong');
+  labelElement.className = 'detail-label';
+  const valueElement = document.createElement('span');
+  valueElement.className = 'detail-value';
+  labelElement.textContent = label;
+  valueElement.textContent = value;
+  row.append(labelElement, valueElement);
+  return row;
 }
 
 function renderDetails(test: DiagnosticTest, profile: EvidenceProfile, assumption: PretestAssumption, result: CalculationResult, pretestResolution: PretestResolution): void {
@@ -1475,6 +1620,7 @@ function catalogRows(): CatalogRow[] {
     return {
       key: `assumption:${assumption.id}`,
       kind: 'assumption',
+      domain: 'diagnostic-tests',
       id: assumption.id,
       status: assumption.kind,
       reviewStatus: assumption.reviewStatus,
@@ -1524,6 +1670,7 @@ function catalogRows(): CatalogRow[] {
     return {
       key: `modifier:${modifier.id}`,
       kind: 'modifier',
+      domain: 'diagnostic-tests',
       id: modifier.id,
       status: modifier.kind,
       reviewStatus: modifier.reviewStatus,
@@ -1580,6 +1727,7 @@ function catalogRows(): CatalogRow[] {
       return {
         key: `profile:${profile.id}:${assumption?.settingId ?? 'none'}`,
         kind: 'profile',
+        domain: 'diagnostic-tests',
         id: profile.id,
         status: profile.kind,
         reviewStatus: profile.reviewStatus,
@@ -1618,7 +1766,65 @@ function catalogRows(): CatalogRow[] {
       };
     });
   });
-  return [...assumptionRows, ...modifierRows, ...profileRows];
+  const physicalRows: CatalogRow[] = physicalFindings.map(finding => {
+    const condition = physicalConditions.find(candidate => candidate.id === finding.conditionId);
+    const system = physicalSystems.find(candidate => candidate.id === finding.systemId);
+    const midpointPretest = clampProbabilityPercent((finding.pretestRange.low + finding.pretestRange.high) / 2) / 100;
+    const result = calculateResult(physicalProfileFromFinding(finding), midpointPretest);
+    const source = `${finding.source.title}; ${finding.source.sourceBox}; S. ${finding.source.sourcePage}`;
+    const cells = [
+      'Körperlicher Befund',
+      condition?.label ?? finding.conditionId,
+      system?.label ?? finding.systemId,
+      `McGee: ${formatPhysicalPretestRange(finding)}`,
+      '–',
+      finding.findingLabel,
+      'McGee-Faktenzeile',
+      finding.positiveCriterion,
+      '–',
+      '–',
+      formatPhysicalLr(finding.lrPositive),
+      formatPhysicalLr(finding.lrNegative),
+      `${formatPercent(result.ppv)} / ${formatPercent(result.npv)} bei Bereichsmitte`,
+      reviewLabel(finding.reviewStatus),
+      'moderate',
+      'partial',
+      source,
+      `${finding.limitations} Originalbezeichnung: ${finding.originalFindingLabel}. ${finding.reviewNote ?? ''}`
+    ];
+    return {
+      key: `physical-finding:${finding.id}`,
+      kind: 'physical-finding',
+      domain: 'physical-exam',
+      id: finding.id,
+      status: 'curated',
+      reviewStatus: finding.reviewStatus,
+      evidenceQuality: 'moderate',
+      dataCompleteness: 'partial',
+      conditionId: finding.conditionId,
+      settingId: finding.systemId,
+      testId: finding.id,
+      cells,
+      searchText: textSearchValue([cells, finding.originalFindingLabel, finding.source.note]),
+      sortValues: {
+        condition: condition?.label ?? finding.conditionId,
+        setting: system?.label ?? finding.systemId,
+        test: finding.findingLabel,
+        lrPositive: finding.lrPositive.value,
+        lrNegative: finding.lrNegative.value,
+        reviewStatus: finding.reviewStatus
+      },
+      detail: {
+        title: `Körperlicher Befund: ${finding.findingLabel}`,
+        sources: source,
+        population: `Prätestbereich nach McGee: ${formatPhysicalPretestRange(finding)}.`,
+        rationale: `Befund vorhanden nutzt LR+: ${formatPhysicalLr(finding.lrPositive)}. Befund fehlend nutzt LR−: ${formatPhysicalLr(finding.lrNegative)}.`,
+        limitations: finding.limitations,
+        reviewNote: finding.reviewNote
+      }
+    };
+  });
+  return [...assumptionRows, ...modifierRows, ...profileRows, ...physicalRows];
 }
 
 function renderDataCatalog(): void {
@@ -1641,6 +1847,7 @@ function renderDataCatalog(): void {
         evidenceQuality: controls.catalogQualityFilter.value || 'all',
         dataCompleteness: controls.catalogCompletenessFilter.value || 'all',
         search: controls.catalogSearchInput.value,
+        domain: controls.catalogDomainFilter.value || 'all',
         sortBy: (controls.catalogSortSelect.value || 'condition') as CatalogSortKey
       },
       testFilterConditionId
@@ -1910,6 +2117,160 @@ function currentCalculation(): {
   };
 }
 
+function physicalConditionsForSystem(systemId: string): PhysicalCondition[] {
+  return physicalConditions
+    .filter(condition => condition.systemId === systemId)
+    .sort((a, b) => a.label.localeCompare(b.label, 'de'));
+}
+
+function physicalFindingsForCondition(conditionId: string): PhysicalFinding[] {
+  return physicalFindings
+    .filter(finding => finding.conditionId === conditionId)
+    .sort((a, b) => {
+      const aScore = (a.lrPositive.value ?? 1) + (a.lrNegative.value ? 1 / a.lrNegative.value : 0);
+      const bScore = (b.lrPositive.value ?? 1) + (b.lrNegative.value ? 1 / b.lrNegative.value : 0);
+      return bScore - aScore || a.findingLabel.localeCompare(b.findingLabel, 'de');
+    });
+}
+
+function ensurePhysicalSelection(): void {
+  const system = physicalSystems.find(candidate => candidate.id === state.selectedPhysicalSystemId) ?? physicalSystems[0];
+  state.selectedPhysicalSystemId = system.id;
+  const conditions = physicalConditionsForSystem(system.id);
+  const condition = conditions.find(candidate => candidate.id === state.selectedPhysicalConditionId) ?? conditions[0] ?? physicalConditions[0];
+  state.selectedPhysicalConditionId = condition.id;
+  const findings = physicalFindingsForCondition(condition.id);
+  const finding = findings.find(candidate => candidate.id === state.selectedPhysicalFindingId) ?? findings[0] ?? physicalFindings[0];
+  state.selectedPhysicalFindingId = finding.id;
+  state.physicalPretestPercent = clampProbabilityPercent(state.physicalPretestPercent ?? Math.max(0.1, finding.pretestRange.low));
+}
+
+function physicalProfileFromFinding(finding: PhysicalFinding): EvidenceProfile {
+  return {
+    id: `physical-${finding.id}`,
+    testId: 'physical-exam',
+    label: finding.findingLabel,
+    kind: 'curated',
+    method: 'Körperlicher Untersuchungsbefund',
+    cutoff: finding.positiveCriterion,
+    sensitivity: null,
+    specificity: null,
+    lrPositive: finding.lrPositive.value ?? 1,
+    lrNegative: finding.lrNegative.value ?? 1,
+    population: `McGee-Prätestbereich: ${formatPhysicalPretestRange(finding)}.`,
+    rationale: 'Likelihood-Ratio eines körperlichen Untersuchungsbefunds aus McGee.',
+    limitations: finding.limitations,
+    sources: [],
+    lastReviewed: '2026-05-19',
+    reviewStatus: 'needs-review',
+    evidenceQuality: 'moderate',
+    dataCompleteness: 'partial'
+  };
+}
+
+function formatPhysicalLr(lr: PhysicalFinding['lrPositive']): string {
+  if (lr.notReported || lr.value == null) return 'nicht berichtet';
+  const ci = lr.ciLow != null && lr.ciHigh != null ? ` (${formatRatio(lr.ciLow)}-${formatRatio(lr.ciHigh)})` : '';
+  return `${formatRatio(lr.value)}${ci}`;
+}
+
+function formatPhysicalPretestRange(finding: PhysicalFinding): string {
+  const low = finding.pretestRange.low.toLocaleString('de-DE', { maximumFractionDigits: 1 });
+  const high = finding.pretestRange.high.toLocaleString('de-DE', { maximumFractionDigits: 1 });
+  return low === high ? `${low} %` : `${low}-${high} %`;
+}
+
+function currentPhysicalCalculation(): { finding: PhysicalFinding; condition: PhysicalCondition; result: CalculationResult } {
+  ensurePhysicalSelection();
+  const finding = physicalFindings.find(candidate => candidate.id === state.selectedPhysicalFindingId) ?? physicalFindings[0];
+  const condition = physicalConditions.find(candidate => candidate.id === finding.conditionId) ?? physicalConditions[0];
+  const pretest = clampProbabilityPercent(state.physicalPretestPercent ?? finding.pretestRange.low) / 100;
+  return {
+    finding,
+    condition,
+    result: calculateResult(physicalProfileFromFinding(finding), pretest)
+  };
+}
+
+function populatePhysicalSelectors(): void {
+  ensurePhysicalSelection();
+  populateSelect(
+    physicalControls.systemSelect,
+    physicalSystems
+      .slice()
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .map(system => ({ value: system.id, label: system.label })),
+    state.selectedPhysicalSystemId ?? physicalSystems[0].id
+  );
+  populateSelect(
+    physicalControls.conditionSelect,
+    physicalConditionsForSystem(state.selectedPhysicalSystemId ?? physicalSystems[0].id).map(condition => ({
+      value: condition.id,
+      label: condition.label
+    })),
+    state.selectedPhysicalConditionId ?? physicalConditions[0].id
+  );
+  populateSelect(
+    physicalControls.findingSelect,
+    physicalFindingsForCondition(state.selectedPhysicalConditionId ?? physicalConditions[0].id).map(finding => ({
+      value: finding.id,
+      label: finding.findingLabel
+    })),
+    state.selectedPhysicalFindingId ?? physicalFindings[0].id
+  );
+}
+
+function renderPhysicalMain(): void {
+  populatePhysicalSelectors();
+  const { finding, condition, result } = currentPhysicalCalculation();
+  const pretestPercent = clampProbabilityPercent(result.pretestProbability * 100);
+  physicalControls.pretestRange.value = String(pretestPercent);
+  if (document.activeElement !== physicalControls.pretestNumber) {
+    physicalControls.pretestNumber.value = formatPretestPercentInput(pretestPercent);
+  }
+  physicalControls.lrPositive.textContent = formatPhysicalLr(finding.lrPositive);
+  physicalControls.lrNegative.textContent = formatPhysicalLr(finding.lrNegative);
+  physicalControls.pretestValue.textContent = formatPercent(result.pretestProbability);
+  physicalControls.postPositiveValue.textContent = finding.lrPositive.value == null ? '–' : formatPercent(result.postPositiveProbability);
+  physicalControls.postNegativeValue.textContent = finding.lrNegative.value == null ? '–' : formatPercent(result.postNegativeProbability);
+  setBar(physicalControls.pretestBar, result.pretestProbability);
+  setBar(physicalControls.postPositiveBar, finding.lrPositive.value == null ? 0 : result.postPositiveProbability);
+  setBar(physicalControls.postNegativeBar, finding.lrNegative.value == null ? 0 : result.postNegativeProbability);
+  physicalControls.pretestHint.textContent = `McGee-Prätestbereich in den Studien: ${formatPhysicalPretestRange(finding)}. Dieser Bereich wird nicht automatisch übernommen.`;
+  const gain = result.postPositiveProbability - result.pretestProbability;
+  const drop = result.pretestProbability - result.postNegativeProbability;
+  physicalControls.interpretation.textContent =
+    `Für „${finding.findingLabel}“ bei ${condition.label}: Befund vorhanden verändert die Wahrscheinlichkeit um ${finding.lrPositive.value == null ? 'nicht berechenbar' : formatPercent(gain)} absolut, Befund fehlend um ${finding.lrNegative.value == null ? 'nicht berechenbar' : formatPercent(drop)} absolut.`;
+  physicalControls.findingHint.textContent = `${finding.source.sourceBox}, Referenzseite ${finding.source.sourcePage}. Original: ${finding.originalFindingLabel}.`;
+  physicalControls.details.innerHTML = '';
+  physicalControls.details.append(
+    detailRow('Körpersystem', physicalSystems.find(system => system.id === finding.systemId)?.label ?? finding.systemId),
+    detailRow('Fragestellung', condition.label),
+    detailRow('Befund', finding.findingLabel),
+    detailRow('LR+', formatPhysicalLr(finding.lrPositive)),
+    detailRow('LR−', formatPhysicalLr(finding.lrNegative)),
+    detailRow('Prätestbereich', formatPhysicalPretestRange(finding)),
+    detailRow('Quelle', `${finding.source.title}; ${finding.source.sourceBox}, Seite ${finding.source.sourcePage}`),
+    detailRow('Status', finding.reviewStatus),
+    detailRow('Grenzen', finding.limitations)
+  );
+  drawNomogramCanvases(
+    { positive: physicalControls.nomogramPositive, negative: physicalControls.nomogramNegative },
+    result,
+    { direction: 'none' }
+  );
+}
+
+function renderMode(): void {
+  const physicalMode = state.appMode === 'physical-exam';
+  controls.calculatorGrid.classList.toggle('hidden', physicalMode);
+  controls.physicalExamGrid.classList.toggle('hidden', !physicalMode);
+  controls.diagnosticModeTab.classList.toggle('is-active', !physicalMode);
+  controls.physicalModeTab.classList.toggle('is-active', physicalMode);
+  controls.diagnosticModeTab.setAttribute('aria-selected', String(!physicalMode));
+  controls.physicalModeTab.setAttribute('aria-selected', String(physicalMode));
+}
+
 function renderMain(): void {
   populateSelectors();
   const { test, profile, assumption, pretestResolution, result } = currentCalculation();
@@ -1969,7 +2330,9 @@ function renderDrawer(): void {
 }
 
 function render(): void {
+  renderMode();
   renderMain();
+  renderPhysicalMain();
   renderDrawer();
 }
 
@@ -2287,9 +2650,10 @@ function fillModifierForm(modifier: ClinicalModifier): void {
   fillSourceForm('modifier', modifier.sources[0]);
 }
 
-function catalogItem(kind: CatalogRowKind, id: string): PretestAssumption | ClinicalModifier | EvidenceProfile | undefined {
+function catalogItem(kind: CatalogRowKind, id: string): PretestAssumption | ClinicalModifier | EvidenceProfile | PhysicalFinding | undefined {
   if (kind === 'assumption') return allAssumptions().find(item => item.id === id);
   if (kind === 'modifier') return allModifiers().find(item => item.id === id);
+  if (kind === 'physical-finding') return physicalFindings.find(item => item.id === id);
   return allProfiles().find(item => item.id === id);
 }
 
@@ -2306,6 +2670,13 @@ function selectCatalogItem(kind: CatalogRowKind, id: string, settingId?: string)
     const modifier = item as ClinicalModifier;
     state.selectedConditionId = modifier.conditionId;
     state.selectedModifierIds = [...new Set([...state.selectedModifierIds, modifier.id])];
+  } else if (kind === 'physical-finding') {
+    const finding = item as PhysicalFinding;
+    state.appMode = 'physical-exam';
+    state.selectedPhysicalSystemId = finding.systemId;
+    state.selectedPhysicalConditionId = finding.conditionId;
+    state.selectedPhysicalFindingId = finding.id;
+    state.physicalPretestPercent = clampProbabilityPercent((finding.pretestRange.low + finding.pretestRange.high) / 2);
   } else {
     const profile = item as EvidenceProfile;
     const test = allTests().find(candidate => candidate.id === profile.testId);
@@ -2334,6 +2705,8 @@ function openCatalogItemForCorrection(kind: CatalogRowKind, id: string): void {
   } else if (kind === 'modifier') {
     fillModifierForm(item as ClinicalModifier);
     state.adminMode = 'modifier';
+  } else if (kind === 'physical-finding') {
+    setMessage(controls.actionMessage, 'Korrekturen für McGee-Befunde bitte als JSON-Vorschlag exportieren oder im Repository bearbeiten.');
   } else {
     fillProfileForm(item as EvidenceProfile);
     state.adminMode = 'profile';
@@ -2357,7 +2730,21 @@ function cloneAsProposal<T extends PretestAssumption | ClinicalModifier | Eviden
 function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
   const item = catalogItem(kind, id);
   if (!item) return;
-  const proposal = cloneAsProposal(item);
+  if (kind === 'physical-finding') {
+    const finding = item as PhysicalFinding;
+    downloadJson('mcgee-befund-vorschlag.json', {
+      schemaVersion: 1,
+      type: 'physical-finding-proposal',
+      finding: {
+        ...finding,
+        reviewStatus: 'needs-review',
+        reviewNote: `Vorschlag/Korrektur exportiert am ${new Date().toISOString().slice(0, 10)}.`
+      }
+    });
+    setMessage(controls.actionMessage, 'JSON-Vorschlag für körperlichen Befund exportiert.');
+    return;
+  }
+  const proposal = cloneAsProposal(item as PretestAssumption | ClinicalModifier | EvidenceProfile);
   const payload = buildExport(
     [],
     kind === 'profile' ? [proposal as EvidenceProfile] : [],
@@ -2371,7 +2758,7 @@ function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
 function selectedCatalogParts(): { kind: CatalogRowKind; id: string } | null {
   if (!selectedCatalogRowKey) return null;
   const [kind, id] = selectedCatalogRowKey.split(':');
-  if ((kind === 'assumption' || kind === 'modifier' || kind === 'profile') && id) return { kind, id };
+  if ((kind === 'assumption' || kind === 'modifier' || kind === 'profile' || kind === 'physical-finding') && id) return { kind, id };
   return null;
 }
 
@@ -2380,8 +2767,22 @@ function markSelectedCatalogReviewStatus(reviewStatus: ReviewStatus): void {
   if (!parts) return;
   const item = catalogItem(parts.kind, parts.id);
   if (!item) return;
+  if (parts.kind === 'physical-finding') {
+    const finding = item as PhysicalFinding;
+    downloadJson('mcgee-review-vorschlag.json', {
+      schemaVersion: 1,
+      type: 'physical-finding-review-proposal',
+      finding: {
+        ...finding,
+        reviewStatus,
+        reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`
+      }
+    });
+    setMessage(controls.actionMessage, `Review-Vorschlag für körperlichen Befund als JSON exportiert.`);
+    return;
+  }
   const proposal = {
-    ...cloneAsProposal(item),
+    ...cloneAsProposal(item as PretestAssumption | ClinicalModifier | EvidenceProfile),
     reviewStatus,
     reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`
   };
@@ -2462,6 +2863,53 @@ document.querySelectorAll<HTMLButtonElement>('[data-admin-mode]').forEach(button
   });
 });
 
+controls.diagnosticModeTab.addEventListener('click', () => {
+  state.appMode = 'diagnostic-tests';
+  saveAndRender();
+});
+controls.physicalModeTab.addEventListener('click', () => {
+  state.appMode = 'physical-exam';
+  saveAndRender();
+});
+physicalControls.systemSelect.addEventListener('change', () => {
+  state.selectedPhysicalSystemId = physicalControls.systemSelect.value;
+  state.selectedPhysicalConditionId = physicalConditionsForSystem(state.selectedPhysicalSystemId)[0]?.id;
+  state.selectedPhysicalFindingId = physicalFindingsForCondition(state.selectedPhysicalConditionId ?? '')[0]?.id;
+  saveAndRender();
+});
+physicalControls.conditionSelect.addEventListener('change', () => {
+  state.selectedPhysicalConditionId = physicalControls.conditionSelect.value;
+  state.selectedPhysicalFindingId = physicalFindingsForCondition(state.selectedPhysicalConditionId)[0]?.id;
+  saveAndRender();
+});
+physicalControls.findingSelect.addEventListener('change', () => {
+  state.selectedPhysicalFindingId = physicalControls.findingSelect.value;
+  saveAndRender();
+});
+physicalControls.pretestRange.addEventListener('input', () => {
+  state.physicalPretestPercent = clampProbabilityPercent(Number.parseFloat(physicalControls.pretestRange.value));
+  saveAndRender();
+});
+physicalControls.pretestNumber.addEventListener('input', () => {
+  const parsed = parsePretestPercentInput(physicalControls.pretestNumber.value);
+  if (parsed == null) return;
+  state.physicalPretestPercent = clampProbabilityPercent(parsed);
+  saveAndRender();
+});
+physicalControls.pretestNumber.addEventListener('change', () => {
+  const parsed = parsePretestPercentInput(physicalControls.pretestNumber.value);
+  state.physicalPretestPercent = parsed == null ? state.physicalPretestPercent : clampProbabilityPercent(parsed);
+  saveAndRender();
+});
+physicalControls.pretestNumber.addEventListener('keydown', event => {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  const parsed = parsePretestPercentInput(physicalControls.pretestNumber.value);
+  state.physicalPretestPercent = parsed == null ? state.physicalPretestPercent : clampProbabilityPercent(parsed);
+  physicalControls.pretestNumber.blur();
+  saveAndRender();
+});
+
 controls.testSelect.addEventListener('change', () => {
   state.selectedTestId = controls.testSelect.value;
   const profiles = profilesForTest(state.selectedTestId);
@@ -2504,6 +2952,7 @@ controls.adminProfileSelect.addEventListener('change', () => {
 });
 [
   controls.catalogSearchInput,
+  controls.catalogDomainFilter,
   controls.catalogConditionFilter,
   controls.catalogSettingFilter,
   controls.catalogTestFilter,
@@ -2655,6 +3104,9 @@ $('saveModifierButton').addEventListener('click', saveModifier);
   });
 });
 
-window.addEventListener('resize', () => drawNomogram(currentCalculation().result));
+window.addEventListener('resize', () => {
+  drawNomogram(currentCalculation().result);
+  renderPhysicalMain();
+});
 
 render();
