@@ -215,6 +215,18 @@ button:hover {
   color: #7c2d12;
 }
 
+.physical-source-note {
+  margin: 8px 0 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  background: #f8fbff;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
 .calculator-grid {
   display: grid;
   grid-template-columns: minmax(340px, 0.85fr) minmax(520px, 1.15fr);

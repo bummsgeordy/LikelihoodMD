@@ -261,6 +261,7 @@ app.innerHTML = `
       <div class="calculator-column calculator-column-primary">
         <section class="card settings-card" aria-labelledby="physicalSettingsTitle">
           <h2 id="physicalSettingsTitle">Körperliche Untersuchung</h2>
+          <p class="physical-source-note">Diese Ansicht beruht auf McGee, <em>Evidence-Based Physical Diagnosis</em>, 6. Auflage. Sie fasst dort berichtete Likelihood-Ratios zu Lern- und Visualisierungszwecken knapp zusammen. Für die klinische Einordnung und die vollständigen Erläuterungen sollte das Buch selbst herangezogen werden; es ist dafür eine sehr empfehlenswerte Quelle.</p>
           <div class="field">
             <label for="physicalSystemSelect">Körpersystem wählen</label>
             <select id="physicalSystemSelect"></select>
