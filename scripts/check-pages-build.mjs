@@ -4,6 +4,7 @@ import { join } from 'node:path';
 const distPath = join(process.cwd(), 'dist');
 const indexPath = join(distPath, 'index.html');
 const infoPath = join(distPath, 'info', 'vierfeldertafel', 'index.html');
+const simulationPath = join(distPath, 'simulation', 'index.html');
 const manifestPath = join(distPath, 'manifest.webmanifest');
 const serviceWorkerPath = join(distPath, 'sw.js');
 const icon192Path = join(distPath, 'icons', 'icon-192.png');
@@ -15,6 +16,11 @@ if (!existsSync(indexPath)) {
 
 if (!existsSync(infoPath)) {
   console.error('dist/info/vierfeldertafel/index.html fehlt. Die Info-Unterseite wurde nicht in den Pages-Build kopiert.');
+  process.exit(1);
+}
+
+if (!existsSync(simulationPath)) {
+  console.error('dist/simulation/index.html fehlt. Die Simulations-Unterseite wurde nicht in den Pages-Build kopiert.');
   process.exit(1);
 }
 
@@ -52,6 +58,12 @@ if (!infoHtml.includes('Diagnostische Kennzahlen verstehen') || !infoHtml.includ
   process.exit(1);
 }
 
+const simulationHtml = readFileSync(simulationPath, 'utf8');
+if (!simulationHtml.includes('Interaktive Testsimulation') || !simulationHtml.includes('Reale Orientierungswerte')) {
+  console.error('Simulations-Unterseite enthält nicht die erwarteten Inhalte.');
+  process.exit(1);
+}
+
 const manifest = readFileSync(manifestPath, 'utf8');
 if (!manifest.includes('"display": "standalone"') || !manifest.includes('./icons/icon-192.png')) {
   console.error('manifest.webmanifest enthält nicht die erwarteten PWA-Angaben.');
@@ -64,4 +76,9 @@ if (!serviceWorker.includes('CACHE_VERSION') || !serviceWorker.includes('precach
   process.exit(1);
 }
 
-console.log('GitHub-Pages-Build geprüft: relative Assets, Info-Unterseite und PWA-Dateien sind vorhanden.');
+if (!serviceWorker.includes('./simulation/index.html')) {
+  console.error('sw.js enthält die Simulations-Unterseite nicht im App-Shell-Cache.');
+  process.exit(1);
+}
+
+console.log('GitHub-Pages-Build geprüft: relative Assets, Info-/Simulations-Unterseiten und PWA-Dateien sind vorhanden.');

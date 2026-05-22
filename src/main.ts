@@ -103,6 +103,7 @@ app.innerHTML = `
         <h1>Likelihood-Ratio-Rechner</h1>
         <div class="hero-actions">
           <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Diagnostische Kennzahlen</a>
+          <a class="secondary-button info-link" href="./simulation/">Simulation</a>
           <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
         </div>
       </div>
