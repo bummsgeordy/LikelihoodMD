@@ -849,6 +849,8 @@
         "testId": "oral-sodium-loading",
         "label": "Oral sodium loading, Endotext",
         "kind": "curated",
+        "purpose": "confirmation",
+        "specimen": "24-h-Urin-Aldosteron, 24-h-Urin-Natrium, Kreatinin",
         "method": "Orale Natriumbelastung mit 24-h-Urin-Aldosteron",
         "cutoff": "Urin-Aldosteron > 12 µg/24 h bei adäquater Natriurese",
         "procedure": "Drei Tage salzreich essen; am letzten Tag 24-h-Urin auf Aldosteron, Natrium und Kreatinin sammeln.",
@@ -859,6 +861,29 @@
         "population": "Patienten mit Screening-Verdacht auf primären Hyperaldosteronismus.",
         "rationale": "Ambulant gut passender Bestätigungstest mit publizierten Sensitivitäts- und Spezifitätsangaben.",
         "limitations": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
+        "preanalytics": [
+          "Vor Test Kalium normalisieren und während Belastung kontrollieren",
+          "Blutdruck und klinische Verträglichkeit während der Salzbelastung beachten",
+          "Adäquate Natriurese und vollständige 24-h-Urinsammlung mit Natrium und Kreatinin prüfen",
+          "Bei unkontrollierter Hypertonie, relevanter Niereninsuffizienz, Herzinsuffizienz oder moderater/schwerer Hypokaliämie nicht unkritisch durchführen"
+        ],
+        "falsePositiveReasons": [
+          "unvollständige oder fehlerhafte 24-h-Urinsammlung",
+          "nicht ausreichende oder nicht dokumentierte Natriumbelastung",
+          "methoden- und laborspezifische Aldosteronmessung",
+          "persistierende Medikamenteneffekte auf Renin-Aldosteron-System"
+        ],
+        "falseNegativeReasons": [
+          "Hypokaliämie mit Suppression der Aldosteronsekretion",
+          "unzureichende Natriumbelastung oder Sammelfehler",
+          "mildere PA-Formen und Spektrumseffekte",
+          "nicht vergleichbarer lokaler Cut-off"
+        ],
+        "interpretationCautions": [
+          "Bestätigungstest nach auffälliger ARR; nicht als Primärscreening gedacht.",
+          "Bei klar biochemischem PA-Bild kann nach aktueller Leitlinie eine Bestätigungstestung je nach Managementziel entfallen.",
+          "Die LR-Werte sind ein didaktischer Startwert aus publizierter Sensitivität/Spezifität und müssen lokal gegen Protokoll, Labor und Population geprüft werden."
+        ],
         "lastReviewed": "2026-05-19",
         "isDefault": true,
         "sources": [
@@ -875,6 +900,13 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
             "kind": "Lehrtext",
             "note": "Listet Bestätigungstests nach positiver ARR und betont Kontraindikationen sowie korrekte Aldosteron-/Urin-Proben."
+          },
+          {
+            "title": "Oral Sodium Loading Test Is More Sensitive Than Seated Saline Infusion Test to Confirm Overt Primary Aldosteronism",
+            "year": 2025,
+            "url": "https://doi.org/10.1210/jendso/bvae209",
+            "kind": "Studie",
+            "note": "Direkter Vergleich von oralem Kochsalzbelastungstest und sitzendem Kochsalzinfusionstest; OSLT zeigte höhere Sensitivität für manifeste PA in der untersuchten Kohorte."
           },
           {
             "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",

@@ -14,11 +14,11 @@ describe('diagnostic chains', () => {
       'primarer-hyperaldosteronismus',
       'ambulant-nephrologie'
     );
-    expect(result.map(chain => chain.id)).toContain('pa-arr-to-saline-infusion');
+    expect(result.map(chain => chain.id)).toContain('pa-arr-to-oral-sodium-loading');
   });
 
   it('uses posttest probability from stage one as pretest probability for stage two', () => {
-    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pa-arr-to-saline-infusion');
+    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pa-arr-to-oral-sodium-loading');
     expect(chain).toBeDefined();
     const viewModel = calculateDiagnosticChain(chain!, curatedTests, profiles, 0.04);
     expect(viewModel).not.toBeNull();
@@ -28,7 +28,7 @@ describe('diagnostic chains', () => {
   });
 
   it('calculates all four path combinations', () => {
-    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pa-arr-to-saline-infusion')!;
+    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pa-arr-to-oral-sodium-loading')!;
     const viewModel = calculateDiagnosticChain(chain, curatedTests, profiles, 0.04);
     expect(viewModel?.paths.map(path => path.label)).toEqual(['+ dann +', '+ dann −', '− dann +', '− dann −']);
   });

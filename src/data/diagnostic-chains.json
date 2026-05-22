@@ -1,12 +1,12 @@
 [
   {
-    "id": "pa-arr-to-saline-infusion",
+    "id": "pa-arr-to-oral-sodium-loading",
     "conditionId": "primarer-hyperaldosteronismus",
     "settingIds": ["hausarztpraxis", "ambulant-nephrologie", "ambulant-endokrinologie"],
-    "label": "PA: ARR → Kochsalzinfusionstest",
-    "description": "Modulare Screening- und Bestätigungskette bei Verdacht auf primären Hyperaldosteronismus.",
+    "label": "PA: ARR → oraler Kochsalzbelastungstest",
+    "description": "Modulare Screening- und Bestätigungskette bei Verdacht auf primären Hyperaldosteronismus mit ambulanter oraler Natriumbelastung.",
     "rationale": "Ein auffälliger Aldosteron-Renin-Quotient verändert die Wahrscheinlichkeit und kann als neue Vortestwahrscheinlichkeit für einen Bestätigungstest genutzt werden.",
-    "limitations": "Nur didaktische Sequenz. ARR-Präanalytik, Kalium, Medikation, Körperhaltung, Kontraindikationen und Bestätigungstest-Protokoll müssen separat geprüft werden.",
+    "limitations": "Nur didaktische Sequenz. ARR-Präanalytik, Kalium, Medikation, Körperhaltung, sichere Salzbelastbarkeit, Blutdruck, Nierenfunktion und Vollständigkeit der 24-h-Urinsammlung müssen separat geprüft werden.",
     "stages": [
       {
         "id": "pa-arr-screen",
@@ -16,10 +16,10 @@
         "expectedUse": "screening"
       },
       {
-        "id": "pa-saline-confirmation",
-        "testId": "saline-infusion-test",
-        "evidenceProfileId": "saline-infusion-lcms-prosaldo",
-        "label": "Bestätigung: Kochsalzinfusionstest",
+        "id": "pa-oral-sodium-confirmation",
+        "testId": "oral-sodium-loading",
+        "evidenceProfileId": "oral-sodium-loading-endotext",
+        "label": "Bestätigung: oraler Kochsalzbelastungstest",
         "expectedUse": "confirmation"
       }
     ],
@@ -39,11 +39,25 @@
         "note": "Beschreibt Screening mit ARR und Rolle von Bestätigungstests im diagnostischen Ablauf."
       },
       {
-        "title": "Saline Infusion Test for Primary Aldosteronism: Implications of Immunoassay Inaccuracy",
-        "year": 2022,
-        "url": "https://academic.oup.com/jcem/article/107/5/e2027/6485559",
+        "title": "Endotext: Hyperaldosteronism",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279065/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt orale Natriumbelastung mit 24-h-Urin-Aldosteron, Natrium/Kreatinin-Kontrolle, Cut-off >10–12 µg/24 h und Kontraindikationen."
+      },
+      {
+        "title": "Endotext: Testing for Endocrine Hypertension",
+        "year": 2016,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
+        "kind": "Lehrtext",
+        "note": "Nennt für den oralen Kochsalzbelastungstest Sensitivität 96 % und Spezifität 93 % bei geeigneter Durchführung."
+      },
+      {
+        "title": "Oral Sodium Loading Test Is More Sensitive Than Seated Saline Infusion Test to Confirm Overt Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://doi.org/10.1210/jendso/bvae209",
         "kind": "Studie",
-        "note": "Unterstreicht Protokoll- und Methodeneinfluss beim Kochsalzinfusionstest."
+        "note": "Retrospektive direkte Vergleichsstudie: OSLT zeigte in der untersuchten Kohorte höhere Sensitivität als der sitzende Kochsalzinfusionstest; Übertragbarkeit und Referenzstandard beachten."
       }
     ],
     "lastReviewed": "2026-05-19",
