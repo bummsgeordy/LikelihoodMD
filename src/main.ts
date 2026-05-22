@@ -121,7 +121,7 @@ app.innerHTML = `
       </div>
       <section class="disclaimer-box" aria-labelledby="disclaimerTitle">
         <div class="disclaimer-summary">
-          <p id="disclaimerTitle">Lehr- und Rechentool für medizinische Fachpersonen. Kein Medizinprodukt, keine alleinige Entscheidungsgrundlage. Anregungen und Korrekturen gerne an likelihood@engert.me senden.</p>
+          <p id="disclaimerTitle">Lehr- und Rechentool für medizinische Fachpersonen. Kein Medizinprodukt, keine alleinige Entscheidungsgrundlage. Anregungen und Korrekturen gerne an likelihood@engert.me!</p>
           <button id="disclaimerToggleButton" class="secondary-button compact-button" type="button" aria-expanded="false" aria-controls="disclaimerContent">
             <span aria-hidden="true" id="disclaimerToggleIcon">+</span>
             <span id="disclaimerToggleLabel">Details anzeigen</span>
