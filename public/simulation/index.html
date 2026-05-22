@@ -51,7 +51,7 @@
       }
 
       .hero {
-        padding: 24px;
+        padding: 16px 20px;
         margin-bottom: 18px;
       }
 
@@ -59,7 +59,7 @@
         display: inline-flex;
         align-items: center;
         min-height: 34px;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
         padding: 6px 10px;
         border: 1px solid #b7d8ff;
         border-radius: 8px;
@@ -77,8 +77,8 @@
       }
 
       h1 {
-        max-width: 14ch;
-        font-size: clamp(2.15rem, 5vw, 4rem);
+        max-width: none;
+        font-size: clamp(1.85rem, 3vw, 2.65rem);
       }
 
       h2 {
@@ -91,9 +91,9 @@
 
       .lead {
         max-width: 82ch;
-        margin: 14px 0 0;
+        margin: 8px 0 0;
         color: var(--muted);
-        font-size: 1.08rem;
+        font-size: 1rem;
       }
 
       .card {
@@ -105,11 +105,31 @@
         padding: 18px;
       }
 
-      .nomogram-panels {
+      .simulation-workbench {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
         gap: 18px;
         margin-top: 16px;
+        align-items: start;
+      }
+
+      .control-panel {
+        display: grid;
+        gap: 12px;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        position: sticky;
+        top: 14px;
+      }
+
+      .nomogram-panel-positive {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .nomogram-panel-negative {
+        grid-column: 2;
+        grid-row: 2;
       }
 
       .nomogram-panel {
@@ -123,18 +143,11 @@
       canvas {
         display: block;
         width: 100%;
-        height: clamp(500px, 46vw, 640px);
-        min-height: 500px;
+        height: clamp(420px, 41vw, 570px);
+        min-height: 420px;
         border: 1px solid var(--border);
         border-radius: 10px;
         background: #fff;
-      }
-
-      .controls {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 16px;
       }
 
       .control {
@@ -288,11 +301,29 @@
       }
 
       @media (max-width: 860px) {
-        .nomogram-panels,
-        .controls,
+        .simulation-workbench,
         .result-strip,
         .example-grid {
           grid-template-columns: 1fr;
+        }
+
+        .control-panel,
+        .nomogram-panel-positive,
+        .nomogram-panel-negative {
+          grid-column: 1;
+        }
+
+        .nomogram-panel-positive {
+          grid-row: 1;
+        }
+
+        .control-panel {
+          grid-row: 2;
+          position: static;
+        }
+
+        .nomogram-panel-negative {
+          grid-row: 3;
         }
 
         canvas {
@@ -336,42 +367,42 @@
 
       <section class="card simulation-card" aria-labelledby="simulationTitle">
         <h2 id="simulationTitle">Nomogramm: Prätest → LR → Posttest</h2>
-        <div class="nomogram-panels">
-          <section class="nomogram-panel" aria-labelledby="positiveTitle">
+        <div class="simulation-workbench">
+          <div class="control-panel" aria-label="Simulationsparameter">
+            <div class="control">
+              <label for="pretestSlider">Prätestwahrscheinlichkeit</label>
+              <input id="pretestSlider" type="range" min="0.1" max="99.9" step="0.1" value="10">
+              <div class="number-row">
+                <span>0,1-99,9 %</span>
+                <input id="pretestNumber" type="number" min="0.1" max="99.9" step="0.1" value="10.0" aria-label="Prätestwahrscheinlichkeit in Prozent">
+              </div>
+            </div>
+            <div class="control">
+              <label for="lrPositiveSlider">LR+ bei positivem Ergebnis</label>
+              <input id="lrPositiveSlider" type="range" min="0" max="1000" step="1" value="321">
+              <div class="number-row">
+                <span>1-150</span>
+                <input id="lrPositiveNumber" type="number" min="1" max="150" step="0.01" value="5.00" aria-label="Likelihood-Ratio bei positivem Testergebnis">
+              </div>
+            </div>
+            <div class="control">
+              <label for="lrNegativeSlider">LR− bei negativem Ergebnis</label>
+              <input id="lrNegativeSlider" type="range" min="0" max="1000" step="1" value="650">
+              <div class="number-row">
+                <span>0,01-1,0</span>
+                <input id="lrNegativeNumber" type="number" min="0.01" max="1" step="0.01" value="0.20" aria-label="Likelihood-Ratio bei negativem Testergebnis">
+              </div>
+            </div>
+          </div>
+
+          <section class="nomogram-panel nomogram-panel-positive" aria-labelledby="positiveTitle">
             <h3 id="positiveTitle">Positives Testergebnis (LR+)</h3>
             <canvas id="positiveNomogram" width="900" height="560" aria-label="Nomogramm für positives Testergebnis"></canvas>
           </section>
-          <section class="nomogram-panel" aria-labelledby="negativeTitle">
+          <section class="nomogram-panel nomogram-panel-negative" aria-labelledby="negativeTitle">
             <h3 id="negativeTitle">Negatives Testergebnis (LR−)</h3>
             <canvas id="negativeNomogram" width="900" height="560" aria-label="Nomogramm für negatives Testergebnis"></canvas>
           </section>
-        </div>
-
-        <div class="controls" aria-label="Simulationsparameter">
-          <div class="control">
-            <label for="pretestSlider">Prätestwahrscheinlichkeit</label>
-            <input id="pretestSlider" type="range" min="0.1" max="99.9" step="0.1" value="10">
-            <div class="number-row">
-              <span>0,1-99,9 %</span>
-              <input id="pretestNumber" type="number" min="0.1" max="99.9" step="0.1" value="10.0" aria-label="Prätestwahrscheinlichkeit in Prozent">
-            </div>
-          </div>
-          <div class="control">
-            <label for="lrPositiveSlider">LR+ bei positivem Ergebnis</label>
-            <input id="lrPositiveSlider" type="range" min="0" max="1000" step="1" value="321">
-            <div class="number-row">
-              <span>1-150</span>
-              <input id="lrPositiveNumber" type="number" min="1" max="150" step="0.01" value="5.00" aria-label="Likelihood-Ratio bei positivem Testergebnis">
-            </div>
-          </div>
-          <div class="control">
-            <label for="lrNegativeSlider">LR− bei negativem Ergebnis</label>
-            <input id="lrNegativeSlider" type="range" min="0" max="1000" step="1" value="650">
-            <div class="number-row">
-              <span>0,01-1,0</span>
-              <input id="lrNegativeNumber" type="number" min="0.01" max="1" step="0.01" value="0.20" aria-label="Likelihood-Ratio bei negativem Testergebnis">
-            </div>
-          </div>
         </div>
 
         <div class="result-strip" aria-live="polite">
