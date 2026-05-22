@@ -592,6 +592,11 @@
         context.setTransform(deviceScale, 0, 0, deviceScale, 0, 0);
 
         const layout = createLayout(width, height);
+        const axisTitleFont = Math.max(22 * layout.scale, 20);
+        const tickFont = Math.max(18 * layout.scale, 16);
+        const valueFont = Math.max(19 * layout.scale, 17);
+        const pointRadius = Math.max(6.4 * layout.scale, 5.8);
+        const lineWidth = Math.max(4.2 * layout.scale, 3.8);
         const pretest = state.pretestPercent / 100;
         const posttest = posttestProbability(pretest, likelihoodRatio);
         const prePoint = { x: layout.xPre, y: probabilityToY(pretest, layout) };
@@ -610,10 +615,10 @@
           context.lineTo(x, layout.bottom);
           context.stroke();
           context.fillStyle = "#111827";
-          context.font = `800 ${22 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          context.font = `850 ${axisTitleFont}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
           context.textAlign = "center";
-          context.fillText(axisLabel, x, 30 * layout.scale);
-          context.font = `800 ${17 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          context.fillText(axisLabel, x, Math.max(30 * layout.scale, 25));
+          context.font = `850 ${tickFont}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
           let lastLabelY = Number.NEGATIVE_INFINITY;
           ticks.forEach(tick => {
             const y = mapper(tick);
@@ -625,8 +630,8 @@
             context.fillStyle = "#475569";
             context.textAlign = x === layout.xPost ? "left" : "right";
             const text = axisLabel === "LR" ? String(tick).replace(".", ",") : `${Math.round(tick * 100)}%`;
-            const minTickGap = axisLabel === "LR" ? 31 * layout.scale : 22 * layout.scale;
-            const skipForCurrentValue = axisLabel === "LR" && Math.abs(y - lrPoint.y) < 28 * layout.scale;
+            const minTickGap = axisLabel === "LR" ? Math.max(31 * layout.scale, 28) : Math.max(22 * layout.scale, 20);
+            const skipForCurrentValue = axisLabel === "LR" && Math.abs(y - lrPoint.y) < Math.max(28 * layout.scale, 25);
             const skipForCollision = Math.abs(y - lastLabelY) < minTickGap;
             if (!skipForCurrentValue && !skipForCollision) {
               const textX = x === layout.xPost ? x + 13 * layout.scale : x - 13 * layout.scale;
@@ -641,7 +646,7 @@
         axis(layout.xPost, "Post", probabilityTicks, value => probabilityToY(value, layout));
 
         context.strokeStyle = color;
-        context.lineWidth = 4.2 * layout.scale;
+        context.lineWidth = lineWidth;
         context.beginPath();
         context.moveTo(prePoint.x, prePoint.y);
         context.lineTo(postPoint.x, postPoint.y);
@@ -650,24 +655,44 @@
         context.fillStyle = color;
         [prePoint, lrPoint, postPoint].forEach(point => {
           context.beginPath();
-          context.arc(point.x, point.y, 6.4 * layout.scale, 0, Math.PI * 2);
+          context.arc(point.x, point.y, pointRadius, 0, Math.PI * 2);
           context.fill();
         });
 
-        context.font = `900 ${18 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+        context.font = `900 ${valueFont}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
         context.textAlign = "left";
-        const endpointLabel = `${label} ${formatPercent(posttest)}`;
+        const endpointLabel = `Post ${formatPercent(posttest)}`;
+        const endpointPaddingX = Math.max(9 * layout.scale, 8);
+        const endpointPaddingY = Math.max(6 * layout.scale, 5);
+        const endpointLabelHeight = valueFont + endpointPaddingY * 2;
         const endpointLabelWidth = context.measureText(endpointLabel).width;
-        const endpointX = Math.min(postPoint.x + 18 * layout.scale, width - endpointLabelWidth - 16 * layout.scale);
-        const endpointY = clamp(postPoint.y + 6 * layout.scale, layout.top + 19 * layout.scale, layout.bottom - 8 * layout.scale);
-        context.fillText(endpointLabel, endpointX, endpointY);
+        const endpointBoxWidth = endpointLabelWidth + endpointPaddingX * 2;
+        const endpointBoxX = clamp(
+          postPoint.x - endpointBoxWidth - Math.max(16 * layout.scale, 12),
+          layout.xLr + Math.max(18 * layout.scale, 12),
+          width - endpointBoxWidth - 12
+        );
+        const endpointBoxY = clamp(
+          postPoint.y - endpointLabelHeight / 2,
+          layout.top + 4,
+          layout.bottom - endpointLabelHeight - 4
+        );
+        context.fillStyle = "#fff";
+        context.strokeStyle = color;
+        context.lineWidth = Math.max(1.5 * layout.scale, 1.2);
+        context.beginPath();
+        context.roundRect(endpointBoxX, endpointBoxY, endpointBoxWidth, endpointLabelHeight, Math.max(8 * layout.scale, 7));
+        context.fill();
+        context.stroke();
+        context.fillStyle = color;
+        context.fillText(endpointLabel, endpointBoxX + endpointPaddingX, endpointBoxY + endpointLabelHeight - endpointPaddingY);
 
         const ratioLabel = formatRatio(likelihoodRatio);
-        context.font = `900 ${18 * layout.scale}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-        const paddingX = 10 * layout.scale;
-        const paddingY = 6 * layout.scale;
+        context.font = `900 ${valueFont}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+        const paddingX = Math.max(10 * layout.scale, 8);
+        const paddingY = Math.max(6 * layout.scale, 5);
         const labelWidth = context.measureText(ratioLabel).width + paddingX * 2;
-        const labelHeight = 30 * layout.scale;
+        const labelHeight = valueFont + paddingY * 2;
         const labelX = layout.xLr + 18 * layout.scale;
         const labelY = clamp(lrPoint.y - labelHeight - 10 * layout.scale, layout.top + 4 * layout.scale, layout.bottom - labelHeight - 4 * layout.scale);
         context.fillStyle = "#fff";
