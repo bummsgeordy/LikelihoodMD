@@ -199,7 +199,13 @@ app.innerHTML = `
           </div>
         </div>
         <div class="interpretation" id="interpretation">–</div>
+        <div class="cohort-explanation" id="cohortExplanation"></div>
         <div class="modifier-impact hidden" id="resultModifierImpact"></div>
+      </section>
+
+      <section class="card decision-card" id="decisionModifierCard" aria-labelledby="decisionModifierTitle">
+        <h2 id="decisionModifierTitle">Welche Information verändert die Entscheidung am stärksten?</h2>
+        <div id="decisionModifierContent"></div>
       </section>
 
       </div>
@@ -308,6 +314,7 @@ app.innerHTML = `
             </div>
           </div>
           <div class="interpretation" id="physicalInterpretation">–</div>
+          <div class="cohort-explanation" id="physicalCohortExplanation"></div>
         </section>
       </div>
 
@@ -590,6 +597,9 @@ const controls = {
   postPositiveBar: $('postPositiveBar'),
   postNegativeBar: $('postNegativeBar'),
   interpretation: $('interpretation'),
+  cohortExplanation: $('cohortExplanation'),
+  decisionModifierCard: $('decisionModifierCard'),
+  decisionModifierContent: $('decisionModifierContent'),
   resultModifierImpact: $('resultModifierImpact'),
   nomogramModifierImpact: $('nomogramModifierImpact'),
   calculatorGrid: $('calculatorGrid'),
@@ -651,6 +661,7 @@ const physicalControls = {
   postPositiveBar: $('physicalPostPositiveBar'),
   postNegativeBar: $('physicalPostNegativeBar'),
   interpretation: $('physicalInterpretation'),
+  cohortExplanation: $('physicalCohortExplanation'),
   nomogramPositive: $<HTMLCanvasElement>('physicalNomogramPositive'),
   nomogramNegative: $<HTMLCanvasElement>('physicalNomogramNegative'),
   details: $('physicalDetails'),
@@ -1292,6 +1303,121 @@ function renderModifierImpact(profile: EvidenceProfile, result: CalculationResul
     element.append(arrow, text);
   });
   return impact;
+}
+
+function reconstructedSensitivitySpecificity(lrPositive: number, lrNegative: number): { sensitivity: number; specificity: number } | null {
+  if (!Number.isFinite(lrPositive) || !Number.isFinite(lrNegative)) return null;
+  if (lrPositive <= 1 || lrNegative >= 1 || lrPositive <= lrNegative) return null;
+  const specificity = (lrPositive - 1) / (lrPositive - lrNegative);
+  const sensitivity = lrPositive * (1 - specificity);
+  if (sensitivity <= 0 || sensitivity >= 1 || specificity <= 0 || specificity >= 1) return null;
+  return { sensitivity, specificity };
+}
+
+function testPerformanceForCohort(profile: EvidenceProfile, result: CalculationResult): { sensitivity: number; specificity: number; estimated: boolean } | null {
+  if (profile.sensitivity != null && profile.specificity != null) {
+    return { sensitivity: profile.sensitivity, specificity: profile.specificity, estimated: false };
+  }
+  const reconstructed = reconstructedSensitivitySpecificity(result.lrPositive, result.lrNegative);
+  if (!reconstructed) return null;
+  return { ...reconstructed, estimated: true };
+}
+
+function roundedCount(value: number): number {
+  return Math.max(0, Math.min(1000, Math.round(value)));
+}
+
+function formatCount(value: number): string {
+  return value.toLocaleString('de-DE', { maximumFractionDigits: 0 });
+}
+
+function renderCohortExplanation(
+  element: HTMLElement,
+  profile: EvidenceProfile,
+  result: CalculationResult,
+  positiveLabel: string,
+  negativeLabel: string
+): void {
+  element.textContent = '';
+  const performance = testPerformanceForCohort(profile, result);
+  if (!performance) {
+    element.className = 'cohort-explanation warning';
+    element.textContent = 'Für eine 1000er-Erklärung fehlen Sensitivität/Spezifität; aus den vorhandenen LR-Werten lässt sich keine plausible Näherung ableiten.';
+    return;
+  }
+
+  const diseased = roundedCount(result.pretestProbability * 1000);
+  const notDiseased = 1000 - diseased;
+  const truePositive = roundedCount(diseased * performance.sensitivity);
+  const falsePositive = roundedCount(notDiseased * (1 - performance.specificity));
+  const falseNegative = Math.max(0, diseased - truePositive);
+  const trueNegative = Math.max(0, notDiseased - falsePositive);
+  const note = performance.estimated ? ' Geschätzt aus LR+/LR−, weil Sensitivität/Spezifität nicht separat hinterlegt sind.' : '';
+
+  element.className = `cohort-explanation${performance.estimated ? ' estimated' : ''}`;
+  const title = document.createElement('strong');
+  title.textContent = 'Anschaulich bei 1000 ähnlichen Patienten';
+  const positive = document.createElement('p');
+  positive.textContent = `Etwa ${formatCount(diseased)} hätten die Erkrankung. Bei ${positiveLabel} wären etwa ${formatCount(truePositive)} richtig positiv und ${formatCount(falsePositive)} falsch positiv.`;
+  const negative = document.createElement('p');
+  negative.textContent = `Bei ${negativeLabel} wären etwa ${formatCount(trueNegative)} richtig negativ und ${formatCount(falseNegative)} falsch negativ.${note}`;
+  element.append(title, positive, negative);
+}
+
+function modifierPillText(modifier: ClinicalModifier): string {
+  if (modifier.likelihoodRatio != null) return `${modifier.label} · LR ${formatRatio(modifier.likelihoodRatio)}`;
+  if (modifier.probabilityFactor != null) return `${modifier.label} · Faktor ${formatRatio(modifier.probabilityFactor)}`;
+  return modifier.label;
+}
+
+function renderDecisionModifiers(): void {
+  const modifiers = modifiersForCondition(state.selectedConditionId);
+  controls.decisionModifierContent.textContent = '';
+  const intro = document.createElement('p');
+  intro.className = 'muted decision-intro';
+  intro.textContent = 'Diese Faktoren verändern vor allem die Prätestwahrscheinlichkeit. Sie erklären, wann ein Test mehr oder weniger entscheidungsrelevant wird.';
+  controls.decisionModifierContent.append(intro);
+
+  if (modifiers.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'muted';
+    empty.textContent = 'Für diese Erkrankung sind noch keine kuratierten Entscheidungsfaktoren hinterlegt.';
+    controls.decisionModifierContent.append(empty);
+    return;
+  }
+
+  const groups: Array<{ title: string; className: string; items: ClinicalModifier[] }> = [
+    { title: 'Prätest ↑', className: 'increases', items: modifiers.filter(modifier => modifier.direction === 'increases') },
+    { title: 'Prätest ↓ / niedrig', className: 'decreases', items: modifiers.filter(modifier => modifier.direction === 'decreases') },
+    { title: 'Kontextabhängig', className: 'uncertain', items: modifiers.filter(modifier => modifier.direction === 'uncertain') }
+  ];
+
+  const grid = document.createElement('div');
+  grid.className = 'decision-grid';
+  groups.forEach(group => {
+    const section = document.createElement('section');
+    section.className = `decision-group ${group.className}`;
+    const heading = document.createElement('h3');
+    heading.textContent = group.title;
+    section.append(heading);
+    if (group.items.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'muted';
+      empty.textContent = 'Keine hinterlegt.';
+      section.append(empty);
+    } else {
+      const list = document.createElement('ul');
+      group.items.forEach(modifier => {
+        const item = document.createElement('li');
+        item.textContent = modifierPillText(modifier);
+        if (modifier.quantificationStatus !== 'qualitative') item.className = 'quantified';
+        list.append(item);
+      });
+      section.append(list);
+    }
+    grid.append(section);
+  });
+  controls.decisionModifierContent.append(grid);
 }
 
 function detailRow(label: string, value: string): HTMLElement {
@@ -2218,6 +2344,7 @@ function renderPhysicalMain(): void {
   setBar(physicalControls.pretestBar, result.pretestProbability);
   setBar(physicalControls.postPositiveBar, finding.lrPositive.value == null ? 0 : result.postPositiveProbability);
   setBar(physicalControls.postNegativeBar, finding.lrNegative.value == null ? 0 : result.postNegativeProbability);
+  renderCohortExplanation(physicalControls.cohortExplanation, physicalProfileFromFinding(finding), result, 'vorhandenem Befund', 'fehlendem Befund');
   physicalControls.pretestHint.textContent = `McGee-Prätestbereich in den Studien: ${formatPhysicalPretestRange(finding)}. Dieser Bereich wird nicht automatisch übernommen.`;
   const gain = result.postPositiveProbability - result.pretestProbability;
   const drop = result.pretestProbability - result.postNegativeProbability;
@@ -2271,10 +2398,12 @@ function renderMain(): void {
   setBar(controls.postPositiveBar, result.postPositiveProbability);
   setBar(controls.postNegativeBar, result.postNegativeProbability);
   controls.interpretation.textContent = describeResult(result);
+  renderCohortExplanation(controls.cohortExplanation, profile, result, 'positivem Test', 'negativem Test');
   renderScenarioBanner(profile);
   renderMismatchWarning(test);
   renderPretestStatus(pretestResolution);
   renderModifierSelector(result);
+  renderDecisionModifiers();
   renderModifierImpact(profile, result);
   renderDetails(test, profile, assumption, result, pretestResolution);
   renderEvidence(profile, assumption, pretestResolution);

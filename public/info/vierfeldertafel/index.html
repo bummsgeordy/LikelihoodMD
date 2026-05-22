@@ -204,9 +204,14 @@
       }
 
       .clinical-relevance ul,
+      .reliability-list,
       .scenario-card ul {
         margin: 10px 0 0 18px;
         padding: 0;
+      }
+
+      .reliability-list li {
+        margin-top: 6px;
       }
 
       .table-scroll {
@@ -379,6 +384,25 @@
           können aus dieser großen Gruppe viele falsch positive Ergebnisse entstehen. Dadurch kann der
           PPV niedrig sein, obwohl der Test scheinbar gut ist. Wenn die Erkrankung häufig ist, steigt
           der Anteil richtig positiver Ergebnisse unter allen positiven Tests; gleichzeitig kann der NPV sinken.
+        </p>
+      </section>
+
+      <section class="info-card evidence-note">
+        <h2>Wie verlässlich ist eine Prätestwahrscheinlichkeit?</h2>
+        <p>
+          Prätestwahrscheinlichkeiten sind unterschiedlich belastbar. Je näher die Daten an der konkreten
+          Patientengruppe und Versorgungssituation liegen, desto verlässlicher ist die Annahme.
+        </p>
+        <ol class="reliability-list">
+          <li>Direkt in der Zielpopulation gemessen.</li>
+          <li>Aus einer sehr ähnlichen Referral- oder Spezialambulanz-Kohorte abgeleitet.</li>
+          <li>Aus Register- oder Routinedaten einer vergleichbaren Versorgungssituation geschätzt.</li>
+          <li>Aus Leitlinien oder Reviews als allgemeine Arbeitsannahme übernommen.</li>
+          <li>Lokale Expertenschätzung, wenn keine besseren Daten verfügbar sind.</li>
+        </ol>
+        <p>
+          Die App soll diese Herkunft sichtbar machen. Niedriger verlässliche Werte sind keine festen
+          Wahrheiten, sondern transparente Arbeitsannahmen.
         </p>
       </section>
 

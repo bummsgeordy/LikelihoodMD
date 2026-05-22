@@ -667,8 +667,8 @@ input[type="range"] {
 
 .nomogram-panels {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr));
+  gap: 14px;
 }
 
 .nomogram-panel {
@@ -680,7 +680,8 @@ input[type="range"] {
 }
 
 .nomogram-panel canvas {
-  aspect-ratio: 4 / 3;
+  min-height: 420px;
+  aspect-ratio: 16 / 9;
 }
 
 .nomogram-card .section-heading-row + .nomogram-panels .nomogram-panel h3 {
@@ -784,6 +785,97 @@ input[type="range"] {
 .nomogram-card.is-focused canvas,
 .nomogram-size-toggle:checked ~ .nomogram-panels canvas {
   min-height: min(54vh, 620px);
+}
+
+.cohort-explanation {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid var(--accent);
+  border-radius: 9px;
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.cohort-explanation.warning {
+  border-color: #fed7aa;
+  border-left-color: #f97316;
+  background: #fff7ed;
+  color: #7c2d12;
+}
+
+.cohort-explanation.estimated {
+  border-color: #fde68a;
+  border-left-color: #d97706;
+  background: #fffbeb;
+  color: #713f12;
+}
+
+.cohort-explanation strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cohort-explanation p {
+  margin: 4px 0 0;
+}
+
+.decision-card h2 {
+  margin-bottom: 8px;
+}
+
+.decision-intro {
+  margin-top: 0;
+}
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.decision-group {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-muted);
+}
+
+.decision-group h3 {
+  margin: 0 0 8px;
+  font-size: 0.98rem;
+}
+
+.decision-group ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decision-group li {
+  padding-left: 10px;
+  border-left: 4px solid #94a3b8;
+  color: #334155;
+  overflow-wrap: anywhere;
+}
+
+.decision-group.increases li {
+  border-left-color: var(--positive);
+}
+
+.decision-group.decreases li {
+  border-left-color: var(--negative);
+}
+
+.decision-group.uncertain li {
+  border-left-color: #64748b;
+}
+
+.decision-group li.quantified {
+  font-weight: 800;
 }
 
 .details {
@@ -1400,6 +1492,7 @@ canvas {
   .editor-grid,
   .admin-filter-grid,
   .admin-overview,
+  .decision-grid,
   .metric-grid,
   .section-heading-row,
   .split-input {
