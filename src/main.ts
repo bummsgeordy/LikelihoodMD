@@ -1,14 +1,14 @@
-import './styles.css';
-import clinicalSettingsRaw from './data/clinical-settings.json';
-import conditionGuidanceRaw from './data/condition-guidance.json';
-import conditionsRaw from './data/conditions.json';
-import diagnosticChainsRaw from './data/diagnostic-chains.json';
-import curatedModifiersRaw from './data/clinical-modifiers.json';
-import curatedAssumptionsRaw from './data/pretest-assumptions.json';
-import curatedTestsRaw from './data/tests.json';
-import physicalSystemsRaw from './data/physical-systems.json';
-import physicalConditionsRaw from './data/physical-conditions.json';
-import physicalFindingsRaw from './data/physical-findings.json';
+import "./styles.css";
+import clinicalSettingsRaw from "./data/clinical-settings.json";
+import conditionGuidanceRaw from "./data/condition-guidance.json";
+import conditionsRaw from "./data/conditions.json";
+import diagnosticChainsRaw from "./data/diagnostic-chains.json";
+import curatedModifiersRaw from "./data/clinical-modifiers.json";
+import curatedAssumptionsRaw from "./data/pretest-assumptions.json";
+import curatedTestsRaw from "./data/tests.json";
+import physicalSystemsRaw from "./data/physical-systems.json";
+import physicalConditionsRaw from "./data/physical-conditions.json";
+import physicalFindingsRaw from "./data/physical-findings.json";
 import {
   calculateResult,
   clamp,
@@ -16,8 +16,8 @@ import {
   formatPercent,
   formatRatio,
   likelihoodRatiosFromSensitivitySpecificity,
-  resolveLikelihoodRatios
-} from './lib/calculations';
+  resolveLikelihoodRatios,
+} from "./lib/calculations";
 import {
   buildExport,
   defaultState,
@@ -25,21 +25,31 @@ import {
   loadState,
   parseUserDataExport,
   resetStoredState,
-  saveState
-} from './lib/storage';
-import { drawNomogramCanvases } from './ui/renderNomogram';
+  saveState,
+} from "./lib/storage";
+import { drawNomogramCanvases } from "./ui/renderNomogram";
 import {
   filterCatalogRows,
   sortCatalogRows,
   type CatalogRow,
   type CatalogRowKind,
-  type CatalogSortKey
-} from './app/catalog';
-import { clinicalIdFromLabel, conditionIdForTest, conditionLabel, mergeConditions } from './app/conditions';
-import { calculateDiagnosticChain } from './app/diagnosticChains';
-import { getPretestEstimate } from './app/pretestEstimates';
-import { renderDiagnosticChains } from './ui/renderDiagnosticChains';
-import { validateClinicalModifier, validateDiagnosticTest, validateEvidenceProfile, validatePretestAssumption } from './lib/validation';
+  type CatalogSortKey,
+} from "./app/catalog";
+import {
+  clinicalIdFromLabel,
+  conditionIdForTest,
+  conditionLabel,
+  mergeConditions,
+} from "./app/conditions";
+import { calculateDiagnosticChain } from "./app/diagnosticChains";
+import { getPretestEstimate } from "./app/pretestEstimates";
+import { renderDiagnosticChains } from "./ui/renderDiagnosticChains";
+import {
+  validateClinicalModifier,
+  validateDiagnosticTest,
+  validateEvidenceProfile,
+  validatePretestAssumption,
+} from "./lib/validation";
 import type {
   CalculationResult,
   CalculatorState,
@@ -61,8 +71,8 @@ import type {
   PretestEstimateResolution,
   ReviewMetadata,
   ReviewStatus,
-  SourceKind
-} from './types';
+  SourceKind,
+} from "./types";
 
 const curatedTests = curatedTestsRaw as DiagnosticTest[];
 const curatedAssumptions = curatedAssumptionsRaw as PretestAssumption[];
@@ -76,33 +86,33 @@ const physicalConditions = physicalConditionsRaw as PhysicalCondition[];
 const physicalFindings = physicalFindingsRaw as PhysicalFinding[];
 
 const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
-  'akromegalie': 'igf1-acromegaly',
-  'cushing-syndrom-hyperkortisolismus': 'dst-1mg',
-  'morbus-basedow': 'trab-graves',
-  'medullares-schilddrusenkarzinom': 'basal-calcitonin-thyroid-nodule',
-  'nebenniereninsuffizienz': 'acth-stimulation-250',
-  'phaochromozytom-paragangliom': 'metanephrines-plasma',
-  'primarer-hyperaldosteronismus': 'arr',
-  'zoliakie': 'ttg-iga-celiac',
-  'herzinsuffizienz': 'ntprobnp',
-  'tiefe-venenthrombose': 'd-dimer-dvt',
-  'lungenembolie': 'd-dimer-pe'
+  akromegalie: "igf1-acromegaly",
+  "cushing-syndrom-hyperkortisolismus": "dst-1mg",
+  "morbus-basedow": "trab-graves",
+  "medullares-schilddrusenkarzinom": "basal-calcitonin-thyroid-nodule",
+  nebenniereninsuffizienz: "acth-stimulation-250",
+  "phaochromozytom-paragangliom": "metanephrines-plasma",
+  "primarer-hyperaldosteronismus": "arr",
+  zoliakie: "ttg-iga-celiac",
+  herzinsuffizienz: "ntprobnp",
+  "tiefe-venenthrombose": "d-dimer-dvt",
+  lungenembolie: "d-dimer-pe",
 };
 
 let state: CalculatorState = loadState();
 let lastFocusBeforeDrawer: HTMLElement | null = null;
-let selectedCatalogRowKey = '';
+let selectedCatalogRowKey = "";
 let catalogFiltersLoaded = false;
-const CATALOG_FILTER_KEY = 'likelihood-ratio-rechner-catalog-filters-v1';
+const CATALOG_FILTER_KEY = "likelihood-ratio-rechner-catalog-filters-v1";
 
-const app = document.querySelector<HTMLDivElement>('#app');
-if (!app) throw new Error('App root not found.');
+const app = document.querySelector<HTMLDivElement>("#app");
+if (!app) throw new Error("App root not found.");
 
 app.innerHTML = `
   <main class="app">
     <header class="hero">
       <div class="hero-top">
-        <h1>Likelihood-Ratio-Rechner</h1>
+        <h1>LikelihoodMD</h1>
         <div class="hero-actions">
           <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Diagnostische Kennzahlen</a>
           <a class="secondary-button info-link" href="./simulation/">Simulation</a>
@@ -111,14 +121,14 @@ app.innerHTML = `
       </div>
       <section class="disclaimer-box" aria-labelledby="disclaimerTitle">
         <div class="disclaimer-summary">
-          <p id="disclaimerTitle">Lehr- und Rechentool für medizinische Fachpersonen. Kein Medizinprodukt, keine alleinige Entscheidungsgrundlage.</p>
+          <p id="disclaimerTitle">Lehr- und Rechentool für medizinische Fachpersonen. Kein Medizinprodukt, keine alleinige Entscheidungsgrundlage. Anregungen und Korrekturen gerne an likelihood@engert.me senden.</p>
           <button id="disclaimerToggleButton" class="secondary-button compact-button" type="button" aria-expanded="false" aria-controls="disclaimerContent">
             <span aria-hidden="true" id="disclaimerToggleIcon">+</span>
             <span id="disclaimerToggleLabel">Details anzeigen</span>
           </button>
         </div>
         <div id="disclaimerContent" class="disclaimer-content hidden">
-          <p class="lead">Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
+          <p class="lead">Deutschsprachiges Lehrtool für medizinische Fachpersonal: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
           <div class="notice" role="note">Dieses Tool ist keine alleinige Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
         </div>
       </section>
@@ -547,14 +557,12 @@ app.innerHTML = `
 `;
 
 function registerServiceWorker(): void {
-  if (!('serviceWorker' in navigator)) return;
+  if (!("serviceWorker" in navigator)) return;
 
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('./sw.js')
-      .catch(() => {
-        // Offline-Funktion ist ein Komfortmerkmal; die App bleibt ohne sichtbare Meldung nutzbar.
-      });
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      // Offline-Funktion ist ein Komfortmerkmal; die App bleibt ohne sichtbare Meldung nutzbar.
+    });
   });
 }
 
@@ -567,109 +575,113 @@ const $ = <T extends HTMLElement>(id: string): T => {
 };
 
 const controls = {
-  diagnosticModeTab: $<HTMLButtonElement>('diagnosticModeTab'),
-  physicalModeTab: $<HTMLButtonElement>('physicalModeTab'),
-  physicalExamGrid: $('physicalExamGrid'),
-  settingSelect: $<HTMLSelectElement>('settingSelect'),
-  disclaimerToggleButton: $<HTMLButtonElement>('disclaimerToggleButton'),
-  disclaimerToggleIcon: $('disclaimerToggleIcon'),
-  disclaimerToggleLabel: $('disclaimerToggleLabel'),
-  disclaimerContent: $('disclaimerContent'),
-  conditionSelect: $<HTMLSelectElement>('conditionSelect'),
-  testSelect: $<HTMLSelectElement>('testSelect'),
-  profileSelect: $<HTMLSelectElement>('profileSelect'),
-  profileHint: $('profileHint'),
-  scenarioBanner: $('scenarioBanner'),
-  mismatchWarning: $('mismatchWarning'),
-  pretestStatus: $('pretestStatus'),
-  pretestEstimatePanel: $('pretestEstimatePanel'),
-  pretestRange: $<HTMLInputElement>('pretestRange'),
-  pretestRangeWrap: $('pretestRangeWrap'),
-  pretestNumber: $<HTMLInputElement>('pretestNumber'),
-  pretestSuggestionMarker: $<HTMLButtonElement>('pretestSuggestionMarker'),
-  pretestSuggestionHint: $('pretestSuggestionHint'),
-  modifierOptions: $('modifierOptions'),
-  modifierSummary: $('modifierSummary'),
-  toggleModifierListButton: $<HTMLButtonElement>('toggleModifierListButton'),
-  applyModifiedPretestButton: $<HTMLButtonElement>('applyModifiedPretestButton'),
-  lrPositive: $('lrPositive'),
-  lrNegative: $('lrNegative'),
-  pretestValue: $('pretestValue'),
-  postPositiveValue: $('postPositiveValue'),
-  postNegativeValue: $('postNegativeValue'),
-  pretestBar: $('pretestBar'),
-  postPositiveBar: $('postPositiveBar'),
-  postNegativeBar: $('postNegativeBar'),
-  interpretation: $('interpretation'),
-  cohortExplanation: $('cohortExplanation'),
-  decisionModifierCard: $('decisionModifierCard'),
-  decisionModifierContent: $('decisionModifierContent'),
-  resultModifierImpact: $('resultModifierImpact'),
-  nomogramModifierImpact: $('nomogramModifierImpact'),
-  calculatorGrid: $('calculatorGrid'),
-  resultsCard: $('resultsCard'),
-  nomogramCard: $('nomogramCard'),
-  details: $('details'),
-  evidencePanel: $('evidencePanel'),
-  conditionGuidanceTitle: $('conditionGuidanceTitle'),
-  conditionGuidanceContent: $('conditionGuidanceContent'),
-  actionMessage: $('actionMessage'),
-  nomogramPositive: $<HTMLCanvasElement>('nomogramPositive'),
-  nomogramNegative: $<HTMLCanvasElement>('nomogramNegative'),
-  nomogramSizeToggle: $<HTMLInputElement>('nomogramSizeToggle'),
-  diagnosticChainSelect: $<HTMLSelectElement>('diagnosticChainSelect'),
-  diagnosticChainsPanel: $('diagnosticChainsPanel'),
-  drawer: $('adminDrawer'),
-  drawerBackdrop: $('drawerBackdrop'),
-  drawerOpenButton: $('drawerOpenButton'),
-  drawerCloseButton: $('drawerCloseButton'),
-  customDataSummary: $('customDataSummary'),
-  adminSettingSelect: $<HTMLSelectElement>('adminSettingSelect'),
-  adminConditionSelect: $<HTMLSelectElement>('adminConditionSelect'),
-  adminTestSelect: $<HTMLSelectElement>('adminTestSelect'),
-  adminProfileSelect: $<HTMLSelectElement>('adminProfileSelect'),
-  catalogSearchInput: $<HTMLInputElement>('catalogSearchInput'),
-  catalogDomainFilter: $<HTMLSelectElement>('catalogDomainFilter'),
-  catalogConditionFilter: $<HTMLSelectElement>('catalogConditionFilter'),
-  catalogSettingFilter: $<HTMLSelectElement>('catalogSettingFilter'),
-  catalogTestFilter: $<HTMLSelectElement>('catalogTestFilter'),
-  catalogStatusFilter: $<HTMLSelectElement>('catalogStatusFilter'),
-  catalogReviewFilter: $<HTMLSelectElement>('catalogReviewFilter'),
-  catalogQualityFilter: $<HTMLSelectElement>('catalogQualityFilter'),
-  catalogCompletenessFilter: $<HTMLSelectElement>('catalogCompletenessFilter'),
-  catalogSortSelect: $<HTMLSelectElement>('catalogSortSelect'),
-  catalogFullscreenButton: $<HTMLButtonElement>('catalogFullscreenButton'),
-  markCatalogNeedsReviewButton: $<HTMLButtonElement>('markCatalogNeedsReviewButton'),
-  markCatalogReviewedButton: $<HTMLButtonElement>('markCatalogReviewedButton'),
-  catalogTableBody: $('catalogTableBody'),
-  catalogDetailPanel: $('catalogDetailPanel'),
-  adminOverview: $('adminOverview'),
-  profileTestSelect: $<HTMLSelectElement>('profileTestSelect'),
-  modifierConditionSelect: $<HTMLSelectElement>('modifierConditionSelect')
+  diagnosticModeTab: $<HTMLButtonElement>("diagnosticModeTab"),
+  physicalModeTab: $<HTMLButtonElement>("physicalModeTab"),
+  physicalExamGrid: $("physicalExamGrid"),
+  settingSelect: $<HTMLSelectElement>("settingSelect"),
+  disclaimerToggleButton: $<HTMLButtonElement>("disclaimerToggleButton"),
+  disclaimerToggleIcon: $("disclaimerToggleIcon"),
+  disclaimerToggleLabel: $("disclaimerToggleLabel"),
+  disclaimerContent: $("disclaimerContent"),
+  conditionSelect: $<HTMLSelectElement>("conditionSelect"),
+  testSelect: $<HTMLSelectElement>("testSelect"),
+  profileSelect: $<HTMLSelectElement>("profileSelect"),
+  profileHint: $("profileHint"),
+  scenarioBanner: $("scenarioBanner"),
+  mismatchWarning: $("mismatchWarning"),
+  pretestStatus: $("pretestStatus"),
+  pretestEstimatePanel: $("pretestEstimatePanel"),
+  pretestRange: $<HTMLInputElement>("pretestRange"),
+  pretestRangeWrap: $("pretestRangeWrap"),
+  pretestNumber: $<HTMLInputElement>("pretestNumber"),
+  pretestSuggestionMarker: $<HTMLButtonElement>("pretestSuggestionMarker"),
+  pretestSuggestionHint: $("pretestSuggestionHint"),
+  modifierOptions: $("modifierOptions"),
+  modifierSummary: $("modifierSummary"),
+  toggleModifierListButton: $<HTMLButtonElement>("toggleModifierListButton"),
+  applyModifiedPretestButton: $<HTMLButtonElement>(
+    "applyModifiedPretestButton",
+  ),
+  lrPositive: $("lrPositive"),
+  lrNegative: $("lrNegative"),
+  pretestValue: $("pretestValue"),
+  postPositiveValue: $("postPositiveValue"),
+  postNegativeValue: $("postNegativeValue"),
+  pretestBar: $("pretestBar"),
+  postPositiveBar: $("postPositiveBar"),
+  postNegativeBar: $("postNegativeBar"),
+  interpretation: $("interpretation"),
+  cohortExplanation: $("cohortExplanation"),
+  decisionModifierCard: $("decisionModifierCard"),
+  decisionModifierContent: $("decisionModifierContent"),
+  resultModifierImpact: $("resultModifierImpact"),
+  nomogramModifierImpact: $("nomogramModifierImpact"),
+  calculatorGrid: $("calculatorGrid"),
+  resultsCard: $("resultsCard"),
+  nomogramCard: $("nomogramCard"),
+  details: $("details"),
+  evidencePanel: $("evidencePanel"),
+  conditionGuidanceTitle: $("conditionGuidanceTitle"),
+  conditionGuidanceContent: $("conditionGuidanceContent"),
+  actionMessage: $("actionMessage"),
+  nomogramPositive: $<HTMLCanvasElement>("nomogramPositive"),
+  nomogramNegative: $<HTMLCanvasElement>("nomogramNegative"),
+  nomogramSizeToggle: $<HTMLInputElement>("nomogramSizeToggle"),
+  diagnosticChainSelect: $<HTMLSelectElement>("diagnosticChainSelect"),
+  diagnosticChainsPanel: $("diagnosticChainsPanel"),
+  drawer: $("adminDrawer"),
+  drawerBackdrop: $("drawerBackdrop"),
+  drawerOpenButton: $("drawerOpenButton"),
+  drawerCloseButton: $("drawerCloseButton"),
+  customDataSummary: $("customDataSummary"),
+  adminSettingSelect: $<HTMLSelectElement>("adminSettingSelect"),
+  adminConditionSelect: $<HTMLSelectElement>("adminConditionSelect"),
+  adminTestSelect: $<HTMLSelectElement>("adminTestSelect"),
+  adminProfileSelect: $<HTMLSelectElement>("adminProfileSelect"),
+  catalogSearchInput: $<HTMLInputElement>("catalogSearchInput"),
+  catalogDomainFilter: $<HTMLSelectElement>("catalogDomainFilter"),
+  catalogConditionFilter: $<HTMLSelectElement>("catalogConditionFilter"),
+  catalogSettingFilter: $<HTMLSelectElement>("catalogSettingFilter"),
+  catalogTestFilter: $<HTMLSelectElement>("catalogTestFilter"),
+  catalogStatusFilter: $<HTMLSelectElement>("catalogStatusFilter"),
+  catalogReviewFilter: $<HTMLSelectElement>("catalogReviewFilter"),
+  catalogQualityFilter: $<HTMLSelectElement>("catalogQualityFilter"),
+  catalogCompletenessFilter: $<HTMLSelectElement>("catalogCompletenessFilter"),
+  catalogSortSelect: $<HTMLSelectElement>("catalogSortSelect"),
+  catalogFullscreenButton: $<HTMLButtonElement>("catalogFullscreenButton"),
+  markCatalogNeedsReviewButton: $<HTMLButtonElement>(
+    "markCatalogNeedsReviewButton",
+  ),
+  markCatalogReviewedButton: $<HTMLButtonElement>("markCatalogReviewedButton"),
+  catalogTableBody: $("catalogTableBody"),
+  catalogDetailPanel: $("catalogDetailPanel"),
+  adminOverview: $("adminOverview"),
+  profileTestSelect: $<HTMLSelectElement>("profileTestSelect"),
+  modifierConditionSelect: $<HTMLSelectElement>("modifierConditionSelect"),
 };
 
 const physicalControls = {
-  systemSelect: $<HTMLSelectElement>('physicalSystemSelect'),
-  conditionSelect: $<HTMLSelectElement>('physicalConditionSelect'),
-  findingSelect: $<HTMLSelectElement>('physicalFindingSelect'),
-  findingHint: $('physicalFindingHint'),
-  pretestRange: $<HTMLInputElement>('physicalPretestRange'),
-  pretestNumber: $<HTMLInputElement>('physicalPretestNumber'),
-  pretestHint: $('physicalPretestHint'),
-  lrPositive: $('physicalLrPositive'),
-  lrNegative: $('physicalLrNegative'),
-  pretestValue: $('physicalPretestValue'),
-  postPositiveValue: $('physicalPostPositiveValue'),
-  postNegativeValue: $('physicalPostNegativeValue'),
-  pretestBar: $('physicalPretestBar'),
-  postPositiveBar: $('physicalPostPositiveBar'),
-  postNegativeBar: $('physicalPostNegativeBar'),
-  interpretation: $('physicalInterpretation'),
-  cohortExplanation: $('physicalCohortExplanation'),
-  nomogramPositive: $<HTMLCanvasElement>('physicalNomogramPositive'),
-  nomogramNegative: $<HTMLCanvasElement>('physicalNomogramNegative'),
-  details: $('physicalDetails'),
-  actionMessage: $('physicalActionMessage')
+  systemSelect: $<HTMLSelectElement>("physicalSystemSelect"),
+  conditionSelect: $<HTMLSelectElement>("physicalConditionSelect"),
+  findingSelect: $<HTMLSelectElement>("physicalFindingSelect"),
+  findingHint: $("physicalFindingHint"),
+  pretestRange: $<HTMLInputElement>("physicalPretestRange"),
+  pretestNumber: $<HTMLInputElement>("physicalPretestNumber"),
+  pretestHint: $("physicalPretestHint"),
+  lrPositive: $("physicalLrPositive"),
+  lrNegative: $("physicalLrNegative"),
+  pretestValue: $("physicalPretestValue"),
+  postPositiveValue: $("physicalPostPositiveValue"),
+  postNegativeValue: $("physicalPostNegativeValue"),
+  pretestBar: $("physicalPretestBar"),
+  postPositiveBar: $("physicalPostPositiveBar"),
+  postNegativeBar: $("physicalPostNegativeBar"),
+  interpretation: $("physicalInterpretation"),
+  cohortExplanation: $("physicalCohortExplanation"),
+  nomogramPositive: $<HTMLCanvasElement>("physicalNomogramPositive"),
+  nomogramNegative: $<HTMLCanvasElement>("physicalNomogramNegative"),
+  details: $("physicalDetails"),
+  actionMessage: $("physicalActionMessage"),
 };
 
 function allTests(): DiagnosticTest[] {
@@ -677,23 +689,33 @@ function allTests(): DiagnosticTest[] {
 }
 
 function allProfiles(): EvidenceProfile[] {
-  return [...curatedTests.flatMap(test => test.evidenceProfiles), ...state.customEvidenceProfiles];
+  return [
+    ...curatedTests.flatMap((test) => test.evidenceProfiles),
+    ...state.customEvidenceProfiles,
+  ];
 }
 
 function profilesForTest(testId: string): EvidenceProfile[] {
-  return allProfiles().filter(profile => profile.testId === testId);
+  return allProfiles().filter((profile) => profile.testId === testId);
 }
 
-function testMatchesCondition(test: DiagnosticTest, conditionId: string): boolean {
+function testMatchesCondition(
+  test: DiagnosticTest,
+  conditionId: string,
+): boolean {
   return conditionIdForTest(test) === conditionId;
 }
 
-function preferredTestForCondition(conditionId: string): DiagnosticTest | undefined {
+function preferredTestForCondition(
+  conditionId: string,
+): DiagnosticTest | undefined {
   const tests = allTests();
   const preferredId = DEFAULT_TEST_BY_CONDITION[conditionId];
   return (
-    tests.find(test => test.id === preferredId && testMatchesCondition(test, conditionId)) ??
-    tests.find(test => testMatchesCondition(test, conditionId))
+    tests.find(
+      (test) =>
+        test.id === preferredId && testMatchesCondition(test, conditionId),
+    ) ?? tests.find((test) => testMatchesCondition(test, conditionId))
   );
 }
 
@@ -702,7 +724,10 @@ function selectDefaultTestForCondition(conditionId: string): void {
   if (!preferredTest) return;
   state.selectedTestId = preferredTest.id;
   const profiles = profilesForTest(preferredTest.id);
-  state.selectedEvidenceProfileId = profiles.find(profile => profile.isDefault)?.id ?? profiles[0]?.id ?? state.selectedEvidenceProfileId;
+  state.selectedEvidenceProfileId =
+    profiles.find((profile) => profile.isDefault)?.id ??
+    profiles[0]?.id ??
+    state.selectedEvidenceProfileId;
 }
 
 function allAssumptions(): PretestAssumption[] {
@@ -714,36 +739,51 @@ function allModifiers(): ClinicalModifier[] {
 }
 
 function modifiersForCondition(conditionId: string): ClinicalModifier[] {
-  return allModifiers().filter(modifier => modifier.conditionId === conditionId);
+  return allModifiers().filter(
+    (modifier) => modifier.conditionId === conditionId,
+  );
 }
 
 function selectedModifiers(): ClinicalModifier[] {
-  const availableIds = new Set(modifiersForCondition(state.selectedConditionId).map(modifier => modifier.id));
-  state.selectedModifierIds = state.selectedModifierIds.filter(id => availableIds.has(id));
-  return modifiersForCondition(state.selectedConditionId).filter(modifier => state.selectedModifierIds.includes(modifier.id));
+  const availableIds = new Set(
+    modifiersForCondition(state.selectedConditionId).map(
+      (modifier) => modifier.id,
+    ),
+  );
+  state.selectedModifierIds = state.selectedModifierIds.filter((id) =>
+    availableIds.has(id),
+  );
+  return modifiersForCondition(state.selectedConditionId).filter((modifier) =>
+    state.selectedModifierIds.includes(modifier.id),
+  );
 }
 
 function conditionIdForLabel(condition: string): string {
-  return clinicalConditions.find(candidate => candidate.label === condition)?.id ?? clinicalIdFromLabel(condition);
+  return (
+    clinicalConditions.find((candidate) => candidate.label === condition)?.id ??
+    clinicalIdFromLabel(condition)
+  );
 }
 
 function settingIdForLabel(setting: string): string {
   const normalized = setting.toLowerCase();
-  if (normalized.includes('hausarzt')) return 'hausarztpraxis';
-  if (normalized.includes('notaufnahme')) return 'klinik-notaufnahme';
-  if (normalized.includes('kardiologie')) return 'ambulant-kardiologie';
-  if (normalized.includes('endokrinologie')) return 'ambulant-endokrinologie';
-  if (normalized.includes('diabetologie')) return 'ambulant-diabetologie';
-  if (normalized.includes('nephrologie') || normalized.includes('hypertonie')) return 'ambulant-nephrologie';
-  return clinicalIdFromLabel(setting || 'eigene-praxis');
+  if (normalized.includes("hausarzt")) return "hausarztpraxis";
+  if (normalized.includes("notaufnahme")) return "klinik-notaufnahme";
+  if (normalized.includes("kardiologie")) return "ambulant-kardiologie";
+  if (normalized.includes("endokrinologie")) return "ambulant-endokrinologie";
+  if (normalized.includes("diabetologie")) return "ambulant-diabetologie";
+  if (normalized.includes("nephrologie") || normalized.includes("hypertonie"))
+    return "ambulant-nephrologie";
+  return clinicalIdFromLabel(setting || "eigene-praxis");
 }
 
 function normalizeAssumption(assumption: PretestAssumption): PretestAssumption {
   return {
     ...assumption,
-    conditionId: assumption.conditionId ?? conditionIdForLabel(assumption.condition),
+    conditionId:
+      assumption.conditionId ?? conditionIdForLabel(assumption.condition),
     settingId: assumption.settingId ?? settingIdForLabel(assumption.setting),
-    evidenceLevel: assumption.evidenceLevel ?? 'direct'
+    evidenceLevel: assumption.evidenceLevel ?? "direct",
   };
 }
 
@@ -753,43 +793,66 @@ function normalizedAssumptions(): PretestAssumption[] {
 
 function allSettings(): ClinicalSetting[] {
   const settings = new Map<string, ClinicalSetting>();
-  clinicalSettings.forEach(setting => settings.set(setting.id, setting));
+  clinicalSettings.forEach((setting) => settings.set(setting.id, setting));
   normalizedAssumptions()
-    .filter(assumption => assumption.settingId !== 'general')
-    .forEach(assumption => {
-      settings.set(assumption.settingId ?? settingIdForLabel(assumption.setting), {
-        id: assumption.settingId ?? settingIdForLabel(assumption.setting),
-        label: assumption.setting
-      });
+    .filter((assumption) => assumption.settingId !== "general")
+    .forEach((assumption) => {
+      settings.set(
+        assumption.settingId ?? settingIdForLabel(assumption.setting),
+        {
+          id: assumption.settingId ?? settingIdForLabel(assumption.setting),
+          label: assumption.setting,
+        },
+      );
     });
   return [...settings.values()];
 }
 
 function allConditions(): ClinicalCondition[] {
-  return mergeConditions(clinicalConditions, allTests(), normalizedAssumptions());
+  return mergeConditions(
+    clinicalConditions,
+    allTests(),
+    normalizedAssumptions(),
+  );
 }
 
 function getSelectedCondition(): ClinicalCondition {
-  return allConditions().find(condition => condition.id === state.selectedConditionId) ?? allConditions()[0];
+  return (
+    allConditions().find(
+      (condition) => condition.id === state.selectedConditionId,
+    ) ?? allConditions()[0]
+  );
 }
 
 function getSelectedSetting(): ClinicalSetting {
-  return allSettings().find(setting => setting.id === state.selectedSettingId) ?? allSettings()[0];
+  return (
+    allSettings().find((setting) => setting.id === state.selectedSettingId) ??
+    allSettings()[0]
+  );
 }
 
 function getSelectedTest(): DiagnosticTest {
-  return allTests().find(test => test.id === state.selectedTestId) ?? curatedTests[0];
+  return (
+    allTests().find((test) => test.id === state.selectedTestId) ??
+    curatedTests[0]
+  );
 }
 
 function getSelectedProfile(): EvidenceProfile {
   const profiles = profilesForTest(getSelectedTest().id);
-  return profiles.find(profile => profile.id === state.selectedEvidenceProfileId) ?? profiles.find(profile => profile.isDefault) ?? profiles[0];
+  return (
+    profiles.find(
+      (profile) => profile.id === state.selectedEvidenceProfileId,
+    ) ??
+    profiles.find((profile) => profile.isDefault) ??
+    profiles[0]
+  );
 }
 
 interface PretestResolution {
   assumption: PretestAssumption;
   probability: number;
-  status: 'direct' | 'fallback' | 'manual';
+  status: "direct" | "fallback" | "manual";
   title: string;
   message: string;
 }
@@ -797,33 +860,37 @@ interface PretestResolution {
 function resolvePretestAssumption(): PretestResolution {
   const assumptions = normalizedAssumptions();
   const direct = assumptions.find(
-    assumption =>
+    (assumption) =>
       assumption.conditionId === state.selectedConditionId &&
       assumption.settingId === state.selectedSettingId &&
-      assumption.evidenceLevel === 'direct'
+      assumption.evidenceLevel === "direct",
   );
   if (direct) {
     state.selectedAssumptionId = direct.id;
     return {
       assumption: direct,
       probability: direct.probability,
-      status: 'direct',
-      title: 'Direkte Setting-Daten verwendet',
-      message: `Für ${getSelectedCondition().label} im Setting ${getSelectedSetting().label} ist eine kuratierte Prätest-Annahme hinterlegt.`
+      status: "direct",
+      title: "Direkte Setting-Daten verwendet",
+      message: `Für ${getSelectedCondition().label} im Setting ${getSelectedSetting().label} ist eine kuratierte Prätest-Annahme hinterlegt.`,
     };
   }
 
-  const fallback = assumptions.find(
-    assumption => assumption.conditionId === state.selectedConditionId && assumption.evidenceLevel === 'fallback'
-  ) ?? assumptions.find(assumption => assumption.evidenceLevel === 'fallback');
+  const fallback =
+    assumptions.find(
+      (assumption) =>
+        assumption.conditionId === state.selectedConditionId &&
+        assumption.evidenceLevel === "fallback",
+    ) ??
+    assumptions.find((assumption) => assumption.evidenceLevel === "fallback");
   const selectedFallback = fallback ?? assumptions[0];
   state.selectedAssumptionId = selectedFallback.id;
   return {
     assumption: selectedFallback,
     probability: selectedFallback.probability,
-    status: 'fallback',
-    title: 'Allgemeine Erkrankungsannahme verwendet',
-    message: `Für ${getSelectedCondition().label} im Setting ${getSelectedSetting().label} liegt keine spezifische Prätest-Annahme vor. Es wird eine allgemeine Erkrankungsannahme genutzt.`
+    status: "fallback",
+    title: "Allgemeine Erkrankungsannahme verwendet",
+    message: `Für ${getSelectedCondition().label} im Setting ${getSelectedSetting().label} liegt keine spezifische Prätest-Annahme vor. Es wird eine allgemeine Erkrankungsannahme genutzt.`,
   };
 }
 
@@ -832,43 +899,58 @@ function selectedTestMatchesCondition(test: DiagnosticTest): boolean {
 }
 
 function directionLabel(direction: ClinicalModifierDirection): string {
-  if (direction === 'increases') return 'erhöht';
-  if (direction === 'decreases') return 'senkt';
-  return 'unklar';
+  if (direction === "increases") return "erhöht";
+  if (direction === "decreases") return "senkt";
+  return "unklar";
 }
 
-function modifierPreviewProbability(baseProbability: number, modifiers: ClinicalModifier[]): number | null {
-  const quantified = modifiers.filter(modifier => modifier.likelihoodRatio != null || modifier.probabilityFactor != null);
+function modifierPreviewProbability(
+  baseProbability: number,
+  modifiers: ClinicalModifier[],
+): number | null {
+  const quantified = modifiers.filter(
+    (modifier) =>
+      modifier.likelihoodRatio != null || modifier.probabilityFactor != null,
+  );
   if (quantified.length === 0) return null;
   return quantified.reduce((probability, modifier) => {
     if (modifier.likelihoodRatio != null) {
       return calculateResult(
         {
-          id: 'modifier-preview',
-          testId: 'modifier-preview',
-          label: 'Modifier preview',
-          kind: 'custom',
-          method: 'Modifier preview',
-          cutoff: 'Modifier preview',
+          id: "modifier-preview",
+          testId: "modifier-preview",
+          label: "Modifier preview",
+          kind: "custom",
+          method: "Modifier preview",
+          cutoff: "Modifier preview",
           sensitivity: null,
           specificity: null,
           lrPositive: modifier.likelihoodRatio,
           lrNegative: modifier.likelihoodRatio,
-          population: 'Modifier preview',
-          rationale: 'Modifier preview',
-          limitations: 'Modifier preview',
+          population: "Modifier preview",
+          rationale: "Modifier preview",
+          limitations: "Modifier preview",
           sources: [],
           lastReviewed: new Date().toISOString().slice(0, 10),
-          ...localReviewMetadata('unclear', 'minimal')
+          ...localReviewMetadata("unclear", "minimal"),
         },
-        probability
+        probability,
       ).postPositiveProbability;
     }
-    return clampProbabilityPercent(probability * 100 * (modifier.probabilityFactor ?? 1)) / 100;
+    return (
+      clampProbabilityPercent(
+        probability * 100 * (modifier.probabilityFactor ?? 1),
+      ) / 100
+    );
   }, baseProbability);
 }
 
-type ModifierImpactDirection = 'higher' | 'lower' | 'mixed' | 'uncertain' | 'none';
+type ModifierImpactDirection =
+  | "higher"
+  | "lower"
+  | "mixed"
+  | "uncertain"
+  | "none";
 
 interface ModifierImpact {
   direction: ModifierImpactDirection;
@@ -876,90 +958,132 @@ interface ModifierImpact {
   previewResult: CalculationResult | null;
 }
 
-function modifierImpact(profile: EvidenceProfile, result: CalculationResult): ModifierImpact {
+function modifierImpact(
+  profile: EvidenceProfile,
+  result: CalculationResult,
+): ModifierImpact {
   const modifiers = selectedModifiers();
   if (modifiers.length === 0) {
     return {
-      direction: 'none',
-      text: '',
-      previewResult: null
+      direction: "none",
+      text: "",
+      previewResult: null,
     };
   }
 
-  const previewProbability = modifierPreviewProbability(result.pretestProbability, modifiers);
-  const previewResult = previewProbability == null ? null : calculateResult(profile, previewProbability);
+  const previewProbability = modifierPreviewProbability(
+    result.pretestProbability,
+    modifiers,
+  );
+  const previewResult =
+    previewProbability == null
+      ? null
+      : calculateResult(profile, previewProbability);
   if (previewResult) {
     const delta = previewResult.pretestProbability - result.pretestProbability;
-    const direction: ModifierImpactDirection = Math.abs(delta) < 0.001 ? 'uncertain' : delta > 0 ? 'higher' : 'lower';
+    const direction: ModifierImpactDirection =
+      Math.abs(delta) < 0.001 ? "uncertain" : delta > 0 ? "higher" : "lower";
     return {
       direction,
       previewResult,
-      text: `Klinische Modifikatoren ${direction === 'higher' ? 'erhöhen' : direction === 'lower' ? 'senken' : 'verändern'} die Prätestwahrscheinlichkeit in der quantifizierten Vorschau auf ${formatPercent(previewResult.pretestProbability)}. Daraus ergäben sich Posttestwerte von ${formatPercent(previewResult.postPositiveProbability)} nach positivem und ${formatPercent(previewResult.postNegativeProbability)} nach negativem Ergebnis.`
+      text: `Klinische Modifikatoren ${direction === "higher" ? "erhöhen" : direction === "lower" ? "senken" : "verändern"} die Prätestwahrscheinlichkeit in der quantifizierten Vorschau auf ${formatPercent(previewResult.pretestProbability)}. Daraus ergäben sich Posttestwerte von ${formatPercent(previewResult.postPositiveProbability)} nach positivem und ${formatPercent(previewResult.postNegativeProbability)} nach negativem Ergebnis.`,
     };
   }
 
-  const increases = modifiers.some(modifier => modifier.direction === 'increases');
-  const decreases = modifiers.some(modifier => modifier.direction === 'decreases');
-  const uncertain = modifiers.some(modifier => modifier.direction === 'uncertain');
+  const increases = modifiers.some(
+    (modifier) => modifier.direction === "increases",
+  );
+  const decreases = modifiers.some(
+    (modifier) => modifier.direction === "decreases",
+  );
+  const uncertain = modifiers.some(
+    (modifier) => modifier.direction === "uncertain",
+  );
   const direction: ModifierImpactDirection =
-    increases && decreases ? 'mixed' : increases ? 'higher' : decreases ? 'lower' : uncertain ? 'uncertain' : 'none';
+    increases && decreases
+      ? "mixed"
+      : increases
+        ? "higher"
+        : decreases
+          ? "lower"
+          : uncertain
+            ? "uncertain"
+            : "none";
   const directionText =
-    direction === 'higher'
-      ? 'eher höher'
-      : direction === 'lower'
-        ? 'eher niedriger'
-        : direction === 'mixed'
-          ? 'je nach Gewichtung höher oder niedriger'
-          : 'nicht eindeutig verändert';
+    direction === "higher"
+      ? "eher höher"
+      : direction === "lower"
+        ? "eher niedriger"
+        : direction === "mixed"
+          ? "je nach Gewichtung höher oder niedriger"
+          : "nicht eindeutig verändert";
   return {
     direction,
     previewResult: null,
-    text: `Ausgewählte klinische Modifikatoren sind nicht quantifiziert. Die Rechnung bleibt unverändert; die tatsächlichen Posttestwahrscheinlichkeiten liegen klinisch ${directionText}, weil die Prätestwahrscheinlichkeit dadurch beeinflusst wird.`
+    text: `Ausgewählte klinische Modifikatoren sind nicht quantifiziert. Die Rechnung bleibt unverändert; die tatsächlichen Posttestwahrscheinlichkeiten liegen klinisch ${directionText}, weil die Prätestwahrscheinlichkeit dadurch beeinflusst wird.`,
   };
 }
 
-function snapPretestPercent(percent: number, suggestedPercent = resolvePretestAssumption().probability * 100): number {
+function snapPretestPercent(
+  percent: number,
+  suggestedPercent = resolvePretestAssumption().probability * 100,
+): number {
   const clamped = clampProbabilityPercent(percent);
-  return Math.abs(clamped - suggestedPercent) <= 1 ? clampProbabilityPercent(suggestedPercent) : clamped;
+  return Math.abs(clamped - suggestedPercent) <= 1
+    ? clampProbabilityPercent(suggestedPercent)
+    : clamped;
 }
 
 function parsePretestPercentInput(value: string): number | null {
-  const normalized = value.trim().replace(',', '.');
-  if (!normalized || normalized === '.' || normalized === '-') return null;
+  const normalized = value.trim().replace(",", ".");
+  if (!normalized || normalized === "." || normalized === "-") return null;
   const parsed = Number.parseFloat(normalized);
   return Number.isFinite(parsed) ? parsed : null;
 }
 
 function formatPretestPercentInput(percent: number): string {
-  return clampProbabilityPercent(percent).toFixed(1).replace('.', ',');
+  return clampProbabilityPercent(percent).toFixed(1).replace(".", ",");
 }
 
-function commitPretestNumberInput(options: { snap: boolean; render: boolean }): void {
+function commitPretestNumberInput(options: {
+  snap: boolean;
+  render: boolean;
+}): void {
   const parsed = parsePretestPercentInput(controls.pretestNumber.value);
   if (parsed == null) {
-    controls.pretestNumber.value = formatPretestPercentInput(state.manualPretestPercent);
+    controls.pretestNumber.value = formatPretestPercentInput(
+      state.manualPretestPercent,
+    );
     return;
   }
-  state.manualPretestPercent = options.snap ? snapPretestPercent(parsed) : clampProbabilityPercent(parsed);
+  state.manualPretestPercent = options.snap
+    ? snapPretestPercent(parsed)
+    : clampProbabilityPercent(parsed);
   if (options.render) {
     saveAndRender();
   }
 }
 
 function useSuggestedPretest(): void {
-  state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
+  state.manualPretestPercent = clampProbabilityPercent(
+    resolvePretestAssumption().probability * 100,
+  );
   saveAndRender();
 }
 
-function setMessage(element: HTMLElement, message: string, isError = false): void {
+function setMessage(
+  element: HTMLElement,
+  message: string,
+  isError = false,
+): void {
   element.textContent = message;
-  element.classList.toggle('error', isError);
-  element.classList.remove('hidden');
+  element.classList.toggle("error", isError);
+  element.classList.remove("hidden");
 }
 
 function clearMessage(element: HTMLElement): void {
-  element.textContent = '';
-  element.classList.add('hidden');
+  element.textContent = "";
+  element.classList.add("hidden");
 }
 
 function sourceFromForm(prefix: string, kind: SourceKind): EvidenceSource {
@@ -968,20 +1092,21 @@ function sourceFromForm(prefix: string, kind: SourceKind): EvidenceSource {
     year: Number.parseInt($<HTMLInputElement>(`${prefix}SourceYear`).value, 10),
     url: $<HTMLInputElement>(`${prefix}SourceUrl`).value.trim(),
     kind,
-    note: $<HTMLTextAreaElement>(`${prefix}SourceNote`).value.trim()
+    note: $<HTMLTextAreaElement>(`${prefix}SourceNote`).value.trim(),
   };
 }
 
 function localReviewMetadata(
-  evidenceQuality: EvidenceQuality = 'expert-opinion',
-  dataCompleteness: DataCompleteness = 'partial',
-  reviewStatus: ReviewStatus = 'draft'
+  evidenceQuality: EvidenceQuality = "expert-opinion",
+  dataCompleteness: DataCompleteness = "partial",
+  reviewStatus: ReviewStatus = "draft",
 ): ReviewMetadata {
   return {
     reviewStatus,
     evidenceQuality,
     dataCompleteness,
-    reviewNote: 'Lokaler Vorschlag; vor Übernahme in die kuratierten Daten fachlich prüfen.'
+    reviewNote:
+      "Lokaler Vorschlag; vor Übernahme in die kuratierten Daten fachlich prüfen.",
   };
 }
 
@@ -994,10 +1119,14 @@ function saveAndRender(): void {
   render();
 }
 
-function populateSelect(select: HTMLSelectElement, options: { value: string; label: string }[], selected: string): void {
-  select.textContent = '';
-  options.forEach(optionData => {
-    const option = document.createElement('option');
+function populateSelect(
+  select: HTMLSelectElement,
+  options: { value: string; label: string }[],
+  selected: string,
+): void {
+  select.textContent = "";
+  options.forEach((optionData) => {
+    const option = document.createElement("option");
     option.value = optionData.value;
     option.textContent = optionData.label;
     select.append(option);
@@ -1005,21 +1134,34 @@ function populateSelect(select: HTMLSelectElement, options: { value: string; lab
   select.value = selected;
 }
 
-function conditionGroupLabel(condition: ClinicalCondition): 'Endokrinologie' | 'Internistisch' {
-  return ['herzinsuffizienz', 'zoliakie', 'tiefe-venenthrombose', 'lungenembolie'].includes(condition.id) ? 'Internistisch' : 'Endokrinologie';
+function conditionGroupLabel(
+  condition: ClinicalCondition,
+): "Endokrinologie" | "Internistisch" {
+  return [
+    "herzinsuffizienz",
+    "zoliakie",
+    "tiefe-venenthrombose",
+    "lungenembolie",
+  ].includes(condition.id)
+    ? "Internistisch"
+    : "Endokrinologie";
 }
 
-function populateConditionSelect(select: HTMLSelectElement, conditions: ClinicalCondition[], selected: string): void {
-  select.textContent = '';
-  (['Endokrinologie', 'Internistisch'] as const).forEach(groupLabel => {
+function populateConditionSelect(
+  select: HTMLSelectElement,
+  conditions: ClinicalCondition[],
+  selected: string,
+): void {
+  select.textContent = "";
+  (["Endokrinologie", "Internistisch"] as const).forEach((groupLabel) => {
     const groupConditions = conditions
-      .filter(condition => conditionGroupLabel(condition) === groupLabel)
-      .sort((a, b) => a.label.localeCompare(b.label, 'de'));
+      .filter((condition) => conditionGroupLabel(condition) === groupLabel)
+      .sort((a, b) => a.label.localeCompare(b.label, "de"));
     if (!groupConditions.length) return;
-    const group = document.createElement('optgroup');
+    const group = document.createElement("optgroup");
     group.label = groupLabel;
-    groupConditions.forEach(condition => {
-      const option = document.createElement('option');
+    groupConditions.forEach((condition) => {
+      const option = document.createElement("option");
       option.value = condition.id;
       option.textContent = condition.label;
       group.append(option);
@@ -1036,7 +1178,11 @@ function orderedTestsForCondition(conditionId: string): DiagnosticTest[] {
     const bPreferred = b.id === preferredId ? 0 : 1;
     const aMatch = testMatchesCondition(a, conditionId) ? 0 : 1;
     const bMatch = testMatchesCondition(b, conditionId) ? 0 : 1;
-    return aPreferred - bPreferred || aMatch - bMatch || a.name.localeCompare(b.name, 'de');
+    return (
+      aPreferred - bPreferred ||
+      aMatch - bMatch ||
+      a.name.localeCompare(b.name, "de")
+    );
   });
 }
 
@@ -1049,46 +1195,56 @@ function populateSelectors(): void {
 
   populateSelect(
     controls.settingSelect,
-    allSettings().map(setting => ({ value: setting.id, label: setting.label })),
-    getSelectedSetting().id
+    allSettings().map((setting) => ({
+      value: setting.id,
+      label: setting.label,
+    })),
+    getSelectedSetting().id,
   );
-  populateConditionSelect(controls.conditionSelect, allConditions(), selectedCondition.id);
+  populateConditionSelect(
+    controls.conditionSelect,
+    allConditions(),
+    selectedCondition.id,
+  );
 
   populateSelect(
     controls.testSelect,
-    orderedTests.map(test => ({
+    orderedTests.map((test) => ({
       value: test.id,
-      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? 'Standard: ' : ''}${selectedTestMatchesCondition(test) ? '' : 'Nicht passend: '}${test.custom ? 'Eigener Test: ' : ''}${test.name}`
+      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? "Standard: " : ""}${selectedTestMatchesCondition(test) ? "" : "Nicht passend: "}${test.custom ? "Eigener Test: " : ""}${test.name}`,
     })),
-    selectedTest.id
+    selectedTest.id,
   );
   populateSelect(
     controls.profileSelect,
-    profiles.map(profile => ({
+    profiles.map((profile) => ({
       value: profile.id,
-      label: `${profile.kind === 'scenario' ? 'Szenario: ' : profile.kind === 'custom' ? 'Eigenes Profil: ' : ''}${profile.label}`
+      label: `${profile.kind === "scenario" ? "Szenario: " : profile.kind === "custom" ? "Eigenes Profil: " : ""}${profile.label}`,
     })),
-    selectedProfile.id
+    selectedProfile.id,
   );
   populateSelect(
     controls.profileTestSelect,
-    allTests().map(test => ({ value: test.id, label: test.name })),
-    selectedTest.id
+    allTests().map((test) => ({ value: test.id, label: test.name })),
+    selectedTest.id,
   );
   populateSelect(
     controls.modifierConditionSelect,
-    allConditions().map(condition => ({ value: condition.id, label: condition.label })),
-    selectedCondition.id
+    allConditions().map((condition) => ({
+      value: condition.id,
+      label: condition.label,
+    })),
+    selectedCondition.id,
   );
   populateSelect(
     controls.diagnosticChainSelect,
-    diagnosticChains.map(chain => ({ value: chain.id, label: chain.label })),
-    state.selectedDiagnosticChainId ?? diagnosticChains[0]?.id ?? ''
+    diagnosticChains.map((chain) => ({ value: chain.id, label: chain.label })),
+    state.selectedDiagnosticChainId ?? diagnosticChains[0]?.id ?? "",
   );
   controls.profileHint.textContent =
     profiles.length > 1
       ? `${profiles.length} Profile verfügbar. Passend zu Population/Cut-off wählen.`
-      : '1 Profil verfügbar.';
+      : "1 Profil verfügbar.";
 }
 
 function populateAdminSelectors(): void {
@@ -1099,48 +1255,70 @@ function populateAdminSelectors(): void {
   const orderedTests = orderedTestsForCondition(selectedCondition.id);
   populateSelect(
     controls.adminSettingSelect,
-    allSettings().map(setting => ({ value: setting.id, label: setting.label })),
-    getSelectedSetting().id
+    allSettings().map((setting) => ({
+      value: setting.id,
+      label: setting.label,
+    })),
+    getSelectedSetting().id,
   );
-  populateConditionSelect(controls.adminConditionSelect, allConditions(), selectedCondition.id);
+  populateConditionSelect(
+    controls.adminConditionSelect,
+    allConditions(),
+    selectedCondition.id,
+  );
   populateSelect(
     controls.adminTestSelect,
-    orderedTests.map(test => ({
+    orderedTests.map((test) => ({
       value: test.id,
-      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? 'Standard: ' : ''}${selectedTestMatchesCondition(test) ? '' : 'Nicht passend: '}${test.name}`
+      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? "Standard: " : ""}${selectedTestMatchesCondition(test) ? "" : "Nicht passend: "}${test.name}`,
     })),
-    selectedTest.id
+    selectedTest.id,
   );
   populateSelect(
     controls.adminProfileSelect,
-    profiles.map(profile => ({
+    profiles.map((profile) => ({
       value: profile.id,
-      label: `${profile.kind === 'scenario' ? 'Szenario: ' : profile.kind === 'custom' ? 'Eigenes Profil: ' : ''}${profile.label}`
+      label: `${profile.kind === "scenario" ? "Szenario: " : profile.kind === "custom" ? "Eigenes Profil: " : ""}${profile.label}`,
     })),
-    selectedProfile.id
+    selectedProfile.id,
   );
   populateSelect(
     controls.catalogConditionFilter,
     [
-      { value: 'all', label: 'Alle Erkrankungen' },
-      ...allConditions().map(condition => ({ value: condition.id, label: condition.label })),
-      ...physicalConditions.map(condition => ({ value: condition.id, label: `Körperlich: ${condition.label}` }))
+      { value: "all", label: "Alle Erkrankungen" },
+      ...allConditions().map((condition) => ({
+        value: condition.id,
+        label: condition.label,
+      })),
+      ...physicalConditions.map((condition) => ({
+        value: condition.id,
+        label: `Körperlich: ${condition.label}`,
+      })),
     ],
-    controls.catalogConditionFilter.value || 'all'
+    controls.catalogConditionFilter.value || "all",
   );
   populateSelect(
     controls.catalogSettingFilter,
-    [{ value: 'all', label: 'Alle Settings' }, ...allSettings().map(setting => ({ value: setting.id, label: setting.label }))],
-    controls.catalogSettingFilter.value || 'all'
+    [
+      { value: "all", label: "Alle Settings" },
+      ...allSettings().map((setting) => ({
+        value: setting.id,
+        label: setting.label,
+      })),
+    ],
+    controls.catalogSettingFilter.value || "all",
   );
   populateSelect(
     controls.catalogTestFilter,
     [
-      { value: 'all', label: 'Alle Tests und Befunde' },
-      ...allTests().map(test => ({ value: test.id, label: test.name })),
-      ...physicalFindings.map(finding => ({ value: finding.id, label: `Befund: ${finding.findingLabel}` }))
+      { value: "all", label: "Alle Tests und Befunde" },
+      ...allTests().map((test) => ({ value: test.id, label: test.name })),
+      ...physicalFindings.map((finding) => ({
+        value: finding.id,
+        label: `Befund: ${finding.findingLabel}`,
+      })),
     ],
-    controls.catalogTestFilter.value || 'all'
+    controls.catalogTestFilter.value || "all",
   );
   if (!catalogFiltersLoaded) {
     loadCatalogFilters();
@@ -1150,35 +1328,50 @@ function populateAdminSelectors(): void {
 
 function loadCatalogFilters(): void {
   try {
-    const parsed = JSON.parse(window.localStorage.getItem(CATALOG_FILTER_KEY) ?? '{}') as Record<string, string>;
-    controls.catalogSearchInput.value = parsed.search ?? controls.catalogSearchInput.value;
-    controls.catalogDomainFilter.value = parsed.domain ?? controls.catalogDomainFilter.value;
-    controls.catalogConditionFilter.value = parsed.conditionId ?? controls.catalogConditionFilter.value;
-    controls.catalogSettingFilter.value = parsed.settingId ?? controls.catalogSettingFilter.value;
-    controls.catalogTestFilter.value = parsed.testId ?? controls.catalogTestFilter.value;
-    controls.catalogStatusFilter.value = parsed.status ?? controls.catalogStatusFilter.value;
-    controls.catalogReviewFilter.value = parsed.reviewStatus ?? controls.catalogReviewFilter.value;
-    controls.catalogQualityFilter.value = parsed.evidenceQuality ?? controls.catalogQualityFilter.value;
-    controls.catalogCompletenessFilter.value = parsed.dataCompleteness ?? controls.catalogCompletenessFilter.value;
-    controls.catalogSortSelect.value = parsed.sortBy ?? controls.catalogSortSelect.value;
+    const parsed = JSON.parse(
+      window.localStorage.getItem(CATALOG_FILTER_KEY) ?? "{}",
+    ) as Record<string, string>;
+    controls.catalogSearchInput.value =
+      parsed.search ?? controls.catalogSearchInput.value;
+    controls.catalogDomainFilter.value =
+      parsed.domain ?? controls.catalogDomainFilter.value;
+    controls.catalogConditionFilter.value =
+      parsed.conditionId ?? controls.catalogConditionFilter.value;
+    controls.catalogSettingFilter.value =
+      parsed.settingId ?? controls.catalogSettingFilter.value;
+    controls.catalogTestFilter.value =
+      parsed.testId ?? controls.catalogTestFilter.value;
+    controls.catalogStatusFilter.value =
+      parsed.status ?? controls.catalogStatusFilter.value;
+    controls.catalogReviewFilter.value =
+      parsed.reviewStatus ?? controls.catalogReviewFilter.value;
+    controls.catalogQualityFilter.value =
+      parsed.evidenceQuality ?? controls.catalogQualityFilter.value;
+    controls.catalogCompletenessFilter.value =
+      parsed.dataCompleteness ?? controls.catalogCompletenessFilter.value;
+    controls.catalogSortSelect.value =
+      parsed.sortBy ?? controls.catalogSortSelect.value;
   } catch {
     window.localStorage.removeItem(CATALOG_FILTER_KEY);
   }
 }
 
 function saveCatalogFilters(): void {
-  window.localStorage.setItem(CATALOG_FILTER_KEY, JSON.stringify({
-    search: controls.catalogSearchInput.value,
-    domain: controls.catalogDomainFilter.value,
-    conditionId: controls.catalogConditionFilter.value,
-    settingId: controls.catalogSettingFilter.value,
-    testId: controls.catalogTestFilter.value,
-    status: controls.catalogStatusFilter.value,
-    reviewStatus: controls.catalogReviewFilter.value,
-    evidenceQuality: controls.catalogQualityFilter.value,
-    dataCompleteness: controls.catalogCompletenessFilter.value,
-    sortBy: controls.catalogSortSelect.value
-  }));
+  window.localStorage.setItem(
+    CATALOG_FILTER_KEY,
+    JSON.stringify({
+      search: controls.catalogSearchInput.value,
+      domain: controls.catalogDomainFilter.value,
+      conditionId: controls.catalogConditionFilter.value,
+      settingId: controls.catalogSettingFilter.value,
+      testId: controls.catalogTestFilter.value,
+      status: controls.catalogStatusFilter.value,
+      reviewStatus: controls.catalogReviewFilter.value,
+      evidenceQuality: controls.catalogQualityFilter.value,
+      dataCompleteness: controls.catalogCompletenessFilter.value,
+      sortBy: controls.catalogSortSelect.value,
+    }),
+  );
 }
 
 function setBar(element: HTMLElement, probability: number): void {
@@ -1186,27 +1379,29 @@ function setBar(element: HTMLElement, probability: number): void {
 }
 
 function renderScenarioBanner(profile: EvidenceProfile): void {
-  if (profile.kind !== 'scenario') {
-    controls.scenarioBanner.classList.add('hidden');
-    controls.scenarioBanner.textContent = '';
+  if (profile.kind !== "scenario") {
+    controls.scenarioBanner.classList.add("hidden");
+    controls.scenarioBanner.textContent = "";
     return;
   }
   const sourceProfile = profile.deviationFromProfileId
-    ? allProfiles().find(candidate => candidate.id === profile.deviationFromProfileId)
+    ? allProfiles().find(
+        (candidate) => candidate.id === profile.deviationFromProfileId,
+      )
     : null;
-  controls.scenarioBanner.textContent = `Eigene Abweichung${sourceProfile ? ` von „${sourceProfile.label}“` : ''}. Grund: ${profile.deviationReason ?? 'nicht angegeben'}`;
-  controls.scenarioBanner.classList.remove('hidden');
+  controls.scenarioBanner.textContent = `Eigene Abweichung${sourceProfile ? ` von „${sourceProfile.label}“` : ""}. Grund: ${profile.deviationReason ?? "nicht angegeben"}`;
+  controls.scenarioBanner.classList.remove("hidden");
 }
 
 function renderMismatchWarning(test: DiagnosticTest): void {
   if (selectedTestMatchesCondition(test)) {
-    controls.mismatchWarning.classList.add('hidden');
-    controls.mismatchWarning.textContent = '';
+    controls.mismatchWarning.classList.add("hidden");
+    controls.mismatchWarning.textContent = "";
     return;
   }
   const selectedCondition = getSelectedCondition();
   controls.mismatchWarning.textContent = `⚠ Test passt nicht zur gewählten Erkrankung: hinterlegt für „${test.condition}“, berechnet für „${selectedCondition.label}“.`;
-  controls.mismatchWarning.classList.remove('hidden');
+  controls.mismatchWarning.classList.remove("hidden");
 }
 
 function renderPretestStatus(resolution: PretestResolution): void {
@@ -1215,117 +1410,172 @@ function renderPretestStatus(resolution: PretestResolution): void {
   const selectedCondition = getSelectedCondition().label;
   const selectedSetting = getSelectedSetting().label;
   const statusLabel =
-    resolution.status === 'direct'
-      ? 'Setting-Daten'
-      : resolution.status === 'fallback'
-        ? 'Allgemeine Annahme'
-        : 'Manuell';
-  const statusIcon = resolution.status === 'direct' ? '✓' : resolution.status === 'fallback' ? '!' : '';
+    resolution.status === "direct"
+      ? "Setting-Daten"
+      : resolution.status === "fallback"
+        ? "Allgemeine Annahme"
+        : "Manuell";
+  const statusIcon =
+    resolution.status === "direct"
+      ? "✓"
+      : resolution.status === "fallback"
+        ? "!"
+        : "";
   const statusMessage =
-    resolution.status === 'direct'
+    resolution.status === "direct"
       ? `Für ${selectedCondition} im Setting ${selectedSetting} ist eine kuratierte Annahme hinterlegt.`
-      : resolution.status === 'fallback'
+      : resolution.status === "fallback"
         ? `Keine spezifischen Setting-Daten für ${selectedCondition} im Setting ${selectedSetting}; allgemeine Annahme genutzt.`
         : resolution.message;
-  controls.pretestStatus.textContent = `${statusIcon ? `${statusIcon} ` : ''}${statusLabel}: ${formatPercent(resolution.probability)}. ${statusMessage}${source ? ` Quelle: ${source.title} (${source.year}).` : ''}`;
-  const suggestedPercent = clampProbabilityPercent(resolution.probability * 100);
+  controls.pretestStatus.textContent = `${statusIcon ? `${statusIcon} ` : ""}${statusLabel}: ${formatPercent(resolution.probability)}. ${statusMessage}${source ? ` Quelle: ${source.title} (${source.year}).` : ""}`;
+  const suggestedPercent = clampProbabilityPercent(
+    resolution.probability * 100,
+  );
   const markerLeft = ((suggestedPercent - 0.1) / (99.9 - 0.1)) * 100;
-  const suggestionContext = resolution.status === 'direct' ? 'Setting' : resolution.status === 'fallback' ? 'allgemein' : 'manuell';
-  controls.pretestRangeWrap.style.setProperty('--pretest-suggestion-left', `${markerLeft}%`);
-  controls.pretestSuggestionMarker.title = `Vorschlag übernehmen: ${suggestedPercent.toFixed(1).replace('.', ',')} %`;
-  controls.pretestSuggestionMarker.setAttribute('aria-label', `Vorgeschlagene Prätestwahrscheinlichkeit ${suggestedPercent.toFixed(1).replace('.', ',')} Prozent übernehmen`);
+  const suggestionContext =
+    resolution.status === "direct"
+      ? "Setting"
+      : resolution.status === "fallback"
+        ? "allgemein"
+        : "manuell";
+  controls.pretestRangeWrap.style.setProperty(
+    "--pretest-suggestion-left",
+    `${markerLeft}%`,
+  );
+  controls.pretestSuggestionMarker.title = `Vorschlag übernehmen: ${suggestedPercent.toFixed(1).replace(".", ",")} %`;
+  controls.pretestSuggestionMarker.setAttribute(
+    "aria-label",
+    `Vorgeschlagene Prätestwahrscheinlichkeit ${suggestedPercent.toFixed(1).replace(".", ",")} Prozent übernehmen`,
+  );
   controls.pretestSuggestionMarker.textContent = `Vorschlag ${formatPercent(resolution.probability)} (${suggestionContext})`;
-  controls.pretestSuggestionHint.textContent = '';
+  controls.pretestSuggestionHint.textContent = "";
 }
 
 function formatPercentRange(range: [number, number] | null): string {
-  if (!range) return 'nicht hinterlegt';
+  if (!range) return "nicht hinterlegt";
   const [low, high] = range;
   return low === high
-    ? `${low.toLocaleString('de-DE', { maximumFractionDigits: 1 })} %`
-    : `${low.toLocaleString('de-DE', { maximumFractionDigits: 1 })}–${high.toLocaleString('de-DE', { maximumFractionDigits: 1 })} %`;
+    ? `${low.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`
+    : `${low.toLocaleString("de-DE", { maximumFractionDigits: 1 })}–${high.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`;
 }
 
-function createEstimateAlert(text: string, severity: 'moderate' | 'high' = 'moderate'): HTMLDivElement {
-  const alert = document.createElement('div');
+function createEstimateAlert(
+  text: string,
+  severity: "moderate" | "high" = "moderate",
+): HTMLDivElement {
+  const alert = document.createElement("div");
   alert.className = `estimate-alert ${severity}`;
-  alert.textContent = `${severity === 'high' ? '⚠' : '!'} ${text}`;
+  alert.textContent = `${severity === "high" ? "⚠" : "!"} ${text}`;
   return alert;
 }
 
-function renderPretestEstimatePanel(resolution: PretestEstimateResolution): void {
-  controls.pretestEstimatePanel.textContent = '';
+function renderPretestEstimatePanel(
+  resolution: PretestEstimateResolution,
+): void {
+  controls.pretestEstimatePanel.textContent = "";
   const estimate = resolution.estimate;
   if (!estimate) {
-    controls.pretestEstimatePanel.classList.add('is-empty');
-    controls.pretestEstimatePanel.textContent = 'Erweiterte Prätest-Datenbasis: noch nicht hinterlegt.';
+    controls.pretestEstimatePanel.classList.add("is-empty");
+    controls.pretestEstimatePanel.textContent =
+      "Erweiterte Prätest-Datenbasis: noch nicht hinterlegt.";
     return;
   }
-  controls.pretestEstimatePanel.classList.remove('is-empty');
+  controls.pretestEstimatePanel.classList.remove("is-empty");
 
-  const heading = document.createElement('div');
-  heading.className = 'estimate-panel-heading';
-  const title = document.createElement('strong');
-  title.textContent = 'Prätest-Datenbasis';
-  const confidence = document.createElement('span');
+  const heading = document.createElement("div");
+  heading.className = "estimate-panel-heading";
+  const title = document.createElement("strong");
+  title.textContent = "Prätest-Datenbasis";
+  const confidence = document.createElement("span");
   confidence.className = `quality-pill quality-${estimate.evidenceQuality.charAt(0).toLowerCase()}`;
   confidence.textContent = resolution.confidenceLabel;
   heading.append(title, confidence);
 
-  const grid = document.createElement('div');
-  grid.className = 'estimate-meta-grid';
+  const grid = document.createElement("div");
+  grid.className = "estimate-meta-grid";
   const rows: Array<[string, string]> = [
-    ['Setting', estimate.setting],
-    ['Basis', resolution.baseProbability != null ? `${resolution.baseProbability.toLocaleString('de-DE', { maximumFractionDigits: 1 })} %` : 'nicht als Einzelwert hinterlegt'],
-    ['Spanne', formatPercentRange(resolution.probabilityRange)],
-    ['Anpassung', resolution.qualitativeAdjustedRisk]
+    ["Setting", estimate.setting],
+    [
+      "Basis",
+      resolution.baseProbability != null
+        ? `${resolution.baseProbability.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`
+        : "nicht als Einzelwert hinterlegt",
+    ],
+    ["Spanne", formatPercentRange(resolution.probabilityRange)],
+    ["Anpassung", resolution.qualitativeAdjustedRisk],
   ];
   rows.forEach(([label, value]) => {
-    const labelElement = document.createElement('span');
+    const labelElement = document.createElement("span");
     labelElement.textContent = label;
-    const valueElement = document.createElement('strong');
+    const valueElement = document.createElement("strong");
     valueElement.textContent = value;
     grid.append(labelElement, valueElement);
   });
 
-  const note = document.createElement('p');
-  note.className = 'muted compact-note';
+  const note = document.createElement("p");
+  note.className = "muted compact-note";
   note.textContent = estimate.qualityNote;
 
-  const modifierWrap = document.createElement('div');
-  modifierWrap.className = 'estimate-chip-row';
+  const modifierWrap = document.createElement("div");
+  modifierWrap.className = "estimate-chip-row";
   const modifiersToShow = estimate.modifiers.slice(0, 6);
-  modifiersToShow.forEach(modifier => {
-    const chip = document.createElement('span');
+  modifiersToShow.forEach((modifier) => {
+    const chip = document.createElement("span");
     chip.className = `estimate-chip ${modifier.direction}`;
-    const effect = modifier.approximateEffect ? ` · ${modifier.approximateEffect}` : '';
+    const effect = modifier.approximateEffect
+      ? ` · ${modifier.approximateEffect}`
+      : "";
     chip.textContent = `${modifier.factor}${effect}`;
     modifierWrap.append(chip);
   });
 
-  const issues = estimate.preanalyticalIssues.filter(issue => issue.severity === 'high').slice(0, 3);
-  const medications = estimate.medicationInterferences.filter(medication => medication.severity === 'high').slice(0, 3);
-  const warningWrap = document.createElement('div');
-  warningWrap.className = 'estimate-warning-list';
-  issues.forEach(issue => warningWrap.append(createEstimateAlert(`${issue.issue}: ${issue.effect}${issue.mitigation ? ` ${issue.mitigation}` : ''}`, 'high')));
-  medications.forEach(medication => warningWrap.append(createEstimateAlert(`${medication.medicationOrClass}: ${medication.effect}${medication.mitigation ? ` ${medication.mitigation}` : ''}`, 'high')));
+  const issues = estimate.preanalyticalIssues
+    .filter((issue) => issue.severity === "high")
+    .slice(0, 3);
+  const medications = estimate.medicationInterferences
+    .filter((medication) => medication.severity === "high")
+    .slice(0, 3);
+  const warningWrap = document.createElement("div");
+  warningWrap.className = "estimate-warning-list";
+  issues.forEach((issue) =>
+    warningWrap.append(
+      createEstimateAlert(
+        `${issue.issue}: ${issue.effect}${issue.mitigation ? ` ${issue.mitigation}` : ""}`,
+        "high",
+      ),
+    ),
+  );
+  medications.forEach((medication) =>
+    warningWrap.append(
+      createEstimateAlert(
+        `${medication.medicationOrClass}: ${medication.effect}${medication.mitigation ? ` ${medication.mitigation}` : ""}`,
+        "high",
+      ),
+    ),
+  );
   resolution.activeWarnings
-    .filter(warning => warning !== 'Diese Angaben sind didaktische Entscheidungsunterstützung, keine Diagnose.')
+    .filter(
+      (warning) =>
+        warning !==
+        "Diese Angaben sind didaktische Entscheidungsunterstützung, keine Diagnose.",
+    )
     .slice(0, 2)
-    .forEach(warning => warningWrap.append(createEstimateAlert(warning, 'moderate')));
+    .forEach((warning) =>
+      warningWrap.append(createEstimateAlert(warning, "moderate")),
+    );
 
-  const sourcesDetails = document.createElement('details');
-  sourcesDetails.className = 'estimate-sources';
-  const summary = document.createElement('summary');
+  const sourcesDetails = document.createElement("details");
+  sourcesDetails.className = "estimate-sources";
+  const summary = document.createElement("summary");
   summary.textContent = `Quellen (${resolution.sources.length})`;
-  const sourceList = document.createElement('ul');
-  resolution.sources.forEach(source => {
-    const item = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = source.url ?? '#';
-    link.target = '_blank';
-    link.rel = 'noreferrer';
-    link.textContent = `${source.title}${source.year ? ` (${source.year})` : ''}`;
+  const sourceList = document.createElement("ul");
+  resolution.sources.forEach((source) => {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = source.url ?? "#";
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = `${source.title}${source.year ? ` (${source.year})` : ""}`;
     item.append(link);
     if (source.note) {
       item.append(` – ${source.note}`);
@@ -1335,96 +1585,161 @@ function renderPretestEstimatePanel(resolution: PretestEstimateResolution): void
   sourcesDetails.append(summary, sourceList);
 
   controls.pretestEstimatePanel.append(heading, grid, note);
-  if (modifierWrap.childElementCount > 0) controls.pretestEstimatePanel.append(modifierWrap);
-  if (warningWrap.childElementCount > 0) controls.pretestEstimatePanel.append(warningWrap);
+  if (modifierWrap.childElementCount > 0)
+    controls.pretestEstimatePanel.append(modifierWrap);
+  if (warningWrap.childElementCount > 0)
+    controls.pretestEstimatePanel.append(warningWrap);
   controls.pretestEstimatePanel.append(sourcesDetails);
 }
 
 function renderModifierSelector(result: CalculationResult): void {
   const modifiers = modifiersForCondition(state.selectedConditionId);
-  const visibleModifiers = state.modifierListExpanded ? modifiers : modifiers.slice(0, 6);
+  const visibleModifiers = state.modifierListExpanded
+    ? modifiers
+    : modifiers.slice(0, 6);
   const selected = selectedModifiers();
-  controls.modifierOptions.textContent = '';
+  controls.modifierOptions.textContent = "";
   if (modifiers.length === 0) {
-    controls.modifierOptions.textContent = 'Für diese Erkrankung sind noch keine klinischen Modifikatoren hinterlegt.';
-    controls.modifierSummary.textContent = '';
-    controls.toggleModifierListButton.classList.add('hidden');
-    controls.applyModifiedPretestButton.classList.add('hidden');
+    controls.modifierOptions.textContent =
+      "Für diese Erkrankung sind noch keine klinischen Modifikatoren hinterlegt.";
+    controls.modifierSummary.textContent = "";
+    controls.toggleModifierListButton.classList.add("hidden");
+    controls.applyModifiedPretestButton.classList.add("hidden");
     return;
   }
 
-  visibleModifiers.forEach(modifier => {
-    const label = document.createElement('label');
+  visibleModifiers.forEach((modifier) => {
+    const label = document.createElement("label");
     label.className = `modifier-option ${modifier.direction}`;
-    const input = document.createElement('input');
-    input.type = 'checkbox';
+    const input = document.createElement("input");
+    input.type = "checkbox";
     input.value = modifier.id;
     input.checked = state.selectedModifierIds.includes(modifier.id);
-    const text = document.createElement('span');
+    const text = document.createElement("span");
     text.textContent = `${modifier.label} (${directionLabel(modifier.direction)})`;
     label.append(input, text);
     controls.modifierOptions.append(label);
   });
 
-  controls.toggleModifierListButton.classList.toggle('hidden', modifiers.length <= 6);
-  controls.toggleModifierListButton.textContent = state.modifierListExpanded ? 'Weniger anzeigen' : 'Mehr anzeigen';
+  controls.toggleModifierListButton.classList.toggle(
+    "hidden",
+    modifiers.length <= 6,
+  );
+  controls.toggleModifierListButton.textContent = state.modifierListExpanded
+    ? "Weniger anzeigen"
+    : "Mehr anzeigen";
 
-  const preview = modifierPreviewProbability(result.pretestProbability, selected);
-  const qualitative = selected.filter(modifier => modifier.likelihoodRatio == null && modifier.probabilityFactor == null);
-  const directions = selected.map(modifier => `${modifier.label}: ${directionLabel(modifier.direction)}`).join('; ');
+  const preview = modifierPreviewProbability(
+    result.pretestProbability,
+    selected,
+  );
+  const qualitative = selected.filter(
+    (modifier) =>
+      modifier.likelihoodRatio == null && modifier.probabilityFactor == null,
+  );
+  const directions = selected
+    .map(
+      (modifier) => `${modifier.label}: ${directionLabel(modifier.direction)}`,
+    )
+    .join("; ");
   if (selected.length === 0) {
-    controls.modifierSummary.textContent = 'Keine Modifikatoren ausgewählt. Die Prätestwahrscheinlichkeit bleibt eine klinische Einschätzung.';
+    controls.modifierSummary.textContent =
+      "Keine Modifikatoren ausgewählt. Die Prätestwahrscheinlichkeit bleibt eine klinische Einschätzung.";
   } else if (preview != null) {
     controls.modifierSummary.textContent = `Ausgewählt: ${directions}. Quantifizierte Vorschau: ${formatPercent(preview)}. Qualitative Modifikatoren werden zusätzlich nur als Hinweis gewertet.`;
   } else {
-    const higher = selected.some(modifier => modifier.direction === 'increases');
-    const lower = selected.some(modifier => modifier.direction === 'decreases');
-    const directionText = higher && lower ? 'höher oder niedriger' : higher ? 'höher' : lower ? 'niedriger' : 'anders';
+    const higher = selected.some(
+      (modifier) => modifier.direction === "increases",
+    );
+    const lower = selected.some(
+      (modifier) => modifier.direction === "decreases",
+    );
+    const directionText =
+      higher && lower
+        ? "höher oder niedriger"
+        : higher
+          ? "höher"
+          : lower
+            ? "niedriger"
+            : "anders";
     controls.modifierSummary.textContent = `Ausgewählt: ${directions}. Die Rechnung bleibt unverändert; klinisch kann die wahre Posttestwahrscheinlichkeit ${directionText} liegen.`;
   }
-  controls.applyModifiedPretestButton.classList.toggle('hidden', preview == null);
+  controls.applyModifiedPretestButton.classList.toggle(
+    "hidden",
+    preview == null,
+  );
   if (preview != null) {
     controls.applyModifiedPretestButton.textContent = `Modifizierte Prätestwahrscheinlichkeit ${formatPercent(preview)} übernehmen`;
   }
   if (qualitative.length > 0 && preview != null) {
-    controls.modifierSummary.textContent += ` Nicht quantifiziert: ${qualitative.map(modifier => modifier.label).join(', ')}.`;
+    controls.modifierSummary.textContent += ` Nicht quantifiziert: ${qualitative.map((modifier) => modifier.label).join(", ")}.`;
   }
 }
 
-function renderModifierImpact(profile: EvidenceProfile, result: CalculationResult): ModifierImpact {
+function renderModifierImpact(
+  profile: EvidenceProfile,
+  result: CalculationResult,
+): ModifierImpact {
   const impact = modifierImpact(profile, result);
-  [controls.resultModifierImpact, controls.nomogramModifierImpact].forEach(element => {
-    element.className = `modifier-impact ${impact.direction}`;
-    element.textContent = '';
-    if (impact.direction === 'none') {
-      element.classList.add('hidden');
-      return;
-    }
-    const arrow = document.createElement('span');
-    arrow.className = 'modifier-impact-arrow';
-    arrow.setAttribute('aria-hidden', 'true');
-    arrow.textContent = impact.direction === 'higher' ? '↑' : impact.direction === 'lower' ? '↓' : '↕';
-    const text = document.createElement('span');
-    text.textContent = impact.text;
-    element.append(arrow, text);
-  });
+  [controls.resultModifierImpact, controls.nomogramModifierImpact].forEach(
+    (element) => {
+      element.className = `modifier-impact ${impact.direction}`;
+      element.textContent = "";
+      if (impact.direction === "none") {
+        element.classList.add("hidden");
+        return;
+      }
+      const arrow = document.createElement("span");
+      arrow.className = "modifier-impact-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent =
+        impact.direction === "higher"
+          ? "↑"
+          : impact.direction === "lower"
+            ? "↓"
+            : "↕";
+      const text = document.createElement("span");
+      text.textContent = impact.text;
+      element.append(arrow, text);
+    },
+  );
   return impact;
 }
 
-function reconstructedSensitivitySpecificity(lrPositive: number, lrNegative: number): { sensitivity: number; specificity: number } | null {
+function reconstructedSensitivitySpecificity(
+  lrPositive: number,
+  lrNegative: number,
+): { sensitivity: number; specificity: number } | null {
   if (!Number.isFinite(lrPositive) || !Number.isFinite(lrNegative)) return null;
-  if (lrPositive <= 1 || lrNegative >= 1 || lrPositive <= lrNegative) return null;
+  if (lrPositive <= 1 || lrNegative >= 1 || lrPositive <= lrNegative)
+    return null;
   const specificity = (lrPositive - 1) / (lrPositive - lrNegative);
   const sensitivity = lrPositive * (1 - specificity);
-  if (sensitivity <= 0 || sensitivity >= 1 || specificity <= 0 || specificity >= 1) return null;
+  if (
+    sensitivity <= 0 ||
+    sensitivity >= 1 ||
+    specificity <= 0 ||
+    specificity >= 1
+  )
+    return null;
   return { sensitivity, specificity };
 }
 
-function testPerformanceForCohort(profile: EvidenceProfile, result: CalculationResult): { sensitivity: number; specificity: number; estimated: boolean } | null {
+function testPerformanceForCohort(
+  profile: EvidenceProfile,
+  result: CalculationResult,
+): { sensitivity: number; specificity: number; estimated: boolean } | null {
   if (profile.sensitivity != null && profile.specificity != null) {
-    return { sensitivity: profile.sensitivity, specificity: profile.specificity, estimated: false };
+    return {
+      sensitivity: profile.sensitivity,
+      specificity: profile.specificity,
+      estimated: false,
+    };
   }
-  const reconstructed = reconstructedSensitivitySpecificity(result.lrPositive, result.lrNegative);
+  const reconstructed = reconstructedSensitivitySpecificity(
+    result.lrPositive,
+    result.lrNegative,
+  );
   if (!reconstructed) return null;
   return { ...reconstructed, estimated: true };
 }
@@ -1434,30 +1749,39 @@ function roundedCount(value: number): number {
 }
 
 function formatCount(value: number): string {
-  return value.toLocaleString('de-DE', { maximumFractionDigits: 0 });
+  return value.toLocaleString("de-DE", { maximumFractionDigits: 0 });
 }
 
 function cohortExplanationParts(
   profile: EvidenceProfile,
   result: CalculationResult,
   positiveLabel: string,
-  negativeLabel: string
-): { estimated: boolean; title: string; positive: string; negative: string } | null {
+  negativeLabel: string,
+): {
+  estimated: boolean;
+  title: string;
+  positive: string;
+  negative: string;
+} | null {
   const performance = testPerformanceForCohort(profile, result);
   if (!performance) return null;
 
   const diseased = roundedCount(result.pretestProbability * 1000);
   const notDiseased = 1000 - diseased;
   const truePositive = roundedCount(diseased * performance.sensitivity);
-  const falsePositive = roundedCount(notDiseased * (1 - performance.specificity));
+  const falsePositive = roundedCount(
+    notDiseased * (1 - performance.specificity),
+  );
   const falseNegative = Math.max(0, diseased - truePositive);
   const trueNegative = Math.max(0, notDiseased - falsePositive);
-  const note = performance.estimated ? ' Geschätzt aus LR+/LR−, weil Sensitivität/Spezifität nicht separat hinterlegt sind.' : '';
+  const note = performance.estimated
+    ? " Geschätzt aus LR+/LR−, weil Sensitivität/Spezifität nicht separat hinterlegt sind."
+    : "";
   return {
     estimated: performance.estimated,
-    title: 'Anschaulich bei 1000 ähnlichen Patienten',
+    title: "Anschaulich bei 1000 ähnlichen Patienten",
     positive: `Etwa ${formatCount(diseased)} hätten die Erkrankung. Bei ${positiveLabel} wären etwa ${formatCount(truePositive)} richtig positiv und ${formatCount(falsePositive)} falsch positiv.`,
-    negative: `Bei ${negativeLabel} wären etwa ${formatCount(trueNegative)} richtig negativ und ${formatCount(falseNegative)} falsch negativ.${note}`
+    negative: `Bei ${negativeLabel} wären etwa ${formatCount(trueNegative)} richtig negativ und ${formatCount(falseNegative)} falsch negativ.${note}`,
   };
 }
 
@@ -1466,73 +1790,100 @@ function renderCohortExplanation(
   profile: EvidenceProfile,
   result: CalculationResult,
   positiveLabel: string,
-  negativeLabel: string
+  negativeLabel: string,
 ): void {
-  element.textContent = '';
-  const explanation = cohortExplanationParts(profile, result, positiveLabel, negativeLabel);
+  element.textContent = "";
+  const explanation = cohortExplanationParts(
+    profile,
+    result,
+    positiveLabel,
+    negativeLabel,
+  );
   if (!explanation) {
-    element.className = 'cohort-explanation warning';
-    element.textContent = 'Für eine 1000er-Erklärung fehlen Sensitivität/Spezifität; aus den vorhandenen LR-Werten lässt sich keine plausible Näherung ableiten.';
+    element.className = "cohort-explanation warning";
+    element.textContent =
+      "Für eine 1000er-Erklärung fehlen Sensitivität/Spezifität; aus den vorhandenen LR-Werten lässt sich keine plausible Näherung ableiten.";
     return;
   }
 
-  element.className = `cohort-explanation${explanation.estimated ? ' estimated' : ''}`;
-  const title = document.createElement('strong');
+  element.className = `cohort-explanation${explanation.estimated ? " estimated" : ""}`;
+  const title = document.createElement("strong");
   title.textContent = explanation.title;
-  const positive = document.createElement('p');
+  const positive = document.createElement("p");
   positive.textContent = explanation.positive;
-  const negative = document.createElement('p');
+  const negative = document.createElement("p");
   negative.textContent = explanation.negative;
   element.append(title, positive, negative);
 }
 
 function modifierPillText(modifier: ClinicalModifier): string {
-  if (modifier.likelihoodRatio != null) return `${modifier.label} · LR ${formatRatio(modifier.likelihoodRatio)}`;
-  if (modifier.probabilityFactor != null) return `${modifier.label} · Faktor ${formatRatio(modifier.probabilityFactor)}`;
+  if (modifier.likelihoodRatio != null)
+    return `${modifier.label} · LR ${formatRatio(modifier.likelihoodRatio)}`;
+  if (modifier.probabilityFactor != null)
+    return `${modifier.label} · Faktor ${formatRatio(modifier.probabilityFactor)}`;
   return modifier.label;
 }
 
 function renderDecisionModifiers(): void {
   const modifiers = modifiersForCondition(state.selectedConditionId);
-  controls.decisionModifierContent.textContent = '';
-  const intro = document.createElement('p');
-  intro.className = 'muted decision-intro';
-  intro.textContent = 'Diese Faktoren verändern vor allem die Prätestwahrscheinlichkeit. Sie erklären, wann ein Test mehr oder weniger entscheidungsrelevant wird.';
+  controls.decisionModifierContent.textContent = "";
+  const intro = document.createElement("p");
+  intro.className = "muted decision-intro";
+  intro.textContent =
+    "Diese Faktoren verändern vor allem die Prätestwahrscheinlichkeit. Sie erklären, wann ein Test mehr oder weniger entscheidungsrelevant wird.";
   controls.decisionModifierContent.append(intro);
 
   if (modifiers.length === 0) {
-    const empty = document.createElement('p');
-    empty.className = 'muted';
-    empty.textContent = 'Für diese Erkrankung sind noch keine kuratierten Entscheidungsfaktoren hinterlegt.';
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent =
+      "Für diese Erkrankung sind noch keine kuratierten Entscheidungsfaktoren hinterlegt.";
     controls.decisionModifierContent.append(empty);
     return;
   }
 
-  const groups: Array<{ title: string; className: string; items: ClinicalModifier[] }> = [
-    { title: 'Prätest ↑', className: 'increases', items: modifiers.filter(modifier => modifier.direction === 'increases') },
-    { title: 'Prätest ↓ / niedrig', className: 'decreases', items: modifiers.filter(modifier => modifier.direction === 'decreases') },
-    { title: 'Kontextabhängig', className: 'uncertain', items: modifiers.filter(modifier => modifier.direction === 'uncertain') }
+  const groups: Array<{
+    title: string;
+    className: string;
+    items: ClinicalModifier[];
+  }> = [
+    {
+      title: "Prätest ↑",
+      className: "increases",
+      items: modifiers.filter((modifier) => modifier.direction === "increases"),
+    },
+    {
+      title: "Prätest ↓ / niedrig",
+      className: "decreases",
+      items: modifiers.filter((modifier) => modifier.direction === "decreases"),
+    },
+    {
+      title: "Kontextabhängig",
+      className: "uncertain",
+      items: modifiers.filter((modifier) => modifier.direction === "uncertain"),
+    },
   ];
 
-  const grid = document.createElement('div');
-  grid.className = 'decision-grid';
-  groups.forEach(group => {
-    const section = document.createElement('section');
+  const grid = document.createElement("div");
+  grid.className = "decision-grid";
+  groups.forEach((group) => {
+    const section = document.createElement("section");
     section.className = `decision-group ${group.className}`;
-    const heading = document.createElement('h3');
+    const heading = document.createElement("h3");
     heading.textContent = group.title;
     section.append(heading);
     if (group.items.length === 0) {
-      const empty = document.createElement('p');
-      empty.className = 'muted';
-      empty.textContent = 'Keine hinterlegt.';
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "Keine hinterlegt.";
       section.append(empty);
     } else {
-      const list = document.createElement('ul');
-      group.items.forEach(modifier => {
-        const item = document.createElement('li');
+      const list = document.createElement("ul");
+      group.items.forEach((modifier) => {
+        const item = document.createElement("li");
         item.textContent = modifierPillText(modifier);
-        if (modifier.quantificationStatus !== 'qualitative') item.className = 'quantified';
+        if (modifier.quantificationStatus !== "qualitative")
+          item.className = "quantified";
         list.append(item);
       });
       section.append(list);
@@ -1543,97 +1894,138 @@ function renderDecisionModifiers(): void {
 }
 
 function detailRow(label: string, value: string): HTMLElement {
-  const row = document.createElement('div');
-  row.className = 'detail-row';
-  const labelElement = document.createElement('strong');
-  labelElement.className = 'detail-label';
-  const valueElement = document.createElement('span');
-  valueElement.className = 'detail-value';
+  const row = document.createElement("div");
+  row.className = "detail-row";
+  const labelElement = document.createElement("strong");
+  labelElement.className = "detail-label";
+  const valueElement = document.createElement("span");
+  valueElement.className = "detail-value";
   labelElement.textContent = label;
   valueElement.textContent = value;
   row.append(labelElement, valueElement);
   return row;
 }
 
-function renderDetails(test: DiagnosticTest, profile: EvidenceProfile, assumption: PretestAssumption, result: CalculationResult, pretestResolution: PretestResolution): void {
+function renderDetails(
+  test: DiagnosticTest,
+  profile: EvidenceProfile,
+  assumption: PretestAssumption,
+  result: CalculationResult,
+  pretestResolution: PretestResolution,
+): void {
   const selectedCondition = getSelectedCondition();
   const selectedSetting = getSelectedSetting();
   const modifiers = selectedModifiers();
   const rows = [
-    ['Setting', selectedSetting.label],
-    ['Geprüfte Erkrankung', selectedCondition.label],
-    ['Prätest-Status', pretestResolution.title],
-    ['Prätest-Begründung', assumption.rationale],
-    ['Test', test.name],
-    ['Evidenzprofil', profile.label],
-    ['Typ', profile.kind === 'scenario' ? 'Szenario' : profile.kind === 'custom' ? 'Eigenes Profil' : 'Kuratierte Quelle'],
-    ['Test-Erkrankung', test.condition],
-    ['Krankheitsbild-Match', selectedTestMatchesCondition(test) ? 'Ja' : 'Nein, Kontext-Mismatch'],
-    ['Methode', profile.method],
-    ['Zweck', profile.purpose ?? 'Nicht separat hinterlegt'],
-    ['Material', profile.specimen ?? 'Nicht separat hinterlegt'],
-    ['Kurz-Durchführung', profile.procedure ?? 'Nach lokalem Laborprotokoll durchführen.'],
-    ['Cut-off', profile.cutoff],
-    ['Präanalytik', joinedList(profile.preanalytics)],
-    ['Interferenzen', joinedList(profile.medicationInterferences)],
-    ['Falsch positiv', joinedList(profile.falsePositiveReasons)],
-    ['Falsch negativ', joinedList(profile.falseNegativeReasons)],
-    ['Interpretation', joinedList(profile.interpretationCautions)],
-    ['Sensitivität', formatPercent(profile.sensitivity)],
-    ['Spezifität', formatPercent(profile.specificity)],
-    ['PPV', formatPercent(result.ppv)],
-    ['NPV', formatPercent(result.npv)],
-    ['Prätest-Setting', assumption.setting],
-    ['Aktuell verwendete Prätestwahrscheinlichkeit', formatPercent(result.pretestProbability)],
-    ['Vorgeschlagene Prätestwahrscheinlichkeit', formatPercent(pretestResolution.probability)],
-    ['Klinische Modifikatoren', modifiers.length > 0 ? modifiers.map(modifier => `${modifier.label} (${directionLabel(modifier.direction)})`).join('; ') : 'Keine ausgewählt'],
-    ['Letzte Prüfung', profile.lastReviewed]
+    ["Setting", selectedSetting.label],
+    ["Geprüfte Erkrankung", selectedCondition.label],
+    ["Prätest-Status", pretestResolution.title],
+    ["Prätest-Begründung", assumption.rationale],
+    ["Test", test.name],
+    ["Evidenzprofil", profile.label],
+    [
+      "Typ",
+      profile.kind === "scenario"
+        ? "Szenario"
+        : profile.kind === "custom"
+          ? "Eigenes Profil"
+          : "Kuratierte Quelle",
+    ],
+    ["Test-Erkrankung", test.condition],
+    [
+      "Krankheitsbild-Match",
+      selectedTestMatchesCondition(test) ? "Ja" : "Nein, Kontext-Mismatch",
+    ],
+    ["Methode", profile.method],
+    ["Zweck", profile.purpose ?? "Nicht separat hinterlegt"],
+    ["Material", profile.specimen ?? "Nicht separat hinterlegt"],
+    [
+      "Kurz-Durchführung",
+      profile.procedure ?? "Nach lokalem Laborprotokoll durchführen.",
+    ],
+    ["Cut-off", profile.cutoff],
+    ["Präanalytik", joinedList(profile.preanalytics)],
+    ["Interferenzen", joinedList(profile.medicationInterferences)],
+    ["Falsch positiv", joinedList(profile.falsePositiveReasons)],
+    ["Falsch negativ", joinedList(profile.falseNegativeReasons)],
+    ["Interpretation", joinedList(profile.interpretationCautions)],
+    ["Sensitivität", formatPercent(profile.sensitivity)],
+    ["Spezifität", formatPercent(profile.specificity)],
+    ["PPV", formatPercent(result.ppv)],
+    ["NPV", formatPercent(result.npv)],
+    ["Prätest-Setting", assumption.setting],
+    [
+      "Aktuell verwendete Prätestwahrscheinlichkeit",
+      formatPercent(result.pretestProbability),
+    ],
+    [
+      "Vorgeschlagene Prätestwahrscheinlichkeit",
+      formatPercent(pretestResolution.probability),
+    ],
+    [
+      "Klinische Modifikatoren",
+      modifiers.length > 0
+        ? modifiers
+            .map(
+              (modifier) =>
+                `${modifier.label} (${directionLabel(modifier.direction)})`,
+            )
+            .join("; ")
+        : "Keine ausgewählt",
+    ],
+    ["Letzte Prüfung", profile.lastReviewed],
   ];
-  controls.details.textContent = '';
+  controls.details.textContent = "";
   rows.forEach(([label, value]) => {
-    const row = document.createElement('div');
-    row.className = 'detail-row';
-    const labelEl = document.createElement('span');
-    labelEl.className = 'detail-label';
+    const row = document.createElement("div");
+    row.className = "detail-row";
+    const labelEl = document.createElement("span");
+    labelEl.className = "detail-label";
     labelEl.textContent = label;
-    const valueEl = document.createElement('span');
-    valueEl.className = 'detail-value';
+    const valueEl = document.createElement("span");
+    valueEl.className = "detail-value";
     valueEl.textContent = value;
     row.append(labelEl, valueEl);
     controls.details.append(row);
   });
 }
 
-function renderSources(title: string, item: EvidenceProfile | PretestAssumption): HTMLElement {
-  const section = document.createElement('section');
-  const heading = document.createElement('h3');
+function renderSources(
+  title: string,
+  item: EvidenceProfile | PretestAssumption,
+): HTMLElement {
+  const section = document.createElement("section");
+  const heading = document.createElement("h3");
   heading.textContent = title;
-  const meta = document.createElement('p');
-  meta.className = 'muted';
+  const meta = document.createElement("p");
+  meta.className = "muted";
   meta.textContent = `Population: ${item.population}`;
-  const rationale = document.createElement('p');
+  const rationale = document.createElement("p");
   rationale.textContent = `Begründung: ${item.rationale}`;
-  const limitations = document.createElement('p');
+  const limitations = document.createElement("p");
   limitations.textContent = `Grenzen: ${item.limitations}`;
-  const structuredNotes = 'preanalytics' in item ? profileStructuredNotes(item) : '';
-  const notes = document.createElement('p');
-  notes.className = 'muted';
-  notes.textContent = structuredNotes ? `Praktische Hinweise: ${structuredNotes}` : '';
-  const list = document.createElement('ul');
-  list.className = 'source-list';
-  item.sources.forEach(source => {
-    const sourceItem = document.createElement('li');
-    sourceItem.className = 'source-item';
-    const badge = document.createElement('span');
-    badge.className = 'badge';
+  const structuredNotes =
+    "preanalytics" in item ? profileStructuredNotes(item) : "";
+  const notes = document.createElement("p");
+  notes.className = "muted";
+  notes.textContent = structuredNotes
+    ? `Praktische Hinweise: ${structuredNotes}`
+    : "";
+  const list = document.createElement("ul");
+  list.className = "source-list";
+  item.sources.forEach((source) => {
+    const sourceItem = document.createElement("li");
+    sourceItem.className = "source-item";
+    const badge = document.createElement("span");
+    badge.className = "badge";
     badge.textContent = source.kind;
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = source.url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
     link.textContent = `${source.title} (${source.year})`;
-    const note = document.createElement('p');
-    note.className = 'muted';
+    const note = document.createElement("p");
+    note.className = "muted";
     note.textContent = source.note;
     sourceItem.append(badge, link, note);
     list.append(sourceItem);
@@ -1644,38 +2036,44 @@ function renderSources(title: string, item: EvidenceProfile | PretestAssumption)
   return section;
 }
 
-function createAdminCard(title: string, badge: string, badgeClass: string, rows: [string, string][], sources: EvidenceSource[] = []): HTMLElement {
-  const card = document.createElement('section');
-  card.className = 'admin-data-card';
-  const headingRow = document.createElement('div');
-  headingRow.className = 'admin-data-card-heading';
-  const heading = document.createElement('h4');
+function createAdminCard(
+  title: string,
+  badge: string,
+  badgeClass: string,
+  rows: [string, string][],
+  sources: EvidenceSource[] = [],
+): HTMLElement {
+  const card = document.createElement("section");
+  card.className = "admin-data-card";
+  const headingRow = document.createElement("div");
+  headingRow.className = "admin-data-card-heading";
+  const heading = document.createElement("h4");
   heading.textContent = title;
-  const badgeEl = document.createElement('span');
+  const badgeEl = document.createElement("span");
   badgeEl.className = `badge ${badgeClass}`;
   badgeEl.textContent = badge;
   headingRow.append(heading, badgeEl);
-  const list = document.createElement('dl');
-  list.className = 'admin-data-list';
+  const list = document.createElement("dl");
+  list.className = "admin-data-list";
   rows.forEach(([label, value]) => {
-    const term = document.createElement('dt');
+    const term = document.createElement("dt");
     term.textContent = label;
-    const detail = document.createElement('dd');
+    const detail = document.createElement("dd");
     detail.textContent = value;
     list.append(term, detail);
   });
   card.append(headingRow, list);
   if (sources.length > 0) {
-    const sourceList = document.createElement('ul');
-    sourceList.className = 'admin-source-list';
-    sources.forEach(source => {
-      const item = document.createElement('li');
-      const link = document.createElement('a');
+    const sourceList = document.createElement("ul");
+    sourceList.className = "admin-source-list";
+    sources.forEach((source) => {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
       link.href = source.url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
       link.textContent = `${source.title} (${source.year})`;
-      const note = document.createElement('span');
+      const note = document.createElement("span");
       note.textContent = ` - ${source.note}`;
       item.append(link, note);
       sourceList.append(item);
@@ -1686,127 +2084,188 @@ function createAdminCard(title: string, badge: string, badgeClass: string, rows:
 }
 
 function renderAdminOverview(): void {
-  const { test, profile, assumption, pretestResolution, result } = currentCalculation();
+  const { test, profile, assumption, pretestResolution, result } =
+    currentCalculation();
   const selectedSetting = getSelectedSetting();
   const selectedCondition = getSelectedCondition();
-  controls.adminOverview.textContent = '';
+  controls.adminOverview.textContent = "";
   controls.adminOverview.append(
     createAdminCard(
-      'Kontext und Prätest',
-      pretestResolution.status === 'direct' ? 'Direktdaten' : pretestResolution.status === 'fallback' ? 'Fallback' : 'Manuell',
-      pretestResolution.status === 'direct' ? 'badge-success' : pretestResolution.status === 'fallback' ? 'badge-warning' : 'badge-info',
+      "Kontext und Prätest",
+      pretestResolution.status === "direct"
+        ? "Direktdaten"
+        : pretestResolution.status === "fallback"
+          ? "Fallback"
+          : "Manuell",
+      pretestResolution.status === "direct"
+        ? "badge-success"
+        : pretestResolution.status === "fallback"
+          ? "badge-warning"
+          : "badge-info",
       [
-        ['Setting', selectedSetting.label],
-        ['Erkrankung', selectedCondition.label],
-        ['Wahrscheinlichkeit', formatPercent(pretestResolution.probability)],
-        ['Spanne', assumption.rangeLow != null && assumption.rangeHigh != null ? `${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)}` : 'Nicht hinterlegt'],
-        ['Status', pretestResolution.message]
+        ["Setting", selectedSetting.label],
+        ["Erkrankung", selectedCondition.label],
+        ["Wahrscheinlichkeit", formatPercent(pretestResolution.probability)],
+        [
+          "Spanne",
+          assumption.rangeLow != null && assumption.rangeHigh != null
+            ? `${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)}`
+            : "Nicht hinterlegt",
+        ],
+        ["Status", pretestResolution.message],
       ],
-      assumption.sources
+      assumption.sources,
     ),
     createAdminCard(
-      'Prätest-Annahme',
-      assumption.custom ? 'Eigene Daten' : 'Kuratierte Daten',
-      assumption.custom ? 'badge-warning' : 'badge-info',
+      "Prätest-Annahme",
+      assumption.custom ? "Eigene Daten" : "Kuratierte Daten",
+      assumption.custom ? "badge-warning" : "badge-info",
       [
-        ['Population', assumption.population],
-        ['Begründung', assumption.rationale],
-        ['Grenzen', assumption.limitations],
-        ['Letzte Prüfung', assumption.lastReviewed]
+        ["Population", assumption.population],
+        ["Begründung", assumption.rationale],
+        ["Grenzen", assumption.limitations],
+        ["Letzte Prüfung", assumption.lastReviewed],
       ],
-      assumption.sources
+      assumption.sources,
     ),
     createAdminCard(
-      'Diagnostischer Test',
-      selectedTestMatchesCondition(test) ? 'Passend' : 'Kontext-Warnung',
-      selectedTestMatchesCondition(test) ? 'badge-success' : 'badge-danger',
+      "Diagnostischer Test",
+      selectedTestMatchesCondition(test) ? "Passend" : "Kontext-Warnung",
+      selectedTestMatchesCondition(test) ? "badge-success" : "badge-danger",
       [
-        ['Name', test.name],
-        ['Test-Erkrankung', test.condition],
-        ['Kategorie', test.category],
-        ['Beschreibung', test.description],
-        ['Match', selectedTestMatchesCondition(test) ? 'Test passt zur gewählten Erkrankung.' : `Test ist für ${test.condition} hinterlegt, nicht für ${selectedCondition.label}.`]
-      ]
+        ["Name", test.name],
+        ["Test-Erkrankung", test.condition],
+        ["Kategorie", test.category],
+        ["Beschreibung", test.description],
+        [
+          "Match",
+          selectedTestMatchesCondition(test)
+            ? "Test passt zur gewählten Erkrankung."
+            : `Test ist für ${test.condition} hinterlegt, nicht für ${selectedCondition.label}.`,
+        ],
+      ],
     ),
     createAdminCard(
-      'Evidenzprofil',
-      profile.kind === 'scenario' ? 'Szenario' : profile.kind === 'custom' ? 'Eigenes Profil' : 'Kuratierte Quelle',
-      profile.kind === 'curated' ? 'badge-info' : 'badge-warning',
+      "Evidenzprofil",
+      profile.kind === "scenario"
+        ? "Szenario"
+        : profile.kind === "custom"
+          ? "Eigenes Profil"
+          : "Kuratierte Quelle",
+      profile.kind === "curated" ? "badge-info" : "badge-warning",
       [
-        ['Profil', profile.label],
-        ['Methode', profile.method],
-        ['Zweck', profile.purpose ?? 'Nicht separat hinterlegt'],
-        ['Material', profile.specimen ?? 'Nicht separat hinterlegt'],
-        ['Kurz-Durchführung', profile.procedure ?? 'Nach lokalem Laborprotokoll durchführen.'],
-        ['Cut-off', profile.cutoff],
-        ['Sensitivität / Spezifität', `${formatPercent(profile.sensitivity)} / ${formatPercent(profile.specificity)}`],
-        ['LR+ / LR−', `${formatRatio(result.lrPositive)} / ${formatRatio(result.lrNegative)}`],
-        ['Population', profile.population],
-        ['Begründung', profile.rationale],
-        ['Grenzen', profile.limitations],
-        ['Präanalytik', joinedList(profile.preanalytics)],
-        ['Interferenzen', joinedList(profile.medicationInterferences)],
-        ['Falsch positiv', joinedList(profile.falsePositiveReasons)],
-        ['Falsch negativ', joinedList(profile.falseNegativeReasons)],
-        ['Interpretation', joinedList(profile.interpretationCautions)],
-        ['Letzte Prüfung', profile.lastReviewed]
+        ["Profil", profile.label],
+        ["Methode", profile.method],
+        ["Zweck", profile.purpose ?? "Nicht separat hinterlegt"],
+        ["Material", profile.specimen ?? "Nicht separat hinterlegt"],
+        [
+          "Kurz-Durchführung",
+          profile.procedure ?? "Nach lokalem Laborprotokoll durchführen.",
+        ],
+        ["Cut-off", profile.cutoff],
+        [
+          "Sensitivität / Spezifität",
+          `${formatPercent(profile.sensitivity)} / ${formatPercent(profile.specificity)}`,
+        ],
+        [
+          "LR+ / LR−",
+          `${formatRatio(result.lrPositive)} / ${formatRatio(result.lrNegative)}`,
+        ],
+        ["Population", profile.population],
+        ["Begründung", profile.rationale],
+        ["Grenzen", profile.limitations],
+        ["Präanalytik", joinedList(profile.preanalytics)],
+        ["Interferenzen", joinedList(profile.medicationInterferences)],
+        ["Falsch positiv", joinedList(profile.falsePositiveReasons)],
+        ["Falsch negativ", joinedList(profile.falseNegativeReasons)],
+        ["Interpretation", joinedList(profile.interpretationCautions)],
+        ["Letzte Prüfung", profile.lastReviewed],
       ],
-      profile.sources
-    )
+      profile.sources,
+    ),
   );
 }
 
 function sourceSummary(sources: EvidenceSource[]): string {
-  return sources.length > 0 ? sources.map(source => `${source.title} (${source.year})`).join('; ') : 'Keine Quelle hinterlegt';
+  return sources.length > 0
+    ? sources.map((source) => `${source.title} (${source.year})`).join("; ")
+    : "Keine Quelle hinterlegt";
 }
 
-function joinedList(values: string[] | undefined, fallback = 'Nicht separat hinterlegt'): string {
-  return values && values.length > 0 ? values.join('; ') : fallback;
+function joinedList(
+  values: string[] | undefined,
+  fallback = "Nicht separat hinterlegt",
+): string {
+  return values && values.length > 0 ? values.join("; ") : fallback;
 }
 
 function profileStructuredNotes(profile: EvidenceProfile): string {
   const sections: string[] = [];
-  if (profile.preanalytics?.length) sections.push(`Präanalytik: ${joinedList(profile.preanalytics)}`);
+  if (profile.preanalytics?.length)
+    sections.push(`Präanalytik: ${joinedList(profile.preanalytics)}`);
   if (profile.medicationInterferences?.length) {
-    sections.push(`Medikamentöse/Substanz-Interferenzen: ${joinedList(profile.medicationInterferences)}`);
+    sections.push(
+      `Medikamentöse/Substanz-Interferenzen: ${joinedList(profile.medicationInterferences)}`,
+    );
   }
-  if (profile.falsePositiveReasons?.length) sections.push(`Falsch-positive Gründe: ${joinedList(profile.falsePositiveReasons)}`);
-  if (profile.falseNegativeReasons?.length) sections.push(`Falsch-negative Gründe: ${joinedList(profile.falseNegativeReasons)}`);
+  if (profile.falsePositiveReasons?.length)
+    sections.push(
+      `Falsch-positive Gründe: ${joinedList(profile.falsePositiveReasons)}`,
+    );
+  if (profile.falseNegativeReasons?.length)
+    sections.push(
+      `Falsch-negative Gründe: ${joinedList(profile.falseNegativeReasons)}`,
+    );
   if (profile.interpretationCautions?.length) {
-    sections.push(`Interpretationshinweise: ${joinedList(profile.interpretationCautions)}`);
+    sections.push(
+      `Interpretationshinweise: ${joinedList(profile.interpretationCautions)}`,
+    );
   }
-  if (profile.implementationNotes) sections.push(`Implementierung: ${profile.implementationNotes}`);
-  return sections.join(' ');
+  if (profile.implementationNotes)
+    sections.push(`Implementierung: ${profile.implementationNotes}`);
+  return sections.join(" ");
 }
 
 function conditionLabelForId(conditionId: string): string {
   return conditionLabel(conditionId, allConditions());
 }
 
-function settingLabelForId(settingId: string | undefined, fallback = 'Alle Settings'): string {
+function settingLabelForId(
+  settingId: string | undefined,
+  fallback = "Alle Settings",
+): string {
   if (!settingId) return fallback;
-  if (settingId === 'general') return 'Allgemeine Erkrankungsannahme';
-  return allSettings().find(setting => setting.id === settingId)?.label ?? settingId;
+  if (settingId === "general") return "Allgemeine Erkrankungsannahme";
+  return (
+    allSettings().find((setting) => setting.id === settingId)?.label ??
+    settingId
+  );
 }
 
 function assumptionsForCondition(conditionId: string): PretestAssumption[] {
-  return normalizedAssumptions().filter(assumption => assumption.conditionId === conditionId);
+  return normalizedAssumptions().filter(
+    (assumption) => assumption.conditionId === conditionId,
+  );
 }
 
 function modifierSummaryForCondition(conditionId: string): string {
   const modifiers = modifiersForCondition(conditionId);
-  if (modifiers.length === 0) return 'Keine hinterlegt';
-  return modifiers.map(modifier => `${modifier.label} (${directionLabel(modifier.direction)})`).join('; ');
+  if (modifiers.length === 0) return "Keine hinterlegt";
+  return modifiers
+    .map(
+      (modifier) => `${modifier.label} (${directionLabel(modifier.direction)})`,
+    )
+    .join("; ");
 }
 
 function reviewLabel(value: ReviewStatus): string {
-  if (value === 'needs-review') return 'needs-review';
-  if (value === 'reviewed') return 'reviewed';
-  return 'draft';
+  if (value === "needs-review") return "needs-review";
+  if (value === "reviewed") return "reviewed";
+  return "draft";
 }
 
 function qualityLabel(value: EvidenceQuality): string {
-  if (value === 'expert-opinion') return 'expert opinion';
+  if (value === "expert-opinion") return "expert opinion";
   return value;
 }
 
@@ -1816,91 +2275,107 @@ function completenessLabel(value: DataCompleteness): string {
 
 function textSearchValue(values: unknown[]): string {
   return values
-    .flatMap(value => (Array.isArray(value) ? value : [value]))
-    .filter(value => value != null)
-    .map(value => String(value).toLowerCase())
-    .join(' ');
+    .flatMap((value) => (Array.isArray(value) ? value : [value]))
+    .filter((value) => value != null)
+    .map((value) => String(value).toLowerCase())
+    .join(" ");
 }
 
 function catalogMetadataCells(item: ReviewMetadata): string[] {
-  return [reviewLabel(item.reviewStatus), qualityLabel(item.evidenceQuality), completenessLabel(item.dataCompleteness)];
+  return [
+    reviewLabel(item.reviewStatus),
+    qualityLabel(item.evidenceQuality),
+    completenessLabel(item.dataCompleteness),
+  ];
 }
 
 function catalogRows(): CatalogRow[] {
-  const assumptionRows: CatalogRow[] = normalizedAssumptions().map(assumption => {
-    const conditionId = assumption.conditionId ?? conditionIdForLabel(assumption.condition);
+  const assumptionRows: CatalogRow[] = normalizedAssumptions().map(
+    (assumption) => {
+      const conditionId =
+        assumption.conditionId ?? conditionIdForLabel(assumption.condition);
+      const cells = [
+        "Prätest-Annahme",
+        assumption.condition,
+        assumption.setting,
+        `${formatPercent(assumption.probability)}${assumption.rangeLow != null && assumption.rangeHigh != null ? ` (${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)})` : ""}`,
+        modifierSummaryForCondition(conditionId),
+        "–",
+        "–",
+        "–",
+        "–",
+        "–",
+        "–",
+        "–",
+        "–",
+        ...catalogMetadataCells(assumption),
+        sourceSummary(assumption.sources),
+        `${assumption.rationale} Grenzen: ${assumption.limitations}`,
+      ];
+      return {
+        key: `assumption:${assumption.id}`,
+        kind: "assumption",
+        domain: "diagnostic-tests",
+        id: assumption.id,
+        status: assumption.kind,
+        reviewStatus: assumption.reviewStatus,
+        evidenceQuality: assumption.evidenceQuality,
+        dataCompleteness: assumption.dataCompleteness,
+        conditionId,
+        settingId: assumption.settingId,
+        cells,
+        searchText: textSearchValue([
+          ...cells,
+          assumption.population,
+          assumption.sources.map((source) => source.note),
+          assumption.reviewNote,
+        ]),
+        sortValues: {
+          condition: assumption.condition,
+          setting: assumption.setting,
+          test: "",
+          lrPositive: null,
+          lrNegative: null,
+          reviewStatus: assumption.reviewStatus,
+        },
+        detail: {
+          title: `Prätest-Annahme: ${assumption.condition} / ${assumption.setting}`,
+          sources: sourceSummary(assumption.sources),
+          population: assumption.population,
+          rationale: assumption.rationale,
+          limitations: assumption.limitations,
+          reviewNote: assumption.reviewNote,
+        },
+      };
+    },
+  );
+  const modifierRows: CatalogRow[] = allModifiers().map((modifier) => {
     const cells = [
-      'Prätest-Annahme',
-      assumption.condition,
-      assumption.setting,
-      `${formatPercent(assumption.probability)}${assumption.rangeLow != null && assumption.rangeHigh != null ? ` (${formatPercent(assumption.rangeLow)}-${formatPercent(assumption.rangeHigh)})` : ''}`,
-      modifierSummaryForCondition(conditionId),
-      '–',
-      '–',
-      '–',
-      '–',
-      '–',
-      '–',
-      '–',
-      '–',
-      ...catalogMetadataCells(assumption),
-      sourceSummary(assumption.sources),
-      `${assumption.rationale} Grenzen: ${assumption.limitations}`
-    ];
-    return {
-      key: `assumption:${assumption.id}`,
-      kind: 'assumption',
-      domain: 'diagnostic-tests',
-      id: assumption.id,
-      status: assumption.kind,
-      reviewStatus: assumption.reviewStatus,
-      evidenceQuality: assumption.evidenceQuality,
-      dataCompleteness: assumption.dataCompleteness,
-      conditionId,
-      settingId: assumption.settingId,
-      cells,
-      searchText: textSearchValue([...cells, assumption.population, assumption.sources.map(source => source.note), assumption.reviewNote]),
-      sortValues: {
-        condition: assumption.condition,
-        setting: assumption.setting,
-        test: '',
-        lrPositive: null,
-        lrNegative: null,
-        reviewStatus: assumption.reviewStatus
-      },
-      detail: {
-        title: `Prätest-Annahme: ${assumption.condition} / ${assumption.setting}`,
-        sources: sourceSummary(assumption.sources),
-        population: assumption.population,
-        rationale: assumption.rationale,
-        limitations: assumption.limitations,
-        reviewNote: assumption.reviewNote
-      }
-    };
-  });
-  const modifierRows: CatalogRow[] = allModifiers().map(modifier => {
-    const cells = [
-      'Klinischer Modifikator',
+      "Klinischer Modifikator",
       conditionLabelForId(modifier.conditionId),
-      '–',
-      'wirkt auf Prätest',
-      `${modifier.label}; ${modifier.category}; Richtung: ${directionLabel(modifier.direction)}; ${modifier.quantificationStatus}${modifier.likelihoodRatio != null ? `; LR ${formatRatio(modifier.likelihoodRatio)}` : ''}${modifier.probabilityFactor != null ? `; Faktor ${formatRatio(modifier.probabilityFactor)}` : ''}`,
-      '–',
-      '–',
-      '–',
-      '–',
-      '–',
-      modifier.likelihoodRatio != null ? formatRatio(modifier.likelihoodRatio) : '–',
-      modifier.likelihoodRatio != null ? formatRatio(modifier.likelihoodRatio) : '–',
-      '–',
+      "–",
+      "wirkt auf Prätest",
+      `${modifier.label}; ${modifier.category}; Richtung: ${directionLabel(modifier.direction)}; ${modifier.quantificationStatus}${modifier.likelihoodRatio != null ? `; LR ${formatRatio(modifier.likelihoodRatio)}` : ""}${modifier.probabilityFactor != null ? `; Faktor ${formatRatio(modifier.probabilityFactor)}` : ""}`,
+      "–",
+      "–",
+      "–",
+      "–",
+      "–",
+      modifier.likelihoodRatio != null
+        ? formatRatio(modifier.likelihoodRatio)
+        : "–",
+      modifier.likelihoodRatio != null
+        ? formatRatio(modifier.likelihoodRatio)
+        : "–",
+      "–",
       ...catalogMetadataCells(modifier),
       sourceSummary(modifier.sources),
-      `${modifier.rationale}${modifier.overlapWarning ? ` Doppelzählung: ${modifier.overlapWarning}` : ''} Grenzen: ${modifier.limitations}`
+      `${modifier.rationale}${modifier.overlapWarning ? ` Doppelzählung: ${modifier.overlapWarning}` : ""} Grenzen: ${modifier.limitations}`,
     ];
     return {
       key: `modifier:${modifier.id}`,
-      kind: 'modifier',
-      domain: 'diagnostic-tests',
+      kind: "modifier",
+      domain: "diagnostic-tests",
       id: modifier.id,
       status: modifier.kind,
       reviewStatus: modifier.reviewStatus,
@@ -1908,39 +2383,48 @@ function catalogRows(): CatalogRow[] {
       dataCompleteness: modifier.dataCompleteness,
       conditionId: modifier.conditionId,
       cells,
-      searchText: textSearchValue([...cells, modifier.sources.map(source => source.note), modifier.reviewNote]),
+      searchText: textSearchValue([
+        ...cells,
+        modifier.sources.map((source) => source.note),
+        modifier.reviewNote,
+      ]),
       sortValues: {
         condition: conditionLabelForId(modifier.conditionId),
-        setting: '',
-        test: '',
+        setting: "",
+        test: "",
         lrPositive: modifier.likelihoodRatio ?? null,
         lrNegative: modifier.likelihoodRatio ?? null,
-        reviewStatus: modifier.reviewStatus
+        reviewStatus: modifier.reviewStatus,
       },
       detail: {
         title: `Klinischer Modifikator: ${modifier.label}`,
         sources: sourceSummary(modifier.sources),
         population: conditionLabelForId(modifier.conditionId),
-        rationale: `${modifier.rationale}${modifier.overlapWarning ? ` Doppelzählung beachten: ${modifier.overlapWarning}` : ''}`,
+        rationale: `${modifier.rationale}${modifier.overlapWarning ? ` Doppelzählung beachten: ${modifier.overlapWarning}` : ""}`,
         limitations: modifier.limitations,
-        reviewNote: modifier.reviewNote
-      }
+        reviewNote: modifier.reviewNote,
+      },
     };
   });
-  const profileRows: CatalogRow[] = allProfiles().flatMap(profile => {
-    const test = allTests().find(candidate => candidate.id === profile.testId);
+  const profileRows: CatalogRow[] = allProfiles().flatMap((profile) => {
+    const test = allTests().find(
+      (candidate) => candidate.id === profile.testId,
+    );
     if (!test) return [];
     const conditionId = conditionIdForTest(test);
     const assumptions = assumptionsForCondition(conditionId);
-    const assumptionsForRows = assumptions.length > 0 ? assumptions : [undefined];
-    return assumptionsForRows.map(assumption => {
-      const result = assumption ? calculateResult(profile, assumption.probability) : null;
+    const assumptionsForRows =
+      assumptions.length > 0 ? assumptions : [undefined];
+    return assumptionsForRows.map((assumption) => {
+      const result = assumption
+        ? calculateResult(profile, assumption.probability)
+        : null;
       const ratios = resolveLikelihoodRatios(profile);
       const cells = [
-        'Test / Evidenzprofil',
+        "Test / Evidenzprofil",
         test.condition,
-        settingLabelForId(assumption?.settingId, 'Keine Prätest-Annahme'),
-        assumption ? formatPercent(assumption.probability) : '–',
+        settingLabelForId(assumption?.settingId, "Keine Prätest-Annahme"),
+        assumption ? formatPercent(assumption.probability) : "–",
         modifierSummaryForCondition(conditionId),
         test.name,
         profile.label,
@@ -1949,15 +2433,17 @@ function catalogRows(): CatalogRow[] {
         formatPercent(profile.specificity),
         formatRatio(ratios.lrPositive),
         formatRatio(ratios.lrNegative),
-        result ? `${formatPercent(result.ppv)} / ${formatPercent(result.npv)}` : '–',
+        result
+          ? `${formatPercent(result.ppv)} / ${formatPercent(result.npv)}`
+          : "–",
         ...catalogMetadataCells(profile),
         sourceSummary(profile.sources),
-        `Methode: ${profile.method}. Durchführung: ${profile.procedure ?? 'Nach Laborprotokoll.'} Begründung: ${profile.rationale} Grenzen: ${profile.limitations} ${profileStructuredNotes(profile)}`
+        `Methode: ${profile.method}. Durchführung: ${profile.procedure ?? "Nach Laborprotokoll."} Begründung: ${profile.rationale} Grenzen: ${profile.limitations} ${profileStructuredNotes(profile)}`,
       ];
       return {
-        key: `profile:${profile.id}:${assumption?.settingId ?? 'none'}`,
-        kind: 'profile',
-        domain: 'diagnostic-tests',
+        key: `profile:${profile.id}:${assumption?.settingId ?? "none"}`,
+        kind: "profile",
+        domain: "diagnostic-tests",
         id: profile.id,
         status: profile.kind,
         reviewStatus: profile.reviewStatus,
@@ -1972,77 +2458,91 @@ function catalogRows(): CatalogRow[] {
           test.description,
           profile.population,
           profileStructuredNotes(profile),
-          profile.sources.map(source => source.note),
+          profile.sources.map((source) => source.note),
           profile.reviewNote,
           assumption?.population,
-          assumption?.rationale
+          assumption?.rationale,
         ]),
         sortValues: {
           condition: test.condition,
-          setting: settingLabelForId(assumption?.settingId, ''),
+          setting: settingLabelForId(assumption?.settingId, ""),
           test: test.name,
           lrPositive: ratios.lrPositive,
           lrNegative: ratios.lrNegative,
-          reviewStatus: profile.reviewStatus
+          reviewStatus: profile.reviewStatus,
         },
         detail: {
           title: `${test.name}: ${profile.label}`,
           sources: sourceSummary(profile.sources),
           population: profile.population,
-          rationale: `Test: ${profile.rationale}${assumption ? ` Prätest: ${assumption.rationale}` : ''}`,
-          limitations: `${profile.limitations} ${profileStructuredNotes(profile)}${assumption ? ` Prätest-Grenzen: ${assumption.limitations}` : ''}`,
-          reviewNote: profile.reviewNote
-        }
+          rationale: `Test: ${profile.rationale}${assumption ? ` Prätest: ${assumption.rationale}` : ""}`,
+          limitations: `${profile.limitations} ${profileStructuredNotes(profile)}${assumption ? ` Prätest-Grenzen: ${assumption.limitations}` : ""}`,
+          reviewNote: profile.reviewNote,
+        },
       };
     });
   });
-  const physicalRows: CatalogRow[] = physicalFindings.map(finding => {
-    const condition = physicalConditions.find(candidate => candidate.id === finding.conditionId);
-    const system = physicalSystems.find(candidate => candidate.id === finding.systemId);
-    const midpointPretest = clampProbabilityPercent((finding.pretestRange.low + finding.pretestRange.high) / 2) / 100;
-    const result = calculateResult(physicalProfileFromFinding(finding), midpointPretest);
+  const physicalRows: CatalogRow[] = physicalFindings.map((finding) => {
+    const condition = physicalConditions.find(
+      (candidate) => candidate.id === finding.conditionId,
+    );
+    const system = physicalSystems.find(
+      (candidate) => candidate.id === finding.systemId,
+    );
+    const midpointPretest =
+      clampProbabilityPercent(
+        (finding.pretestRange.low + finding.pretestRange.high) / 2,
+      ) / 100;
+    const result = calculateResult(
+      physicalProfileFromFinding(finding),
+      midpointPretest,
+    );
     const source = `${finding.source.title}; ${finding.source.sourceBox}; S. ${finding.source.sourcePage}`;
     const cells = [
-      'Körperlicher Befund',
+      "Körperlicher Befund",
       condition?.label ?? finding.conditionId,
       system?.label ?? finding.systemId,
       `McGee: ${formatPhysicalPretestRange(finding)}`,
-      '–',
+      "–",
       finding.findingLabel,
-      'McGee-Faktenzeile',
+      "McGee-Faktenzeile",
       finding.positiveCriterion,
-      '–',
-      '–',
+      "–",
+      "–",
       formatPhysicalLr(finding.lrPositive),
       formatPhysicalLr(finding.lrNegative),
       `${formatPercent(result.ppv)} / ${formatPercent(result.npv)} bei Bereichsmitte`,
       reviewLabel(finding.reviewStatus),
-      'moderate',
-      'partial',
+      "moderate",
+      "partial",
       source,
-      `${finding.limitations} Originalbezeichnung: ${finding.originalFindingLabel}. ${finding.reviewNote ?? ''}`
+      `${finding.limitations} Originalbezeichnung: ${finding.originalFindingLabel}. ${finding.reviewNote ?? ""}`,
     ];
     return {
       key: `physical-finding:${finding.id}`,
-      kind: 'physical-finding',
-      domain: 'physical-exam',
+      kind: "physical-finding",
+      domain: "physical-exam",
       id: finding.id,
-      status: 'curated',
+      status: "curated",
       reviewStatus: finding.reviewStatus,
-      evidenceQuality: 'moderate',
-      dataCompleteness: 'partial',
+      evidenceQuality: "moderate",
+      dataCompleteness: "partial",
       conditionId: finding.conditionId,
       settingId: finding.systemId,
       testId: finding.id,
       cells,
-      searchText: textSearchValue([cells, finding.originalFindingLabel, finding.source.note]),
+      searchText: textSearchValue([
+        cells,
+        finding.originalFindingLabel,
+        finding.source.note,
+      ]),
       sortValues: {
         condition: condition?.label ?? finding.conditionId,
         setting: system?.label ?? finding.systemId,
         test: finding.findingLabel,
         lrPositive: finding.lrPositive.value,
         lrNegative: finding.lrNegative.value,
-        reviewStatus: finding.reviewStatus
+        reviewStatus: finding.reviewStatus,
       },
       detail: {
         title: `Körperlicher Befund: ${finding.findingLabel}`,
@@ -2050,100 +2550,110 @@ function catalogRows(): CatalogRow[] {
         population: `Prätestbereich nach McGee: ${formatPhysicalPretestRange(finding)}.`,
         rationale: `Befund vorhanden nutzt LR+: ${formatPhysicalLr(finding.lrPositive)}. Befund fehlend nutzt LR−: ${formatPhysicalLr(finding.lrNegative)}.`,
         limitations: finding.limitations,
-        reviewNote: finding.reviewNote
-      }
+        reviewNote: finding.reviewNote,
+      },
     };
   });
   return [...assumptionRows, ...modifierRows, ...profileRows, ...physicalRows];
 }
 
 function renderDataCatalog(): void {
-  const testFilter = controls.catalogTestFilter.value || 'all';
-  const testFilterConditionId = testFilter === 'all'
-    ? null
-    : (() => {
-        const test = allTests().find(candidate => candidate.id === testFilter);
-        return test ? conditionIdForTest(test) : '';
-      })();
+  const testFilter = controls.catalogTestFilter.value || "all";
+  const testFilterConditionId =
+    testFilter === "all"
+      ? null
+      : (() => {
+          const test = allTests().find(
+            (candidate) => candidate.id === testFilter,
+          );
+          return test ? conditionIdForTest(test) : "";
+        })();
   const rows = sortCatalogRows(
     filterCatalogRows(
       catalogRows(),
       {
-        conditionId: controls.catalogConditionFilter.value || 'all',
-        settingId: controls.catalogSettingFilter.value || 'all',
+        conditionId: controls.catalogConditionFilter.value || "all",
+        settingId: controls.catalogSettingFilter.value || "all",
         testId: testFilter,
-        status: controls.catalogStatusFilter.value || 'all',
-        reviewStatus: controls.catalogReviewFilter.value || 'all',
-        evidenceQuality: controls.catalogQualityFilter.value || 'all',
-        dataCompleteness: controls.catalogCompletenessFilter.value || 'all',
+        status: controls.catalogStatusFilter.value || "all",
+        reviewStatus: controls.catalogReviewFilter.value || "all",
+        evidenceQuality: controls.catalogQualityFilter.value || "all",
+        dataCompleteness: controls.catalogCompletenessFilter.value || "all",
         search: controls.catalogSearchInput.value,
-        domain: controls.catalogDomainFilter.value || 'all',
-        sortBy: (controls.catalogSortSelect.value || 'condition') as CatalogSortKey
+        domain: controls.catalogDomainFilter.value || "all",
+        sortBy: (controls.catalogSortSelect.value ||
+          "condition") as CatalogSortKey,
       },
-      testFilterConditionId
+      testFilterConditionId,
     ),
-    (controls.catalogSortSelect.value || 'condition') as CatalogSortKey
+    (controls.catalogSortSelect.value || "condition") as CatalogSortKey,
   );
-  if (selectedCatalogRowKey && !rows.some(row => row.key === selectedCatalogRowKey)) selectedCatalogRowKey = '';
+  if (
+    selectedCatalogRowKey &&
+    !rows.some((row) => row.key === selectedCatalogRowKey)
+  )
+    selectedCatalogRowKey = "";
   if (!selectedCatalogRowKey && rows[0]) selectedCatalogRowKey = rows[0].key;
-  controls.catalogTableBody.textContent = '';
-  rows.forEach(row => {
-    const tr = document.createElement('tr');
+  controls.catalogTableBody.textContent = "";
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
     tr.dataset.kind = row.kind;
     tr.dataset.id = row.id;
     tr.dataset.key = row.key;
     if (row.settingId) tr.dataset.settingId = row.settingId;
-    tr.classList.toggle('is-selected', row.key === selectedCatalogRowKey);
+    tr.classList.toggle("is-selected", row.key === selectedCatalogRowKey);
     row.cells.forEach((value, index) => {
-      const td = document.createElement('td');
+      const td = document.createElement("td");
       td.textContent = value;
       if (index === 13) {
-        td.textContent = '';
+        td.textContent = "";
         td.append(reviewBadge(row.reviewStatus));
       }
       if (index === 14) {
-        td.textContent = '';
+        td.textContent = "";
         td.append(qualityBadge(row.evidenceQuality));
       }
       if (index === 15) {
-        td.textContent = '';
+        td.textContent = "";
         td.append(completenessBadge(row.dataCompleteness));
       }
       tr.append(td);
     });
-    const actions = document.createElement('td');
-    const selectButton = document.createElement('button');
-    selectButton.type = 'button';
-    selectButton.className = 'compact-button';
-    selectButton.dataset.catalogAction = 'select';
-    selectButton.textContent = 'Im Rechner auswählen';
-    const correctButton = document.createElement('button');
-    correctButton.type = 'button';
-    correctButton.className = 'compact-button';
-    correctButton.dataset.catalogAction = 'correct';
-    correctButton.textContent = 'Als Korrektur öffnen';
-    const exportButton = document.createElement('button');
-    exportButton.type = 'button';
-    exportButton.className = 'compact-button secondary-button';
-    exportButton.dataset.catalogAction = 'export';
-    exportButton.textContent = 'JSON-Vorschlag';
+    const actions = document.createElement("td");
+    const selectButton = document.createElement("button");
+    selectButton.type = "button";
+    selectButton.className = "compact-button";
+    selectButton.dataset.catalogAction = "select";
+    selectButton.textContent = "Im Rechner auswählen";
+    const correctButton = document.createElement("button");
+    correctButton.type = "button";
+    correctButton.className = "compact-button";
+    correctButton.dataset.catalogAction = "correct";
+    correctButton.textContent = "Als Korrektur öffnen";
+    const exportButton = document.createElement("button");
+    exportButton.type = "button";
+    exportButton.className = "compact-button secondary-button";
+    exportButton.dataset.catalogAction = "export";
+    exportButton.textContent = "JSON-Vorschlag";
     actions.append(selectButton, correctButton, exportButton);
     tr.append(actions);
     controls.catalogTableBody.append(tr);
   });
   if (rows.length === 0) {
-    const tr = document.createElement('tr');
-    const td = document.createElement('td');
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
     td.colSpan = 19;
-    td.textContent = 'Keine Einträge für diese Filter.';
+    td.textContent = "Keine Einträge für diese Filter.";
     tr.append(td);
     controls.catalogTableBody.append(tr);
   }
-  renderCatalogDetail(rows.find(row => row.key === selectedCatalogRowKey) ?? rows[0]);
+  renderCatalogDetail(
+    rows.find((row) => row.key === selectedCatalogRowKey) ?? rows[0],
+  );
 }
 
 function badge(text: string, className: string): HTMLElement {
-  const element = document.createElement('span');
+  const element = document.createElement("span");
   element.className = `catalog-badge ${className}`;
   element.textContent = text;
   return element;
@@ -2162,78 +2672,91 @@ function completenessBadge(value: DataCompleteness): HTMLElement {
 }
 
 function renderCatalogDetail(row: CatalogRow | undefined): void {
-  controls.catalogDetailPanel.textContent = '';
+  controls.catalogDetailPanel.textContent = "";
   if (!row) {
-    controls.catalogDetailPanel.textContent = 'Kein Eintrag ausgewählt.';
+    controls.catalogDetailPanel.textContent = "Kein Eintrag ausgewählt.";
     return;
   }
-  const heading = document.createElement('h4');
+  const heading = document.createElement("h4");
   heading.textContent = row.detail.title;
-  const meta = document.createElement('div');
-  meta.className = 'catalog-detail-meta';
-  meta.append(reviewBadge(row.reviewStatus), qualityBadge(row.evidenceQuality), completenessBadge(row.dataCompleteness));
-  const list = document.createElement('dl');
+  const meta = document.createElement("div");
+  meta.className = "catalog-detail-meta";
+  meta.append(
+    reviewBadge(row.reviewStatus),
+    qualityBadge(row.evidenceQuality),
+    completenessBadge(row.dataCompleteness),
+  );
+  const list = document.createElement("dl");
   [
-    ['Population / Kontext', row.detail.population],
-    ['Quellen', row.detail.sources],
-    ['Begründung', row.detail.rationale],
-    ['Grenzen / Fallstricke', row.detail.limitations],
-    ['Review-Notiz', row.detail.reviewNote ?? 'Keine Review-Notiz hinterlegt.']
+    ["Population / Kontext", row.detail.population],
+    ["Quellen", row.detail.sources],
+    ["Begründung", row.detail.rationale],
+    ["Grenzen / Fallstricke", row.detail.limitations],
+    ["Review-Notiz", row.detail.reviewNote ?? "Keine Review-Notiz hinterlegt."],
   ].forEach(([label, value]) => {
-    const dt = document.createElement('dt');
+    const dt = document.createElement("dt");
     dt.textContent = label;
-    const dd = document.createElement('dd');
+    const dd = document.createElement("dd");
     dd.textContent = value;
     list.append(dt, dd);
   });
-  const actions = document.createElement('div');
-  actions.className = 'button-row';
-  const selectButton = document.createElement('button');
-  selectButton.type = 'button';
-  selectButton.className = 'compact-button';
-  selectButton.dataset.catalogAction = 'select';
+  const actions = document.createElement("div");
+  actions.className = "button-row";
+  const selectButton = document.createElement("button");
+  selectButton.type = "button";
+  selectButton.className = "compact-button";
+  selectButton.dataset.catalogAction = "select";
   selectButton.dataset.kind = row.kind;
   selectButton.dataset.id = row.id;
-  selectButton.dataset.settingId = row.settingId ?? '';
-  selectButton.textContent = 'Im Rechner öffnen';
-  const correctButton = document.createElement('button');
-  correctButton.type = 'button';
-  correctButton.className = 'compact-button';
-  correctButton.dataset.catalogAction = 'correct';
+  selectButton.dataset.settingId = row.settingId ?? "";
+  selectButton.textContent = "Im Rechner öffnen";
+  const correctButton = document.createElement("button");
+  correctButton.type = "button";
+  correctButton.className = "compact-button";
+  correctButton.dataset.catalogAction = "correct";
   correctButton.dataset.kind = row.kind;
   correctButton.dataset.id = row.id;
-  correctButton.textContent = 'Korrekturformular öffnen';
-  const exportButton = document.createElement('button');
-  exportButton.type = 'button';
-  exportButton.className = 'compact-button secondary-button';
-  exportButton.dataset.catalogAction = 'export';
+  correctButton.textContent = "Korrekturformular öffnen";
+  const exportButton = document.createElement("button");
+  exportButton.type = "button";
+  exportButton.className = "compact-button secondary-button";
+  exportButton.dataset.catalogAction = "export";
   exportButton.dataset.kind = row.kind;
   exportButton.dataset.id = row.id;
-  exportButton.textContent = 'JSON-Vorschlag exportieren';
+  exportButton.textContent = "JSON-Vorschlag exportieren";
   actions.append(selectButton, correctButton, exportButton);
   controls.catalogDetailPanel.append(heading, meta, list, actions);
 }
 
-function renderEvidence(profile: EvidenceProfile, assumption: PretestAssumption, pretestResolution: PretestResolution): void {
-  controls.evidencePanel.textContent = '';
+function renderEvidence(
+  profile: EvidenceProfile,
+  assumption: PretestAssumption,
+  pretestResolution: PretestResolution,
+): void {
+  controls.evidencePanel.textContent = "";
   const modifiers = selectedModifiers();
-  if (profile.kind === 'scenario') {
-    const scenario = document.createElement('p');
-    scenario.className = 'scenario-note';
-    scenario.textContent = `Szenario: ${profile.deviationReason ?? 'Abweichung ohne Begründung'}`;
+  if (profile.kind === "scenario") {
+    const scenario = document.createElement("p");
+    scenario.className = "scenario-note";
+    scenario.textContent = `Szenario: ${profile.deviationReason ?? "Abweichung ohne Begründung"}`;
     controls.evidencePanel.append(scenario);
   }
   controls.evidencePanel.append(
-    renderSources('Testgüte / Evidenzprofil', profile),
-    renderSources(pretestResolution.status === 'manual' ? 'Manuelle Prätestwahrscheinlichkeit' : 'Prätest-Annahme', assumption)
+    renderSources("Testgüte / Evidenzprofil", profile),
+    renderSources(
+      pretestResolution.status === "manual"
+        ? "Manuelle Prätestwahrscheinlichkeit"
+        : "Prätest-Annahme",
+      assumption,
+    ),
   );
   if (modifiers.length > 0) {
-    const modifierSection = document.createElement('section');
-    const heading = document.createElement('h3');
-    heading.textContent = 'Klinische Modifikatoren';
+    const modifierSection = document.createElement("section");
+    const heading = document.createElement("h3");
+    heading.textContent = "Klinische Modifikatoren";
     modifierSection.append(heading);
-    modifiers.forEach(modifier => {
-      const paragraph = document.createElement('p');
+    modifiers.forEach((modifier) => {
+      const paragraph = document.createElement("p");
       paragraph.textContent = `${modifier.label} (${directionLabel(modifier.direction)}): ${modifier.rationale} Grenzen: ${modifier.limitations}`;
       modifierSection.append(paragraph);
     });
@@ -2241,19 +2764,27 @@ function renderEvidence(profile: EvidenceProfile, assumption: PretestAssumption,
   }
 }
 
-function guidanceForCondition(conditionId: string): ConditionGuidance | undefined {
-  return conditionGuidance.find(guidance => guidance.conditionId === conditionId);
+function guidanceForCondition(
+  conditionId: string,
+): ConditionGuidance | undefined {
+  return conditionGuidance.find(
+    (guidance) => guidance.conditionId === conditionId,
+  );
 }
 
-function appendGuidanceList(parent: HTMLElement, title: string, items: string[]): void {
+function appendGuidanceList(
+  parent: HTMLElement,
+  title: string,
+  items: string[],
+): void {
   if (items.length === 0) return;
-  const section = document.createElement('section');
-  section.className = 'guidance-section';
-  const heading = document.createElement('h3');
+  const section = document.createElement("section");
+  section.className = "guidance-section";
+  const heading = document.createElement("h3");
   heading.textContent = title;
-  const list = document.createElement('ul');
-  items.forEach(item => {
-    const li = document.createElement('li');
+  const list = document.createElement("ul");
+  items.forEach((item) => {
+    const li = document.createElement("li");
     li.textContent = item;
     list.append(li);
   });
@@ -2261,26 +2792,29 @@ function appendGuidanceList(parent: HTMLElement, title: string, items: string[])
   parent.append(section);
 }
 
-function renderGuidanceLinks(parent: HTMLElement, links: EvidenceSource[]): void {
-  const section = document.createElement('section');
-  section.className = 'guidance-section';
-  const heading = document.createElement('h3');
-  heading.textContent = 'Leitlinien und Quellen';
-  const list = document.createElement('ul');
-  list.className = 'source-list guidance-link-list';
-  links.forEach(source => {
-    const item = document.createElement('li');
-    item.className = 'source-item';
-    const badge = document.createElement('span');
-    badge.className = 'badge';
+function renderGuidanceLinks(
+  parent: HTMLElement,
+  links: EvidenceSource[],
+): void {
+  const section = document.createElement("section");
+  section.className = "guidance-section";
+  const heading = document.createElement("h3");
+  heading.textContent = "Leitlinien und Quellen";
+  const list = document.createElement("ul");
+  list.className = "source-list guidance-link-list";
+  links.forEach((source) => {
+    const item = document.createElement("li");
+    item.className = "source-item";
+    const badge = document.createElement("span");
+    badge.className = "badge";
     badge.textContent = source.kind;
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = source.url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
     link.textContent = `${source.title} (${source.year})`;
-    const note = document.createElement('p');
-    note.className = 'muted';
+    const note = document.createElement("p");
+    note.className = "muted";
     note.textContent = source.note;
     item.append(badge, link, note);
     list.append(item);
@@ -2293,38 +2827,72 @@ function renderConditionGuidance(): void {
   const selectedCondition = getSelectedCondition();
   const guidance = guidanceForCondition(selectedCondition.id);
   controls.conditionGuidanceTitle.textContent = `Weiterführende Informationen: ${selectedCondition.label}`;
-  controls.conditionGuidanceContent.textContent = '';
+  controls.conditionGuidanceContent.textContent = "";
 
   if (!guidance) {
-    const note = document.createElement('p');
-    note.className = 'muted';
-    note.textContent = 'Für diese Erkrankung ist noch keine kuratierte Kurznotiz hinterlegt. Die testbezogenen Quellen bleiben in „Zahlen, Herkunft und Begründung“ sichtbar.';
+    const note = document.createElement("p");
+    note.className = "muted";
+    note.textContent =
+      "Für diese Erkrankung ist noch keine kuratierte Kurznotiz hinterlegt. Die testbezogenen Quellen bleiben in „Zahlen, Herkunft und Begründung“ sichtbar.";
     controls.conditionGuidanceContent.append(note);
     return;
   }
 
-  const summary = document.createElement('p');
-  summary.className = 'guidance-summary';
+  const summary = document.createElement("p");
+  summary.className = "guidance-summary";
   summary.textContent = guidance.summary;
   controls.conditionGuidanceContent.append(summary);
-  appendGuidanceList(controls.conditionGuidanceContent, 'Wann testen?', guidance.whenToTest);
-  appendGuidanceList(controls.conditionGuidanceContent, 'Geeignete Tests', guidance.recommendedTests);
-  appendGuidanceList(controls.conditionGuidanceContent, 'Wichtige Fallstricke', guidance.pitfalls);
-  appendGuidanceList(controls.conditionGuidanceContent, 'Setting-Hinweise', guidance.settingNotes);
+  appendGuidanceList(
+    controls.conditionGuidanceContent,
+    "Wann testen?",
+    guidance.whenToTest,
+  );
+  appendGuidanceList(
+    controls.conditionGuidanceContent,
+    "Geeignete Tests",
+    guidance.recommendedTests,
+  );
+  appendGuidanceList(
+    controls.conditionGuidanceContent,
+    "Wichtige Fallstricke",
+    guidance.pitfalls,
+  );
+  appendGuidanceList(
+    controls.conditionGuidanceContent,
+    "Setting-Hinweise",
+    guidance.settingNotes,
+  );
   renderGuidanceLinks(controls.conditionGuidanceContent, guidance.links);
 }
 
 function describeResult(result: CalculationResult): string {
   const gain = result.postPositiveProbability - result.pretestProbability;
   const drop = result.pretestProbability - result.postNegativeProbability;
-  const ruleIn = result.lrPositive >= 10 ? 'stark' : result.lrPositive >= 5 ? 'moderat' : 'begrenzt';
-  const ruleOut = result.lrNegative <= 0.1 ? 'stark' : result.lrNegative <= 0.2 ? 'moderat' : 'begrenzt';
+  const ruleIn =
+    result.lrPositive >= 10
+      ? "stark"
+      : result.lrPositive >= 5
+        ? "moderat"
+        : "begrenzt";
+  const ruleOut =
+    result.lrNegative <= 0.1
+      ? "stark"
+      : result.lrNegative <= 0.2
+        ? "moderat"
+        : "begrenzt";
   return `Ein positives Ergebnis zeigt einen ${ruleIn}en Rule-in-Effekt (${formatPercent(gain)} absolute Zunahme). Ein negatives Ergebnis zeigt einen ${ruleOut}en Rule-out-Effekt (${formatPercent(drop)} absolute Abnahme).`;
 }
 
 function drawNomogram(result: CalculationResult): void {
   const impact = modifierImpact(getSelectedProfile(), result);
-  drawNomogramCanvases({ positive: controls.nomogramPositive, negative: controls.nomogramNegative }, result, impact);
+  drawNomogramCanvases(
+    {
+      positive: controls.nomogramPositive,
+      negative: controls.nomogramNegative,
+    },
+    result,
+    impact,
+  );
 }
 
 function currentCalculation(): {
@@ -2337,88 +2905,131 @@ function currentCalculation(): {
   const test = getSelectedTest();
   const profile = getSelectedProfile();
   const pretestResolution = resolvePretestAssumption();
-  const manualProbability = clampProbabilityPercent(state.manualPretestPercent) / 100;
+  const manualProbability =
+    clampProbabilityPercent(state.manualPretestPercent) / 100;
   return {
     test,
     profile,
     assumption: pretestResolution.assumption,
     pretestResolution,
-    result: calculateResult(profile, manualProbability)
+    result: calculateResult(profile, manualProbability),
   };
 }
 
 function physicalConditionsForSystem(systemId: string): PhysicalCondition[] {
   return physicalConditions
-    .filter(condition => condition.systemId === systemId)
-    .sort((a, b) => a.label.localeCompare(b.label, 'de'));
+    .filter((condition) => condition.systemId === systemId)
+    .sort((a, b) => a.label.localeCompare(b.label, "de"));
 }
 
 function physicalFindingsForCondition(conditionId: string): PhysicalFinding[] {
   return physicalFindings
-    .filter(finding => finding.conditionId === conditionId)
+    .filter((finding) => finding.conditionId === conditionId)
     .sort((a, b) => {
-      const aScore = (a.lrPositive.value ?? 1) + (a.lrNegative.value ? 1 / a.lrNegative.value : 0);
-      const bScore = (b.lrPositive.value ?? 1) + (b.lrNegative.value ? 1 / b.lrNegative.value : 0);
-      return bScore - aScore || a.findingLabel.localeCompare(b.findingLabel, 'de');
+      const aScore =
+        (a.lrPositive.value ?? 1) +
+        (a.lrNegative.value ? 1 / a.lrNegative.value : 0);
+      const bScore =
+        (b.lrPositive.value ?? 1) +
+        (b.lrNegative.value ? 1 / b.lrNegative.value : 0);
+      return (
+        bScore - aScore || a.findingLabel.localeCompare(b.findingLabel, "de")
+      );
     });
 }
 
 function ensurePhysicalSelection(): void {
-  const system = physicalSystems.find(candidate => candidate.id === state.selectedPhysicalSystemId) ?? physicalSystems[0];
+  const system =
+    physicalSystems.find(
+      (candidate) => candidate.id === state.selectedPhysicalSystemId,
+    ) ?? physicalSystems[0];
   state.selectedPhysicalSystemId = system.id;
   const conditions = physicalConditionsForSystem(system.id);
-  const condition = conditions.find(candidate => candidate.id === state.selectedPhysicalConditionId) ?? conditions[0] ?? physicalConditions[0];
+  const condition =
+    conditions.find(
+      (candidate) => candidate.id === state.selectedPhysicalConditionId,
+    ) ??
+    conditions[0] ??
+    physicalConditions[0];
   state.selectedPhysicalConditionId = condition.id;
   const findings = physicalFindingsForCondition(condition.id);
-  const finding = findings.find(candidate => candidate.id === state.selectedPhysicalFindingId) ?? findings[0] ?? physicalFindings[0];
+  const finding =
+    findings.find(
+      (candidate) => candidate.id === state.selectedPhysicalFindingId,
+    ) ??
+    findings[0] ??
+    physicalFindings[0];
   state.selectedPhysicalFindingId = finding.id;
-  state.physicalPretestPercent = clampProbabilityPercent(state.physicalPretestPercent ?? Math.max(0.1, finding.pretestRange.low));
+  state.physicalPretestPercent = clampProbabilityPercent(
+    state.physicalPretestPercent ?? Math.max(0.1, finding.pretestRange.low),
+  );
 }
 
 function physicalProfileFromFinding(finding: PhysicalFinding): EvidenceProfile {
   return {
     id: `physical-${finding.id}`,
-    testId: 'physical-exam',
+    testId: "physical-exam",
     label: finding.findingLabel,
-    kind: 'curated',
-    method: 'Körperlicher Untersuchungsbefund',
+    kind: "curated",
+    method: "Körperlicher Untersuchungsbefund",
     cutoff: finding.positiveCriterion,
     sensitivity: null,
     specificity: null,
     lrPositive: finding.lrPositive.value ?? 1,
     lrNegative: finding.lrNegative.value ?? 1,
     population: `McGee-Prätestbereich: ${formatPhysicalPretestRange(finding)}.`,
-    rationale: 'Likelihood-Ratio eines körperlichen Untersuchungsbefunds aus McGee.',
+    rationale:
+      "Likelihood-Ratio eines körperlichen Untersuchungsbefunds aus McGee.",
     limitations: finding.limitations,
     sources: [],
-    lastReviewed: '2026-05-19',
-    reviewStatus: 'needs-review',
-    evidenceQuality: 'moderate',
-    dataCompleteness: 'partial'
+    lastReviewed: "2026-05-19",
+    reviewStatus: "needs-review",
+    evidenceQuality: "moderate",
+    dataCompleteness: "partial",
   };
 }
 
-function formatPhysicalLr(lr: PhysicalFinding['lrPositive']): string {
-  if (lr.notReported || lr.value == null) return 'nicht berichtet';
-  const ci = lr.ciLow != null && lr.ciHigh != null ? ` (${formatRatio(lr.ciLow)}-${formatRatio(lr.ciHigh)})` : '';
+function formatPhysicalLr(lr: PhysicalFinding["lrPositive"]): string {
+  if (lr.notReported || lr.value == null) return "nicht berichtet";
+  const ci =
+    lr.ciLow != null && lr.ciHigh != null
+      ? ` (${formatRatio(lr.ciLow)}-${formatRatio(lr.ciHigh)})`
+      : "";
   return `${formatRatio(lr.value)}${ci}`;
 }
 
 function formatPhysicalPretestRange(finding: PhysicalFinding): string {
-  const low = finding.pretestRange.low.toLocaleString('de-DE', { maximumFractionDigits: 1 });
-  const high = finding.pretestRange.high.toLocaleString('de-DE', { maximumFractionDigits: 1 });
+  const low = finding.pretestRange.low.toLocaleString("de-DE", {
+    maximumFractionDigits: 1,
+  });
+  const high = finding.pretestRange.high.toLocaleString("de-DE", {
+    maximumFractionDigits: 1,
+  });
   return low === high ? `${low} %` : `${low}-${high} %`;
 }
 
-function currentPhysicalCalculation(): { finding: PhysicalFinding; condition: PhysicalCondition; result: CalculationResult } {
+function currentPhysicalCalculation(): {
+  finding: PhysicalFinding;
+  condition: PhysicalCondition;
+  result: CalculationResult;
+} {
   ensurePhysicalSelection();
-  const finding = physicalFindings.find(candidate => candidate.id === state.selectedPhysicalFindingId) ?? physicalFindings[0];
-  const condition = physicalConditions.find(candidate => candidate.id === finding.conditionId) ?? physicalConditions[0];
-  const pretest = clampProbabilityPercent(state.physicalPretestPercent ?? finding.pretestRange.low) / 100;
+  const finding =
+    physicalFindings.find(
+      (candidate) => candidate.id === state.selectedPhysicalFindingId,
+    ) ?? physicalFindings[0];
+  const condition =
+    physicalConditions.find(
+      (candidate) => candidate.id === finding.conditionId,
+    ) ?? physicalConditions[0];
+  const pretest =
+    clampProbabilityPercent(
+      state.physicalPretestPercent ?? finding.pretestRange.low,
+    ) / 100;
   return {
     finding,
     condition,
-    result: calculateResult(physicalProfileFromFinding(finding), pretest)
+    result: calculateResult(physicalProfileFromFinding(finding), pretest),
   };
 }
 
@@ -2429,83 +3040,129 @@ function populatePhysicalSelectors(): void {
     physicalSystems
       .slice()
       .sort((a, b) => a.sortOrder - b.sortOrder)
-      .map(system => ({ value: system.id, label: system.label })),
-    state.selectedPhysicalSystemId ?? physicalSystems[0].id
+      .map((system) => ({ value: system.id, label: system.label })),
+    state.selectedPhysicalSystemId ?? physicalSystems[0].id,
   );
   populateSelect(
     physicalControls.conditionSelect,
-    physicalConditionsForSystem(state.selectedPhysicalSystemId ?? physicalSystems[0].id).map(condition => ({
+    physicalConditionsForSystem(
+      state.selectedPhysicalSystemId ?? physicalSystems[0].id,
+    ).map((condition) => ({
       value: condition.id,
-      label: condition.label
+      label: condition.label,
     })),
-    state.selectedPhysicalConditionId ?? physicalConditions[0].id
+    state.selectedPhysicalConditionId ?? physicalConditions[0].id,
   );
   populateSelect(
     physicalControls.findingSelect,
-    physicalFindingsForCondition(state.selectedPhysicalConditionId ?? physicalConditions[0].id).map(finding => ({
+    physicalFindingsForCondition(
+      state.selectedPhysicalConditionId ?? physicalConditions[0].id,
+    ).map((finding) => ({
       value: finding.id,
-      label: finding.findingLabel
+      label: finding.findingLabel,
     })),
-    state.selectedPhysicalFindingId ?? physicalFindings[0].id
+    state.selectedPhysicalFindingId ?? physicalFindings[0].id,
   );
 }
 
 function renderPhysicalMain(): void {
   populatePhysicalSelectors();
   const { finding, condition, result } = currentPhysicalCalculation();
-  const pretestPercent = clampProbabilityPercent(result.pretestProbability * 100);
+  const pretestPercent = clampProbabilityPercent(
+    result.pretestProbability * 100,
+  );
   physicalControls.pretestRange.value = String(pretestPercent);
   if (document.activeElement !== physicalControls.pretestNumber) {
-    physicalControls.pretestNumber.value = formatPretestPercentInput(pretestPercent);
+    physicalControls.pretestNumber.value =
+      formatPretestPercentInput(pretestPercent);
   }
-  physicalControls.lrPositive.textContent = formatPhysicalLr(finding.lrPositive);
-  physicalControls.lrNegative.textContent = formatPhysicalLr(finding.lrNegative);
-  physicalControls.pretestValue.textContent = formatPercent(result.pretestProbability);
-  physicalControls.postPositiveValue.textContent = finding.lrPositive.value == null ? '–' : formatPercent(result.postPositiveProbability);
-  physicalControls.postNegativeValue.textContent = finding.lrNegative.value == null ? '–' : formatPercent(result.postNegativeProbability);
+  physicalControls.lrPositive.textContent = formatPhysicalLr(
+    finding.lrPositive,
+  );
+  physicalControls.lrNegative.textContent = formatPhysicalLr(
+    finding.lrNegative,
+  );
+  physicalControls.pretestValue.textContent = formatPercent(
+    result.pretestProbability,
+  );
+  physicalControls.postPositiveValue.textContent =
+    finding.lrPositive.value == null
+      ? "–"
+      : formatPercent(result.postPositiveProbability);
+  physicalControls.postNegativeValue.textContent =
+    finding.lrNegative.value == null
+      ? "–"
+      : formatPercent(result.postNegativeProbability);
   setBar(physicalControls.pretestBar, result.pretestProbability);
-  setBar(physicalControls.postPositiveBar, finding.lrPositive.value == null ? 0 : result.postPositiveProbability);
-  setBar(physicalControls.postNegativeBar, finding.lrNegative.value == null ? 0 : result.postNegativeProbability);
-  renderCohortExplanation(physicalControls.cohortExplanation, physicalProfileFromFinding(finding), result, 'vorhandenem Befund', 'fehlendem Befund');
+  setBar(
+    physicalControls.postPositiveBar,
+    finding.lrPositive.value == null ? 0 : result.postPositiveProbability,
+  );
+  setBar(
+    physicalControls.postNegativeBar,
+    finding.lrNegative.value == null ? 0 : result.postNegativeProbability,
+  );
+  renderCohortExplanation(
+    physicalControls.cohortExplanation,
+    physicalProfileFromFinding(finding),
+    result,
+    "vorhandenem Befund",
+    "fehlendem Befund",
+  );
   physicalControls.pretestHint.textContent = `McGee-Prätestbereich in den Studien: ${formatPhysicalPretestRange(finding)}. Dieser Bereich wird nicht automatisch übernommen.`;
   const gain = result.postPositiveProbability - result.pretestProbability;
   const drop = result.pretestProbability - result.postNegativeProbability;
-  physicalControls.interpretation.textContent =
-    `Für „${finding.findingLabel}“ bei ${condition.label}: Befund vorhanden verändert die Wahrscheinlichkeit um ${finding.lrPositive.value == null ? 'nicht berechenbar' : formatPercent(gain)} absolut, Befund fehlend um ${finding.lrNegative.value == null ? 'nicht berechenbar' : formatPercent(drop)} absolut.`;
+  physicalControls.interpretation.textContent = `Für „${finding.findingLabel}“ bei ${condition.label}: Befund vorhanden verändert die Wahrscheinlichkeit um ${finding.lrPositive.value == null ? "nicht berechenbar" : formatPercent(gain)} absolut, Befund fehlend um ${finding.lrNegative.value == null ? "nicht berechenbar" : formatPercent(drop)} absolut.`;
   physicalControls.findingHint.textContent = `${finding.source.sourceBox}, Referenzseite ${finding.source.sourcePage}. Original: ${finding.originalFindingLabel}.`;
-  physicalControls.details.innerHTML = '';
+  physicalControls.details.innerHTML = "";
   physicalControls.details.append(
-    detailRow('Körpersystem', physicalSystems.find(system => system.id === finding.systemId)?.label ?? finding.systemId),
-    detailRow('Fragestellung', condition.label),
-    detailRow('Befund', finding.findingLabel),
-    detailRow('LR+', formatPhysicalLr(finding.lrPositive)),
-    detailRow('LR−', formatPhysicalLr(finding.lrNegative)),
-    detailRow('Prätestbereich', formatPhysicalPretestRange(finding)),
-    detailRow('Quelle', `${finding.source.title}; ${finding.source.sourceBox}, Seite ${finding.source.sourcePage}`),
-    detailRow('Status', finding.reviewStatus),
-    detailRow('Grenzen', finding.limitations)
+    detailRow(
+      "Körpersystem",
+      physicalSystems.find((system) => system.id === finding.systemId)?.label ??
+        finding.systemId,
+    ),
+    detailRow("Fragestellung", condition.label),
+    detailRow("Befund", finding.findingLabel),
+    detailRow("LR+", formatPhysicalLr(finding.lrPositive)),
+    detailRow("LR−", formatPhysicalLr(finding.lrNegative)),
+    detailRow("Prätestbereich", formatPhysicalPretestRange(finding)),
+    detailRow(
+      "Quelle",
+      `${finding.source.title}; ${finding.source.sourceBox}, Seite ${finding.source.sourcePage}`,
+    ),
+    detailRow("Status", finding.reviewStatus),
+    detailRow("Grenzen", finding.limitations),
   );
   drawNomogramCanvases(
-    { positive: physicalControls.nomogramPositive, negative: physicalControls.nomogramNegative },
+    {
+      positive: physicalControls.nomogramPositive,
+      negative: physicalControls.nomogramNegative,
+    },
     result,
-    { direction: 'none' }
+    { direction: "none" },
   );
 }
 
 function renderMode(): void {
-  const physicalMode = state.appMode === 'physical-exam';
-  controls.calculatorGrid.classList.toggle('hidden', physicalMode);
-  controls.physicalExamGrid.classList.toggle('hidden', !physicalMode);
-  controls.diagnosticModeTab.classList.toggle('is-active', !physicalMode);
-  controls.physicalModeTab.classList.toggle('is-active', physicalMode);
-  controls.diagnosticModeTab.setAttribute('aria-selected', String(!physicalMode));
-  controls.physicalModeTab.setAttribute('aria-selected', String(physicalMode));
+  const physicalMode = state.appMode === "physical-exam";
+  controls.calculatorGrid.classList.toggle("hidden", physicalMode);
+  controls.physicalExamGrid.classList.toggle("hidden", !physicalMode);
+  controls.diagnosticModeTab.classList.toggle("is-active", !physicalMode);
+  controls.physicalModeTab.classList.toggle("is-active", physicalMode);
+  controls.diagnosticModeTab.setAttribute(
+    "aria-selected",
+    String(!physicalMode),
+  );
+  controls.physicalModeTab.setAttribute("aria-selected", String(physicalMode));
 }
 
 function renderMain(): void {
   populateSelectors();
-  const { test, profile, assumption, pretestResolution, result } = currentCalculation();
-  const pretestPercent = clampProbabilityPercent(result.pretestProbability * 100);
+  const { test, profile, assumption, pretestResolution, result } =
+    currentCalculation();
+  const pretestPercent = clampProbabilityPercent(
+    result.pretestProbability * 100,
+  );
   state.selectedEvidenceProfileId = profile.id;
   controls.pretestRange.value = String(pretestPercent);
   if (document.activeElement !== controls.pretestNumber) {
@@ -2514,55 +3171,92 @@ function renderMain(): void {
   controls.lrPositive.textContent = formatRatio(result.lrPositive);
   controls.lrNegative.textContent = formatRatio(result.lrNegative);
   controls.pretestValue.textContent = formatPercent(result.pretestProbability);
-  controls.postPositiveValue.textContent = formatPercent(result.postPositiveProbability);
-  controls.postNegativeValue.textContent = formatPercent(result.postNegativeProbability);
+  controls.postPositiveValue.textContent = formatPercent(
+    result.postPositiveProbability,
+  );
+  controls.postNegativeValue.textContent = formatPercent(
+    result.postNegativeProbability,
+  );
   setBar(controls.pretestBar, result.pretestProbability);
   setBar(controls.postPositiveBar, result.postPositiveProbability);
   setBar(controls.postNegativeBar, result.postNegativeProbability);
   controls.interpretation.textContent = describeResult(result);
-  renderCohortExplanation(controls.cohortExplanation, profile, result, 'positivem Test', 'negativem Test');
+  renderCohortExplanation(
+    controls.cohortExplanation,
+    profile,
+    result,
+    "positivem Test",
+    "negativem Test",
+  );
   renderScenarioBanner(profile);
   renderMismatchWarning(test);
   renderPretestStatus(pretestResolution);
-  renderPretestEstimatePanel(getPretestEstimate(
-    state.selectedConditionId,
-    state.selectedSettingId,
-    selectedModifiers().map(modifier => modifier.label),
-    [],
-    []
-  ));
+  renderPretestEstimatePanel(
+    getPretestEstimate(
+      state.selectedConditionId,
+      state.selectedSettingId,
+      selectedModifiers().map((modifier) => modifier.label),
+      [],
+      [],
+    ),
+  );
   renderModifierSelector(result);
   renderDecisionModifiers();
   renderModifierImpact(profile, result);
   renderDetails(test, profile, assumption, result, pretestResolution);
   renderEvidence(profile, assumption, pretestResolution);
   renderConditionGuidance();
-  const selectedChain = diagnosticChains.find(chain => chain.id === state.selectedDiagnosticChainId) ?? diagnosticChains[0];
+  const selectedChain =
+    diagnosticChains.find(
+      (chain) => chain.id === state.selectedDiagnosticChainId,
+    ) ?? diagnosticChains[0];
   state.selectedDiagnosticChainId = selectedChain?.id;
   const chainViewModels = selectedChain
-    ? [calculateDiagnosticChain(selectedChain, allTests(), allProfiles(), result.pretestProbability)].filter(
-        (chain): chain is NonNullable<typeof chain> => chain != null
-      )
+    ? [
+        calculateDiagnosticChain(
+          selectedChain,
+          allTests(),
+          allProfiles(),
+          result.pretestProbability,
+        ),
+      ].filter((chain): chain is NonNullable<typeof chain> => chain != null)
     : [];
-  renderDiagnosticChains(controls.diagnosticChainsPanel, chainViewModels, result.pretestProbability);
+  renderDiagnosticChains(
+    controls.diagnosticChainsPanel,
+    chainViewModels,
+    result.pretestProbability,
+  );
   drawNomogram(result);
 }
 
 function renderDrawer(): void {
   populateAdminSelectors();
-  controls.drawer.classList.toggle('is-open', state.drawerOpen);
-  controls.drawer.classList.toggle('is-fullscreen', Boolean(state.catalogFullscreen && state.adminMode === 'catalog'));
-  controls.drawer.setAttribute('aria-hidden', String(!state.drawerOpen));
-  controls.drawerBackdrop.classList.toggle('hidden', !state.drawerOpen);
-  controls.drawerOpenButton.setAttribute('aria-expanded', String(state.drawerOpen));
-  document.querySelectorAll<HTMLButtonElement>('[data-admin-mode]').forEach(button => {
-    button.classList.toggle('is-active', button.dataset.adminMode === state.adminMode);
-  });
-  document.querySelectorAll<HTMLElement>('[data-panel]').forEach(panel => {
-    panel.classList.toggle('hidden', panel.dataset.panel !== state.adminMode);
+  controls.drawer.classList.toggle("is-open", state.drawerOpen);
+  controls.drawer.classList.toggle(
+    "is-fullscreen",
+    Boolean(state.catalogFullscreen && state.adminMode === "catalog"),
+  );
+  controls.drawer.setAttribute("aria-hidden", String(!state.drawerOpen));
+  controls.drawerBackdrop.classList.toggle("hidden", !state.drawerOpen);
+  controls.drawerOpenButton.setAttribute(
+    "aria-expanded",
+    String(state.drawerOpen),
+  );
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-admin-mode]")
+    .forEach((button) => {
+      button.classList.toggle(
+        "is-active",
+        button.dataset.adminMode === state.adminMode,
+      );
+    });
+  document.querySelectorAll<HTMLElement>("[data-panel]").forEach((panel) => {
+    panel.classList.toggle("hidden", panel.dataset.panel !== state.adminMode);
   });
   controls.customDataSummary.textContent = `${state.customTests.length} eigene Tests, ${state.customEvidenceProfiles.length} eigene Evidenzprofile/Szenarien, ${state.customAssumptions.length} eigene Prätest-Annahmen und ${state.customModifiers.length} eigene Modifikatoren lokal gespeichert.`;
-  controls.catalogFullscreenButton.textContent = state.catalogFullscreen ? 'Normalbreite' : 'Vollbildmodus';
+  controls.catalogFullscreenButton.textContent = state.catalogFullscreen
+    ? "Normalbreite"
+    : "Vollbildmodus";
   renderAdminOverview();
   renderDataCatalog();
   renderProfilePreview();
@@ -2576,8 +3270,13 @@ function render(): void {
   renderDrawer();
 }
 
-function openDrawer(mode: CalculatorState['adminMode'] = state.adminMode): void {
-  lastFocusBeforeDrawer = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+function openDrawer(
+  mode: CalculatorState["adminMode"] = state.adminMode,
+): void {
+  lastFocusBeforeDrawer =
+    document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
   state.drawerOpen = true;
   state.adminMode = mode;
   renderDrawer();
@@ -2591,225 +3290,327 @@ function closeDrawer(): void {
 }
 
 function toggleDisclaimer(): void {
-  const expanded = controls.disclaimerToggleButton.getAttribute('aria-expanded') === 'true';
+  const expanded =
+    controls.disclaimerToggleButton.getAttribute("aria-expanded") === "true";
   const nextExpanded = !expanded;
-  controls.disclaimerToggleButton.setAttribute('aria-expanded', String(nextExpanded));
-  controls.disclaimerContent.classList.toggle('hidden', !nextExpanded);
-  controls.disclaimerToggleIcon.textContent = nextExpanded ? '−' : '+';
-  controls.disclaimerToggleLabel.textContent = nextExpanded ? 'Details ausblenden' : 'Details anzeigen';
+  controls.disclaimerToggleButton.setAttribute(
+    "aria-expanded",
+    String(nextExpanded),
+  );
+  controls.disclaimerContent.classList.toggle("hidden", !nextExpanded);
+  controls.disclaimerToggleIcon.textContent = nextExpanded ? "−" : "+";
+  controls.disclaimerToggleLabel.textContent = nextExpanded
+    ? "Details ausblenden"
+    : "Details anzeigen";
 }
 
 function handleNomogramSizeToggle(): void {
   const expanded = controls.nomogramSizeToggle.checked;
-  controls.calculatorGrid.classList.toggle('nomogram-focus', expanded);
-  controls.nomogramCard.classList.toggle('is-focused', expanded);
+  controls.calculatorGrid.classList.toggle("nomogram-focus", expanded);
+  controls.nomogramCard.classList.toggle("is-focused", expanded);
   window.requestAnimationFrame(() => drawNomogram(currentCalculation().result));
   if (expanded) {
-    controls.nomogramCard.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    controls.nomogramCard.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
   }
 }
 
-function parseRangePercent(value: string): { rangeLow?: number; rangeHigh?: number } {
-  const parts = value.split('-').map(part => Number.parseFloat(part.trim().replace(',', '.')));
-  if (parts.length !== 2 || parts.some(part => !Number.isFinite(part))) return {};
+function parseRangePercent(value: string): {
+  rangeLow?: number;
+  rangeHigh?: number;
+} {
+  const parts = value
+    .split("-")
+    .map((part) => Number.parseFloat(part.trim().replace(",", ".")));
+  if (parts.length !== 2 || parts.some((part) => !Number.isFinite(part)))
+    return {};
   return {
     rangeLow: clamp(parts[0], 0, 100) / 100,
-    rangeHigh: clamp(parts[1], 0, 100) / 100
+    rangeHigh: clamp(parts[1], 0, 100) / 100,
   };
 }
 
-function profileFromForm(kind: 'custom' | 'scenario'): EvidenceProfile {
-  const sensitivity = clamp(Number.parseFloat($<HTMLInputElement>(kind === 'custom' ? 'profileSensitivity' : 'scenarioSensitivity').value), 0, 100) / 100;
-  const specificity = clamp(Number.parseFloat($<HTMLInputElement>(kind === 'custom' ? 'profileSpecificity' : 'scenarioSpecificity').value), 0, 100) / 100;
-  const ratios = likelihoodRatiosFromSensitivitySpecificity(sensitivity, specificity);
+function profileFromForm(kind: "custom" | "scenario"): EvidenceProfile {
+  const sensitivity =
+    clamp(
+      Number.parseFloat(
+        $<HTMLInputElement>(
+          kind === "custom" ? "profileSensitivity" : "scenarioSensitivity",
+        ).value,
+      ),
+      0,
+      100,
+    ) / 100;
+  const specificity =
+    clamp(
+      Number.parseFloat(
+        $<HTMLInputElement>(
+          kind === "custom" ? "profileSpecificity" : "scenarioSpecificity",
+        ).value,
+      ),
+      0,
+      100,
+    ) / 100;
+  const ratios = likelihoodRatiosFromSensitivitySpecificity(
+    sensitivity,
+    specificity,
+  );
   const baseProfile = getSelectedProfile();
-  if (kind === 'scenario') {
+  if (kind === "scenario") {
     return {
       ...baseProfile,
-      id: uniqueId('scenario-profile'),
-      label: $<HTMLInputElement>('scenarioLabel').value.trim(),
-      kind: 'scenario',
+      id: uniqueId("scenario-profile"),
+      label: $<HTMLInputElement>("scenarioLabel").value.trim(),
+      kind: "scenario",
       sensitivity,
       specificity,
       lrPositive: ratios.lrPositive,
       lrNegative: ratios.lrNegative,
-      procedure: $<HTMLInputElement>('scenarioProcedure').value.trim() || baseProfile.procedure,
-      intendedUse: baseProfile.intendedUse ?? baseProfile.purpose ?? 'scenario',
-      preanalyticRisk: baseProfile.preanalyticRisk ?? 'unclear',
-      applicabilityWarning: baseProfile.applicabilityWarning ?? baseProfile.limitations,
-      reviewPriority: 'medium',
+      procedure:
+        $<HTMLInputElement>("scenarioProcedure").value.trim() ||
+        baseProfile.procedure,
+      intendedUse: baseProfile.intendedUse ?? baseProfile.purpose ?? "scenario",
+      preanalyticRisk: baseProfile.preanalyticRisk ?? "unclear",
+      applicabilityWarning:
+        baseProfile.applicabilityWarning ?? baseProfile.limitations,
+      reviewPriority: "medium",
       rationale: `Abweichendes Szenario zu ${baseProfile.label}.`,
       limitations: baseProfile.limitations,
       deviationFromProfileId: baseProfile.id,
-      deviationReason: $<HTMLTextAreaElement>('scenarioReason').value.trim(),
+      deviationReason: $<HTMLTextAreaElement>("scenarioReason").value.trim(),
       lastReviewed: new Date().toISOString().slice(0, 10),
       isDefault: false,
       sources: baseProfile.sources,
-      ...localReviewMetadata('expert-opinion', 'partial')
+      ...localReviewMetadata("expert-opinion", "partial"),
     };
   }
   const testId = controls.profileTestSelect.value || getSelectedTest().id;
   return {
-    id: uniqueId('custom-profile'),
+    id: uniqueId("custom-profile"),
     testId,
-    label: $<HTMLInputElement>('profileLabel').value.trim(),
-    kind: 'custom',
-    method: $<HTMLInputElement>('profileMethod').value.trim(),
-    cutoff: $<HTMLInputElement>('profileCutoff').value.trim(),
-    procedure: $<HTMLInputElement>('profileProcedure').value.trim(),
-    intendedUse: 'lokales Evidenzprofil',
-    preanalyticRisk: 'unclear',
-    applicabilityWarning: $<HTMLTextAreaElement>('profileLimitations').value.trim(),
-    reviewPriority: 'medium',
+    label: $<HTMLInputElement>("profileLabel").value.trim(),
+    kind: "custom",
+    method: $<HTMLInputElement>("profileMethod").value.trim(),
+    cutoff: $<HTMLInputElement>("profileCutoff").value.trim(),
+    procedure: $<HTMLInputElement>("profileProcedure").value.trim(),
+    intendedUse: "lokales Evidenzprofil",
+    preanalyticRisk: "unclear",
+    applicabilityWarning:
+      $<HTMLTextAreaElement>("profileLimitations").value.trim(),
+    reviewPriority: "medium",
     sensitivity,
     specificity,
     lrPositive: ratios.lrPositive,
     lrNegative: ratios.lrNegative,
-    population: $<HTMLTextAreaElement>('profilePopulation').value.trim(),
-    rationale: $<HTMLTextAreaElement>('profileRationale').value.trim(),
-    limitations: $<HTMLTextAreaElement>('profileLimitations').value.trim(),
-    sources: [sourceFromForm('profile', 'Lokale Annahme')],
+    population: $<HTMLTextAreaElement>("profilePopulation").value.trim(),
+    rationale: $<HTMLTextAreaElement>("profileRationale").value.trim(),
+    limitations: $<HTMLTextAreaElement>("profileLimitations").value.trim(),
+    sources: [sourceFromForm("profile", "Lokale Annahme")],
     lastReviewed: new Date().toISOString().slice(0, 10),
     isDefault: false,
-    ...localReviewMetadata('expert-opinion', 'partial')
+    ...localReviewMetadata("expert-opinion", "partial"),
   };
 }
 
 function renderProfilePreview(): void {
-  const profile = profileFromForm('custom');
+  const profile = profileFromForm("custom");
   const issues = validateEvidenceProfile(profile);
-  $('profilePreview').textContent = issues.length
-    ? `Bitte prüfen: ${issues.map(issue => issue.message).join(' ')}`
+  $("profilePreview").textContent = issues.length
+    ? `Bitte prüfen: ${issues.map((issue) => issue.message).join(" ")}`
     : `Vorschau: LR+ ${formatRatio(profile.lrPositive ?? null)}, LR− ${formatRatio(profile.lrNegative ?? null)}.`;
 }
 
 function renderScenarioPreview(): void {
-  const profile = profileFromForm('scenario');
+  const profile = profileFromForm("scenario");
   const issues = validateEvidenceProfile(profile);
-  $('scenarioPreview').textContent = issues.length
-    ? `Bitte prüfen: ${issues.map(issue => issue.message).join(' ')}`
+  $("scenarioPreview").textContent = issues.length
+    ? `Bitte prüfen: ${issues.map((issue) => issue.message).join(" ")}`
     : `Vorschau: Szenario zu „${getSelectedProfile().label}“ mit LR+ ${formatRatio(profile.lrPositive ?? null)}, LR− ${formatRatio(profile.lrNegative ?? null)}.`;
 }
 
 function saveCustomTest(): void {
-  clearMessage($('customTestMessage'));
+  clearMessage($("customTestMessage"));
   const test: DiagnosticTest = {
-    id: uniqueId('custom-test'),
-    name: $<HTMLInputElement>('customTestName').value.trim(),
-    category: $<HTMLInputElement>('customTestCategory').value.trim(),
-    condition: $<HTMLInputElement>('customTestCondition').value.trim(),
-    conditionId: conditionIdForLabel($<HTMLInputElement>('customTestCondition').value.trim()),
-    description: $<HTMLTextAreaElement>('customTestDescription').value.trim(),
+    id: uniqueId("custom-test"),
+    name: $<HTMLInputElement>("customTestName").value.trim(),
+    category: $<HTMLInputElement>("customTestCategory").value.trim(),
+    condition: $<HTMLInputElement>("customTestCondition").value.trim(),
+    conditionId: conditionIdForLabel(
+      $<HTMLInputElement>("customTestCondition").value.trim(),
+    ),
+    description: $<HTMLTextAreaElement>("customTestDescription").value.trim(),
     evidenceProfiles: [],
-    custom: true
+    custom: true,
   };
   if (!test.name || !test.category || !test.condition || !test.description) {
-    setMessage($('customTestMessage'), 'Bitte Name, Kategorie, Krankheitsbild und Beschreibung ausfüllen.', true);
+    setMessage(
+      $("customTestMessage"),
+      "Bitte Name, Kategorie, Krankheitsbild und Beschreibung ausfüllen.",
+      true,
+    );
     return;
   }
   state.customTests = [...state.customTests, test];
   state.selectedTestId = test.id;
-  setMessage($('customTestMessage'), 'Test gespeichert. Lege nun ein Evidenzprofil für diesen Test an.');
-  state.adminMode = 'profile';
+  setMessage(
+    $("customTestMessage"),
+    "Test gespeichert. Lege nun ein Evidenzprofil für diesen Test an.",
+  );
+  state.adminMode = "profile";
   saveAndRender();
 }
 
-function saveProfile(kind: 'custom' | 'scenario'): void {
-  const messageEl = $(kind === 'custom' ? 'profileMessage' : 'scenarioMessage');
+function saveProfile(kind: "custom" | "scenario"): void {
+  const messageEl = $(kind === "custom" ? "profileMessage" : "scenarioMessage");
   clearMessage(messageEl);
   const profile = profileFromForm(kind);
   const issues = validateEvidenceProfile(profile);
   if (issues.length > 0) {
-    setMessage(messageEl, issues.map(issue => issue.message).join(' '), true);
+    setMessage(messageEl, issues.map((issue) => issue.message).join(" "), true);
     return;
   }
   state.customEvidenceProfiles = [...state.customEvidenceProfiles, profile];
   state.selectedTestId = profile.testId;
   state.selectedEvidenceProfileId = profile.id;
-  setMessage(messageEl, kind === 'scenario' ? 'Szenario gespeichert.' : 'Evidenzprofil gespeichert.');
+  setMessage(
+    messageEl,
+    kind === "scenario"
+      ? "Szenario gespeichert."
+      : "Evidenzprofil gespeichert.",
+  );
   saveAndRender();
 }
 
 function saveCustomAssumption(): void {
-  clearMessage($('customAssumptionMessage'));
-  const range = parseRangePercent($<HTMLInputElement>('customAssumptionRange').value);
-  const condition = $<HTMLInputElement>('customAssumptionCondition').value.trim();
-  const setting = $<HTMLInputElement>('customAssumptionSetting').value.trim();
-  const settingId = $<HTMLInputElement>('customAssumptionSettingId').value.trim() || settingIdForLabel(setting);
-  const evidenceLevel = $<HTMLSelectElement>('customAssumptionEvidenceLevel').value as 'direct' | 'fallback';
+  clearMessage($("customAssumptionMessage"));
+  const range = parseRangePercent(
+    $<HTMLInputElement>("customAssumptionRange").value,
+  );
+  const condition = $<HTMLInputElement>(
+    "customAssumptionCondition",
+  ).value.trim();
+  const setting = $<HTMLInputElement>("customAssumptionSetting").value.trim();
+  const settingId =
+    $<HTMLInputElement>("customAssumptionSettingId").value.trim() ||
+    settingIdForLabel(setting);
+  const evidenceLevel = $<HTMLSelectElement>("customAssumptionEvidenceLevel")
+    .value as "direct" | "fallback";
   const assumption: PretestAssumption = {
-    id: uniqueId('custom-pretest'),
+    id: uniqueId("custom-pretest"),
     condition,
     conditionId: conditionIdForLabel(condition),
     setting,
-    settingId: evidenceLevel === 'fallback' ? 'general' : settingId,
+    settingId: evidenceLevel === "fallback" ? "general" : settingId,
     evidenceLevel,
-    population: $<HTMLTextAreaElement>('customAssumptionPopulation').value.trim(),
-    probability: clampProbabilityPercent(Number.parseFloat($<HTMLInputElement>('customAssumptionProbability').value)) / 100,
+    population: $<HTMLTextAreaElement>(
+      "customAssumptionPopulation",
+    ).value.trim(),
+    probability:
+      clampProbabilityPercent(
+        Number.parseFloat(
+          $<HTMLInputElement>("customAssumptionProbability").value,
+        ),
+      ) / 100,
     ...range,
-    rationale: $<HTMLTextAreaElement>('customAssumptionRationale').value.trim(),
-    limitations: $<HTMLTextAreaElement>('customAssumptionLimitations').value.trim(),
-    sources: [sourceFromForm('customAssumption', 'Lokale Annahme')],
+    rationale: $<HTMLTextAreaElement>("customAssumptionRationale").value.trim(),
+    limitations: $<HTMLTextAreaElement>(
+      "customAssumptionLimitations",
+    ).value.trim(),
+    sources: [sourceFromForm("customAssumption", "Lokale Annahme")],
     lastReviewed: new Date().toISOString().slice(0, 10),
-    kind: 'custom',
+    kind: "custom",
     custom: true,
-    ...localReviewMetadata('expert-opinion', 'partial')
+    ...localReviewMetadata("expert-opinion", "partial"),
   };
   const issues = validatePretestAssumption(assumption);
   if (issues.length > 0) {
-    setMessage($('customAssumptionMessage'), issues.map(issue => issue.message).join(' '), true);
+    setMessage(
+      $("customAssumptionMessage"),
+      issues.map((issue) => issue.message).join(" "),
+      true,
+    );
     return;
   }
   state.customAssumptions = [...state.customAssumptions, assumption];
   state.selectedAssumptionId = assumption.id;
-  state.selectedConditionId = assumption.conditionId ?? state.selectedConditionId;
-  if (assumption.settingId !== 'general') state.selectedSettingId = assumption.settingId ?? state.selectedSettingId;
-  state.manualPretestPercent = clampProbabilityPercent(assumption.probability * 100);
-  setMessage($('customAssumptionMessage'), 'Prätest-Annahme gespeichert.');
+  state.selectedConditionId =
+    assumption.conditionId ?? state.selectedConditionId;
+  if (assumption.settingId !== "general")
+    state.selectedSettingId = assumption.settingId ?? state.selectedSettingId;
+  state.manualPretestPercent = clampProbabilityPercent(
+    assumption.probability * 100,
+  );
+  setMessage($("customAssumptionMessage"), "Prätest-Annahme gespeichert.");
   saveAndRender();
 }
 
 function modifierFromForm(): ClinicalModifier {
-  const likelihoodRatio = Number.parseFloat($<HTMLInputElement>('modifierLikelihoodRatio').value);
-  const probabilityFactor = Number.parseFloat($<HTMLInputElement>('modifierProbabilityFactor').value);
+  const likelihoodRatio = Number.parseFloat(
+    $<HTMLInputElement>("modifierLikelihoodRatio").value,
+  );
+  const probabilityFactor = Number.parseFloat(
+    $<HTMLInputElement>("modifierProbabilityFactor").value,
+  );
   const hasLikelihoodRatio = Number.isFinite(likelihoodRatio);
   const hasProbabilityFactor = Number.isFinite(probabilityFactor);
-  const quantificationStatus = hasLikelihoodRatio ? 'likelihood-ratio' : hasProbabilityFactor ? 'probability-factor' : 'qualitative';
+  const quantificationStatus = hasLikelihoodRatio
+    ? "likelihood-ratio"
+    : hasProbabilityFactor
+      ? "probability-factor"
+      : "qualitative";
   return {
-    id: uniqueId('custom-modifier'),
+    id: uniqueId("custom-modifier"),
     conditionId: controls.modifierConditionSelect.value,
-    label: $<HTMLInputElement>('modifierLabel').value.trim(),
-    category: $<HTMLSelectElement>('modifierCategory').value as ClinicalModifier['category'],
-    direction: $<HTMLSelectElement>('modifierDirection').value as ClinicalModifierDirection,
+    label: $<HTMLInputElement>("modifierLabel").value.trim(),
+    category: $<HTMLSelectElement>("modifierCategory")
+      .value as ClinicalModifier["category"],
+    direction: $<HTMLSelectElement>("modifierDirection")
+      .value as ClinicalModifierDirection,
     ...(hasLikelihoodRatio ? { likelihoodRatio } : {}),
-    ...(hasProbabilityFactor && !hasLikelihoodRatio ? { probabilityFactor } : {}),
+    ...(hasProbabilityFactor && !hasLikelihoodRatio
+      ? { probabilityFactor }
+      : {}),
     quantificationStatus,
-    rationale: $<HTMLTextAreaElement>('modifierRationale').value.trim(),
-    limitations: $<HTMLTextAreaElement>('modifierLimitations').value.trim(),
-    sources: [sourceFromForm('modifier', 'Lokale Annahme')],
+    rationale: $<HTMLTextAreaElement>("modifierRationale").value.trim(),
+    limitations: $<HTMLTextAreaElement>("modifierLimitations").value.trim(),
+    sources: [sourceFromForm("modifier", "Lokale Annahme")],
     lastReviewed: new Date().toISOString().slice(0, 10),
-    kind: 'custom',
+    kind: "custom",
     custom: true,
-    ...localReviewMetadata('expert-opinion', quantificationStatus === 'qualitative' ? 'partial' : 'complete')
+    ...localReviewMetadata(
+      "expert-opinion",
+      quantificationStatus === "qualitative" ? "partial" : "complete",
+    ),
   };
 }
 
 function saveModifier(): void {
-  clearMessage($('modifierMessage'));
+  clearMessage($("modifierMessage"));
   const modifier = modifierFromForm();
   const issues = validateClinicalModifier(modifier);
   if (issues.length > 0) {
-    setMessage($('modifierMessage'), issues.map(issue => issue.message).join(' '), true);
+    setMessage(
+      $("modifierMessage"),
+      issues.map((issue) => issue.message).join(" "),
+      true,
+    );
     return;
   }
   state.customModifiers = [...state.customModifiers, modifier];
   state.selectedConditionId = modifier.conditionId;
-  state.selectedModifierIds = [...new Set([...state.selectedModifierIds, modifier.id])];
-  setMessage($('modifierMessage'), 'Klinischer Modifikator gespeichert.');
+  state.selectedModifierIds = [
+    ...new Set([...state.selectedModifierIds, modifier.id]),
+  ];
+  setMessage($("modifierMessage"), "Klinischer Modifikator gespeichert.");
   saveAndRender();
 }
 
-function fillSourceForm(prefix: string, source: EvidenceSource | undefined): void {
+function fillSourceForm(
+  prefix: string,
+  source: EvidenceSource | undefined,
+): void {
   if (!source) return;
   $<HTMLInputElement>(`${prefix}SourceTitle`).value = source.title;
   $<HTMLInputElement>(`${prefix}SourceYear`).value = String(source.year);
@@ -2821,8 +3622,14 @@ function copyCurrentPretestToForm(): void {
   const { assumption, pretestResolution } = currentCalculation();
   const selectedSetting = getSelectedSetting();
   const selectedCondition = getSelectedCondition();
-  fillAssumptionForm(assumption, selectedCondition.label, selectedSetting.label, selectedSetting.id, pretestResolution.probability);
-  state.adminMode = 'assumption';
+  fillAssumptionForm(
+    assumption,
+    selectedCondition.label,
+    selectedSetting.label,
+    selectedSetting.id,
+    pretestResolution.probability,
+  );
+  state.adminMode = "assumption";
   renderDrawer();
 }
 
@@ -2831,174 +3638,245 @@ function fillAssumptionForm(
   conditionLabel = assumption.condition,
   settingLabel = assumption.setting,
   settingId = assumption.settingId ?? settingIdForLabel(assumption.setting),
-  probability = assumption.probability
+  probability = assumption.probability,
 ): void {
-  $<HTMLInputElement>('customAssumptionCondition').value = conditionLabel;
-  $<HTMLInputElement>('customAssumptionSetting').value = settingLabel;
-  $<HTMLInputElement>('customAssumptionSettingId').value = settingId;
-  $<HTMLSelectElement>('customAssumptionEvidenceLevel').value = assumption.evidenceLevel ?? 'direct';
-  $<HTMLInputElement>('customAssumptionProbability').value = String((probability * 100).toFixed(1));
-  $<HTMLInputElement>('customAssumptionRange').value =
+  $<HTMLInputElement>("customAssumptionCondition").value = conditionLabel;
+  $<HTMLInputElement>("customAssumptionSetting").value = settingLabel;
+  $<HTMLInputElement>("customAssumptionSettingId").value = settingId;
+  $<HTMLSelectElement>("customAssumptionEvidenceLevel").value =
+    assumption.evidenceLevel ?? "direct";
+  $<HTMLInputElement>("customAssumptionProbability").value = String(
+    (probability * 100).toFixed(1),
+  );
+  $<HTMLInputElement>("customAssumptionRange").value =
     assumption.rangeLow != null && assumption.rangeHigh != null
       ? `${(assumption.rangeLow * 100).toFixed(1)}-${(assumption.rangeHigh * 100).toFixed(1)}`
-      : '';
-  $<HTMLTextAreaElement>('customAssumptionPopulation').value = assumption.population;
-  $<HTMLTextAreaElement>('customAssumptionRationale').value = `Lokale Korrektur: ${assumption.rationale}`;
-  $<HTMLTextAreaElement>('customAssumptionLimitations').value = assumption.limitations;
-  fillSourceForm('customAssumption', assumption.sources[0]);
+      : "";
+  $<HTMLTextAreaElement>("customAssumptionPopulation").value =
+    assumption.population;
+  $<HTMLTextAreaElement>("customAssumptionRationale").value =
+    `Lokale Korrektur: ${assumption.rationale}`;
+  $<HTMLTextAreaElement>("customAssumptionLimitations").value =
+    assumption.limitations;
+  fillSourceForm("customAssumption", assumption.sources[0]);
 }
 
 function copyCurrentTestToForm(): void {
   const test = getSelectedTest();
-  $<HTMLInputElement>('customTestName').value = `${test.name} (lokale Kopie)`;
-  $<HTMLInputElement>('customTestCategory').value = test.category;
-  $<HTMLInputElement>('customTestCondition').value = test.condition;
-  $<HTMLTextAreaElement>('customTestDescription').value = test.description;
-  state.adminMode = 'test';
+  $<HTMLInputElement>("customTestName").value = `${test.name} (lokale Kopie)`;
+  $<HTMLInputElement>("customTestCategory").value = test.category;
+  $<HTMLInputElement>("customTestCondition").value = test.condition;
+  $<HTMLTextAreaElement>("customTestDescription").value = test.description;
+  state.adminMode = "test";
   renderDrawer();
 }
 
 function copyCurrentProfileToForm(): void {
   fillProfileForm(getSelectedProfile());
-  state.adminMode = 'profile';
+  state.adminMode = "profile";
   renderDrawer();
 }
 
 function fillProfileForm(profile: EvidenceProfile): void {
   controls.profileTestSelect.value = profile.testId;
-  $<HTMLInputElement>('profileLabel').value = `${profile.label} (lokale Korrektur)`;
-  $<HTMLInputElement>('profileMethod').value = profile.method;
-  $<HTMLInputElement>('profileCutoff').value = profile.cutoff;
-  $<HTMLInputElement>('profileProcedure').value = profile.procedure ?? 'Nach lokalem Laborprotokoll durchführen.';
-  $<HTMLInputElement>('profileSensitivity').value = profile.sensitivity == null ? '' : String((profile.sensitivity * 100).toFixed(1));
-  $<HTMLInputElement>('profileSpecificity').value = profile.specificity == null ? '' : String((profile.specificity * 100).toFixed(1));
-  $<HTMLTextAreaElement>('profilePopulation').value = profile.population;
-  $<HTMLTextAreaElement>('profileRationale').value = `Lokale Korrektur: ${profile.rationale}`;
-  $<HTMLTextAreaElement>('profileLimitations').value = profile.limitations;
-  fillSourceForm('profile', profile.sources[0]);
+  $<HTMLInputElement>("profileLabel").value =
+    `${profile.label} (lokale Korrektur)`;
+  $<HTMLInputElement>("profileMethod").value = profile.method;
+  $<HTMLInputElement>("profileCutoff").value = profile.cutoff;
+  $<HTMLInputElement>("profileProcedure").value =
+    profile.procedure ?? "Nach lokalem Laborprotokoll durchführen.";
+  $<HTMLInputElement>("profileSensitivity").value =
+    profile.sensitivity == null
+      ? ""
+      : String((profile.sensitivity * 100).toFixed(1));
+  $<HTMLInputElement>("profileSpecificity").value =
+    profile.specificity == null
+      ? ""
+      : String((profile.specificity * 100).toFixed(1));
+  $<HTMLTextAreaElement>("profilePopulation").value = profile.population;
+  $<HTMLTextAreaElement>("profileRationale").value =
+    `Lokale Korrektur: ${profile.rationale}`;
+  $<HTMLTextAreaElement>("profileLimitations").value = profile.limitations;
+  fillSourceForm("profile", profile.sources[0]);
 }
 
 function fillModifierForm(modifier: ClinicalModifier): void {
   controls.modifierConditionSelect.value = modifier.conditionId;
-  $<HTMLInputElement>('modifierLabel').value = `${modifier.label} (lokale Korrektur)`;
-  $<HTMLSelectElement>('modifierCategory').value = modifier.category;
-  $<HTMLSelectElement>('modifierDirection').value = modifier.direction;
-  $<HTMLInputElement>('modifierLikelihoodRatio').value = modifier.likelihoodRatio == null ? '' : String(modifier.likelihoodRatio);
-  $<HTMLInputElement>('modifierProbabilityFactor').value = modifier.probabilityFactor == null ? '' : String(modifier.probabilityFactor);
-  $<HTMLTextAreaElement>('modifierRationale').value = `Lokale Korrektur: ${modifier.rationale}`;
-  $<HTMLTextAreaElement>('modifierLimitations').value = modifier.limitations;
-  fillSourceForm('modifier', modifier.sources[0]);
+  $<HTMLInputElement>("modifierLabel").value =
+    `${modifier.label} (lokale Korrektur)`;
+  $<HTMLSelectElement>("modifierCategory").value = modifier.category;
+  $<HTMLSelectElement>("modifierDirection").value = modifier.direction;
+  $<HTMLInputElement>("modifierLikelihoodRatio").value =
+    modifier.likelihoodRatio == null ? "" : String(modifier.likelihoodRatio);
+  $<HTMLInputElement>("modifierProbabilityFactor").value =
+    modifier.probabilityFactor == null
+      ? ""
+      : String(modifier.probabilityFactor);
+  $<HTMLTextAreaElement>("modifierRationale").value =
+    `Lokale Korrektur: ${modifier.rationale}`;
+  $<HTMLTextAreaElement>("modifierLimitations").value = modifier.limitations;
+  fillSourceForm("modifier", modifier.sources[0]);
 }
 
-function catalogItem(kind: CatalogRowKind, id: string): PretestAssumption | ClinicalModifier | EvidenceProfile | PhysicalFinding | undefined {
-  if (kind === 'assumption') return allAssumptions().find(item => item.id === id);
-  if (kind === 'modifier') return allModifiers().find(item => item.id === id);
-  if (kind === 'physical-finding') return physicalFindings.find(item => item.id === id);
-  return allProfiles().find(item => item.id === id);
+function catalogItem(
+  kind: CatalogRowKind,
+  id: string,
+):
+  | PretestAssumption
+  | ClinicalModifier
+  | EvidenceProfile
+  | PhysicalFinding
+  | undefined {
+  if (kind === "assumption")
+    return allAssumptions().find((item) => item.id === id);
+  if (kind === "modifier") return allModifiers().find((item) => item.id === id);
+  if (kind === "physical-finding")
+    return physicalFindings.find((item) => item.id === id);
+  return allProfiles().find((item) => item.id === id);
 }
 
-function selectCatalogItem(kind: CatalogRowKind, id: string, settingId?: string): void {
+function selectCatalogItem(
+  kind: CatalogRowKind,
+  id: string,
+  settingId?: string,
+): void {
   const item = catalogItem(kind, id);
   if (!item) return;
-  if (kind === 'assumption') {
+  if (kind === "assumption") {
     const assumption = normalizeAssumption(item as PretestAssumption);
-    state.selectedConditionId = assumption.conditionId ?? state.selectedConditionId;
-    if (assumption.settingId && assumption.settingId !== 'general') state.selectedSettingId = assumption.settingId;
-    state.manualPretestPercent = clampProbabilityPercent(assumption.probability * 100);
+    state.selectedConditionId =
+      assumption.conditionId ?? state.selectedConditionId;
+    if (assumption.settingId && assumption.settingId !== "general")
+      state.selectedSettingId = assumption.settingId;
+    state.manualPretestPercent = clampProbabilityPercent(
+      assumption.probability * 100,
+    );
     state.selectedAssumptionId = assumption.id;
-  } else if (kind === 'modifier') {
+  } else if (kind === "modifier") {
     const modifier = item as ClinicalModifier;
     state.selectedConditionId = modifier.conditionId;
-    state.selectedModifierIds = [...new Set([...state.selectedModifierIds, modifier.id])];
-  } else if (kind === 'physical-finding') {
+    state.selectedModifierIds = [
+      ...new Set([...state.selectedModifierIds, modifier.id]),
+    ];
+  } else if (kind === "physical-finding") {
     const finding = item as PhysicalFinding;
-    state.appMode = 'physical-exam';
+    state.appMode = "physical-exam";
     state.selectedPhysicalSystemId = finding.systemId;
     state.selectedPhysicalConditionId = finding.conditionId;
     state.selectedPhysicalFindingId = finding.id;
-    state.physicalPretestPercent = clampProbabilityPercent((finding.pretestRange.low + finding.pretestRange.high) / 2);
+    state.physicalPretestPercent = clampProbabilityPercent(
+      (finding.pretestRange.low + finding.pretestRange.high) / 2,
+    );
   } else {
     const profile = item as EvidenceProfile;
-    const test = allTests().find(candidate => candidate.id === profile.testId);
+    const test = allTests().find(
+      (candidate) => candidate.id === profile.testId,
+    );
     state.selectedTestId = profile.testId;
     state.selectedEvidenceProfileId = profile.id;
     if (test) state.selectedConditionId = conditionIdForTest(test);
-    if (settingId && settingId !== 'general') {
+    if (settingId && settingId !== "general") {
       state.selectedSettingId = settingId;
-      const assumption = normalizedAssumptions().find(candidate => candidate.conditionId === state.selectedConditionId && candidate.settingId === settingId);
+      const assumption = normalizedAssumptions().find(
+        (candidate) =>
+          candidate.conditionId === state.selectedConditionId &&
+          candidate.settingId === settingId,
+      );
       if (assumption) {
         state.selectedAssumptionId = assumption.id;
-        state.manualPretestPercent = clampProbabilityPercent(assumption.probability * 100);
+        state.manualPretestPercent = clampProbabilityPercent(
+          assumption.probability * 100,
+        );
       }
     }
   }
-  setMessage(controls.actionMessage, 'Katalogeintrag im Rechner ausgewählt.');
+  setMessage(controls.actionMessage, "Katalogeintrag im Rechner ausgewählt.");
   saveAndRender();
 }
 
 function openCatalogItemForCorrection(kind: CatalogRowKind, id: string): void {
   const item = catalogItem(kind, id);
   if (!item) return;
-  if (kind === 'assumption') {
+  if (kind === "assumption") {
     fillAssumptionForm(normalizeAssumption(item as PretestAssumption));
-    state.adminMode = 'assumption';
-  } else if (kind === 'modifier') {
+    state.adminMode = "assumption";
+  } else if (kind === "modifier") {
     fillModifierForm(item as ClinicalModifier);
-    state.adminMode = 'modifier';
-  } else if (kind === 'physical-finding') {
-    setMessage(controls.actionMessage, 'Korrekturen für McGee-Befunde bitte als JSON-Vorschlag exportieren oder im Repository bearbeiten.');
+    state.adminMode = "modifier";
+  } else if (kind === "physical-finding") {
+    setMessage(
+      controls.actionMessage,
+      "Korrekturen für McGee-Befunde bitte als JSON-Vorschlag exportieren oder im Repository bearbeiten.",
+    );
   } else {
     fillProfileForm(item as EvidenceProfile);
-    state.adminMode = 'profile';
+    state.adminMode = "profile";
   }
   renderDrawer();
 }
 
-function cloneAsProposal<T extends PretestAssumption | ClinicalModifier | EvidenceProfile>(item: T): T {
+function cloneAsProposal<
+  T extends PretestAssumption | ClinicalModifier | EvidenceProfile,
+>(item: T): T {
   return {
     ...item,
     id: uniqueId(`proposal-${item.id}`),
-    kind: 'custom',
+    kind: "custom",
     custom: true,
-    isDefault: 'isDefault' in item ? false : undefined,
+    isDefault: "isDefault" in item ? false : undefined,
     rationale: `Vorschlag/Korrektur: ${item.rationale}`,
     lastReviewed: new Date().toISOString().slice(0, 10),
-    ...localReviewMetadata(item.evidenceQuality ?? 'expert-opinion', item.dataCompleteness ?? 'partial')
+    ...localReviewMetadata(
+      item.evidenceQuality ?? "expert-opinion",
+      item.dataCompleteness ?? "partial",
+    ),
   } as T;
 }
 
 function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
   const item = catalogItem(kind, id);
   if (!item) return;
-  if (kind === 'physical-finding') {
+  if (kind === "physical-finding") {
     const finding = item as PhysicalFinding;
-    downloadJson('mcgee-befund-vorschlag.json', {
+    downloadJson("mcgee-befund-vorschlag.json", {
       schemaVersion: 1,
-      type: 'physical-finding-proposal',
+      type: "physical-finding-proposal",
       finding: {
         ...finding,
-        reviewStatus: 'needs-review',
-        reviewNote: `Vorschlag/Korrektur exportiert am ${new Date().toISOString().slice(0, 10)}.`
-      }
+        reviewStatus: "needs-review",
+        reviewNote: `Vorschlag/Korrektur exportiert am ${new Date().toISOString().slice(0, 10)}.`,
+      },
     });
-    setMessage(controls.actionMessage, 'JSON-Vorschlag für körperlichen Befund exportiert.');
+    setMessage(
+      controls.actionMessage,
+      "JSON-Vorschlag für körperlichen Befund exportiert.",
+    );
     return;
   }
-  const proposal = cloneAsProposal(item as PretestAssumption | ClinicalModifier | EvidenceProfile);
+  const proposal = cloneAsProposal(
+    item as PretestAssumption | ClinicalModifier | EvidenceProfile,
+  );
   const payload = buildExport(
     [],
-    kind === 'profile' ? [proposal as EvidenceProfile] : [],
-    kind === 'assumption' ? [proposal as PretestAssumption] : [],
-    kind === 'modifier' ? [proposal as ClinicalModifier] : []
+    kind === "profile" ? [proposal as EvidenceProfile] : [],
+    kind === "assumption" ? [proposal as PretestAssumption] : [],
+    kind === "modifier" ? [proposal as ClinicalModifier] : [],
   );
-  downloadJson('likelihood-ratio-vorschlag-v5.json', payload);
-  setMessage(controls.actionMessage, 'JSON-Vorschlag exportiert.');
+  downloadJson("likelihood-ratio-vorschlag-v5.json", payload);
+  setMessage(controls.actionMessage, "JSON-Vorschlag exportiert.");
 }
 
 function selectedCatalogParts(): { kind: CatalogRowKind; id: string } | null {
   if (!selectedCatalogRowKey) return null;
-  const [kind, id] = selectedCatalogRowKey.split(':');
-  if ((kind === 'assumption' || kind === 'modifier' || kind === 'profile' || kind === 'physical-finding') && id) return { kind, id };
+  const [kind, id] = selectedCatalogRowKey.split(":");
+  if (
+    (kind === "assumption" ||
+      kind === "modifier" ||
+      kind === "profile" ||
+      kind === "physical-finding") &&
+    id
+  )
+    return { kind, id };
   return null;
 }
 
@@ -3007,39 +3885,65 @@ function markSelectedCatalogReviewStatus(reviewStatus: ReviewStatus): void {
   if (!parts) return;
   const item = catalogItem(parts.kind, parts.id);
   if (!item) return;
-  if (parts.kind === 'physical-finding') {
+  if (parts.kind === "physical-finding") {
     const finding = item as PhysicalFinding;
-    downloadJson('mcgee-review-vorschlag.json', {
+    downloadJson("mcgee-review-vorschlag.json", {
       schemaVersion: 1,
-      type: 'physical-finding-review-proposal',
+      type: "physical-finding-review-proposal",
       finding: {
         ...finding,
         reviewStatus,
-        reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`
-      }
+        reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`,
+      },
     });
-    setMessage(controls.actionMessage, `Review-Vorschlag für körperlichen Befund als JSON exportiert.`);
+    setMessage(
+      controls.actionMessage,
+      `Review-Vorschlag für körperlichen Befund als JSON exportiert.`,
+    );
     return;
   }
   const proposal = {
-    ...cloneAsProposal(item as PretestAssumption | ClinicalModifier | EvidenceProfile),
+    ...cloneAsProposal(
+      item as PretestAssumption | ClinicalModifier | EvidenceProfile,
+    ),
     reviewStatus,
-    reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`
+    reviewNote: `Lokale Review-Markierung: ${reviewStatus}. Vor Übernahme in kuratierte Daten fachlich prüfen.`,
   };
-  if (parts.kind === 'assumption') state.customAssumptions = [...state.customAssumptions, proposal as PretestAssumption];
-  if (parts.kind === 'modifier') state.customModifiers = [...state.customModifiers, proposal as ClinicalModifier];
-  if (parts.kind === 'profile') state.customEvidenceProfiles = [...state.customEvidenceProfiles, proposal as EvidenceProfile];
-  setMessage(controls.actionMessage, `Katalogeintrag lokal als ${reviewStatus} vorgeschlagen.`);
+  if (parts.kind === "assumption")
+    state.customAssumptions = [
+      ...state.customAssumptions,
+      proposal as PretestAssumption,
+    ];
+  if (parts.kind === "modifier")
+    state.customModifiers = [
+      ...state.customModifiers,
+      proposal as ClinicalModifier,
+    ];
+  if (parts.kind === "profile")
+    state.customEvidenceProfiles = [
+      ...state.customEvidenceProfiles,
+      proposal as EvidenceProfile,
+    ];
+  setMessage(
+    controls.actionMessage,
+    `Katalogeintrag lokal als ${reviewStatus} vorgeschlagen.`,
+  );
   saveAndRender();
 }
 
 async function copySummary(): Promise<void> {
-  const { test, profile, assumption, pretestResolution, result } = currentCalculation();
+  const { test, profile, assumption, pretestResolution, result } =
+    currentCalculation();
   const selectedCondition = getSelectedCondition();
   const selectedSetting = getSelectedSetting();
-  const cohortExplanation = cohortExplanationParts(profile, result, 'positivem Test', 'negativem Test');
+  const cohortExplanation = cohortExplanationParts(
+    profile,
+    result,
+    "positivem Test",
+    "negativem Test",
+  );
   const mismatch = selectedTestMatchesCondition(test)
-    ? ''
+    ? ""
     : `Warnung: Test für ${test.condition}, Prätestwahrscheinlichkeit für ${selectedCondition.label}.`;
   const lines = [
     `Setting: ${selectedSetting.label}`,
@@ -3047,149 +3951,215 @@ async function copySummary(): Promise<void> {
     `Test: ${test.name}`,
     `Evidenzprofil: ${profile.label}`,
     mismatch,
-    profile.kind === 'scenario' ? `Szenario-Begründung: ${profile.deviationReason ?? '–'}` : '',
-    `Quellen: ${profile.sources.map(source => `${source.title} (${source.year})`).join('; ')}`,
+    profile.kind === "scenario"
+      ? `Szenario-Begründung: ${profile.deviationReason ?? "–"}`
+      : "",
+    `Quellen: ${profile.sources.map((source) => `${source.title} (${source.year})`).join("; ")}`,
     `Prätest: ${formatPercent(result.pretestProbability)} (${pretestResolution.title}; ${assumption.setting})`,
     `LR+: ${formatRatio(result.lrPositive)} | LR−: ${formatRatio(result.lrNegative)}`,
     `Posttest positiv: ${formatPercent(result.postPositiveProbability)}`,
     `Posttest negativ: ${formatPercent(result.postNegativeProbability)}`,
     `PPV: ${formatPercent(result.ppv)} | NPV: ${formatPercent(result.npv)}`,
-    cohortExplanation ? '' : 'Anschaulich bei 1000 ähnlichen Patienten: Für dieses Profil fehlen Sensitivität/Spezifität oder eine plausible LR-basierte Näherung.',
-    cohortExplanation ? `${cohortExplanation.title}: ${cohortExplanation.positive} ${cohortExplanation.negative}` : ''
+    cohortExplanation
+      ? ""
+      : "Anschaulich bei 1000 ähnlichen Patienten: Für dieses Profil fehlen Sensitivität/Spezifität oder eine plausible LR-basierte Näherung.",
+    cohortExplanation
+      ? `${cohortExplanation.title}: ${cohortExplanation.positive} ${cohortExplanation.negative}`
+      : "",
   ].filter(Boolean);
-  await navigator.clipboard.writeText(lines.join('\n'));
-  setMessage(controls.actionMessage, 'Kurzbericht kopiert.');
+  await navigator.clipboard.writeText(lines.join("\n"));
+  setMessage(controls.actionMessage, "Kurzbericht kopiert.");
 }
 
 async function importUserData(file: File): Promise<void> {
   const parsed = parseUserDataExport(await file.text());
-  const testIssues = parsed.customTests.flatMap(test => test.evidenceProfiles.length ? validateDiagnosticTest(test) : []);
-  const profileIssues = parsed.customEvidenceProfiles.flatMap(validateEvidenceProfile);
-  const assumptionIssues = parsed.customAssumptions.flatMap(validatePretestAssumption);
-  const modifierIssues = parsed.customModifiers.flatMap(validateClinicalModifier);
-  if (testIssues.length + profileIssues.length + assumptionIssues.length + modifierIssues.length > 0) {
-    throw new Error('Import enthält unvollständige oder ungültige Einträge.');
+  const testIssues = parsed.customTests.flatMap((test) =>
+    test.evidenceProfiles.length ? validateDiagnosticTest(test) : [],
+  );
+  const profileIssues = parsed.customEvidenceProfiles.flatMap(
+    validateEvidenceProfile,
+  );
+  const assumptionIssues = parsed.customAssumptions.flatMap(
+    validatePretestAssumption,
+  );
+  const modifierIssues = parsed.customModifiers.flatMap(
+    validateClinicalModifier,
+  );
+  if (
+    testIssues.length +
+      profileIssues.length +
+      assumptionIssues.length +
+      modifierIssues.length >
+    0
+  ) {
+    throw new Error("Import enthält unvollständige oder ungültige Einträge.");
   }
   state.customTests = parsed.customTests;
   state.customEvidenceProfiles = parsed.customEvidenceProfiles;
   state.customAssumptions = parsed.customAssumptions;
   state.customModifiers = parsed.customModifiers;
-  state.selectedTestId = parsed.customTests[0]?.id ?? parsed.customEvidenceProfiles[0]?.testId ?? state.selectedTestId;
-  state.selectedEvidenceProfileId = parsed.customEvidenceProfiles[0]?.id ?? state.selectedEvidenceProfileId;
-  state.selectedAssumptionId = parsed.customAssumptions[0]?.id ?? state.selectedAssumptionId;
-  state.selectedModifierIds = parsed.customModifiers[0] ? [parsed.customModifiers[0].id] : state.selectedModifierIds;
-  state.selectedConditionId = parsed.customAssumptions[0]?.conditionId ?? parsed.customModifiers[0]?.conditionId ?? state.selectedConditionId;
+  state.selectedTestId =
+    parsed.customTests[0]?.id ??
+    parsed.customEvidenceProfiles[0]?.testId ??
+    state.selectedTestId;
+  state.selectedEvidenceProfileId =
+    parsed.customEvidenceProfiles[0]?.id ?? state.selectedEvidenceProfileId;
+  state.selectedAssumptionId =
+    parsed.customAssumptions[0]?.id ?? state.selectedAssumptionId;
+  state.selectedModifierIds = parsed.customModifiers[0]
+    ? [parsed.customModifiers[0].id]
+    : state.selectedModifierIds;
+  state.selectedConditionId =
+    parsed.customAssumptions[0]?.conditionId ??
+    parsed.customModifiers[0]?.conditionId ??
+    state.selectedConditionId;
   state.selectedSettingId =
-    parsed.customAssumptions[0]?.settingId && parsed.customAssumptions[0].settingId !== 'general'
+    parsed.customAssumptions[0]?.settingId &&
+    parsed.customAssumptions[0].settingId !== "general"
       ? parsed.customAssumptions[0].settingId
       : state.selectedSettingId;
   saveAndRender();
 }
 
-controls.drawerOpenButton.addEventListener('click', () => openDrawer('data'));
-controls.disclaimerToggleButton.addEventListener('click', toggleDisclaimer);
-controls.drawerCloseButton.addEventListener('click', closeDrawer);
-controls.drawerBackdrop.addEventListener('click', closeDrawer);
-controls.catalogFullscreenButton.addEventListener('click', () => {
+controls.drawerOpenButton.addEventListener("click", () => openDrawer("data"));
+controls.disclaimerToggleButton.addEventListener("click", toggleDisclaimer);
+controls.drawerCloseButton.addEventListener("click", closeDrawer);
+controls.drawerBackdrop.addEventListener("click", closeDrawer);
+controls.catalogFullscreenButton.addEventListener("click", () => {
   state.catalogFullscreen = !state.catalogFullscreen;
   saveAndRender();
 });
-controls.markCatalogNeedsReviewButton.addEventListener('click', () => markSelectedCatalogReviewStatus('needs-review'));
-controls.markCatalogReviewedButton.addEventListener('click', () => markSelectedCatalogReviewStatus('reviewed'));
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && state.drawerOpen) closeDrawer();
+controls.markCatalogNeedsReviewButton.addEventListener("click", () =>
+  markSelectedCatalogReviewStatus("needs-review"),
+);
+controls.markCatalogReviewedButton.addEventListener("click", () =>
+  markSelectedCatalogReviewStatus("reviewed"),
+);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && state.drawerOpen) closeDrawer();
 });
-document.querySelectorAll<HTMLButtonElement>('[data-admin-mode]').forEach(button => {
-  button.addEventListener('click', () => {
-    state.adminMode = button.dataset.adminMode as CalculatorState['adminMode'];
-    renderDrawer();
+document
+  .querySelectorAll<HTMLButtonElement>("[data-admin-mode]")
+  .forEach((button) => {
+    button.addEventListener("click", () => {
+      state.adminMode = button.dataset
+        .adminMode as CalculatorState["adminMode"];
+      renderDrawer();
+    });
   });
-});
 
-controls.diagnosticModeTab.addEventListener('click', () => {
-  state.appMode = 'diagnostic-tests';
+controls.diagnosticModeTab.addEventListener("click", () => {
+  state.appMode = "diagnostic-tests";
   saveAndRender();
 });
-controls.physicalModeTab.addEventListener('click', () => {
-  state.appMode = 'physical-exam';
+controls.physicalModeTab.addEventListener("click", () => {
+  state.appMode = "physical-exam";
   saveAndRender();
 });
-physicalControls.systemSelect.addEventListener('change', () => {
+physicalControls.systemSelect.addEventListener("change", () => {
   state.selectedPhysicalSystemId = physicalControls.systemSelect.value;
-  state.selectedPhysicalConditionId = physicalConditionsForSystem(state.selectedPhysicalSystemId)[0]?.id;
-  state.selectedPhysicalFindingId = physicalFindingsForCondition(state.selectedPhysicalConditionId ?? '')[0]?.id;
+  state.selectedPhysicalConditionId = physicalConditionsForSystem(
+    state.selectedPhysicalSystemId,
+  )[0]?.id;
+  state.selectedPhysicalFindingId = physicalFindingsForCondition(
+    state.selectedPhysicalConditionId ?? "",
+  )[0]?.id;
   saveAndRender();
 });
-physicalControls.conditionSelect.addEventListener('change', () => {
+physicalControls.conditionSelect.addEventListener("change", () => {
   state.selectedPhysicalConditionId = physicalControls.conditionSelect.value;
-  state.selectedPhysicalFindingId = physicalFindingsForCondition(state.selectedPhysicalConditionId)[0]?.id;
+  state.selectedPhysicalFindingId = physicalFindingsForCondition(
+    state.selectedPhysicalConditionId,
+  )[0]?.id;
   saveAndRender();
 });
-physicalControls.findingSelect.addEventListener('change', () => {
+physicalControls.findingSelect.addEventListener("change", () => {
   state.selectedPhysicalFindingId = physicalControls.findingSelect.value;
   saveAndRender();
 });
-physicalControls.pretestRange.addEventListener('input', () => {
-  state.physicalPretestPercent = clampProbabilityPercent(Number.parseFloat(physicalControls.pretestRange.value));
+physicalControls.pretestRange.addEventListener("input", () => {
+  state.physicalPretestPercent = clampProbabilityPercent(
+    Number.parseFloat(physicalControls.pretestRange.value),
+  );
   saveAndRender();
 });
-physicalControls.pretestNumber.addEventListener('input', () => {
+physicalControls.pretestNumber.addEventListener("input", () => {
   const parsed = parsePretestPercentInput(physicalControls.pretestNumber.value);
   if (parsed == null) return;
   state.physicalPretestPercent = clampProbabilityPercent(parsed);
   saveAndRender();
 });
-physicalControls.pretestNumber.addEventListener('change', () => {
+physicalControls.pretestNumber.addEventListener("change", () => {
   const parsed = parsePretestPercentInput(physicalControls.pretestNumber.value);
-  state.physicalPretestPercent = parsed == null ? state.physicalPretestPercent : clampProbabilityPercent(parsed);
+  state.physicalPretestPercent =
+    parsed == null
+      ? state.physicalPretestPercent
+      : clampProbabilityPercent(parsed);
   saveAndRender();
 });
-physicalControls.pretestNumber.addEventListener('keydown', event => {
-  if (event.key !== 'Enter') return;
+physicalControls.pretestNumber.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
   event.preventDefault();
   const parsed = parsePretestPercentInput(physicalControls.pretestNumber.value);
-  state.physicalPretestPercent = parsed == null ? state.physicalPretestPercent : clampProbabilityPercent(parsed);
+  state.physicalPretestPercent =
+    parsed == null
+      ? state.physicalPretestPercent
+      : clampProbabilityPercent(parsed);
   physicalControls.pretestNumber.blur();
   saveAndRender();
 });
 
-controls.testSelect.addEventListener('change', () => {
+controls.testSelect.addEventListener("change", () => {
   state.selectedTestId = controls.testSelect.value;
   const profiles = profilesForTest(state.selectedTestId);
-  state.selectedEvidenceProfileId = profiles.find(profile => profile.isDefault)?.id ?? profiles[0]?.id ?? state.selectedEvidenceProfileId;
+  state.selectedEvidenceProfileId =
+    profiles.find((profile) => profile.isDefault)?.id ??
+    profiles[0]?.id ??
+    state.selectedEvidenceProfileId;
   saveAndRender();
 });
-controls.settingSelect.addEventListener('change', () => {
+controls.settingSelect.addEventListener("change", () => {
   state.selectedSettingId = controls.settingSelect.value;
-  state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
+  state.manualPretestPercent = clampProbabilityPercent(
+    resolvePretestAssumption().probability * 100,
+  );
   saveAndRender();
 });
-controls.conditionSelect.addEventListener('change', () => {
+controls.conditionSelect.addEventListener("change", () => {
   state.selectedConditionId = controls.conditionSelect.value;
   selectDefaultTestForCondition(state.selectedConditionId);
   state.selectedModifierIds = [];
-  state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
+  state.manualPretestPercent = clampProbabilityPercent(
+    resolvePretestAssumption().probability * 100,
+  );
   saveAndRender();
 });
-controls.adminSettingSelect.addEventListener('change', () => {
+controls.adminSettingSelect.addEventListener("change", () => {
   state.selectedSettingId = controls.adminSettingSelect.value;
-  state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
+  state.manualPretestPercent = clampProbabilityPercent(
+    resolvePretestAssumption().probability * 100,
+  );
   saveAndRender();
 });
-controls.adminConditionSelect.addEventListener('change', () => {
+controls.adminConditionSelect.addEventListener("change", () => {
   state.selectedConditionId = controls.adminConditionSelect.value;
   selectDefaultTestForCondition(state.selectedConditionId);
   state.selectedModifierIds = [];
-  state.manualPretestPercent = clampProbabilityPercent(resolvePretestAssumption().probability * 100);
+  state.manualPretestPercent = clampProbabilityPercent(
+    resolvePretestAssumption().probability * 100,
+  );
   saveAndRender();
 });
-controls.adminTestSelect.addEventListener('change', () => {
+controls.adminTestSelect.addEventListener("change", () => {
   state.selectedTestId = controls.adminTestSelect.value;
   const profiles = profilesForTest(state.selectedTestId);
-  state.selectedEvidenceProfileId = profiles.find(profile => profile.isDefault)?.id ?? profiles[0]?.id ?? state.selectedEvidenceProfileId;
+  state.selectedEvidenceProfileId =
+    profiles.find((profile) => profile.isDefault)?.id ??
+    profiles[0]?.id ??
+    state.selectedEvidenceProfileId;
   saveAndRender();
 });
-controls.adminProfileSelect.addEventListener('change', () => {
+controls.adminProfileSelect.addEventListener("change", () => {
   state.selectedEvidenceProfileId = controls.adminProfileSelect.value;
   saveAndRender();
 });
@@ -3203,118 +4173,159 @@ controls.adminProfileSelect.addEventListener('change', () => {
   controls.catalogReviewFilter,
   controls.catalogQualityFilter,
   controls.catalogCompletenessFilter,
-  controls.catalogSortSelect
-].forEach(control => {
-  control.addEventListener(control instanceof HTMLInputElement ? 'input' : 'change', () => {
-    saveCatalogFilters();
-    selectedCatalogRowKey = '';
-    renderDataCatalog();
-  });
+  controls.catalogSortSelect,
+].forEach((control) => {
+  control.addEventListener(
+    control instanceof HTMLInputElement ? "input" : "change",
+    () => {
+      saveCatalogFilters();
+      selectedCatalogRowKey = "";
+      renderDataCatalog();
+    },
+  );
 });
 
-function handleCatalogAction(button: HTMLButtonElement, row?: HTMLTableRowElement): void {
+function handleCatalogAction(
+  button: HTMLButtonElement,
+  row?: HTMLTableRowElement,
+): void {
   const kind = (button.dataset.kind ?? row?.dataset.kind) as CatalogRowKind;
-  const id = button.dataset.id ?? row?.dataset.id ?? '';
+  const id = button.dataset.id ?? row?.dataset.id ?? "";
   const settingId = button.dataset.settingId ?? row?.dataset.settingId;
   if (!kind || !id) return;
-  if (button.dataset.catalogAction === 'select') selectCatalogItem(kind, id, settingId);
-  if (button.dataset.catalogAction === 'correct') openCatalogItemForCorrection(kind, id);
-  if (button.dataset.catalogAction === 'export') exportCatalogProposal(kind, id);
+  if (button.dataset.catalogAction === "select")
+    selectCatalogItem(kind, id, settingId);
+  if (button.dataset.catalogAction === "correct")
+    openCatalogItemForCorrection(kind, id);
+  if (button.dataset.catalogAction === "export")
+    exportCatalogProposal(kind, id);
 }
 
-controls.catalogTableBody.addEventListener('click', event => {
-  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-catalog-action]');
-  const row = (event.target as HTMLElement).closest<HTMLTableRowElement>('tr[data-kind][data-id]');
+controls.catalogTableBody.addEventListener("click", (event) => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>(
+    "button[data-catalog-action]",
+  );
+  const row = (event.target as HTMLElement).closest<HTMLTableRowElement>(
+    "tr[data-kind][data-id]",
+  );
   if (button && row) {
     handleCatalogAction(button, row);
     return;
   }
   if (!row) return;
-  selectedCatalogRowKey = row.dataset.key ?? '';
+  selectedCatalogRowKey = row.dataset.key ?? "";
   renderDataCatalog();
 });
-controls.catalogDetailPanel.addEventListener('click', event => {
-  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-catalog-action]');
+controls.catalogDetailPanel.addEventListener("click", (event) => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>(
+    "button[data-catalog-action]",
+  );
   if (!button) return;
   handleCatalogAction(button);
 });
-controls.profileSelect.addEventListener('change', () => {
+controls.profileSelect.addEventListener("change", () => {
   state.selectedEvidenceProfileId = controls.profileSelect.value;
   saveAndRender();
 });
-controls.pretestRange.addEventListener('input', () => {
-  state.manualPretestPercent = snapPretestPercent(Number.parseFloat(controls.pretestRange.value));
+controls.pretestRange.addEventListener("input", () => {
+  state.manualPretestPercent = snapPretestPercent(
+    Number.parseFloat(controls.pretestRange.value),
+  );
   saveAndRender();
 });
-controls.pretestNumber.addEventListener('input', () => {
+controls.pretestNumber.addEventListener("input", () => {
   const parsed = parsePretestPercentInput(controls.pretestNumber.value);
   if (parsed == null) return;
   state.manualPretestPercent = clampProbabilityPercent(parsed);
   saveAndRender();
 });
-controls.pretestNumber.addEventListener('change', () => {
+controls.pretestNumber.addEventListener("change", () => {
   commitPretestNumberInput({ snap: false, render: true });
 });
-controls.pretestNumber.addEventListener('blur', () => {
+controls.pretestNumber.addEventListener("blur", () => {
   commitPretestNumberInput({ snap: false, render: true });
 });
-controls.pretestNumber.addEventListener('keydown', event => {
-  if (event.key === 'Enter') {
+controls.pretestNumber.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
     event.preventDefault();
     commitPretestNumberInput({ snap: false, render: true });
     controls.pretestNumber.blur();
   }
 });
-controls.pretestSuggestionMarker.addEventListener('click', useSuggestedPretest);
-controls.diagnosticChainSelect.addEventListener('change', () => {
+controls.pretestSuggestionMarker.addEventListener("click", useSuggestedPretest);
+controls.diagnosticChainSelect.addEventListener("change", () => {
   state.selectedDiagnosticChainId = controls.diagnosticChainSelect.value;
   saveAndRender();
 });
-controls.modifierOptions.addEventListener('change', event => {
+controls.modifierOptions.addEventListener("change", (event) => {
   const input = event.target as HTMLInputElement;
-  if (input.type !== 'checkbox') return;
+  if (input.type !== "checkbox") return;
   state.selectedModifierIds = input.checked
     ? [...new Set([...state.selectedModifierIds, input.value])]
-    : state.selectedModifierIds.filter(id => id !== input.value);
+    : state.selectedModifierIds.filter((id) => id !== input.value);
   saveAndRender();
 });
-controls.toggleModifierListButton.addEventListener('click', () => {
+controls.toggleModifierListButton.addEventListener("click", () => {
   state.modifierListExpanded = !state.modifierListExpanded;
   saveAndRender();
 });
-controls.applyModifiedPretestButton.addEventListener('click', () => {
-  const preview = modifierPreviewProbability(currentCalculation().result.pretestProbability, selectedModifiers());
+controls.applyModifiedPretestButton.addEventListener("click", () => {
+  const preview = modifierPreviewProbability(
+    currentCalculation().result.pretestProbability,
+    selectedModifiers(),
+  );
   if (preview == null) return;
   state.manualPretestPercent = clampProbabilityPercent(preview * 100);
-  setMessage(controls.actionMessage, 'Modifizierte Prätestwahrscheinlichkeit übernommen.');
+  setMessage(
+    controls.actionMessage,
+    "Modifizierte Prätestwahrscheinlichkeit übernommen.",
+  );
   saveAndRender();
 });
 
-$('copySummaryButton').addEventListener('click', () => {
-  copySummary().catch(() => setMessage(controls.actionMessage, 'Kopieren nicht möglich.', true));
+$("copySummaryButton").addEventListener("click", () => {
+  copySummary().catch(() =>
+    setMessage(controls.actionMessage, "Kopieren nicht möglich.", true),
+  );
 });
-controls.nomogramSizeToggle.addEventListener('change', handleNomogramSizeToggle);
-$('resetButton').addEventListener('click', () => {
+controls.nomogramSizeToggle.addEventListener(
+  "change",
+  handleNomogramSizeToggle,
+);
+$("resetButton").addEventListener("click", () => {
   state = resetStoredState();
-  setMessage(controls.actionMessage, 'Rechner zurückgesetzt.');
+  setMessage(controls.actionMessage, "Rechner zurückgesetzt.");
   render();
 });
-$('exportButton').addEventListener('click', () => {
+$("exportButton").addEventListener("click", () => {
   downloadJson(
-    'likelihood-ratio-eigene-daten-v4.json',
-    buildExport(state.customTests, state.customEvidenceProfiles, state.customAssumptions, state.customModifiers)
+    "likelihood-ratio-eigene-daten-v4.json",
+    buildExport(
+      state.customTests,
+      state.customEvidenceProfiles,
+      state.customAssumptions,
+      state.customModifiers,
+    ),
   );
-  setMessage(controls.actionMessage, 'Eigene Daten exportiert.');
+  setMessage(controls.actionMessage, "Eigene Daten exportiert.");
 });
-$('importButton').addEventListener('click', () => $<HTMLInputElement>('importFile').click());
-$<HTMLInputElement>('importFile').addEventListener('change', event => {
+$("importButton").addEventListener("click", () =>
+  $<HTMLInputElement>("importFile").click(),
+);
+$<HTMLInputElement>("importFile").addEventListener("change", (event) => {
   const file = (event.target as HTMLInputElement).files?.[0];
   if (!file) return;
   importUserData(file)
-    .then(() => setMessage(controls.actionMessage, 'Eigene Daten importiert.'))
-    .catch(error => setMessage(controls.actionMessage, error instanceof Error ? error.message : 'Import fehlgeschlagen.', true));
+    .then(() => setMessage(controls.actionMessage, "Eigene Daten importiert."))
+    .catch((error) =>
+      setMessage(
+        controls.actionMessage,
+        error instanceof Error ? error.message : "Import fehlgeschlagen.",
+        true,
+      ),
+    );
 });
-$('clearCustomButton').addEventListener('click', () => {
+$("clearCustomButton").addEventListener("click", () => {
   state.customTests = [];
   state.customEvidenceProfiles = [];
   state.customAssumptions = [];
@@ -3325,29 +4336,43 @@ $('clearCustomButton').addEventListener('click', () => {
   state.selectedAssumptionId = defaultState.selectedAssumptionId;
   state.selectedSettingId = defaultState.selectedSettingId;
   state.selectedConditionId = defaultState.selectedConditionId;
-  setMessage(controls.actionMessage, 'Eigene Daten gelöscht.');
+  setMessage(controls.actionMessage, "Eigene Daten gelöscht.");
   saveAndRender();
 });
-$('useOverviewSelectionButton').addEventListener('click', () => {
-  setMessage(controls.actionMessage, 'Auswahl ist im Rechner aktiv.');
+$("useOverviewSelectionButton").addEventListener("click", () => {
+  setMessage(controls.actionMessage, "Auswahl ist im Rechner aktiv.");
   saveAndRender();
 });
-$('copyPretestToFormButton').addEventListener('click', copyCurrentPretestToForm);
-$('copyTestToFormButton').addEventListener('click', copyCurrentTestToForm);
-$('copyProfileToFormButton').addEventListener('click', copyCurrentProfileToForm);
-$('saveCustomTestButton').addEventListener('click', saveCustomTest);
-$('saveProfileButton').addEventListener('click', () => saveProfile('custom'));
-$('saveScenarioButton').addEventListener('click', () => saveProfile('scenario'));
-$('saveCustomAssumptionButton').addEventListener('click', saveCustomAssumption);
-$('saveModifierButton').addEventListener('click', saveModifier);
-['profileSensitivity', 'profileSpecificity', 'scenarioSensitivity', 'scenarioSpecificity', 'scenarioReason'].forEach(id => {
-  $(id).addEventListener('input', () => {
+$("copyPretestToFormButton").addEventListener(
+  "click",
+  copyCurrentPretestToForm,
+);
+$("copyTestToFormButton").addEventListener("click", copyCurrentTestToForm);
+$("copyProfileToFormButton").addEventListener(
+  "click",
+  copyCurrentProfileToForm,
+);
+$("saveCustomTestButton").addEventListener("click", saveCustomTest);
+$("saveProfileButton").addEventListener("click", () => saveProfile("custom"));
+$("saveScenarioButton").addEventListener("click", () =>
+  saveProfile("scenario"),
+);
+$("saveCustomAssumptionButton").addEventListener("click", saveCustomAssumption);
+$("saveModifierButton").addEventListener("click", saveModifier);
+[
+  "profileSensitivity",
+  "profileSpecificity",
+  "scenarioSensitivity",
+  "scenarioSpecificity",
+  "scenarioReason",
+].forEach((id) => {
+  $(id).addEventListener("input", () => {
     renderProfilePreview();
     renderScenarioPreview();
   });
 });
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   drawNomogram(currentCalculation().result);
   renderPhysicalMain();
 });

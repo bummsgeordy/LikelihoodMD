@@ -1,23 +1,22 @@
 # Likelihood-Ratio-Rechner
 
-Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen zur Berechnung und Visualisierung von Vor- und Nachtestwahrscheinlichkeiten.
+Deutschsprachiges Lehr- und Rechentool für medizinisches Fachpersonal zum Abschätzen und Visualisieren von Vor- und Nachtestwahrscheinlichkeiten diagnostischer Maßnahmen. Öffentliche Instanz unter [likelihood.engert.me](https://likelihood.engert.me)
 
 ## Zweck und Grenzen
 
-Die Idee: Ein Testergebnis ist nie einfach nur positiv oder negativ. Seine Bedeutung hängt stark davon ab, wie wahrscheinlich die Erkrankung vor dem Test war. Dieses Tool zeigt deshalb Prätestwahrscheinlichkeit, Testgüte beziehungsweise Likelihood Ratios und die daraus entstehende Posttestwahrscheinlichkeit visuell an.
+Die Idee: Ein Testergebnis ist nie einfach nur positiv oder negativ. Seine Bedeutung hängt stark davon ab, wie wahrscheinlich die Erkrankung vor dem Test war. Dieses Tool zeigt Prätestwahrscheinlichkeit (baserate), Testgüte beziehungsweise Likelihood Ratios und die daraus entstehende Posttestwahrscheinlichkeit visuell in Form eines Nomogrammes an.
 
 Sinnvoll ist das vor allem für typische Praxisfallen: Seltene Erkrankungen werden bei niedriger Ausgangswahrscheinlichkeit trotz positivem Test oft überschätzt; umgekehrt kann ein negativer Test bei hoher Ausgangswahrscheinlichkeit nicht immer beruhigen.
 
-Grob benutzen:
+Konzept:
 
-1. Klinisches Setting oder Prätestwahrscheinlichkeit wählen.
-2. Test oder körperlichen Befund auswählen.
-3. Positives und negatives Ergebnis vergleichen.
-4. Prüfen, wie stark sich die Wahrscheinlichkeit wirklich verändert.
+1. Klinisches Setting oder Prätestwahrscheinlichkeit manuell wählen.
+2. diagnostischen Test oder körperlichen Befund auswählen.
+3. Ergebnis visualisieren und anhand der Posttestwahrscheinlichkeit abschätzen.
 
 Es ist kein Therapie- oder Diagnoseautomat, sondern ein Denk- und Lehrtool. Es soll helfen, Tests, Befunde und klinisches Bauchgefühl besser zu kalibrieren.
 
-Bitte keine Patientendaten eingeben. Eigene Tests und Prätest-Annahmen werden nur lokal im Browser gespeichert und können als JSON exportiert werden.
+Eigene Tests und Prätest-Annahmen werden nur lokal im Browser gespeichert und können als JSON exportiert werden.
 
 ## Diagnostischer Hintergrund
 
@@ -101,6 +100,8 @@ Eine eigene Domain kann später über die GitHub-Pages-Einstellungen ergänzt we
 Eine Schritt-für-Schritt-Anleitung steht in [docs/PUBLISHING.md](docs/PUBLISHING.md).
 
 ## Daten beitragen
+
+Sehr gerne können Anregungen, Verbesserungen, Ideen und Korrekturen an mich gesendet werden an likelihood@engert.me - ich bemühe mich darum, Passendes hier einzupflegen.
 
 Kuratierte Tests liegen in `src/data/tests.json`, Prätest-Annahmen in `src/data/pretest-assumptions.json`, erweiterte Prätest-Startwerte in `src/data/pretest-probability-estimates.json`, klinische Modifikatoren in `src/data/clinical-modifiers.json`, klinische Settings in `src/data/clinical-settings.json`. Ein Test beschreibt das diagnostische Verfahren; Sensitivität, Spezifität, LR-Werte, Cut-off, Methode, knappe Durchführung und Quellen stehen in Evidenzprofilen. So können mehrere Studien oder konkurrierende Annahmen zum gleichen Test transparent nebeneinander stehen.
 
