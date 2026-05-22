@@ -1,10 +1,21 @@
 # Likelihood-Ratio-Rechner
 
-Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen zur Berechnung von Vor- und Nachtestwahrscheinlichkeiten diagnostischer Tests.
+Deutschsprachiges Lehr- und Rechentool für medizinische Fachpersonen zur Berechnung und Visualisierung von Vor- und Nachtestwahrscheinlichkeiten.
 
 ## Zweck und Grenzen
 
-Diese Anwendung zeigt, wie Prätestwahrscheinlichkeit, Sensitivität, Spezifität und Likelihood-Ratios die Posttestwahrscheinlichkeit beeinflussen. Sie ist ein edukatives Rechentool und keine alleinige Entscheidungsgrundlage, keine Therapieempfehlung und kein zertifiziertes Medizinprodukt.
+Die Idee: Ein Testergebnis ist nie einfach nur positiv oder negativ. Seine Bedeutung hängt stark davon ab, wie wahrscheinlich die Erkrankung vor dem Test war. Dieses Tool zeigt deshalb Prätestwahrscheinlichkeit, Testgüte beziehungsweise Likelihood Ratios und die daraus entstehende Posttestwahrscheinlichkeit visuell an.
+
+Sinnvoll ist das vor allem für typische Praxisfallen: Seltene Erkrankungen werden bei niedriger Ausgangswahrscheinlichkeit trotz positivem Test oft überschätzt; umgekehrt kann ein negativer Test bei hoher Ausgangswahrscheinlichkeit nicht immer beruhigen.
+
+Grob benutzen:
+
+1. Klinisches Setting oder Prätestwahrscheinlichkeit wählen.
+2. Test oder körperlichen Befund auswählen.
+3. Positives und negatives Ergebnis vergleichen.
+4. Prüfen, wie stark sich die Wahrscheinlichkeit wirklich verändert.
+
+Es ist kein Therapie- oder Diagnoseautomat, sondern ein Denk- und Lehrtool. Es soll helfen, Tests, Befunde und klinisches Bauchgefühl besser zu kalibrieren.
 
 Bitte keine Patientendaten eingeben. Eigene Tests und Prätest-Annahmen werden nur lokal im Browser gespeichert und können als JSON exportiert werden.
 
@@ -34,6 +45,7 @@ Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht di
 - Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*: priorisierte Akut-/Innere- und endokrinologie-nahe Befunde mit LR+, LR−, 95%-KI, Prätestbereich und Reviewstatus.
 - Vordefinierte Diagnostikketten, die Nachtestwahrscheinlichkeiten einer Stufe als Prätestwahrscheinlichkeit der nächsten Stufe nutzen.
 - Kuratierte Prätest-Annahmen nach Setting und Erkrankung mit grüner Direktdaten- oder oranger Fallback-Markierung.
+- Erweiterte Prätest-Datenbasis mit Spannweiten, Qualitätslabel, Modifikatoren, Präanalytik- und Medikamentenwarnungen.
 - Manuelle Prätestwahrscheinlichkeit.
 - Klinische Modifikatoren wie Symptome, Zeichen oder Kontextfaktoren: qualitativ sichtbar, rechnerisch nur bei explizit hinterlegtem Faktor/LR und aktiver Übernahme.
 - Eigene Tests, Evidenzprofile, Szenarien und Prätest-Annahmen in einem getrennten Verwaltungs-Drawer.
@@ -44,6 +56,7 @@ Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht di
 - Review- und Qualitätsfelder für Datenpflege: `reviewStatus`, `evidenceQuality` und `dataCompleteness`.
 - Kurzbericht zum Kopieren.
 - Fagan-ähnliches Nomogramm und Balkendarstellung.
+- Separate Unterseiten für diagnostische Kennzahlen und interaktive Simulation.
 
 ## Entwicklung
 
@@ -89,7 +102,7 @@ Eine Schritt-für-Schritt-Anleitung steht in [docs/PUBLISHING.md](docs/PUBLISHIN
 
 ## Daten beitragen
 
-Kuratierte Tests liegen in `src/data/tests.json`, Prätest-Annahmen in `src/data/pretest-assumptions.json`, klinische Modifikatoren in `src/data/clinical-modifiers.json`, klinische Settings in `src/data/clinical-settings.json`. Ein Test beschreibt das diagnostische Verfahren; Sensitivität, Spezifität, LR-Werte, Cut-off, Methode, knappe Durchführung und Quellen stehen in Evidenzprofilen. So können mehrere Studien oder konkurrierende Annahmen zum gleichen Test transparent nebeneinander stehen.
+Kuratierte Tests liegen in `src/data/tests.json`, Prätest-Annahmen in `src/data/pretest-assumptions.json`, erweiterte Prätest-Startwerte in `src/data/pretest-probability-estimates.json`, klinische Modifikatoren in `src/data/clinical-modifiers.json`, klinische Settings in `src/data/clinical-settings.json`. Ein Test beschreibt das diagnostische Verfahren; Sensitivität, Spezifität, LR-Werte, Cut-off, Methode, knappe Durchführung und Quellen stehen in Evidenzprofilen. So können mehrere Studien oder konkurrierende Annahmen zum gleichen Test transparent nebeneinander stehen.
 
 Körperliche Untersuchungsbefunde liegen in `src/data/physical-findings.json`, gruppiert über `src/data/physical-systems.json` und `src/data/physical-conditions.json`. Die Werte basieren auf McGee, *Evidence-Based Physical Diagnosis*, und sind als knappe, deutsch beschriftete Fakteneinträge kuratiert. Der Umfang ist in [docs/mcgee-data-overview.md](docs/mcgee-data-overview.md) dokumentiert. Öffentliche Daten sind bewusst knapp transformiert und nicht als Kopie der Originaltabellen angelegt.
 

@@ -43,9 +43,9 @@ export function ratioTicksForMode(mode: NomogramMode): number[] {
 
 export function createNomogramLayout({ width, height }: NomogramDimensions): NomogramLayout {
   const scale = Math.min(width / 980, height / 560);
-  const top = 60 * scale;
-  const bottom = height - 52 * scale;
-  const sideMargin = Math.max(58 * scale, Math.min(86 * scale, width * 0.075));
+  const top = Math.max(66 * scale, 52);
+  const bottom = height - Math.max(58 * scale, 46);
+  const sideMargin = Math.max(92 * scale, Math.min(126 * scale, width * 0.105));
   return {
     top,
     bottom,

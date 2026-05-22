@@ -126,7 +126,21 @@ button:hover {
 .info-link {
   display: inline-flex;
   align-items: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  background: #f8fbff;
+  color: #064d94;
+  font-weight: 800;
   text-decoration: none;
+}
+
+.info-link:hover,
+.info-link:focus-visible {
+  border-color: var(--accent);
+  background: #e8f3ff;
+  color: var(--accent-strong);
 }
 
 .hero h1 {

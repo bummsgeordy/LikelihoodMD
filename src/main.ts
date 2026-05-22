@@ -206,11 +206,6 @@ app.innerHTML = `
         <div class="modifier-impact hidden" id="resultModifierImpact"></div>
       </section>
 
-      <section class="card decision-card" id="decisionModifierCard" aria-labelledby="decisionModifierTitle">
-        <h2 id="decisionModifierTitle">Welche Information verändert die Entscheidung am stärksten?</h2>
-        <div id="decisionModifierContent"></div>
-      </section>
-
       </div>
       <div class="calculator-column calculator-column-secondary">
       <section class="card nomogram-card" id="nomogramCard" aria-labelledby="nomogramTitle">
@@ -238,6 +233,11 @@ app.innerHTML = `
           <p>Das Nomogramm macht sichtbar, wie ein Testergebnis die Wahrscheinlichkeit einer Erkrankung verändert: links steht die Ausgangswahrscheinlichkeit, in der Mitte die Likelihood-Ratio und rechts die daraus entstehende Posttestwahrscheinlichkeit. So wird erkennbar, ob ein Test die klinische Entscheidung wahrscheinlich wirklich verändert.</p>
           <p class="muted">Weiterlesen: <a href="https://www.healthknowledge.org.uk/content/pre-and-post-test-probability" target="_blank" rel="noopener noreferrer">Health Knowledge</a> und <a href="https://ebm.bmj.com/content/18/4/125" target="_blank" rel="noopener noreferrer">BMJ Evidence-Based Medicine</a>.</p>
         </div>
+      </section>
+
+      <section class="card decision-card" id="decisionModifierCard" aria-labelledby="decisionModifierTitle">
+        <h2 id="decisionModifierTitle">Welche Information verändert die Entscheidung am stärksten?</h2>
+        <div id="decisionModifierContent"></div>
       </section>
 
       <section class="card diagnostic-chain-card" id="diagnosticChainCard" aria-labelledby="diagnosticChainTitle">
@@ -1437,20 +1437,14 @@ function formatCount(value: number): string {
   return value.toLocaleString('de-DE', { maximumFractionDigits: 0 });
 }
 
-function renderCohortExplanation(
-  element: HTMLElement,
+function cohortExplanationParts(
   profile: EvidenceProfile,
   result: CalculationResult,
   positiveLabel: string,
   negativeLabel: string
-): void {
-  element.textContent = '';
+): { estimated: boolean; title: string; positive: string; negative: string } | null {
   const performance = testPerformanceForCohort(profile, result);
-  if (!performance) {
-    element.className = 'cohort-explanation warning';
-    element.textContent = 'Für eine 1000er-Erklärung fehlen Sensitivität/Spezifität; aus den vorhandenen LR-Werten lässt sich keine plausible Näherung ableiten.';
-    return;
-  }
+  if (!performance) return null;
 
   const diseased = roundedCount(result.pretestProbability * 1000);
   const notDiseased = 1000 - diseased;
@@ -1459,14 +1453,36 @@ function renderCohortExplanation(
   const falseNegative = Math.max(0, diseased - truePositive);
   const trueNegative = Math.max(0, notDiseased - falsePositive);
   const note = performance.estimated ? ' Geschätzt aus LR+/LR−, weil Sensitivität/Spezifität nicht separat hinterlegt sind.' : '';
+  return {
+    estimated: performance.estimated,
+    title: 'Anschaulich bei 1000 ähnlichen Patienten',
+    positive: `Etwa ${formatCount(diseased)} hätten die Erkrankung. Bei ${positiveLabel} wären etwa ${formatCount(truePositive)} richtig positiv und ${formatCount(falsePositive)} falsch positiv.`,
+    negative: `Bei ${negativeLabel} wären etwa ${formatCount(trueNegative)} richtig negativ und ${formatCount(falseNegative)} falsch negativ.${note}`
+  };
+}
 
-  element.className = `cohort-explanation${performance.estimated ? ' estimated' : ''}`;
+function renderCohortExplanation(
+  element: HTMLElement,
+  profile: EvidenceProfile,
+  result: CalculationResult,
+  positiveLabel: string,
+  negativeLabel: string
+): void {
+  element.textContent = '';
+  const explanation = cohortExplanationParts(profile, result, positiveLabel, negativeLabel);
+  if (!explanation) {
+    element.className = 'cohort-explanation warning';
+    element.textContent = 'Für eine 1000er-Erklärung fehlen Sensitivität/Spezifität; aus den vorhandenen LR-Werten lässt sich keine plausible Näherung ableiten.';
+    return;
+  }
+
+  element.className = `cohort-explanation${explanation.estimated ? ' estimated' : ''}`;
   const title = document.createElement('strong');
-  title.textContent = 'Anschaulich bei 1000 ähnlichen Patienten';
+  title.textContent = explanation.title;
   const positive = document.createElement('p');
-  positive.textContent = `Etwa ${formatCount(diseased)} hätten die Erkrankung. Bei ${positiveLabel} wären etwa ${formatCount(truePositive)} richtig positiv und ${formatCount(falsePositive)} falsch positiv.`;
+  positive.textContent = explanation.positive;
   const negative = document.createElement('p');
-  negative.textContent = `Bei ${negativeLabel} wären etwa ${formatCount(trueNegative)} richtig negativ und ${formatCount(falseNegative)} falsch negativ.${note}`;
+  negative.textContent = explanation.negative;
   element.append(title, positive, negative);
 }
 
@@ -3021,6 +3037,7 @@ async function copySummary(): Promise<void> {
   const { test, profile, assumption, pretestResolution, result } = currentCalculation();
   const selectedCondition = getSelectedCondition();
   const selectedSetting = getSelectedSetting();
+  const cohortExplanation = cohortExplanationParts(profile, result, 'positivem Test', 'negativem Test');
   const mismatch = selectedTestMatchesCondition(test)
     ? ''
     : `Warnung: Test für ${test.condition}, Prätestwahrscheinlichkeit für ${selectedCondition.label}.`;
@@ -3036,7 +3053,9 @@ async function copySummary(): Promise<void> {
     `LR+: ${formatRatio(result.lrPositive)} | LR−: ${formatRatio(result.lrNegative)}`,
     `Posttest positiv: ${formatPercent(result.postPositiveProbability)}`,
     `Posttest negativ: ${formatPercent(result.postNegativeProbability)}`,
-    `PPV: ${formatPercent(result.ppv)} | NPV: ${formatPercent(result.npv)}`
+    `PPV: ${formatPercent(result.ppv)} | NPV: ${formatPercent(result.npv)}`,
+    cohortExplanation ? '' : 'Anschaulich bei 1000 ähnlichen Patienten: Für dieses Profil fehlen Sensitivität/Spezifität oder eine plausible LR-basierte Näherung.',
+    cohortExplanation ? `${cohortExplanation.title}: ${cohortExplanation.positive} ${cohortExplanation.negative}` : ''
   ].filter(Boolean);
   await navigator.clipboard.writeText(lines.join('\n'));
   setMessage(controls.actionMessage, 'Kurzbericht kopiert.');

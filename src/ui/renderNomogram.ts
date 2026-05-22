@@ -45,9 +45,9 @@ function drawSingleNomogramOnCanvas(
   }
   context.setTransform(deviceScale, 0, 0, deviceScale, 0, 0);
   const layout = createNomogramLayout({ width, height });
-  const axisTitleFont = Math.max(22 * layout.scale, 20);
-  const tickFont = Math.max(18 * layout.scale, 16);
-  const valueFont = Math.max(19 * layout.scale, 17);
+  const axisTitleFont = Math.max(20 * layout.scale, 18);
+  const tickFont = Math.max(15 * layout.scale, 13);
+  const valueFont = Math.max(17 * layout.scale, 15);
   const pointRadius = Math.max(6.4 * layout.scale, 5.8);
   const lineWidth = Math.max(4.2 * layout.scale, 3.8);
   const points = nomogramPoints(result.pretestProbability, likelihoodRatio, posttestProbability, layout);
@@ -65,7 +65,7 @@ function drawSingleNomogramOnCanvas(
     context.fillStyle = '#111827';
     context.font = `850 ${axisTitleFont}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
     context.textAlign = 'center';
-    context.fillText(axisLabel, x, Math.max(30 * layout.scale, 25));
+    context.fillText(axisLabel, x, Math.max(30 * layout.scale, 28));
     context.font = `850 ${tickFont}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
     let lastLabelY = Number.NEGATIVE_INFINITY;
     ticks.forEach(tick => {
@@ -82,7 +82,8 @@ function drawSingleNomogramOnCanvas(
       const skipForCurrentValue = axisLabel === 'LR' && Math.abs(y - points.lr.y) < Math.max(28 * layout.scale, 25);
       const skipForCollision = Math.abs(y - lastLabelY) < minTickGap;
       if (!skipForCurrentValue && !skipForCollision) {
-        context.fillText(text, x === layout.xPost ? x + 13 * layout.scale : x - 13 * layout.scale, y + 6 * layout.scale);
+        const labelX = x === layout.xPost ? x + 10 * layout.scale : x - 10 * layout.scale;
+        context.fillText(text, labelX, clamp(y + 5 * layout.scale, layout.top + tickFont, layout.bottom - 2));
         lastLabelY = y;
       }
     });
@@ -114,11 +115,11 @@ function drawSingleNomogramOnCanvas(
   const endpointLabelHeight = valueFont + endpointPaddingY * 2;
   const endpointLabelWidth = context.measureText(endpointLabel).width;
   const endpointBoxWidth = endpointLabelWidth + endpointPaddingX * 2;
-  const endpointBoxX = clamp(
-    points.post.x - endpointBoxWidth - Math.max(16 * layout.scale, 12),
-    layout.xLr + Math.max(18 * layout.scale, 12),
-    width - endpointBoxWidth - 12
-  );
+  let endpointBoxX = points.post.x - endpointBoxWidth - Math.max(16 * layout.scale, 12);
+  endpointBoxX = clamp(endpointBoxX, layout.xLr + Math.max(12 * layout.scale, 10), width - endpointBoxWidth - 10);
+  if (endpointBoxX + endpointBoxWidth > points.post.x - pointRadius - 4) {
+    endpointBoxX = clamp(points.post.x - endpointBoxWidth - pointRadius - 8, layout.xLr + 8, width - endpointBoxWidth - 10);
+  }
   const endpointBoxY = clamp(
     points.post.y - endpointLabelHeight / 2,
     layout.top + 4,
@@ -140,7 +141,7 @@ function drawSingleNomogramOnCanvas(
   const labelPaddingY = Math.max(6 * layout.scale, 5);
   const labelWidth = context.measureText(ratioLabel).width + labelPaddingX * 2;
   const labelHeight = valueFont + labelPaddingY * 2;
-  const labelX = layout.xLr + 18 * layout.scale;
+  const labelX = clamp(layout.xLr + 14 * layout.scale, 8, width - labelWidth - 8);
   const labelY = clamp(points.lr.y - labelHeight - 10 * layout.scale, layout.top + 4 * layout.scale, layout.bottom - labelHeight - 4 * layout.scale);
   context.fillStyle = '#fff';
   context.strokeStyle = color;
