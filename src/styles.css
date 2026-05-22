@@ -266,6 +266,7 @@ button:hover {
   grid-template-areas:
     "settings"
     "nomogram"
+    "decision"
     "chains"
     "results"
     "details";
@@ -294,6 +295,11 @@ button:hover {
 .calculator-grid.nomogram-focus .nomogram-card,
 .calculator-grid:has(.nomogram-size-toggle:checked) .nomogram-card {
   grid-area: nomogram;
+}
+
+.calculator-grid.nomogram-focus .decision-card,
+.calculator-grid:has(.nomogram-size-toggle:checked) .decision-card {
+  grid-area: decision;
 }
 
 .calculator-grid.nomogram-focus .diagnostic-chain-card,
@@ -1599,6 +1605,7 @@ canvas {
     grid-template-areas:
       "settings"
       "nomogram"
+      "decision"
       "chains"
       "results"
       "details";
@@ -1626,6 +1633,10 @@ canvas {
 
   .nomogram-card {
     grid-area: nomogram;
+  }
+
+  .decision-card {
+    grid-area: decision;
   }
 
   .diagnostic-chain-card {
