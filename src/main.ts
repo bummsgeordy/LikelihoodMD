@@ -37,6 +37,7 @@ import {
 } from './app/catalog';
 import { clinicalIdFromLabel, conditionIdForTest, conditionLabel, mergeConditions } from './app/conditions';
 import { calculateDiagnosticChain } from './app/diagnosticChains';
+import { getPretestEstimate } from './app/pretestEstimates';
 import { renderDiagnosticChains } from './ui/renderDiagnosticChains';
 import { validateClinicalModifier, validateDiagnosticTest, validateEvidenceProfile, validatePretestAssumption } from './lib/validation';
 import type {
@@ -57,6 +58,7 @@ import type {
   PhysicalFinding,
   PhysicalSystem,
   PretestAssumption,
+  PretestEstimateResolution,
   ReviewMetadata,
   ReviewStatus,
   SourceKind
@@ -162,6 +164,7 @@ app.innerHTML = `
           <p class="pretest-suggestion-hint" id="pretestSuggestionHint"></p>
         </div>
         <div class="pretest-status" id="pretestStatus"></div>
+        <div class="pretest-estimate-panel" id="pretestEstimatePanel"></div>
         <div class="field modifier-field">
           <div class="section-heading-row compact-heading">
             <label>Klinische Modifikatoren</label>
@@ -579,6 +582,7 @@ const controls = {
   scenarioBanner: $('scenarioBanner'),
   mismatchWarning: $('mismatchWarning'),
   pretestStatus: $('pretestStatus'),
+  pretestEstimatePanel: $('pretestEstimatePanel'),
   pretestRange: $<HTMLInputElement>('pretestRange'),
   pretestRangeWrap: $('pretestRangeWrap'),
   pretestNumber: $<HTMLInputElement>('pretestNumber'),
@@ -1232,6 +1236,108 @@ function renderPretestStatus(resolution: PretestResolution): void {
   controls.pretestSuggestionMarker.setAttribute('aria-label', `Vorgeschlagene Prätestwahrscheinlichkeit ${suggestedPercent.toFixed(1).replace('.', ',')} Prozent übernehmen`);
   controls.pretestSuggestionMarker.textContent = `Vorschlag ${formatPercent(resolution.probability)} (${suggestionContext})`;
   controls.pretestSuggestionHint.textContent = '';
+}
+
+function formatPercentRange(range: [number, number] | null): string {
+  if (!range) return 'nicht hinterlegt';
+  const [low, high] = range;
+  return low === high
+    ? `${low.toLocaleString('de-DE', { maximumFractionDigits: 1 })} %`
+    : `${low.toLocaleString('de-DE', { maximumFractionDigits: 1 })}–${high.toLocaleString('de-DE', { maximumFractionDigits: 1 })} %`;
+}
+
+function createEstimateAlert(text: string, severity: 'moderate' | 'high' = 'moderate'): HTMLDivElement {
+  const alert = document.createElement('div');
+  alert.className = `estimate-alert ${severity}`;
+  alert.textContent = `${severity === 'high' ? '⚠' : '!'} ${text}`;
+  return alert;
+}
+
+function renderPretestEstimatePanel(resolution: PretestEstimateResolution): void {
+  controls.pretestEstimatePanel.textContent = '';
+  const estimate = resolution.estimate;
+  if (!estimate) {
+    controls.pretestEstimatePanel.classList.add('is-empty');
+    controls.pretestEstimatePanel.textContent = 'Erweiterte Prätest-Datenbasis: noch nicht hinterlegt.';
+    return;
+  }
+  controls.pretestEstimatePanel.classList.remove('is-empty');
+
+  const heading = document.createElement('div');
+  heading.className = 'estimate-panel-heading';
+  const title = document.createElement('strong');
+  title.textContent = 'Prätest-Datenbasis';
+  const confidence = document.createElement('span');
+  confidence.className = `quality-pill quality-${estimate.evidenceQuality.charAt(0).toLowerCase()}`;
+  confidence.textContent = resolution.confidenceLabel;
+  heading.append(title, confidence);
+
+  const grid = document.createElement('div');
+  grid.className = 'estimate-meta-grid';
+  const rows: Array<[string, string]> = [
+    ['Setting', estimate.setting],
+    ['Basis', resolution.baseProbability != null ? `${resolution.baseProbability.toLocaleString('de-DE', { maximumFractionDigits: 1 })} %` : 'nicht als Einzelwert hinterlegt'],
+    ['Spanne', formatPercentRange(resolution.probabilityRange)],
+    ['Anpassung', resolution.qualitativeAdjustedRisk]
+  ];
+  rows.forEach(([label, value]) => {
+    const labelElement = document.createElement('span');
+    labelElement.textContent = label;
+    const valueElement = document.createElement('strong');
+    valueElement.textContent = value;
+    grid.append(labelElement, valueElement);
+  });
+
+  const note = document.createElement('p');
+  note.className = 'muted compact-note';
+  note.textContent = estimate.qualityNote;
+
+  const modifierWrap = document.createElement('div');
+  modifierWrap.className = 'estimate-chip-row';
+  const modifiersToShow = estimate.modifiers.slice(0, 6);
+  modifiersToShow.forEach(modifier => {
+    const chip = document.createElement('span');
+    chip.className = `estimate-chip ${modifier.direction}`;
+    const effect = modifier.approximateEffect ? ` · ${modifier.approximateEffect}` : '';
+    chip.textContent = `${modifier.factor}${effect}`;
+    modifierWrap.append(chip);
+  });
+
+  const issues = estimate.preanalyticalIssues.filter(issue => issue.severity === 'high').slice(0, 3);
+  const medications = estimate.medicationInterferences.filter(medication => medication.severity === 'high').slice(0, 3);
+  const warningWrap = document.createElement('div');
+  warningWrap.className = 'estimate-warning-list';
+  issues.forEach(issue => warningWrap.append(createEstimateAlert(`${issue.issue}: ${issue.effect}${issue.mitigation ? ` ${issue.mitigation}` : ''}`, 'high')));
+  medications.forEach(medication => warningWrap.append(createEstimateAlert(`${medication.medicationOrClass}: ${medication.effect}${medication.mitigation ? ` ${medication.mitigation}` : ''}`, 'high')));
+  resolution.activeWarnings
+    .filter(warning => warning !== 'Diese Angaben sind didaktische Entscheidungsunterstützung, keine Diagnose.')
+    .slice(0, 2)
+    .forEach(warning => warningWrap.append(createEstimateAlert(warning, 'moderate')));
+
+  const sourcesDetails = document.createElement('details');
+  sourcesDetails.className = 'estimate-sources';
+  const summary = document.createElement('summary');
+  summary.textContent = `Quellen (${resolution.sources.length})`;
+  const sourceList = document.createElement('ul');
+  resolution.sources.forEach(source => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = source.url ?? '#';
+    link.target = '_blank';
+    link.rel = 'noreferrer';
+    link.textContent = `${source.title}${source.year ? ` (${source.year})` : ''}`;
+    item.append(link);
+    if (source.note) {
+      item.append(` – ${source.note}`);
+    }
+    sourceList.append(item);
+  });
+  sourcesDetails.append(summary, sourceList);
+
+  controls.pretestEstimatePanel.append(heading, grid, note);
+  if (modifierWrap.childElementCount > 0) controls.pretestEstimatePanel.append(modifierWrap);
+  if (warningWrap.childElementCount > 0) controls.pretestEstimatePanel.append(warningWrap);
+  controls.pretestEstimatePanel.append(sourcesDetails);
 }
 
 function renderModifierSelector(result: CalculationResult): void {
@@ -2402,6 +2508,13 @@ function renderMain(): void {
   renderScenarioBanner(profile);
   renderMismatchWarning(test);
   renderPretestStatus(pretestResolution);
+  renderPretestEstimatePanel(getPretestEstimate(
+    state.selectedConditionId,
+    state.selectedSettingId,
+    selectedModifiers().map(modifier => modifier.label),
+    [],
+    []
+  ));
   renderModifierSelector(result);
   renderDecisionModifiers();
   renderModifierImpact(profile, result);

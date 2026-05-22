@@ -8,6 +8,42 @@ export type EvidenceQuality = 'high' | 'moderate' | 'low' | 'expert-opinion' | '
 export type DataCompleteness = 'complete' | 'partial' | 'minimal';
 export type QuantificationStatus = 'qualitative' | 'probability-factor' | 'likelihood-ratio';
 export type CalculatorMode = 'diagnostic-tests' | 'physical-exam';
+export type PretestEvidenceQualityCode =
+  | 'Adirecthighquality'
+  | 'Bmoderatedirect'
+  | 'Cindirectormixed'
+  | 'Dexpertestimate'
+  | 'E_uncertain';
+export type ProbabilityModifierDirection =
+  | 'decreasesstrongly'
+  | 'decreasesmoderately'
+  | 'neutralorunclear'
+  | 'increasesmildly'
+  | 'increasesmoderately'
+  | 'increasesstrongly'
+  | 'increasesvery_strongly';
+export type ClinicalDomain = 'endocrinology' | 'cardiology' | 'nephrology' | 'primary_care' | 'emergency';
+export type PretestSourceType =
+  | 'guideline'
+  | 'review'
+  | 'cohort'
+  | 'metaanalysis'
+  | 'educationalreview'
+  | 'expert_summary';
+export type PretestEstimateType =
+  | 'populationprevalence'
+  | 'clinicalsettingprevalence'
+  | 'highriskgroup'
+  | 'riskscorecategory'
+  | 'expertestimate';
+export type IssueSeverity = 'low' | 'moderate' | 'high';
+export type PretestQualitativeAdjustedRisk =
+  | 'niedriger als Basis'
+  | 'etwa Basisrisiko'
+  | 'moderat erhöht'
+  | 'deutlich erhöht'
+  | 'sehr deutlich erhöht'
+  | 'nicht valide berechenbar wegen Präanalytik/Medikamenten';
 
 export const REVIEW_STATUSES: ReviewStatus[] = ['draft', 'reviewed', 'needs-review'];
 export const EVIDENCE_QUALITIES: EvidenceQuality[] = ['high', 'moderate', 'low', 'expert-opinion', 'unclear'];
@@ -51,6 +87,77 @@ export interface EvidenceSource {
   url: string;
   kind: SourceKind;
   note: string;
+}
+
+export interface SourceReference {
+  id: string;
+  title: string;
+  year?: number;
+  type: PretestSourceType;
+  url?: string;
+  doi?: string;
+  note?: string;
+}
+
+export interface ProbabilityModifier {
+  factor: string;
+  direction: ProbabilityModifierDirection;
+  approximateEffect?: string;
+  evidenceQuality: PretestEvidenceQualityCode;
+  note?: string;
+}
+
+export interface PreanalyticalIssue {
+  issue: string;
+  affectedTests: string[];
+  effect: string;
+  severity: IssueSeverity;
+  mitigation?: string;
+}
+
+export interface MedicationInterference {
+  medicationOrClass: string;
+  affectedTests: string[];
+  effect: string;
+  severity: IssueSeverity;
+  mitigation?: string;
+}
+
+export interface PretestProbabilityEstimate {
+  id: string;
+  diseaseId: string;
+  diseaseName: string;
+  domain: ClinicalDomain[];
+  settingId?: string;
+  setting: string;
+  baseProbabilityPercent?: number;
+  probabilityRangePercent: [number, number];
+  estimateType: PretestEstimateType;
+  evidenceQuality: PretestEvidenceQualityCode;
+  qualityNote: string;
+  sources: string[];
+  modifiers: ProbabilityModifier[];
+  preanalyticalIssues: PreanalyticalIssue[];
+  medicationInterferences: MedicationInterference[];
+  implementationNotes?: string;
+}
+
+export interface PretestProbabilityDataset {
+  sources: SourceReference[];
+  estimates: PretestProbabilityEstimate[];
+}
+
+export interface PretestEstimateResolution {
+  estimate: PretestProbabilityEstimate | null;
+  baseProbability: number | null;
+  probabilityRange: [number, number] | null;
+  qualitativeAdjustedRisk: PretestQualitativeAdjustedRisk;
+  activeWarnings: string[];
+  confidenceLabel: string;
+  sources: SourceReference[];
+  activeModifiers: ProbabilityModifier[];
+  activePreanalyticalIssues: PreanalyticalIssue[];
+  activeMedicationInterferences: MedicationInterference[];
 }
 
 export interface EvidenceProfile extends ReviewMetadata {

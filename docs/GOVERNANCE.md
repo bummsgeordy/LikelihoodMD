@@ -26,6 +26,14 @@ Dieses Projekt ist als öffentliches Lehr- und Rechentool angelegt. Damit die Za
 - Unsichere oder nicht direkt datenbasierte Annahmen werden zusätzlich mit `expert-opinion`, `unclear`, `partial` oder `minimal` markiert.
 - Konkurrierende Studien, Cut-offs oder Populationen werden als separate Evidenzprofile aufgenommen, damit Nutzer die Annahme bewusst auswählen können.
 
+## Prätestwahrscheinlichkeiten
+
+Die hinterlegten Prätestwahrscheinlichkeiten sind quellenbasierte Startwerte für didaktische Visualisierung und klinische Entscheidungsunterstützung. Sie sind keine harte Wahrheit und dürfen nicht als alleinige Diagnose- oder Therapiegrundlage verwendet werden.
+
+Die Verlässlichkeit wird konservativ markiert. Direkt gemessene Setting-Daten sind belastbarer als ähnliche Referral-Kohorten, Register-/Routinedaten, leitlinien- oder reviewbasierte Schätzungen und lokale Expertenschätzungen. Lokale Population, Überweisungskontext, Spektrumseffekte, Präanalytik und Medikamente können die Prätestwahrscheinlichkeit und die Testinterpretation erheblich verändern.
+
+Klinische Modifikatoren werden nicht naiv addiert. Ohne explizit belegte Odds Ratios oder Likelihood Ratios werden sie qualitativ als niedriger, moderat erhöht, deutlich erhöht oder sehr deutlich erhöht angezeigt.
+
 ## Review-Checkliste
 
 - Ist der intended use beschrieben?
