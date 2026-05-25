@@ -114,22 +114,22 @@ app.innerHTML = `
       <div class="hero-top">
         <h1>LikelihoodMD</h1>
         <div class="hero-actions">
-          <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Diagnostische Kennzahlen</a>
-          <a class="secondary-button info-link" href="./simulation/">Simulation</a>
-          <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Daten verwalten</button>
+          <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Hintergrund / Erklärung</a>
+          <a class="secondary-button info-link" href="./simulation/">freie Nomogramme</a>
+          <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Administration</button>
         </div>
       </div>
       <section class="disclaimer-box" aria-labelledby="disclaimerTitle">
         <div class="disclaimer-summary">
-          <p id="disclaimerTitle">Lehr- und Rechentool für medizinische Fachpersonen. Kein Medizinprodukt, keine alleinige Entscheidungsgrundlage. Anregungen und Korrekturen gerne an likelihood@engert.me!</p>
+          <p id="disclaimerTitle">Lehr- und Visualisierungstool für medizinische Fachpersonen. Kein Medizinprodukt. Anregungen und Korrekturen gerne an likelihood@engert.me!</p>
           <button id="disclaimerToggleButton" class="secondary-button compact-button" type="button" aria-expanded="false" aria-controls="disclaimerContent">
             <span aria-hidden="true" id="disclaimerToggleIcon">+</span>
             <span id="disclaimerToggleLabel">Details anzeigen</span>
           </button>
         </div>
         <div id="disclaimerContent" class="disclaimer-content hidden">
-          <p class="lead">Deutschsprachiges Lehrtool für medizinische Fachpersonal: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung ist ausdrücklich erwünscht.</p>
-          <div class="notice" role="note">Dieses Tool ist keine alleinige Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
+          <p class="lead">Deutschsprachiges Lehrtool für medizinische Fachpersonal: Es soll dabei helfen zu visualisieren, unter welchen Bedingungen, etwa bei unterschiedlichen Prätestwahrscheinlichkeiten in unterschiedlichen Settings der Patientenvorstellung, welche Faktoren und diagnostischen Tests die Wahrscheinlichkeit einer Diagnose in welchem Ausmaß beeinflussen. Datengrundlage sind, soweit möglich, Studien zu Prävalenz, beeinflussenden Faktoren sowie Sensitivität und Spezifität der entsprechenden Tests. Die Daten sind noch unvollständig und können Fehler enthalten. Mithilfe bei der Erweiterung/Korrektur ist ausdrücklich erwünscht.</p>
+          <div class="notice" role="note">Dieses Tool ist keine Entscheidungsgrundlage, kein Medizinprodukt und ersetzt keine klinische Beurteilung. Insbesondere präanalytische Faktoren wie interferierende Medikamente, Begleiterkrankungen und Testbedingungen können die Aussagekraft der Tests signifikant beeinflussen.</div>
         </div>
       </section>
     </header>
