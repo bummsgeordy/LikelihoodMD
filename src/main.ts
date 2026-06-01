@@ -5,6 +5,7 @@ import conditionsRaw from "./data/conditions.json";
 import diagnosticChainsRaw from "./data/diagnostic-chains.json";
 import curatedModifiersRaw from "./data/clinical-modifiers.json";
 import curatedAssumptionsRaw from "./data/pretest-assumptions.json";
+import pretestEvidenceGapsRaw from "./data/pretest-evidence-gaps.json";
 import curatedTestsRaw from "./data/tests.json";
 import physicalSystemsRaw from "./data/physical-systems.json";
 import physicalConditionsRaw from "./data/physical-conditions.json";
@@ -68,6 +69,7 @@ import type {
   PhysicalFinding,
   PhysicalSystem,
   PretestAssumption,
+  PretestEvidenceGap,
   PretestEstimateResolution,
   ReviewMetadata,
   ReviewStatus,
@@ -76,6 +78,7 @@ import type {
 
 const curatedTests = curatedTestsRaw as DiagnosticTest[];
 const curatedAssumptions = curatedAssumptionsRaw as PretestAssumption[];
+const pretestEvidenceGaps = pretestEvidenceGapsRaw as PretestEvidenceGap[];
 const curatedModifiers = curatedModifiersRaw as ClinicalModifier[];
 const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
 const clinicalConditions = conditionsRaw as ClinicalCondition[];
@@ -2349,6 +2352,64 @@ function catalogRows(): CatalogRow[] {
       };
     },
   );
+  const pretestGapRows: CatalogRow[] = pretestEvidenceGaps.map((gap) => {
+    const settingLabels = gap.settingIds
+      .map((settingId) => settingLabelForId(settingId, settingId))
+      .join(", ");
+    const cells = [
+      "Prätest-Lücke",
+      conditionLabelForId(gap.conditionId),
+      settingLabels,
+      "keine belastbare Setting-Schätzung",
+      "Risikostratum/Score erforderlich",
+      "–",
+      "–",
+      "–",
+      "–",
+      "–",
+      "–",
+      "–",
+      "–",
+      ...catalogMetadataCells(gap),
+      sourceSummary(gap.searchedSources),
+      `${gap.summary} Nächster Schritt: ${gap.recommendedNextStep}`,
+    ];
+    return {
+      key: `pretest-gap:${gap.id}`,
+      kind: "pretest-gap",
+      domain: "diagnostic-tests",
+      id: gap.id,
+      status: "curated",
+      reviewStatus: gap.reviewStatus,
+      evidenceQuality: gap.evidenceQuality,
+      dataCompleteness: gap.dataCompleteness,
+      conditionId: gap.conditionId,
+      settingId: gap.settingIds[0],
+      cells,
+      searchText: textSearchValue([
+        ...cells,
+        gap.searchedQuestion,
+        gap.searchedSources.map((source) => source.note),
+        gap.reviewNote,
+      ]),
+      sortValues: {
+        condition: conditionLabelForId(gap.conditionId),
+        setting: settingLabels,
+        test: "",
+        lrPositive: null,
+        lrNegative: null,
+        reviewStatus: gap.reviewStatus,
+      },
+      detail: {
+        title: `Prätest-Lücke: ${conditionLabelForId(gap.conditionId)}`,
+        sources: sourceSummary(gap.searchedSources),
+        population: settingLabels,
+        rationale: `${gap.summary} Recherchefrage: ${gap.searchedQuestion}`,
+        limitations: gap.recommendedNextStep,
+        reviewNote: gap.reviewNote,
+      },
+    };
+  });
   const modifierRows: CatalogRow[] = allModifiers().map((modifier) => {
     const cells = [
       "Klinischer Modifikator",
@@ -2554,7 +2615,13 @@ function catalogRows(): CatalogRow[] {
       },
     };
   });
-  return [...assumptionRows, ...modifierRows, ...profileRows, ...physicalRows];
+  return [
+    ...assumptionRows,
+    ...pretestGapRows,
+    ...modifierRows,
+    ...profileRows,
+    ...physicalRows,
+  ];
 }
 
 function renderDataCatalog(): void {
@@ -3723,12 +3790,15 @@ function catalogItem(
   id: string,
 ):
   | PretestAssumption
+  | PretestEvidenceGap
   | ClinicalModifier
   | EvidenceProfile
   | PhysicalFinding
   | undefined {
   if (kind === "assumption")
     return allAssumptions().find((item) => item.id === id);
+  if (kind === "pretest-gap")
+    return pretestEvidenceGaps.find((item) => item.id === id);
   if (kind === "modifier") return allModifiers().find((item) => item.id === id);
   if (kind === "physical-finding")
     return physicalFindings.find((item) => item.id === id);
@@ -3752,6 +3822,10 @@ function selectCatalogItem(
       assumption.probability * 100,
     );
     state.selectedAssumptionId = assumption.id;
+  } else if (kind === "pretest-gap") {
+    const gap = item as PretestEvidenceGap;
+    state.selectedConditionId = gap.conditionId;
+    if (settingId) state.selectedSettingId = settingId;
   } else if (kind === "modifier") {
     const modifier = item as ClinicalModifier;
     state.selectedConditionId = modifier.conditionId;
@@ -3808,6 +3882,11 @@ function openCatalogItemForCorrection(kind: CatalogRowKind, id: string): void {
       controls.actionMessage,
       "Korrekturen für McGee-Befunde bitte als JSON-Vorschlag exportieren oder im Repository bearbeiten.",
     );
+  } else if (kind === "pretest-gap") {
+    setMessage(
+      controls.actionMessage,
+      "Prätest-Lücken bitte als neue Prätest-Annahme oder Quellenkorrektur im Repository bearbeiten.",
+    );
   } else {
     fillProfileForm(item as EvidenceProfile);
     state.adminMode = "profile";
@@ -3851,6 +3930,15 @@ function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
       controls.actionMessage,
       "JSON-Vorschlag für körperlichen Befund exportiert.",
     );
+    return;
+  }
+  if (kind === "pretest-gap") {
+    downloadJson("pretest-luecke-vorschlag-v5.json", {
+      schemaVersion: 5,
+      type: "pretest-evidence-gap",
+      gap: item as PretestEvidenceGap,
+    });
+    setMessage(controls.actionMessage, "JSON-Vorschlag für Prätest-Lücke exportiert.");
     return;
   }
   const proposal = cloneAsProposal(

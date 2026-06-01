@@ -1,6 +1,6 @@
 import type { DataCompleteness, EvidenceProfileKind, EvidenceQuality, ReviewStatus } from '../types';
 
-export type CatalogRowKind = 'assumption' | 'modifier' | 'profile' | 'physical-finding';
+export type CatalogRowKind = 'assumption' | 'pretest-gap' | 'modifier' | 'profile' | 'physical-finding';
 export type CatalogSortKey = 'condition' | 'setting' | 'test' | 'lrPositive' | 'lrNegative' | 'reviewStatus';
 export type CatalogDomain = 'diagnostic-tests' | 'physical-exam';
 

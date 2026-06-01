@@ -1,0 +1,388 @@
+[
+  {
+    "id": "gap-cushing-non-endocrine-specialty-settings",
+    "conditionId": "cushing-syndrom-hyperkortisolismus",
+    "settingIds": ["klinik-notaufnahme", "ambulant-kardiologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für diese Settings wurde keine belastbare allgemeine Prätestwahrscheinlichkeit für endogenen Hyperkortisolismus gefunden. Die Quellen stützen eher eine phänotyp- und Risikostratum-basierte Einschätzung: diskriminative/progrediente Zeichen und Nebenniereninzidentalom erhöhen die Wahrscheinlichkeit, unspezifische Adipositas/Diabetes/Hypertonie allein nicht ausreichend.",
+    "searchedQuestion": "Setting-spezifische Prävalenz oder Prätestwahrscheinlichkeit von Cushing-Syndrom/Hypercortisolismus in Notaufnahme, Kardiologie, Diabetologie und Nephrologie.",
+    "searchedSources": [
+      {
+        "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+        "year": 2008,
+        "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt gezielte Testung bei multiplen/progredienten oder diskriminativen Zeichen und rät von breitem Screening bei unspezifischen Merkmalen ab."
+      },
+      {
+        "title": "Endotext: Endocrine Testing Protocols - Hypothalamic Pituitary Adrenal Axis",
+        "year": 2023,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278940/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt Testprotokolle und Fallstricke, liefert aber keine übertragbaren Setting-Prätestwahrscheinlichkeiten."
+      },
+      {
+        "title": "ESE/ENSAT Guideline: Adrenal Incidentalomas",
+        "year": 2023,
+        "url": "https://academic.oup.com/ejendo/article/189/1/G1/7198474",
+        "kind": "Leitlinie",
+        "note": "Nebenniereninzidentalom ist ein eigenes Risikostratum für autonome Cortisolsekretion, nicht gleichbedeutend mit manifestem Cushing-Syndrom."
+      }
+    ],
+    "recommendedNextStep": "Keine generische Setting-Annahme ergänzen. Stattdessen spezifische Risikostratifikation nach klinischen Zeichen, Nebenniereninzidentalom und Pseudo-Cushing-Kontext weiter ausbauen; lokale Zuweisungskohorten nachreichen, falls vorhanden.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Lücke bewusst dokumentiert, um Scheingenauigkeit zu vermeiden."
+  },
+  {
+    "id": "gap-pa-non-hypertension-specific-settings",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "settingIds": ["klinik-notaufnahme", "ambulant-kardiologie", "ambulant-endokrinologie", "ambulant-diabetologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für PA ist nicht der Ort der Vorstellung entscheidend, sondern das Hypertonie-Risikostratum: unselektierte Hypertonie, schwere Hypertonie, resistente Hypertonie, Hypokaliämie oder Nebenniereninzidentalom plus Hypertonie. Für die aufgeführten Settings wurde keine robuste, vom Hypertoniespektrum unabhängige Prätestwahrscheinlichkeit gefunden.",
+    "searchedQuestion": "Setting-spezifische PA-Prävalenz in Notaufnahme, Kardiologie, Endokrinologie und Diabetologie unabhängig von Hypertonieschwere/Risikostratum.",
+    "searchedSources": [
+      {
+        "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
+        "kind": "Review",
+        "note": "Fasst Prävalenzrahmen nach Hypertonie- und Zuweisungskollektiven zusammen; Setting allein ist kein ausreichendes Stratum."
+      },
+      {
+        "title": "Prevalence and Clinical Manifestations of Primary Aldosteronism Encountered in Primary Care Practice",
+        "year": 2017,
+        "url": "https://www.sciencedirect.com/science/article/pii/S0735109717305697",
+        "kind": "Studie",
+        "note": "Zeigt starke Abhängigkeit der PA-Prävalenz von Hypertoniestadium."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Definiert Screeningindikationen über Risikogruppen und Testbedingungen, nicht primär über Fachabteilungen."
+      }
+    ],
+    "recommendedNextStep": "Zusätzliche Annahmen als Hypertonie-/Risikostrata statt als Fachabteilungs-Setting anlegen, z. B. Stadium 1, Stadium 3, resistente Hypertonie und Nebenniereninzidentalom plus Hypertonie.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Vorhandene Annahmen für Primärversorgung und Nephrologie/Resistenzhypertonie bleiben vorrangig."
+  },
+  {
+    "id": "gap-ppgl-non-incidentaloma-settings",
+    "conditionId": "phaochromozytom-paragangliom",
+    "settingIds": ["klinik-notaufnahme", "ambulant-kardiologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für PPGL wurde keine belastbare allgemeine Prätestwahrscheinlichkeit nach diesen Settings gefunden. Die Wahrscheinlichkeit hängt wesentlich von Nebenniereninzidentalom, genetischem Syndrom, paroxysmaler Symptomatik und Bildmorphologie ab; unselektierte Hypertonie hat sehr niedrige Prävalenz.",
+    "searchedQuestion": "Setting-spezifische PPGL-Prävalenz in Notaufnahme, Kardiologie, Diabetologie und Nephrologie unabhängig von Inzidentalom/genetischem Risiko/Symptomtrias.",
+    "searchedSources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Pheochromocytoma and Paraganglioma",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/6/1915/2537399",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt biochemische Testung nach klinischer Indikation; Präanalytik und Vortestkontext sind zentral."
+      },
+      {
+        "title": "Pheochromocytomas Most Commonly Present As Adrenal Incidentalomas",
+        "year": 2019,
+        "url": "https://academic.oup.com/jcem/article/104/11/5084/5522306",
+        "kind": "Studie",
+        "note": "Unterstreicht Nebenniereninzidentalom als wichtiges Präsentations- und Risikostratum."
+      },
+      {
+        "title": "Pheochromocytoma",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK589700/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt Testauswahl und Präanalytik, aber keine universellen Setting-Prätestwahrscheinlichkeiten."
+      }
+    ],
+    "recommendedNextStep": "Keine generische Setting-Annahme ergänzen. Separate Annahmen für Nebenniereninzidentalom, genetische Syndrome, typische Symptomtrias und unselektierte Hypertonie weiter pflegen.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Setting allein ist für PPGL fachlich zu grob."
+  },
+  {
+    "id": "gap-heart-failure-specialty-settings",
+    "conditionId": "herzinsuffizienz",
+    "settingIds": ["ambulant-kardiologie", "ambulant-endokrinologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für Herzinsuffizienz sind belastbare Prätestwahrscheinlichkeiten eher nach Symptom, Alter, Komorbidität und Akut- vs. Stabilkontext verfügbar als nach Fachabteilung. Für die aufgeführten ambulanten Spezialsettings wurde keine robuste allgemeine Prätestwahrscheinlichkeit gefunden.",
+    "searchedQuestion": "Setting-spezifische Prätestwahrscheinlichkeit für Herzinsuffizienz in ambulanter Kardiologie, Endokrinologie, Diabetologie und Nephrologie unabhängig von Symptom/Alter/Komorbidität.",
+    "searchedSources": [
+      {
+        "title": "Heart failure in primary care: prevalence related to age and comorbidity",
+        "year": 2019,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6683237/",
+        "kind": "Studie",
+        "note": "Zeigt starke Alters- und Komorbiditätsabhängigkeit der Herzinsuffizienzprävalenz in Primärversorgung."
+      },
+      {
+        "title": "Diagnosis of Acute Heart Failure in the Emergency Department: An Evidence-Based Review",
+        "year": 2019,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6860389/",
+        "kind": "Review",
+        "note": "Bezieht sich auf akute Dyspnoe in der Notaufnahme, nicht auf generische ambulante Spezialsettings."
+      },
+      {
+        "title": "Dyspnea Due to Acute Heart Failure Syndrome",
+        "year": 2019,
+        "url": "https://www.aafp.org/pubs/afp/issues/2019/0201/od1.html",
+        "kind": "Review",
+        "note": "Betont akute Dyspnoe als Testpopulation für natriuretische Peptide."
+      }
+    ],
+    "recommendedNextStep": "Ambulante Herzinsuffizienz-Prätestannahmen nach klinischem Anlass modellieren: chronische Dyspnoe, Ödeme, CKD/Diabetes/Alter, bekannte KHK oder Vorhofflimmern; nicht allein nach Fachabteilung.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Nicht als fehlende Zahl, sondern als fehlendes Risikostratum behandeln."
+  },
+  {
+    "id": "gap-adrenal-insufficiency-non-endocrine-settings",
+    "conditionId": "nebenniereninsuffizienz",
+    "settingIds": ["hausarztpraxis", "klinik-notaufnahme", "ambulant-kardiologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für Nebenniereninsuffizienz wurde keine belastbare generische Prätestwahrscheinlichkeit pro Setting gefunden. Die Wahrscheinlichkeit hängt stark von Glukokortikoidexposition, Hypophysen-/Nebennierenerkrankung, Autoimmunität, Elektrolytbild und Akutsituation ab.",
+    "searchedQuestion": "Setting-spezifische Prävalenz oder Prätestwahrscheinlichkeit für Nebenniereninsuffizienz außerhalb klarer Steroidexposition oder endokrinologischer Abklärung.",
+    "searchedSources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Glucocorticoid-Induced Adrenal Insufficiency",
+        "year": 2024,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
+        "kind": "Leitlinie",
+        "note": "Risikoeinschätzung hängt wesentlich von Glukokortikoiddosis, Dauer, Applikationsweg und Absetzzeitpunkt ab."
+      },
+      {
+        "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
+        "year": 2016,
+        "url": "https://academic.oup.com/jcem/article/101/2/427/2810551",
+        "kind": "Review",
+        "note": "Testgüte hängt von primärer vs. sekundärer Nebenniereninsuffizienz und Kontext ab; keine universelle Settingprävalenz."
+      },
+      {
+        "title": "Endotext: Endocrine Testing Protocols - Hypothalamic Pituitary Adrenal Axis",
+        "year": 2023,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278940/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt dynamische HPA-Achsen-Testung, aber keine übertragbaren Setting-Prätestwerte."
+      }
+    ],
+    "recommendedNextStep": "Weitere Annahmen als Risikostrata anlegen: systemische Steroidexposition, Hypophysenerkrankung/-operation, Autoimmunadrenalitis, Hyponatriämie/Hyperkaliämie und akute Nebennierenkrise.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Setting ohne Risikokontext ist für Nebenniereninsuffizienz nicht belastbar."
+  },
+  {
+    "id": "gap-graves-non-thyrotoxicosis-settings",
+    "conditionId": "morbus-basedow",
+    "settingIds": ["klinik-notaufnahme", "ambulant-kardiologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für Morbus Basedow ist eine Prätestwahrscheinlichkeit erst nach Bestätigung einer Hyperthyreose sinnvoll. Für die genannten Settings ohne explizite Thyreotoxikose-Population wurde keine belastbare Setting-Schätzung gefunden.",
+    "searchedQuestion": "Setting-spezifische Morbus-Basedow-Prätestwahrscheinlichkeit in Notaufnahme, Kardiologie, Diabetologie und Nephrologie ohne gesicherte Hyperthyreose.",
+    "searchedSources": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves' Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Beschreibt Hyperthyreoseprävalenz und Morbus Basedow als häufige Ursache, aber nicht als beliebige Settingprävalenz."
+      }
+    ],
+    "recommendedNextStep": "Prätestannahmen nach biochemischer Hyperthyreose, Knotenstatus, Schwangerschaft/Postpartum, Orbitopathie und Jodversorgung modellieren; nicht nach Fachabteilung allein.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Direkte Annahmen für Primärversorgung und Endokrinologie bei Hyperthyreose sind vorhanden."
+  },
+  {
+    "id": "gap-mtc-non-thyroid-nodule-settings",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "settingIds": ["klinik-notaufnahme", "ambulant-kardiologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Für MTC ist die relevante Ausgangspopulation Schilddrüsenknoten, Calcitoninauffälligkeit oder MEN2/RET-Risiko, nicht das allgemeine Vorstellungssetting. Für Notaufnahme, Kardiologie, Diabetologie und Nephrologie wurde keine sinnvolle generische Prätestwahrscheinlichkeit gefunden.",
+    "searchedQuestion": "Setting-spezifische MTC-Prätestwahrscheinlichkeit außerhalb Schilddrüsenknoten-, Calcitonin- oder MEN2/RET-Kontext.",
+    "searchedSources": [
+      {
+        "title": "Prevalence and significance of indeterminate calcitonin values in patients with thyroid nodules: a systematic review and meta-analysis",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10404572/",
+        "kind": "Review",
+        "note": "Prävalenzangaben beziehen sich auf Schilddrüsenknotenpopulationen."
+      },
+      {
+        "title": "Revised American Thyroid Association Guidelines for the Management of Medullary Thyroid Carcinoma",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+        "kind": "Leitlinie",
+        "note": "Diagnostik und Screening richten sich nach Knoten, Calcitonin, Zytologie und genetischem Risiko."
+      }
+    ],
+    "recommendedNextStep": "Keine Settingwerte ergänzen. Stattdessen Schilddrüsenknoten, MEN2/RET, suspekter Lymphknoten und Calcitonin-Kontext als eigene Risikostrata pflegen.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Direkte Knotenpopulationen sind bereits als Prätestannahmen ergänzt."
+  },
+  {
+    "id": "gap-celiac-non-casefinding-settings",
+    "conditionId": "zoliakie",
+    "settingIds": ["klinik-notaufnahme", "ambulant-kardiologie", "ambulant-endokrinologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für diese Settings wurde keine belastbare generische Prätestwahrscheinlichkeit gefunden. Zöliakie-Testung ist primär durch Symptome, Familienanamnese, Typ-1-Diabetes, Autoimmunthyreopathie, Eisenmangel, Osteoporose und IgA-Mangel begründet.",
+    "searchedQuestion": "Setting-spezifische Zöliakieprävalenz in Notaufnahme, Kardiologie, Endokrinologie und Nephrologie unabhängig von Symptom- oder Risikogruppe.",
+    "searchedSources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines on the Diagnosis and Management of Coeliac Disease in Adults. Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Beschreibt Populationsprävalenz und Risikogruppen, aber keine universellen Fachabteilungsprävalenzen."
+      },
+      {
+        "title": "European Society for the Study of Coeliac Disease guideline for coeliac disease and other gluten-related disorders",
+        "year": 2019,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6545713/",
+        "kind": "Leitlinie",
+        "note": "Listet Indikationen und Risikogruppen für serologische Testung."
+      },
+      {
+        "title": "NICE Guideline: Coeliac disease",
+        "year": 2015,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK321517/",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Testung bei Symptomen und erhöhtem Risiko."
+      }
+    ],
+    "recommendedNextStep": "Weitere Annahmen als Risikostrata ergänzen: erstgradige Angehörige, Autoimmunthyreopathie, Eisenmangelanämie, chronische Diarrhoe, Osteoporose und IgA-Mangel.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Hausarzt-Case-finding und Diabetologie/Typ-1-Diabetes sind bereits ergänzt."
+  },
+  {
+    "id": "gap-acromegaly-non-phenotype-settings",
+    "conditionId": "akromegalie",
+    "settingIds": ["hausarztpraxis", "klinik-notaufnahme", "ambulant-kardiologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für Akromegalie ist die Populationsprävalenz sehr niedrig; eine relevante Prätestwahrscheinlichkeit entsteht vor allem durch Phänotyp, Hypophysenmasse oder typische Komorbiditätscluster. Für die genannten Settings wurde keine belastbare allgemeine Prätestwahrscheinlichkeit gefunden.",
+    "searchedQuestion": "Setting-spezifische Akromegalie-Prävalenz in Primärversorgung, Notaufnahme und internistischen Spezialambulanzen unabhängig von Phänotyp/Hypophysenbefund.",
+    "searchedSources": [
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
+        "year": 2014,
+        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt IGF-1-Testung bei typischem Phänotyp, assoziierten Komorbiditäten mit klinischen Zeichen oder Hypophysenmasse."
+      },
+      {
+        "title": "Endotext: Acromegaly",
+        "year": 2022,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt klinische Präsentation, Diagnostik und Fallstricke, aber keine generischen Settingprävalenzen."
+      },
+      {
+        "title": "Trends in incidence and mortality risk for acromegaly in Norway: a cohort study",
+        "year": 2023,
+        "url": "https://link.springer.com/article/10.1007/s12020-022-03275-6",
+        "kind": "Studie",
+        "note": "Bevölkerungsdaten belegen Seltenheit; nicht direkt auf klinische Verdachtspopulationen übertragbar."
+      }
+    ],
+    "recommendedNextStep": "Keine Settingwerte ergänzen. Risikostrata für akralen Phänotyp, Hypophysenmasse, Schlafapnoe/Hyperhidrose/Carpaltunnel-Cluster und typische Gesicht-/Weichteilveränderungen ausbauen.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Endokrinologische Verdachtsannahme existiert; andere Settings bleiben ohne Phänotyp nicht belastbar."
+  },
+  {
+    "id": "gap-dvt-non-acute-suspicion-settings",
+    "conditionId": "tiefe-venenthrombose",
+    "settingIds": ["hausarztpraxis", "ambulant-kardiologie", "ambulant-endokrinologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für TVT ist die klinische Wahrscheinlichkeit über Wells-Score, Symptomkonstellation und Akutpfad entscheidend. Für die genannten ambulanten Settings wurde keine robuste, vom Verdachtsgrad unabhängige Prätestwahrscheinlichkeit gefunden.",
+    "searchedQuestion": "Setting-spezifische TVT-Prävalenz in ambulanter Primär-/Spezialversorgung unabhängig von Wells-Score und Akutsymptomatik.",
+    "searchedSources": [
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "Stratifiziert TVT-Diagnostik nach klinischer Wahrscheinlichkeit; niedrige, mittlere und hohe Prätestgruppen statt Fachabteilung."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt den 2-Level-Wells-Score als Einstieg in die TVT-Diagnostik."
+      },
+      {
+        "title": "Combined use of rapid D-dimer testing and estimation of clinical probability in the diagnosis of deep vein thrombosis: systematic review",
+        "year": 2004,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC521568/",
+        "kind": "Review",
+        "note": "Bezieht Prävalenz und Testnutzung auf validierte klinische Wahrscheinlichkeitsgruppen."
+      }
+    ],
+    "recommendedNextStep": "Keine generischen Fachabteilungswerte ergänzen. Wells-Score-Strata und Symptome als Präteststrata sichtbarer machen; lokale hausärztliche Akutpfad-Daten könnten nachgereicht werden.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Notaufnahme-/Akutverdachtsannahme existiert; Score-Strata sind fachlich vorrangig."
+  },
+  {
+    "id": "gap-pe-non-acute-suspicion-settings",
+    "conditionId": "lungenembolie",
+    "settingIds": ["hausarztpraxis", "ambulant-kardiologie", "ambulant-endokrinologie", "ambulant-diabetologie", "ambulant-nephrologie"],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Für Lungenembolie ist die Prätestwahrscheinlichkeit über klinische Einschätzung, Wells/Genf, PERC/YEARS und Akutsituation zu bestimmen. Für ambulante Fachsettings ohne akute PE-Suspicion wurde keine belastbare allgemeine Prätestwahrscheinlichkeit gefunden.",
+    "searchedQuestion": "Setting-spezifische PE-Prätestwahrscheinlichkeit in Hausarztpraxis und ambulanter Spezialversorgung unabhängig von Score und akuter Symptomatik.",
+    "searchedSources": [
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt strukturierte klinische Wahrscheinlichkeitsabschätzung; erwartete PE-Bestätigung nach niedriger/mittlerer/hoher Wahrscheinlichkeit wird scorebasiert beschrieben."
+      },
+      {
+        "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+        "year": 2018,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+        "kind": "Leitlinie",
+        "note": "D-Dimer-Rule-out-Pfade gelten nur für geeignete niedrige oder mittlere Wahrscheinlichkeit."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt PERC und 2-Level-Wells-Score in passenden klinischen Situationen."
+      }
+    ],
+    "recommendedNextStep": "Keine generischen Fachabteilungswerte ergänzen. Score-/Strategie-Strata für Wells, Genf, PERC und YEARS weiter ausbauen und lokale ambulante Akutdaten nachreichen, falls vorhanden.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Notaufnahme-/Akutverdachtsannahme existiert; Score-Strata sind fachlich vorrangig."
+  }
+]

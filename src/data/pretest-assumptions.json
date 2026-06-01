@@ -860,5 +860,250 @@
     "reviewStatus": "needs-review",
     "lastReviewed": "2026-05-19",
     "reviewNote": "Pragmatischer Settingwert; Score-Kategorie und klinische Einschätzung sollten vorrangig steuern."
+  },
+  {
+    "id": "graves-primary-care-hyperthyroidism-direct",
+    "condition": "Morbus Basedow",
+    "conditionId": "morbus-basedow",
+    "setting": "Hausarztpraxis",
+    "settingId": "hausarztpraxis",
+    "evidenceLevel": "direct",
+    "population": "Patientinnen und Patienten mit laborchemisch gesicherter Hyperthyreose oder starker klinisch-laborchemischer Thyreotoxikose-Suspicion in der ambulanten Erstabklärung.",
+    "probability": 0.5,
+    "rangeLow": 0.3,
+    "rangeHigh": 0.75,
+    "rationale": "Die ETA-Leitlinie beschreibt Morbus Basedow in jodreichen Regionen als häufigste Ursache einer Hyperthyreose. Für die Primärversorgung wird ein breiter, konservativer Arbeitsbereich genutzt, weil die konkrete Ursache stark von Alter, Knotenstatus, Jodversorgung und Überweisungsselektion abhängt.",
+    "limitations": "Nicht auf unselektierte Personen mit unspezifischen Symptomen übertragen. Vor Anwendung sollte eine echte Hyperthyreose bzw. TSH-Suppression vorliegen; toxische Knotenstruma, Thyreoiditis und exogene Schilddrüsenhormone bleiben wichtige Alternativen.",
+    "sources": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves' Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Berichtet Hyperthyreose-Prävalenz und beschreibt Morbus Basedow als häufigste Hyperthyreose-Ursache in jodreichen Regionen; DOI 10.1159/000490384."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Settingwert aus Leitlinien-Epidemiologie abgeleitet; direkte Primärversorgungs-Kohorte für diese Fragestellung noch nachreichen."
+  },
+  {
+    "id": "graves-endocrinology-hyperthyroidism-direct",
+    "condition": "Morbus Basedow",
+    "conditionId": "morbus-basedow",
+    "setting": "Ambulant: Endokrinologie",
+    "settingId": "ambulant-endokrinologie",
+    "evidenceLevel": "direct",
+    "population": "Endokrinologische Differenzialdiagnostik bei biochemisch gesicherter Hyperthyreose.",
+    "probability": 0.65,
+    "rangeLow": 0.45,
+    "rangeHigh": 0.85,
+    "rationale": "Bei überwiesener Hyperthyreose ist Morbus Basedow in jodreichen Regionen häufig. Der höhere Startwert gegenüber Primärversorgung reflektiert die stärkere Vorselektion, bleibt aber wegen regionaler Jodversorgung und Knotenstruma-Anteil bewusst als Bereich markiert.",
+    "limitations": "Nicht auf Schilddrüsenknoten ohne Hyperthyreose oder isolierte TSH-Grenzwerte anwenden. TRAb ist erst im passenden Hyperthyreose-Kontext sinnvoll interpretierbar.",
+    "sources": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves' Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Beschreibt Epidemiologie, Diagnosealgorithmus und TRAb-Rolle bei Morbus Basedow; DOI 10.1159/000490384."
+      },
+      {
+        "title": "TSH receptor antibodies for the diagnosis of Graves' disease: systematic review and meta-analysis",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+        "kind": "Review",
+        "note": "Metaanalyse zur Testgüte von TRAb-Assays; relevant für die anschließende Testinterpretation, nicht als Prävalenzquelle."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Leitlinienbasierter Arbeitswert; lokale Schilddrüsenambulanz-Kohorten könnten diesen Wert deutlich verschieben."
+  },
+  {
+    "id": "celiac-primary-care-case-finding-direct",
+    "condition": "Zöliakie",
+    "conditionId": "zoliakie",
+    "setting": "Hausarztpraxis",
+    "settingId": "hausarztpraxis",
+    "evidenceLevel": "direct",
+    "population": "Breite hausärztliche Case-finding-Situation mit gastrointestinalen Beschwerden, Eisenmangel, Autoimmunanamnese oder familiärem Risiko, aber ohne klar definierte Hochrisikokohorte.",
+    "probability": 0.01,
+    "rangeLow": 0.006,
+    "rangeHigh": 0.03,
+    "rationale": "Europäische Leitlinien beschreiben Zöliakie als häufige, oft unterdiagnostizierte Erkrankung mit etwa einprozentiger Populationsprävalenz. In hausärztlicher Case-finding-Situation ist der Startwert höher als Null, bleibt aber stark abhängig von Symptom- und Risikoprofil.",
+    "limitations": "Bei Eisenmangelanämie, chronischer Diarrhoe, Gewichtsverlust, Dermatitis herpetiformis oder erstgradigen Angehörigen deutlich höher ansetzen. Glutenarme Ernährung und IgA-Mangel beeinflussen die Serologie.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines on the Diagnosis and Management of Coeliac Disease in Adults. Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Berichtet europäische Prävalenzbereiche und Risikogruppen für Zöliakie."
+      },
+      {
+        "title": "NICE Guideline: Coeliac disease",
+        "year": 2015,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK321517/",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Testung bei Symptomen und erhöhtem Risiko, u. a. Autoimmunerkrankungen und erstgradige Familienanamnese."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Populations- und Case-finding-Daten kombiniert; spezifische Primärversorgungsprävalenz nach Symptomcluster weiter recherchieren."
+  },
+  {
+    "id": "celiac-diabetology-type1-diabetes-direct",
+    "condition": "Zöliakie",
+    "conditionId": "zoliakie",
+    "setting": "Ambulant: Diabetologie",
+    "settingId": "ambulant-diabetologie",
+    "evidenceLevel": "direct",
+    "population": "Menschen mit Typ-1-Diabetes oder autoimmuner Risikokonstellation in diabetologischer Betreuung.",
+    "probability": 0.06,
+    "rangeLow": 0.03,
+    "rangeHigh": 0.1,
+    "rationale": "Zöliakie ist bei Typ-1-Diabetes und anderen Autoimmunerkrankungen deutlich häufiger als in der Allgemeinbevölkerung. Der Wert dient als Startannahme für diabetologische Risikokonstellationen.",
+    "limitations": "Nicht auf Typ-2-Diabetes ohne Autoimmunhinweise übertragen. Symptome, Familienanamnese, IgA-Mangel und Glutenexposition müssen separat berücksichtigt werden.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines on the Diagnosis and Management of Coeliac Disease in Adults. Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Nennt Typ-1-Diabetes, Autoimmunthyreopathien und erstgradige Angehörige als relevante Risikogruppen."
+      },
+      {
+        "title": "NICE Guideline: Coeliac disease",
+        "year": 2015,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK321517/",
+        "kind": "Leitlinie",
+        "note": "Beschreibt erhöhtes Zöliakierisiko bei Autoimmunerkrankungen wie Typ-1-Diabetes und Autoimmunthyreopathie."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Risikogruppen-Startwert; lokale diabetologische Screeningkohorten können abweichen."
+  },
+  {
+    "id": "mtc-primary-care-thyroid-nodule-direct",
+    "condition": "Medulläres Schilddrüsenkarzinom",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "setting": "Hausarztpraxis",
+    "settingId": "hausarztpraxis",
+    "evidenceLevel": "direct",
+    "population": "Personen mit neu bekanntem Schilddrüsenknoten ohne bekannte MEN2-/RET-Konstellation oder hochsuspekte Klinik.",
+    "probability": 0.0032,
+    "rangeLow": 0.0011,
+    "rangeHigh": 0.0085,
+    "rationale": "Systematische Übersichten zu Schilddrüsenknoten berichten eine niedrige MTC-Prävalenz im Bereich weniger Promille. Das erklärt, warum selbst gute Calcitonin-Tests bei unselektierten Knoten relevante falsch positive Resultate erzeugen können.",
+    "limitations": "Bei RET-Mutation, MEN2-Familienanamnese, suspekten Lymphknoten, Diarrhoe/Flush oder bereits erhöhtem Calcitonin deutlich höher ansetzen. Calcitonin ist durch Assay, Nierenfunktion, PPI und weitere Faktoren störanfällig.",
+    "sources": [
+      {
+        "title": "Prevalence and significance of indeterminate calcitonin values in patients with thyroid nodules: a systematic review and meta-analysis",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10404572/",
+        "kind": "Review",
+        "note": "Berichtet für neu entdeckte Schilddrüsenknoten eine erwartbare MTC-Prävalenz von 0,11% bis 0,85%, Median 0,32%."
+      },
+      {
+        "title": "Revised American Thyroid Association Guidelines for the Management of Medullary Thyroid Carcinoma",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+        "kind": "Leitlinie",
+        "note": "Leitlinie zu Diagnose, genetischer Abklärung und Calcitonininterpretation beim MTC."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "complete",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Direkt aus Schilddrüsenknoten-Reviews abgeleiteter Startwert; lokale Selektion und Calcitoninstrategie prüfen."
+  },
+  {
+    "id": "mtc-endocrine-thyroid-nodule-direct",
+    "condition": "Medulläres Schilddrüsenkarzinom",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "setting": "Ambulant: Endokrinologie",
+    "settingId": "ambulant-endokrinologie",
+    "evidenceLevel": "direct",
+    "population": "Endokrinologische Abklärung von Schilddrüsenknoten inklusive sonografisch oder biochemisch auffälliger Befunde.",
+    "probability": 0.005,
+    "rangeLow": 0.0011,
+    "rangeHigh": 0.014,
+    "rationale": "Die endokrinologische Knotenabklärung ist stärker selektiert als eine breite Primärversorgung. Der Startwert bleibt niedrig, weil MTC auch in Knotenpopulationen selten ist.",
+    "limitations": "Nicht auf RET/MEN2-Screening übertragen, dort ist die Prätestwahrscheinlichkeit grundlegend anders. Auffälliges Calcitonin ist kein unabhängiger Prätestfaktor, sondern bereits ein Testergebnis.",
+    "sources": [
+      {
+        "title": "Prevalence and significance of indeterminate calcitonin values in patients with thyroid nodules: a systematic review and meta-analysis",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10404572/",
+        "kind": "Review",
+        "note": "Beschreibt die niedrige MTC-Prävalenz und die Bedeutung indeterminater Calcitoninwerte bei Schilddrüsenknoten."
+      },
+      {
+        "title": "Calcitonin testing for detection of medullary thyroid cancer in people with thyroid nodules",
+        "year": 2020,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32176812/",
+        "kind": "Review",
+        "note": "Cochrane Review zur Calcitonin-Testung bei Schilddrüsenknoten; betont niedrige Prävalenz und PPV-Problematik."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Arbeitswert für selektierte Knotenambulanz; direkte lokale Endokrinologie-Kohorte wäre besser."
+  },
+  {
+    "id": "heart-failure-ed-acute-dyspnea-direct",
+    "condition": "Herzinsuffizienz",
+    "conditionId": "herzinsuffizienz",
+    "setting": "Klinik-Notaufnahme",
+    "settingId": "klinik-notaufnahme",
+    "evidenceLevel": "direct",
+    "population": "Notaufnahme-Patientinnen und -Patienten mit akuter Dyspnoe und klinischem Verdacht auf akute Herzinsuffizienz vor BNP/NT-proBNP oder Bildgebung.",
+    "probability": 0.2,
+    "rangeLow": 0.1,
+    "rangeHigh": 0.35,
+    "rationale": "Akute Dyspnoe ist eine stark selektierte Notaufnahme-Konstellation. Systematische Reviews und Übersichten zu BNP/NT-proBNP behandeln diese Population als typische Testpopulation für Rule-out/Rule-in akuter Herzinsuffizienz.",
+    "limitations": "Nicht auf stabile hausärztliche Verlaufskontrollen übertragen. COPD, Pneumonie, Niereninsuffizienz, Vorhofflimmern, Adipositas und bereits begonnene Therapie verändern Testinterpretation und Prätestwahrscheinlichkeit.",
+    "sources": [
+      {
+        "title": "Dyspnea Due to Acute Heart Failure Syndrome",
+        "year": 2019,
+        "url": "https://www.aafp.org/pubs/afp/issues/2019/0201/od1.html",
+        "kind": "Review",
+        "note": "Zusammenfassung einer systematischen Review/Metaanalyse zu Diagnostik bei Notaufnahme-Patienten mit Dyspnoe."
+      },
+      {
+        "title": "Diagnosis of Acute Heart Failure in the Emergency Department: An Evidence-Based Review",
+        "year": 2019,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6860389/",
+        "kind": "Review",
+        "note": "Review zu klinischer Einschätzung, Natriuretischen Peptiden, Bildgebung und Fallstricken der akuten Herzinsuffizienzdiagnostik."
+      }
+    ],
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Pragmatischer Notaufnahme-Startwert aus akuter Dyspnoe-Testpopulation; konkrete Prävalenz lokaler ED-Kohorten nachreichen."
   }
 ]

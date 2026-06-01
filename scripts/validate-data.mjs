@@ -6,6 +6,8 @@ const tests = JSON.parse(fs.readFileSync(path.join(root, 'src/data/tests.json'),
 const conditions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/conditions.json'), 'utf8'));
 const diagnosticChains = JSON.parse(fs.readFileSync(path.join(root, 'src/data/diagnostic-chains.json'), 'utf8'));
 const conditionGuidance = JSON.parse(fs.readFileSync(path.join(root, 'src/data/condition-guidance.json'), 'utf8'));
+const clinicalSettings = JSON.parse(fs.readFileSync(path.join(root, 'src/data/clinical-settings.json'), 'utf8'));
+const pretestEvidenceGaps = JSON.parse(fs.readFileSync(path.join(root, 'src/data/pretest-evidence-gaps.json'), 'utf8'));
 const assumptions = JSON.parse(
   fs.readFileSync(path.join(root, 'src/data/pretest-assumptions.json'), 'utf8')
 );
@@ -30,6 +32,11 @@ const dataCompletenessLevels = new Set(['complete', 'partial', 'minimal']);
 const quantificationStatuses = new Set(['qualitative', 'probability-factor', 'likelihood-ratio']);
 const preanalyticRisks = new Set(['low', 'moderate', 'high', 'unclear']);
 const reviewPriorities = new Set(['low', 'medium', 'high']);
+const pretestEvidenceGapStatuses = new Set([
+  'no-setting-specific-estimate-found',
+  'score-or-risk-stratum-required',
+  'not-clinically-meaningful-as-setting'
+]);
 const pretestSourceTypes = new Set(['guideline', 'review', 'cohort', 'metaanalysis', 'educationalreview', 'expert_summary']);
 const pretestEvidenceQualityCodes = new Set(['Adirecthighquality', 'Bmoderatedirect', 'Cindirectormixed', 'Dexpertestimate', 'E_uncertain']);
 const pretestEstimateTypes = new Set(['populationprevalence', 'clinicalsettingprevalence', 'highriskgroup', 'riskscorecategory', 'expertestimate']);
@@ -47,6 +54,7 @@ const issueSeverities = new Set(['low', 'moderate', 'high']);
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const errors = [];
 const knownConditionIds = new Set(conditions.map(condition => condition.id));
+const knownSettingIds = new Set(clinicalSettings.map(setting => setting.id));
 
 function slugifyClinicalLabel(value) {
   return String(value)
@@ -238,6 +246,34 @@ assumptions.forEach((assumption, index) => {
   validateSources(assumption.sources, prefix);
 });
 
+const directPretestKeys = new Set(
+  assumptions
+    .filter(assumption => assumption.evidenceLevel === 'direct')
+    .map(assumption => `${assumption.conditionId}:${assumption.settingId}`)
+);
+const gapPretestKeys = new Set();
+pretestEvidenceGaps.forEach((gap, index) => {
+  const prefix = `pretestEvidenceGaps[${index}]`;
+  ['id', 'conditionId', 'status', 'summary', 'searchedQuestion', 'recommendedNextStep', 'lastReviewed'].forEach(field => {
+    if (!hasText(gap[field])) errors.push(`${prefix}.${field} fehlt`);
+  });
+  if (!knownConditionIds.has(gap.conditionId)) errors.push(`${prefix}.conditionId unbekannt`);
+  if (!pretestEvidenceGapStatuses.has(gap.status)) errors.push(`${prefix}.status unbekannt`);
+  if (!Array.isArray(gap.settingIds) || gap.settingIds.length === 0) {
+    errors.push(`${prefix}.settingIds fehlt`);
+  } else {
+    const gapSettingIds = new Set();
+    gap.settingIds.forEach((settingId, settingIndex) => {
+      if (!knownSettingIds.has(settingId)) errors.push(`${prefix}.settingIds[${settingIndex}] unbekannt`);
+      if (gapSettingIds.has(settingId)) errors.push(`${prefix}.settingIds[${settingIndex}] doppelt`);
+      gapSettingIds.add(settingId);
+      gapPretestKeys.add(`${gap.conditionId}:${settingId}`);
+    });
+  }
+  validateReview(gap, prefix);
+  validateSources(gap.searchedSources, prefix);
+});
+
 modifiers.forEach((modifier, index) => {
   const prefix = `modifiers[${index}]`;
   ['id', 'conditionId', 'label', 'category', 'direction', 'rationale', 'limitations', 'lastReviewed'].forEach(field => {
@@ -399,10 +435,18 @@ testConditionIds.forEach(conditionId => {
     errors.push(`condition ${conditionId} hat keinen Fallback`);
   }
 });
+conditions.forEach(condition => {
+  clinicalSettings.forEach(setting => {
+    const key = `${condition.id}:${setting.id}`;
+    if (!directPretestKeys.has(key) && !gapPretestKeys.has(key)) {
+      errors.push(`Prätest-Matrixlücke ohne Annahme oder Evidenzlücken-Vermerk: ${key}`);
+    }
+  });
+});
 
 if (errors.length > 0) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
 
-console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains, ${conditionGuidance.length} condition guidance entries, ${physicalFindings.length} physical findings and ${pretestProbabilityDataset.estimates.length} extended pretest estimates.`);
+console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${pretestEvidenceGaps.length} pretest evidence gap groups, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains, ${conditionGuidance.length} condition guidance entries, ${physicalFindings.length} physical findings and ${pretestProbabilityDataset.estimates.length} extended pretest estimates.`);

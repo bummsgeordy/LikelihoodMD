@@ -225,6 +225,23 @@ export interface PretestAssumption extends ReviewMetadata {
   deviationReason?: string;
 }
 
+export type PretestEvidenceGapStatus =
+  | 'no-setting-specific-estimate-found'
+  | 'score-or-risk-stratum-required'
+  | 'not-clinically-meaningful-as-setting';
+
+export interface PretestEvidenceGap extends ReviewMetadata {
+  id: string;
+  conditionId: string;
+  settingIds: string[];
+  status: PretestEvidenceGapStatus;
+  summary: string;
+  searchedQuestion: string;
+  searchedSources: EvidenceSource[];
+  recommendedNextStep: string;
+  lastReviewed: string;
+}
+
 export interface ClinicalModifier extends ReviewMetadata {
   id: string;
   conditionId: string;
