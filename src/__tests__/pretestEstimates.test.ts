@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import conditions from '../data/conditions.json';
 import { getPretestEstimate, pretestProbabilityDataset } from '../app/pretestEstimates';
 import type { PretestProbabilityDataset } from '../types';
 
@@ -16,6 +17,14 @@ describe('extended pretest probability estimates', () => {
         : estimate.sources.filter(sourceId => !sourceIds.has(sourceId)).map(sourceId => `${estimate.id}:${sourceId}`)
     );
     expect(missing).toEqual([]);
+  });
+
+  it('uses centralized condition ids for every curated estimate', () => {
+    const conditionIds = new Set(conditions.map(condition => condition.id));
+    const unknown = pretestProbabilityDataset.estimates
+      .filter(estimate => !conditionIds.has(estimate.diseaseId))
+      .map(estimate => `${estimate.id}:${estimate.diseaseId}`);
+    expect(unknown).toEqual([]);
   });
 
   it('uses valid probability ranges', () => {

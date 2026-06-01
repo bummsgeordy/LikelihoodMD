@@ -3,77 +3,188 @@
     "id": "cushing-syndrom-hyperkortisolismus",
     "label": "Cushing-Syndrom / Hyperkortisolismus",
     "category": "Nebenniere",
-    "synonyms": ["Cushing-Syndrom", "Hyperkortisolismus", "Hypercortisolism"],
+    "synonyms": [
+      "Cushing-Syndrom",
+      "Hyperkortisolismus",
+      "Hypercortisolism"
+    ],
     "description": "Endogener oder autonomer Hyperkortisolismus und klinische Fragestellungen zur Cushing-Diagnostik."
   },
   {
     "id": "primarer-hyperaldosteronismus",
     "label": "Primärer Hyperaldosteronismus",
     "category": "Nebenniere / Hypertonie",
-    "synonyms": ["PA", "Conn-Syndrom", "Primary aldosteronism"],
+    "synonyms": [
+      "PA",
+      "Conn-Syndrom",
+      "Primary aldosteronism"
+    ],
     "description": "Screening und Bestätigung eines inadäquaten Aldosteronexzesses bei Hypertonie-Risikokonstellationen."
   },
   {
     "id": "phaochromozytom-paragangliom",
     "label": "Phäochromozytom / Paragangliom",
     "category": "Nebenniere / Neuroendokrin",
-    "synonyms": ["PPGL", "Pheochromocytoma", "Paraganglioma"],
+    "synonyms": [
+      "PPGL",
+      "Pheochromocytoma",
+      "Paraganglioma"
+    ],
     "description": "Biochemische Diagnostik bei Verdacht auf katecholaminproduzierende Tumoren."
   },
   {
     "id": "herzinsuffizienz",
     "label": "Herzinsuffizienz",
     "category": "Kardiologie",
-    "synonyms": ["Heart failure", "HF"],
+    "synonyms": [
+      "Heart failure",
+      "HF"
+    ],
     "description": "Diagnostische Einordnung einer möglichen Herzinsuffizienz in ambulanten oder akuten Settings."
   },
   {
     "id": "nebenniereninsuffizienz",
     "label": "Nebenniereninsuffizienz",
     "category": "Nebenniere",
-    "synonyms": ["Adrenal insufficiency", "NNI"],
+    "synonyms": [
+      "Adrenal insufficiency",
+      "NNI"
+    ],
     "description": "Abklärung primärer oder sekundärer Nebenniereninsuffizienz."
   },
   {
     "id": "morbus-basedow",
     "label": "Morbus Basedow",
     "category": "Schilddrüse",
-    "synonyms": ["Graves disease", "Autoimmunhyperthyreose"],
+    "synonyms": [
+      "Graves disease",
+      "Autoimmunhyperthyreose"
+    ],
     "description": "Differenzialdiagnose einer Hyperthyreose mit Autoantikörperdiagnostik."
   },
   {
     "id": "medullares-schilddrusenkarzinom",
     "label": "Medulläres Schilddrüsenkarzinom",
     "category": "Schilddrüse",
-    "synonyms": ["MTC", "Medullary thyroid carcinoma"],
+    "synonyms": [
+      "MTC",
+      "Medullary thyroid carcinoma"
+    ],
     "description": "Einordnung von Calcitonin bei Schilddrüsenknoten oder Risikokonstellationen."
   },
   {
     "id": "zoliakie",
     "label": "Zöliakie",
     "category": "Diabetologie / Gastroenterologie",
-    "synonyms": ["Celiac disease", "Coeliac disease"],
+    "synonyms": [
+      "Celiac disease",
+      "Coeliac disease"
+    ],
     "description": "Serologische Diagnostik bei Zöliakieverdacht oder Risikokonstellationen."
   },
   {
     "id": "akromegalie",
     "label": "Akromegalie",
     "category": "Hypophyse",
-    "synonyms": ["Acromegaly", "GH-Exzess", "Wachstumshormonexzess"],
+    "synonyms": [
+      "Acromegaly",
+      "GH-Exzess",
+      "Wachstumshormonexzess"
+    ],
     "description": "Biochemische Abklärung eines Wachstumshormon-/IGF-1-Exzesses bei klinischem Verdacht oder Hypophysenmasse."
   },
   {
     "id": "tiefe-venenthrombose",
     "label": "Tiefe Venenthrombose",
     "category": "Gefäßmedizin / Akutmedizin",
-    "synonyms": ["TVT", "DVT", "Deep vein thrombosis", "Venenthrombose"],
+    "synonyms": [
+      "TVT",
+      "DVT",
+      "Deep vein thrombosis",
+      "Venenthrombose"
+    ],
     "description": "Diagnostische Einordnung bei Verdacht auf Beinvenenthrombose mit klinischer Wahrscheinlichkeit, Wells-Score, D-Dimer und Kompressionssonographie."
   },
   {
     "id": "lungenembolie",
     "label": "Lungenembolie",
     "category": "Pneumologie / Kardiologie / Akutmedizin",
-    "synonyms": ["LE", "PE", "Pulmonary embolism"],
+    "synonyms": [
+      "LE",
+      "PE",
+      "Pulmonary embolism"
+    ],
     "description": "Diagnostische Einordnung bei Verdacht auf akute Lungenembolie mit klinischer Wahrscheinlichkeit, Wells-/Genf-Score, PERC, YEARS, D-Dimer und Bildgebung."
+  },
+  {
+    "id": "primarer-hyperparathyreoidismus",
+    "label": "Primärer Hyperparathyreoidismus",
+    "category": "Nebenschilddrüse / Calciumstoffwechsel",
+    "synonyms": [
+      "PHPT",
+      "Primary hyperparathyroidism",
+      "Hyperparathyreoidismus"
+    ],
+    "description": "Einordnung von Hyperkalzämie mit inadäquat normalem oder erhöhtem PTH, inklusive Differenzialdiagnosen wie FHH, Vitamin-D-Mangel und medikamentösen Einflüssen."
+  },
+  {
+    "id": "schilddrusenknoten-malignitatsrisiko",
+    "label": "Schilddrüsenknoten / Malignitätsrisiko",
+    "category": "Schilddrüse",
+    "synonyms": [
+      "Thyroid nodule",
+      "TIRADS",
+      "EU-TIRADS",
+      "ACR TI-RADS",
+      "Schilddrüsenmalignität"
+    ],
+    "description": "Risikostratifikation sonografisch nachgewiesener Schilddrüsenknoten anhand von Ultraschallmerkmalen, Risikofaktoren und Zytologieindikation."
+  },
+  {
+    "id": "obstruktive-koronare-herzkrankheit",
+    "label": "Obstruktive koronare Herzkrankheit",
+    "category": "Kardiologie",
+    "synonyms": [
+      "KHK",
+      "CAD",
+      "CCS",
+      "Chronisches Koronarsyndrom",
+      "Stable chest pain"
+    ],
+    "description": "Prätestwahrscheinlichkeit und diagnostische Einordnung bei stabilem Thoraxschmerz oder Verdacht auf chronisches Koronarsyndrom."
+  },
+  {
+    "id": "chronische-nierenkrankheit",
+    "label": "Chronische Nierenkrankheit",
+    "category": "Nephrologie",
+    "synonyms": [
+      "CKD",
+      "Chronic kidney disease",
+      "Chronische Niereninsuffizienz"
+    ],
+    "description": "Risikobewertung und Diagnostik persistierender eGFR- oder Albuminurie-/Urinsediment-Auffälligkeiten über mindestens drei Monate."
+  },
+  {
+    "id": "renale-arterienstenose",
+    "label": "Renale Arterienstenose / renovaskuläre Hypertonie",
+    "category": "Nephrologie / Hypertonie",
+    "synonyms": [
+      "RAS",
+      "Renovascular hypertension",
+      "Renovaskuläre Hypertonie",
+      "Nierenarterienstenose"
+    ],
+    "description": "Einordnung renovaskulärer Hypertonie bei resistenter Hypertonie, Nierenfunktionsabfall, Flash-Lungenödem oder atherosklerotischem Risikoprofil."
+  },
+  {
+    "id": "glomerulonephritis",
+    "label": "Glomerulonephritis",
+    "category": "Nephrologie",
+    "synonyms": [
+      "GN",
+      "Nephritisches Syndrom",
+      "Glomeruläre Hämaturie"
+    ],
+    "description": "Einordnung glomerulärer Hämaturie, Proteinurie, nephritischer Sedimentbefunde und rascher eGFR-Verschlechterung."
   }
 ]

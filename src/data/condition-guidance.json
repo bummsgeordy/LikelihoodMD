@@ -716,5 +716,297 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Leitlinienbasierte Guidance; konkrete Prätestwerte sollten nach Risikogruppe getrennt weiter ausgebaut werden."
+  },
+  {
+    "conditionId": "primarer-hyperparathyreoidismus",
+    "summary": "Primärer Hyperparathyreoidismus ist keine Screeningdiagnose aus einem einzelnen Calciumwert. Entscheidend ist eine wiederholte Hyperkalzämie mit inadäquat normalem oder erhöhtem PTH; Vitamin-D-Mangel, CKD, Medikamente und FHH müssen parallel eingeordnet werden.",
+    "whenToTest": [
+      "Wiederholt erhöhtes albuminkorrigiertes oder ionisiertes Calcium.",
+      "Osteoporose, Fragilitätsfraktur, Nephrolithiasis oder Nephrokalzinose mit passendem Calcium-/PTH-Kontext.",
+      "Postmenopausale Patientinnen oder Patientinnen/Patienten unter Lithium/Thiaziden mit Hyperkalzämie."
+    ],
+    "recommendedTests": [
+      "Albuminkorrigiertes oder ionisiertes Calcium wiederholen.",
+      "Intaktes PTH, 25-OH-Vitamin D, Kreatinin/eGFR, Phosphat und Urin-Calcium/Calcium-Kreatinin-Clearance-Ratio.",
+      "FHH-Differenzialdiagnose bei niedriger Calciumausscheidung beachten."
+    ],
+    "pitfalls": [
+      "Vitamin-D-Mangel und CKD können sekundären Hyperparathyreoidismus verursachen.",
+      "Lithium und Thiazide können ein PHPT-ähnliches Bild erzeugen oder demaskieren.",
+      "Normales PTH ist bei Hyperkalzämie nicht automatisch normal, sondern kann inadäquat hoch sein."
+    ],
+    "settingNotes": [
+      "Hausarztpraxis: Bevölkerungsprävalenz niedrig; wiederholte Hyperkalzämie verschiebt die Prätestwahrscheinlichkeit stark.",
+      "Endokrinologie/Nephrologie: häufig stärker vorselektierte Patientinnen und Patienten; Differenzialdiagnosen aktiv abgrenzen."
+    ],
+    "links": [
+      {
+        "title": "Fifth International Workshop: Evaluation and Management of Primary Hyperparathyroidism",
+        "year": 2022,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36245251/",
+        "kind": "Leitlinie",
+        "note": "Internationale Leitlinie zu Diagnose, Evaluation und Management."
+      },
+      {
+        "title": "Primary hyperparathyroidism: clinical manifestations, diagnosis and evaluation",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10515122/",
+        "kind": "Review",
+        "note": "Open-Access-Review nach Fifth-Workshop-Empfehlungen."
+      },
+      {
+        "title": "StatPearls: Primary Hyperparathyroidism",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK441895/",
+        "kind": "Lehrtext",
+        "note": "Übersicht zu Epidemiologie, Diagnostik und Differenzialdiagnosen."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Neue zentrale Guidance aus vorhandenen erweiterten Prätestdaten und Leitlinien ergänzt."
+  },
+  {
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "summary": "Das Malignitätsrisiko eines Schilddrüsenknotens ist primär eine strukturierte Ultraschallfrage. Eine generische Knotenprävalenz ist wenig hilfreich; ATA/EU-TIRADS-Muster, Lymphknoten, Größe, Wachstum, Bestrahlung und Familienanamnese bestimmen die Vortestwahrscheinlichkeit.",
+    "whenToTest": [
+      "Sonografisch nachgewiesener Schilddrüsenknoten mit Risikomerkmalen oder Größenkriterium.",
+      "Suspekte zervikale Lymphknoten oder extrathyreoidale Ausdehnung.",
+      "Risikokontext wie kindliche Halsbestrahlung oder familiäres Schilddrüsenkarzinom."
+    ],
+    "recommendedTests": [
+      "Standardisierte Schilddrüsensonografie mit TIRADS/ATA-Muster.",
+      "TSH zur funktionellen Einordnung; Szintigrafie bei supprimiertem TSH je nach lokalem Pfad.",
+      "FNA nach Risikomuster und Größe; Calcitonin/RET-Kontext separat bei MTC-Frage."
+    ],
+    "pitfalls": [
+      "Interobserver-Variabilität der Sonografie kann Risikokategorie verändern.",
+      "Nicht diagnostische FNA oder Samplingfehler können falsch beruhigen.",
+      "Größe allein ist kein ausreichendes Malignitätskriterium; Muster und Lymphknoten sind zentral."
+    ],
+    "settingNotes": [
+      "Primärversorgung: Knoten häufig, Krebs selten; TIRADS verhindert Überdiagnostik.",
+      "Endokrinologie: Überweisungskohorten und bereits suspekte Sonografie erhöhen die Prätestwahrscheinlichkeit."
+    ],
+    "links": [
+      {
+        "title": "2015 ATA Guidelines for Thyroid Nodules and Differentiated Thyroid Cancer",
+        "year": 2016,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+        "kind": "Leitlinie",
+        "note": "ATA-Ultraschallmuster und FNA-Schwellen."
+      },
+      {
+        "title": "European Thyroid Association EU-TIRADS Guideline",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "kind": "Leitlinie",
+        "note": "EU-TIRADS-Risikostratifikation und FNA-Indikationen."
+      },
+      {
+        "title": "Thyroid Nodules: Advances in Evaluation and Management",
+        "year": 2020,
+        "url": "https://www.aafp.org/pubs/afp/issues/2020/0901/p298.html",
+        "kind": "Review",
+        "note": "Praxisnahe Übersicht zu Knotenabklärung und Risikomerkmalen."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Zentrale Guidance für vorhandene erweiterte Prätestdaten ergänzt."
+  },
+  {
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "summary": "Bei stabilem Thoraxschmerz soll die Wahrscheinlichkeit einer obstruktiven KHK nicht aus dem Symptom allein geschätzt werden. Moderne Modelle kombinieren Alter, Geschlecht, Symptomcharakter und Risikofaktoren; akuter Thoraxschmerz ist ein anderer diagnostischer Pfad.",
+    "whenToTest": [
+      "Stabile Beschwerden oder Belastungsdyspnoe mit Verdacht auf chronisches Koronarsyndrom.",
+      "Nicht bei akutem Koronarsyndrom: dort Troponin-/EKG-/Akutpfad verwenden.",
+      "Testwahl abhängig von klinischer Wahrscheinlichkeit, Vorbefunden und lokaler Verfügbarkeit."
+    ],
+    "recommendedTests": [
+      "Risikofaktor-gewichtete Clinical-Likelihood-/PTP-Einschätzung.",
+      "CCTA oder funktionelle Bildgebung je nach Wahrscheinlichkeit, Patienteneigenschaften und lokaler Expertise.",
+      "Vorbefunde wie EKG, Echo, Kalkscore oder bekannte Atherosklerose zur Re-Klassifikation nutzen."
+    ],
+    "pitfalls": [
+      "ESC-PTP-Tabellen nicht auf akuten Thoraxschmerz übertragen.",
+      "Überweisungskohorten, Diabetes, Rauchen und bekannte Gefäßerkrankung verändern die Prätestwahrscheinlichkeit.",
+      "Zu niedrige oder zu hohe Prätestwahrscheinlichkeit macht zusätzliche Tests oft weniger sinnvoll."
+    ],
+    "settingNotes": [
+      "Hausarztpraxis: häufig niedrigere Prätestwahrscheinlichkeit; Red Flags/Akutzeichen abgrenzen.",
+      "Kardiologie: stärker selektierte Population, mehr Vorbefunde; formale PTP/Clinical Likelihood statt Bauchgefühl nutzen."
+    ],
+    "links": [
+      {
+        "title": "2024 ESC Guidelines for Chronic Coronary Syndromes",
+        "year": 2024,
+        "url": "https://academic.oup.com/eurheartj/article/45/36/3415/7743115",
+        "kind": "Leitlinie",
+        "note": "Aktuelle ESC-Leitlinie mit risikofaktor-gewichteter Clinical Likelihood."
+      },
+      {
+        "title": "Validation of ESC pre-test probabilities in SCOT-HEART",
+        "year": 2020,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7590886/",
+        "kind": "Studie",
+        "note": "Validierung der ESC-Prätestwahrscheinlichkeiten bei stabilen Beschwerden."
+      },
+      {
+        "title": "ML-Based Pretest Probability Model of Obstructive CAD",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12277197/",
+        "kind": "Studie",
+        "note": "Multizentrisches Modell mit Risikofaktoren für obstruktive KHK."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Keine ESC-Tabelle in der App repliziert; nur Quellen- und Strukturhinweis ergänzt."
+  },
+  {
+    "conditionId": "chronische-nierenkrankheit",
+    "summary": "CKD ist eine persistierende Diagnose, keine Momentaufnahme. Entscheidend sind eGFR, Albuminurie/Urinsediment oder strukturelle Nierenauffälligkeiten über mindestens drei Monate sowie die Risikostratifikation nach GFR- und Albuminuriekategorie.",
+    "whenToTest": [
+      "Diabetes, Hypertonie, kardiovaskuläre Erkrankung, höheres Alter oder familiäre/medikamentöse Risiken.",
+      "Persistierend auffälliges Kreatinin/eGFR, Albuminurie, Proteinurie oder Urinsediment.",
+      "Nach AKI oder bei nephrotoxischen Medikamenten Verlaufskontrollen planen."
+    ],
+    "recommendedTests": [
+      "Kreatinin/eGFR und Urin-Albumin-Kreatinin-Ratio, bei Unsicherheit Cystatin C.",
+      "Wiederholungsmessung zur Persistenz über mindestens drei Monate.",
+      "Urinstatus/Sediment und Bildgebung je nach Kontext."
+    ],
+    "pitfalls": [
+      "Akute Erkrankung, Dehydratation oder AKI nicht als CKD fehlklassifizieren.",
+      "Muskelmasse kann Kreatinin/eGFR relevant verzerren.",
+      "Albuminurie kann bei Fieber, Sport, Harnwegsinfekt, Menstruation oder Hyperglykämie vorübergehend erhöht sein."
+    ],
+    "settingNotes": [
+      "Primärversorgung: Case-finding in Risikogruppen.",
+      "Nephrologie: stärkere Vorselektion; Albuminurie, eGFR-Dynamik und Ursache rücken in den Vordergrund."
+    ],
+    "links": [
+      {
+        "title": "KDIGO 2024 CKD Guideline Executive Summary",
+        "year": 2024,
+        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline-Executive-Summary.pdf",
+        "kind": "Leitlinie",
+        "note": "Definition, GFR-/Albuminurie-Risikostratifikation und Managementrahmen."
+      },
+      {
+        "title": "Epidemiology of chronic kidney disease: an update 2022",
+        "year": 2022,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9073222/",
+        "kind": "Review",
+        "note": "Epidemiologie und Prävalenz in Risikogruppen."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Zentrale Guidance aus erweiterter Prätestdatei ergänzt."
+  },
+  {
+    "conditionId": "renale-arterienstenose",
+    "summary": "Renale Arterienstenose ist bei unkomplizierter Hypertonie selten, wird aber in Hochrisikokonstellationen relevant: resistente Hypertonie, rascher Nierenfunktionsabfall, Kreatininanstieg nach RAAS-Blockade, asymmetrische Nieren oder rezidivierendes Flash-Lungenödem.",
+    "whenToTest": [
+      "Resistente/refraktäre Hypertonie trotz plausibler Therapie und Adhärenzprüfung.",
+      "Kreatininanstieg nach ACE-Hemmer/ARB, unerklärlicher eGFR-Abfall oder asymmetrische Nieren.",
+      "Rezidivierendes Flash-Lungenödem oder starke atherosklerotische Last."
+    ],
+    "recommendedTests": [
+      "Vor Testung Pseudoresistenz, Messfehler, Non-Adhärenz, Salz/NSAID und Schlafapnoe prüfen.",
+      "Duplexsonografie, CTA oder MRA je nach Nierenfunktion, Vorwahrscheinlichkeit und lokaler Expertise.",
+      "Invasive Diagnostik/Therapie nur bei passender Hochrisikokonstellation und Konsequenz."
+    ],
+    "pitfalls": [
+      "Milde Hypertonie ohne Hochrisikomerkmale hat niedrige Prätestwahrscheinlichkeit.",
+      "CKD und Kontrastmittelrisiko beeinflussen Testwahl.",
+      "RAAS-Blockade kann diagnostischer Hinweis sein, ist aber nicht automatisch pathologisch."
+    ],
+    "settingNotes": [
+      "Hausarztpraxis: erst häufige Ursachen resistenter Hypertonie prüfen.",
+      "Nephrologie/Kardiologie: hohe Vorselektion bei Flash-Lungenödem, atherosklerotischer Last oder Nierenfunktionsdynamik."
+    ],
+    "links": [
+      {
+        "title": "StatPearls: Renal Artery Stenosis",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK430718/",
+        "kind": "Lehrtext",
+        "note": "Übersicht zu renovaskulärer Hypertonie, Hochrisikomerkmalen und diagnostischer Einordnung."
+      },
+      {
+        "title": "Renovascular Hypertension - Merck Manual Professional",
+        "year": 2026,
+        "url": "https://www.merckmanuals.com/professional/cardiovascular-disorders/hypertension/renovascular-hypertension",
+        "kind": "Lehrtext",
+        "note": "Klinische Merkmale und diagnostische Übersicht zu renovaskulärer Hypertonie."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Hochrisikokonstellation wichtiger als generische Setting-Prävalenz."
+  },
+  {
+    "conditionId": "glomerulonephritis",
+    "summary": "Glomerulonephritis ist eine syndromale Arbeitsdiagnose. Die Wahrscheinlichkeit steigt stark bei glomerulärer Hämaturie, Erythrozytenzylindern, Proteinurie, rascher eGFR-Abnahme oder systemischen Zeichen; isolierte Mikrohämaturie ohne Proteinurie ist ein anderer Kontext.",
+    "whenToTest": [
+      "Persistierende Hämaturie plus Proteinurie oder Albuminurie.",
+      "Dysmorphe Erythrozyten, Akanthozyten oder Erythrozytenzylinder im frischen Urinsediment.",
+      "Rasch fallende eGFR, nephritisches Syndrom oder systemische Zeichen wie Purpura, Arthralgien, Hämoptysen, SLE- oder Vaskulitiszeichen."
+    ],
+    "recommendedTests": [
+      "Frischer Urinstatus mit Sediment/Morphologie, UACR/PCR und Kreatinin/eGFR-Verlauf.",
+      "Komplement, ANA, ANCA, Anti-GBM, Hepatitis/HIV und weitere Serologien nach klinischem Muster.",
+      "Nierenbiopsie erwägen, wenn Histologie Management und Prognose beeinflusst oder rascher Verlauf besteht."
+    ],
+    "pitfalls": [
+      "Alte Urinprobe verfälscht Zellmorphologie und Zylinder.",
+      "Menstruation, Harnwegsinfekt, Sport oder urologische Blutungsquellen imitieren Hämaturie.",
+      "Antikoagulation erklärt Hämaturie nicht automatisch; sie kann Blutung demaskieren."
+    ],
+    "settingNotes": [
+      "Primärversorgung: Persistenz, Proteinurie und eGFR-Dynamik entscheiden über Dringlichkeit.",
+      "Nephrologie: Sediment, Serologie und Biopsieindikation stehen im Vordergrund."
+    ],
+    "links": [
+      {
+        "title": "Glomerular Hematuria: Cause or Consequence of Renal Inflammation?",
+        "year": 2019,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6539976/",
+        "kind": "Review",
+        "note": "Review zu glomerulärer Hämaturie, dysmorphen Erythrozyten und nephrologischer Einordnung."
+      },
+      {
+        "title": "Glomerular Hematuria and the Utility of Urine Microscopy: A Review",
+        "year": 2022,
+        "url": "https://www.sciencedirect.com/science/article/pii/S0272638622005844",
+        "kind": "Review",
+        "note": "Review zu Urinmikroskopie und spezifischen Markern glomerulärer Hämaturie."
+      },
+      {
+        "title": "Overview of Glomerular Disorders - MSD Manual Professional",
+        "year": 2026,
+        "url": "https://www.msdmanuals.com/professional/genitourinary-disorders/glomerular-disorders/overview-of-glomerular-disorders",
+        "kind": "Lehrtext",
+        "note": "Klinische Übersicht zu glomerulären Erkrankungen, Hämaturie, Proteinurie und Biopsieindikation."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Quantitative Prätestwahrscheinlichkeit bleibt bewusst unsicher; syndromale Hinweise ergänzt."
   }
 ]

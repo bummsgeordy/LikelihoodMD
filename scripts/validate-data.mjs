@@ -128,6 +128,9 @@ function validatePretestProbabilityEstimate(estimate, prefix, sourceIds) {
   ['id', 'diseaseId', 'diseaseName', 'setting', 'estimateType', 'evidenceQuality', 'qualityNote'].forEach(field => {
     if (!hasText(estimate[field])) errors.push(`${prefix}.${field} fehlt`);
   });
+  if (hasText(estimate.diseaseId) && !knownConditionIds.has(estimate.diseaseId)) {
+    errors.push(`${prefix}.diseaseId unbekannt`);
+  }
   if (!Array.isArray(estimate.domain) || estimate.domain.length === 0) {
     errors.push(`${prefix}.domain fehlt`);
   } else {
@@ -136,6 +139,9 @@ function validatePretestProbabilityEstimate(estimate, prefix, sourceIds) {
     });
   }
   if (estimate.settingId !== undefined && !hasText(estimate.settingId)) errors.push(`${prefix}.settingId leer`);
+  if (hasText(estimate.settingId) && !knownSettingIds.has(estimate.settingId)) {
+    errors.push(`${prefix}.settingId unbekannt`);
+  }
   if (estimate.baseProbabilityPercent !== undefined && (!Number.isFinite(estimate.baseProbabilityPercent) || estimate.baseProbabilityPercent < 0 || estimate.baseProbabilityPercent > 100)) {
     errors.push(`${prefix}.baseProbabilityPercent unplausibel`);
   }
@@ -421,6 +427,9 @@ if (!Array.isArray(pretestProbabilityDataset.estimates)) {
 } else {
   pretestProbabilityDataset.estimates.forEach((estimate, index) => {
     validatePretestProbabilityEstimate(estimate, `pretestProbabilityDataset.estimates[${index}]`, pretestSourceIds);
+    if (hasText(estimate.diseaseId) && hasText(estimate.settingId)) {
+      directPretestKeys.add(`${estimate.diseaseId}:${estimate.settingId}`);
+    }
   });
 }
 
