@@ -2346,5 +2346,432 @@
       }
     ],
     "conditionId": "lungenembolie"
+  },
+  {
+    "id": "compression-ultrasound-dvt",
+    "name": "Kompressionssonografie bei TVT-Verdacht",
+    "category": "Gefäßmedizin / Akutmedizin",
+    "condition": "Tiefe Venenthrombose",
+    "description": "Proximale Beinvenen-Kompressionssonografie als Bildgebung nach positiver D-Dimer-/Wells-Strategie oder bei hoher klinischer Wahrscheinlichkeit.",
+    "evidenceProfiles": [
+      {
+        "id": "compression-ultrasound-dvt-proximal-meta",
+        "testId": "compression-ultrasound-dvt",
+        "label": "Proximale Kompressionssonografie",
+        "kind": "curated",
+        "purpose": "confirmation",
+        "specimen": "Bildgebung",
+        "method": "Kompressionssonografie der proximalen Beinvenen",
+        "cutoff": "Nicht komprimierbare proximale Vene bzw. thrombotischer Direktnachweis",
+        "procedure": "Bei positiver D-Dimer-/Wells-Strategie oder hoher klinischer Wahrscheinlichkeit zeitnahe proximale Kompressionssonografie; bei negativem Befund und persistierendem Verdacht Wiederholung nach lokalem Algorithmus.",
+        "sensitivity": 0.938,
+        "specificity": 0.978,
+        "lrPositive": 42.6,
+        "lrNegative": 0.06,
+        "population": "Symptomatische Patienten mit Verdacht auf tiefe Beinvenenthrombose; Testgüte besonders für proximale TVT.",
+        "rationale": "Kompressionssonografie ist der zentrale Bildgebungsbaustein nach klinischer Wahrscheinlichkeitsabschätzung und D-Dimer. Die gepoolten Werte zeigen einen starken Rule-in-Effekt für proximale TVT.",
+        "limitations": "Distale TVT wird deutlich schlechter erfasst als proximale TVT; Untersucherabhängigkeit, Körperhabitus, Voroperationen, Rezidivthrombose und nicht vollständig untersuchte Beckenvenen begrenzen die Aussagekraft.",
+        "preanalytics": [
+          "Wells-/klinische Wahrscheinlichkeit und D-Dimer-Kontext vor der Untersuchung dokumentieren",
+          "Proximale versus Ganzbein-Strategie klar angeben",
+          "Bei negativer proximaler Sonografie und positivem D-Dimer oder hohem Verdacht Wiederholungsstrategie prüfen",
+          "Rezidivthrombose und alte Residuen mit Vorbefunden vergleichen"
+        ],
+        "falsePositiveReasons": [
+          "alte Residualthromben oder postthrombotische Veränderungen",
+          "technische Artefakte oder unzureichende Kompression",
+          "Verwechslung mit extravasalen Strukturen oder Hämatom"
+        ],
+        "falseNegativeReasons": [
+          "isolierte distale TVT",
+          "Beckenvenen-/Iliakalvenenthrombose außerhalb des Untersuchungsfensters",
+          "frühe kleine Thromben oder unvollständiges Protokoll",
+          "eingeschränkte Untersuchbarkeit durch Schmerz, Adipositas oder Verband/Gips"
+        ],
+        "interpretationCautions": [
+          "Ein negativer proximaler Ultraschall schließt distale TVT nicht sicher aus.",
+          "Bei diskordant hoher klinischer Wahrscheinlichkeit Wiederholung oder erweiterte Bildgebung erwägen.",
+          "Die hier hinterlegte Testgüte gilt nicht pauschal für jedes lokale Protokoll."
+        ],
+        "sources": [
+          {
+            "title": "Systematic review and meta-analysis of the diagnostic accuracy of ultrasonography for deep vein thrombosis",
+            "year": 2005,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1262723/",
+            "kind": "Review",
+            "note": "Berichtet für Kompressionsultraschall gepoolte Sensitivität 93,8 % für proximale TVT und Spezifität 97,8 %; distale TVT deutlich niedriger."
+          },
+          {
+            "title": "NICE NG158: Venous thromboembolic diseases",
+            "year": 2020,
+            "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt Wells-basierte DVT-Pfade mit D-Dimer, proximaler Beinvenensonografie und Wiederholung bei negativer Sonografie plus positivem D-Dimer."
+          },
+          {
+            "title": "ASH 2018 Guidelines: Diagnosis of Venous Thromboembolism",
+            "year": 2018,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6258916/",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Strategien nach Prätestwahrscheinlichkeit und Bildgebung statt D-Dimer bei hoher Wahrscheinlichkeit."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-06-01",
+        "reviewNote": "Arbeitswerte aus systematischem Review; lokale Ultraschallstrategie und distale TVT separat prüfen.",
+        "intendedUse": "confirmation",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Vor allem für proximale TVT; bei distaler TVT, Rezidiv oder diskordant hohem Verdacht reicht ein negativer Befund nicht immer.",
+        "reviewPriority": "medium"
+      }
+    ],
+    "conditionId": "tiefe-venenthrombose"
+  },
+  {
+    "id": "ctpa-pe",
+    "name": "CT-Pulmonalisangiografie bei LE-Verdacht",
+    "category": "Pneumologie / Kardiologie / Akutmedizin",
+    "condition": "Lungenembolie",
+    "description": "CT-Pulmonalisangiografie als Bildgebung nach positiver D-Dimer-/Wahrscheinlichkeitsstrategie oder bei hoher klinischer Wahrscheinlichkeit.",
+    "evidenceProfiles": [
+      {
+        "id": "ctpa-pe-pioped-ii",
+        "testId": "ctpa-pe",
+        "label": "Multidetektor-CTPA, PIOPED-II-Arbeitswert",
+        "kind": "curated",
+        "purpose": "confirmation",
+        "specimen": "Bildgebung mit i.v. Kontrastmittel",
+        "method": "CT-Pulmonalisangiografie",
+        "cutoff": "Direkter Embolusnachweis segmental oder proximal; subsegmentale Befunde kontextualisieren",
+        "procedure": "Bei positiver D-Dimer-/Wahrscheinlichkeitsstrategie oder hoher klinischer Wahrscheinlichkeit CTPA; Kontrastmittelrisiko und Alternativen wie V/Q-Szintigrafie prüfen.",
+        "sensitivity": 0.83,
+        "specificity": 0.96,
+        "lrPositive": 20.8,
+        "lrNegative": 0.18,
+        "population": "Patienten mit Verdacht auf akute Lungenembolie, typischerweise Notaufnahme/akute Versorgung.",
+        "rationale": "CTPA ist der zentrale bildgebende Bestätigungstest im PE-Pfad. PIOPED II zeigt starken Rule-in-Effekt, aber negative CTPA ist bei hoher klinischer Wahrscheinlichkeit weniger beruhigend.",
+        "limitations": "Ältere PIOPED-II-Scanner, Bildqualität, Atemartefakte, Kontrasttiming, Nierenfunktion, Schwangerschaft und subsegmentale Befunde begrenzen die Übertragbarkeit.",
+        "preanalytics": [
+          "Klinische Wahrscheinlichkeit und D-Dimer-Strategie vor Bildgebung dokumentieren",
+          "Nierenfunktion, Kontrastmittelallergie, Schwangerschaft und Strahlen-/Kontrastmittelrisiko prüfen",
+          "Bildqualität, Kontrastbolus und untersuchte Gefäßebene dokumentieren",
+          "Bei hoher klinischer Wahrscheinlichkeit und negativer CTPA diskordante Befunde aktiv prüfen"
+        ],
+        "falsePositiveReasons": [
+          "Bewegungs- oder Flussartefakte",
+          "Überinterpretation isolierter subsegmentaler Defekte",
+          "schlechte Kontrastierung oder Rekonstruktionsartefakte"
+        ],
+        "falseNegativeReasons": [
+          "sehr kleine oder subsegmentale Embolien",
+          "schlechte Bildqualität oder suboptimales Kontrasttiming",
+          "hohe Prätestwahrscheinlichkeit mit diskordant negativem Befund"
+        ],
+        "interpretationCautions": [
+          "CTPA sollte nicht ohne klinische Wahrscheinlichkeit/D-Dimer-Logik als Screening eingesetzt werden.",
+          "Ein positiver Befund bei niedriger Prätestwahrscheinlichkeit hat geringeren PPV als bei mittlerer/hoher Wahrscheinlichkeit.",
+          "Bei kontraindizierter CTPA können V/Q-Szintigrafie oder Sonografiepfade sinnvoller sein."
+        ],
+        "sources": [
+          {
+            "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+            "year": 2019,
+            "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+            "kind": "Leitlinie",
+            "note": "Beschreibt D-Dimer nach klinischer Wahrscheinlichkeit und CTPA als zentrale Bildgebung; zitiert PIOPED II mit Sensitivität 83 % und Spezifität 96 %."
+          },
+          {
+            "title": "PIOPED II: Multidetector CT angiography in suspected pulmonary embolism",
+            "year": 2006,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/16738268/",
+            "kind": "Studie",
+            "note": "Prospektive Studie zur CTPA-Testgüte; prägte die häufig zitierten Arbeitswerte 83 % Sensitivität und 96 % Spezifität."
+          },
+          {
+            "title": "NICE NG158: Venous thromboembolic diseases",
+            "year": 2020,
+            "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt PE-Wells/PERC/D-Dimer-Pfade und CTPA bei wahrscheinlichkeits- oder D-Dimer-basierter Indikation."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-06-01",
+        "reviewNote": "Arbeitswert aus PIOPED II; moderne Scanner und lokale Radiologiequalität können abweichen.",
+        "intendedUse": "confirmation",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Negative CTPA ist bei hoher klinischer Wahrscheinlichkeit weniger beruhigend; diskordante Situationen brauchen weitere Beurteilung.",
+        "reviewPriority": "medium"
+      }
+    ],
+    "conditionId": "lungenembolie"
+  },
+  {
+    "id": "lung-ultrasound-b-lines-hf",
+    "name": "Lungenultraschall: diffuse bilaterale B-Linien",
+    "category": "Kardiologie / Akutmedizin",
+    "condition": "Herzinsuffizienz",
+    "description": "Point-of-care-Lungenultraschall als Zusatzinformation bei akuter Dyspnoe und Verdacht auf kardiale Stauung.",
+    "evidenceProfiles": [
+      {
+        "id": "lung-ultrasound-b-lines-acute-hf",
+        "testId": "lung-ultrasound-b-lines-hf",
+        "label": "Akute Dyspnoe: diffuse bilaterale B-Linien",
+        "kind": "curated",
+        "purpose": "diagnostic-support",
+        "specimen": "Bildgebung am Patientenbett",
+        "method": "Lungenultraschall, B-Linien-Muster",
+        "cutoff": "multiple, diffuse und bilaterale B-Linien; Protokoll abhängig von 4/8/28-Zonen-Schema",
+        "procedure": "Bei akuter Dyspnoe ergänzend zu Klinik, NT-proBNP, EKG, Röntgen/weiterer Diagnostik; Echo bleibt für Struktur, EF und Ätiologie zentral.",
+        "sensitivity": 0.86,
+        "specificity": 0.88,
+        "lrPositive": 7.4,
+        "lrNegative": 0.16,
+        "population": "Akut dyspnoische Patienten in Notaufnahme/akuter Versorgung mit Verdacht auf akute Herzinsuffizienz oder kardiale Stauung.",
+        "rationale": "B-Linien können kardiale pulmonale Stauung rasch sichtbar machen und sind als zweiter, andersartiger Informationsbaustein nach natriuretischen Peptiden didaktisch sinnvoll.",
+        "limitations": "B-Linien sind nicht spezifisch für Herzinsuffizienz; Pneumonie, ARDS, interstitielle Lungenerkrankung, Lungenfibrose und Lagerung/Protokoll beeinflussen die Aussagekraft.",
+        "preanalytics": [
+          "Akute versus chronische Fragestellung trennen",
+          "Untersuchungsprotokoll und Patientenposition dokumentieren",
+          "Pneumonie, ARDS, interstitielle Lungenerkrankung und Nieren-/Volumenstatus als Differenzialkontext prüfen",
+          "Echo als nachfolgende Struktur-/Phänotypisierung nicht durch LUS ersetzen"
+        ],
+        "falsePositiveReasons": [
+          "Pneumonie oder ARDS",
+          "interstitielle Lungenerkrankung oder Lungenfibrose",
+          "Niereninsuffizienz/Volumenüberladung ohne primäre kardiale Ursache",
+          "unspezifische basale B-Linien bei älteren oder liegenden Patienten"
+        ],
+        "falseNegativeReasons": [
+          "frühe oder vorbehandelte Dekompensation",
+          "überwiegend rechtsseitige oder nicht kongestive Herzinsuffizienz",
+          "schlechte Schallbedingungen oder unvollständiges Protokoll"
+        ],
+        "interpretationCautions": [
+          "LUS ist ein starker Zusatzbaustein, aber kein Ersatz für Echokardiographie.",
+          "Echo dient zur Bestätigung kardialer Struktur/Funktion und zur Phänotypisierung, nicht als einzelner binärer LR-Test.",
+          "Bei diskordantem NT-proBNP, LUS und klinischem Bild sind alternative Diagnosen aktiv zu prüfen."
+        ],
+        "sources": [
+          {
+            "title": "Dyspnea Due to Acute Heart Failure Syndrome",
+            "year": 2026,
+            "url": "https://thennt.com/lr/dyspnea-due-acute-heart-failure-syndrome/",
+            "kind": "Review",
+            "note": "Fasst Likelihood Ratios für akute Dyspnoe zusammen; für Lungenultraschall-B-Linien etwa LR+ 7,4 und LR− 0,16."
+          },
+          {
+            "title": "Emergency department ultrasound for B-lines in acute decompensated heart failure: systematic review and meta-analysis",
+            "year": 2018,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29619917/",
+            "kind": "Review",
+            "note": "Systematischer Review: B-Linien bei ED-Dyspnoe mit gepoolter Sensitivität 82,5 % und Spezifität 83,6 %; unterstützt LUS als Zusatztest."
+          },
+          {
+            "title": "Lung ultrasound in acute and chronic heart failure: EACVI clinical consensus statement",
+            "year": 2023,
+            "url": "https://academic.oup.com/ehjcimaging/article/24/12/1569/7224431",
+            "kind": "Leitlinie",
+            "note": "Beschreibt typische diffuse bilaterale B-Linien bei akuter HF und betont die Integration mit Echokardiographie und klinischem Kontext."
+          },
+          {
+            "title": "NICE NG106: Chronic heart failure in adults - diagnosis and management",
+            "year": 2018,
+            "url": "https://www.nice.org.uk/guidance/ng106/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt NT-proBNP-basierte Überweisung zur Echokardiographie; Echo bleibt für strukturelle Bestätigung und Phänotypisierung zentral."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-06-01",
+        "reviewNote": "Didaktisches akutes Zusatzprofil; Echo wird bewusst als Folge-/Phänotypisierungsschritt dokumentiert, nicht als LR-Stufe modelliert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nur bei akuter Dyspnoe/kardialer Stauungsfrage plausibel; bei chronischem ambulantem HF-Verdacht nicht eins zu eins übertragen.",
+        "reviewPriority": "medium"
+      }
+    ],
+    "conditionId": "herzinsuffizienz"
+  },
+  {
+    "id": "ema-iga-celiac",
+    "name": "Endomysium-IgA-Antikörper (EMA-IgA)",
+    "category": "Diabetologie / Gastroenterologie",
+    "condition": "Zöliakie",
+    "description": "Sehr spezifische serologische Bestätigung nach positivem oder grenzwertigem tTG-IgA bei ausreichender Glutenexposition.",
+    "evidenceProfiles": [
+      {
+        "id": "ema-iga-celiac-confirmation",
+        "testId": "ema-iga-celiac",
+        "label": "EMA-IgA, Bestätigungsserologie",
+        "kind": "curated",
+        "purpose": "confirmation",
+        "specimen": "Serum",
+        "method": "IgA-Endomysiumantikörper, Immunfluoreszenz",
+        "cutoff": "positiver EMA-IgA-Titer; laborabhängig",
+        "procedure": "EMA-IgA unter glutenhaltiger Ernährung und mit Gesamt-IgA-Kontext; bei IgA-Mangel IgG-basierte Strategie nutzen.",
+        "sensitivity": 0.79,
+        "specificity": 0.99,
+        "lrPositive": 79,
+        "lrNegative": 0.21,
+        "population": "Patienten mit Verdacht auf Zöliakie oder positiver/grenzwertiger tTG-IgA-Serologie unter Glutenexposition.",
+        "rationale": "EMA-IgA ist weniger sensitiv, aber sehr spezifisch und eignet sich daher als zweiter serologischer Bestätigungsschritt nach tTG-IgA.",
+        "limitations": "Subjektive Immunfluoreszenz, Glutenrestriktion, IgA-Mangel, niedrige Titer und pädiatrische No-biopsy-Protokolle begrenzen die einfache Übertragbarkeit.",
+        "preanalytics": [
+          "Ausreichende Glutenexposition vor Testung sicherstellen",
+          "Gesamt-IgA und IgA-Mangel-Kontext dokumentieren",
+          "Niedrige oder diskordante Titer mit Biopsie, Verlauf, HLA und klinischem Kontext einordnen",
+          "Bei bereits begonnener glutenfreier Diät Serologie nicht als normal interpretieren"
+        ],
+        "falsePositiveReasons": [
+          "selten: Labor-/Lesefehler bei Immunfluoreszenz",
+          "niedriger Titer in unklarem Autoimmun-/Leberkontext",
+          "präanalytische oder Zuordnungsfehler"
+        ],
+        "falseNegativeReasons": [
+          "glutenarme oder glutenfreie Ernährung",
+          "IgA-Mangel",
+          "frühe oder milde enteropathische Veränderungen",
+          "Immunsuppression oder sehr junge Kinder je nach Kontext"
+        ],
+        "interpretationCautions": [
+          "EMA-IgA positiv ist stark bestätigend, ersetzt aber je nach Alter, Titer, Leitlinie und Land nicht automatisch die Biopsie.",
+          "Ein negatives EMA-IgA schließt Zöliakie bei hohem Verdacht oder fehlender Glutenexposition nicht sicher aus.",
+          "HLA-DQ2/DQ8 eignet sich eher zum Ausschluss bei negativem HLA als zum Rule-in."
+        ],
+        "sources": [
+          {
+            "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+            "year": 2017,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+            "kind": "Review",
+            "note": "AHRQ Review; EMA-IgA zeigt sehr hohe Spezifität, aber variablere Sensitivität als tTG-IgA."
+          },
+          {
+            "title": "Celiac Disease: Diagnosis and Management",
+            "year": 2014,
+            "url": "https://www.aafp.org/afp/2014/0115/p99",
+            "kind": "Review",
+            "note": "Übersichtstabelle: EMA-IgA mit Sensitivität >90 %, Spezifität >95 %, LR+ >18 und LR− <0,11; Werte variieren nach Population und Methode."
+          },
+          {
+            "title": "NIDDK: Celiac Disease Tests",
+            "year": 2021,
+            "url": "https://www.niddk.nih.gov/health-information/professionals/clinical-tools-patient-management/digestive-diseases/celiac-disease-health-care-professionals",
+            "kind": "Lehrtext",
+            "note": "Beschreibt tTG-IgA und EMA-IgA als serologische Tests und betont Glutenexposition für korrekte Testergebnisse."
+          },
+          {
+            "title": "ACG Clinical Guideline: Diagnosis and Management of Celiac Disease",
+            "year": 2023,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36602833/",
+            "kind": "Leitlinie",
+            "note": "Aktuelle Leitlinie zur Zöliakiediagnostik mit serologischer Testung und Biopsie-/Kontextentscheidung."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-06-01",
+        "reviewNote": "Konservativer Arbeitswert aus AHRQ/Übersichten; lokale Labormethode und Leitlinienpfad prüfen.",
+        "intendedUse": "confirmation",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nur unter Glutenexposition und mit IgA-Kontext sinnvoll; bei IgA-Mangel nicht als IgA-basierter Ausschluss verwenden.",
+        "reviewPriority": "medium"
+      }
+    ],
+    "conditionId": "zoliakie"
+  },
+  {
+    "id": "thyroid-doppler-graves",
+    "name": "Schilddrüsen-Doppler bei Thyreotoxikose",
+    "category": "Endokrinologie / Schilddrüse",
+    "condition": "Morbus Basedow",
+    "description": "Farbduplex-/Doppler-Sonografie zur Differenzierung hypervaskulärer Basedow-Hyperthyreose von destruktiver Thyreoiditis, besonders bei TRAb-Diskordanz oder wenn Szintigrafie nicht passt.",
+    "evidenceProfiles": [
+      {
+        "id": "thyroid-doppler-graves-vs-thyroiditis",
+        "testId": "thyroid-doppler-graves",
+        "label": "Diffuse Hypervaskularität / thyroid inferno",
+        "kind": "curated",
+        "purpose": "diagnostic-support",
+        "specimen": "Sonografie",
+        "method": "Schilddrüsen-Farbduplex/Doppler",
+        "cutoff": "deutlich diffuse Hypervaskularität bzw. erhöhter Fluss; lokales Protokoll/PSV-Cut-off abhängig",
+        "procedure": "Bei biochemischer Thyreotoxikose und unklarem TRAb-/Klinik-Kontext; Szintigrafie/Radioiodaufnahme bleibt Alternative zur Differenzierung hoher diffuser Aufnahme vs. niedriger Aufnahme bei Thyreoiditis.",
+        "sensitivity": 0.96,
+        "specificity": 0.95,
+        "lrPositive": 19.2,
+        "lrNegative": 0.04,
+        "population": "Patienten mit Thyreotoxikose zur Differenzierung Morbus Basedow versus destruktive Thyreoiditis; nicht als Screening bei euthyreoten Patienten.",
+        "rationale": "TRAb ist primär; Doppler/Szintigrafie hilft bei TRAb-negativer oder diskordanter Thyreotoxikose, bei nodulärer Schilddrüse oder wenn die Ursache der Hormonexzesse unklar bleibt.",
+        "limitations": "Studienwerte sind häufig klein, monozentrisch und stark geräte-/untersucherabhängig. Iodexposition, Amiodaron, Schwangerschaft, Stillzeit und lokale Verfügbarkeit bestimmen, ob Doppler oder Szintigrafie geeigneter ist.",
+        "preanalytics": [
+          "Biochemische Thyreotoxikose mit TSH, fT4 und fT3 vorher sichern",
+          "TRAb, Augenzeichen, Struma/Nodularität, Schmerz, Entzündungszeichen und postpartalen Kontext dokumentieren",
+          "Jodhaltiges Kontrastmittel, Amiodaron, Schwangerschaft und Stillzeit vor Szintigrafiepfaden prüfen",
+          "Doppler-Einstellungen und Untersuchererfahrung beeinflussen die Aussagekraft"
+        ],
+        "falsePositiveReasons": [
+          "andere hypervaskuläre Hyperthyreoseformen oder toxische Autonomie",
+          "geräte-/einstellungsabhängige Überbewertung der Durchblutung",
+          "entzündliche oder vaskuläre Begleitveränderungen"
+        ],
+        "falseNegativeReasons": [
+          "milde/frühe oder bereits behandelte Basedow-Erkrankung",
+          "technisch schlechte Sonografiebedingungen",
+          "untypische oder noduläre Basedow-Konstellation"
+        ],
+        "interpretationCautions": [
+          "Doppler ist ein Kontexttest, kein Ersatz für biochemische Bestätigung der Thyreotoxikose.",
+          "Bei klar positivem TRAb und klassischer Klinik bringt zusätzliche Bildgebung oft wenig diagnostischen Mehrwert.",
+          "Bei TRAb-negativer Thyreotoxikose kann Szintigrafie/Radioiodaufnahme zur Abgrenzung von Thyreoiditis besonders hilfreich sein."
+        ],
+        "sources": [
+          {
+            "title": "Endotext: Diagnosis and Treatment of Graves Disease",
+            "year": 2026,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK285548/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt TRAb als Test der Wahl, Schilddrüsenszintigrafie als alternative Bestätigung und Doppler-Sonografie zur Abgrenzung destruktiver Thyreoiditis."
+          },
+          {
+            "title": "Comparison between peak systolic velocity and technetium uptake in differentiating Graves disease from thyroiditis",
+            "year": 2017,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10522265/",
+            "kind": "Studie",
+            "note": "Vergleicht Doppler-Parameter mit Technetiumaufnahme; verweist auf hohe Sensitivität/Spezifität von Farbduplex in der Differenzialdiagnose, aber lokale Cut-offs und Studiendesign beachten."
+          },
+          {
+            "title": "2018 European Thyroid Association Guideline for the Management of Graves Hyperthyroidism",
+            "year": 2018,
+            "url": "https://doi.org/10.1159/000490384",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt TRAb-basierte Diagnostik und Bildgebungskontext bei unklarer Ursache der Thyreotoxikose."
+          }
+        ],
+        "isDefault": true,
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "low",
+        "dataCompleteness": "partial",
+        "lastReviewed": "2026-06-01",
+        "reviewNote": "Quantitatives Dopplerprofil ist stärker settingspezifisch als TRAb; als didaktische Kontextkette, nicht als universeller Standardwert nutzen.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Geräte-/Untersucherabhängigkeit und Vorbehandlung können die Aussage stark verändern; Szintigrafie ist bei bestimmten Fragestellungen die geeignetere Alternative.",
+        "reviewPriority": "high"
+      }
+    ],
+    "conditionId": "morbus-basedow"
   }
 ]

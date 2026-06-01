@@ -32,4 +32,23 @@ describe('diagnostic chains', () => {
     const viewModel = calculateDiagnosticChain(chain, curatedTests, profiles, 0.04);
     expect(viewModel?.paths.map(path => path.label)).toEqual(['+ dann +', '+ dann −', '− dann +', '− dann −']);
   });
+
+  it('calculates the added diagnostic chain examples with valid second stages', () => {
+    const expectedChains = [
+      'dvt-ddimer-to-compression-ultrasound',
+      'pe-ddimer-to-ctpa',
+      'hf-ntprobnp-to-lung-ultrasound',
+      'celiac-ttg-iga-to-ema-iga',
+      'graves-trab-to-doppler'
+    ];
+
+    expectedChains.forEach(chainId => {
+      const chain = (chains as DiagnosticChain[]).find(item => item.id === chainId);
+      expect(chain, chainId).toBeDefined();
+      const viewModel = calculateDiagnosticChain(chain!, curatedTests, profiles, 0.1);
+      expect(viewModel?.stages).toHaveLength(2);
+      expect(viewModel?.paths).toHaveLength(4);
+      expect(viewModel?.paths.every(path => path.finalProbability >= 0 && path.finalProbability <= 1)).toBe(true);
+    });
+  });
 });

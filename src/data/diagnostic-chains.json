@@ -2,7 +2,11 @@
   {
     "id": "pa-arr-to-oral-sodium-loading",
     "conditionId": "primarer-hyperaldosteronismus",
-    "settingIds": ["hausarztpraxis", "ambulant-nephrologie", "ambulant-endokrinologie"],
+    "settingIds": [
+      "hausarztpraxis",
+      "ambulant-nephrologie",
+      "ambulant-endokrinologie"
+    ],
     "label": "PA: ARR → oraler Kochsalzbelastungstest",
     "description": "Modulare Screening- und Bestätigungskette bei Verdacht auf primären Hyperaldosteronismus mit ambulanter oraler Natriumbelastung.",
     "rationale": "Ein auffälliger Aldosteron-Renin-Quotient verändert die Wahrscheinlichkeit und kann als neue Vortestwahrscheinlichkeit für einen Bestätigungstest genutzt werden.",
@@ -70,7 +74,10 @@
   {
     "id": "cushing-lnsc-to-dst",
     "conditionId": "cushing-syndrom-hyperkortisolismus",
-    "settingIds": ["hausarztpraxis", "ambulant-endokrinologie"],
+    "settingIds": [
+      "hausarztpraxis",
+      "ambulant-endokrinologie"
+    ],
     "label": "Cushing: LNSC → 1-mg-DST",
     "description": "Beispielhafte Sequenz zweier Screeningtests bei klinischem Verdacht auf Hyperkortisolismus.",
     "rationale": "Mehrere unabhängige auffällige Tests erhöhen die Nachtestwahrscheinlichkeit stärker als ein einzelner Test.",
@@ -113,5 +120,267 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Didaktische Kette; Testabhängigkeit und Pseudo-Cushing-Konstellationen weiter prüfen."
+  },
+  {
+    "id": "dvt-ddimer-to-compression-ultrasound",
+    "conditionId": "tiefe-venenthrombose",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme"
+    ],
+    "label": "TVT: D-Dimer → Kompressionssonografie",
+    "description": "Klinisch typische TVT-Kette: niedrige/mittlere Wahrscheinlichkeit plus D-Dimer als Rule-out-Baustein, positive oder hohe Wahrscheinlichkeit danach sonografisch klären.",
+    "rationale": "D-Dimer verändert bei geeigneter Vortestwahrscheinlichkeit vor allem durch ein negatives Ergebnis die Wahrscheinlichkeit; die Sonografie ist der starke zweite Bestätigungs-/Ausschlussbaustein für proximale TVT.",
+    "limitations": "Nicht bei hoher Wahrscheinlichkeit als D-Dimer-first-Protokoll verstehen. Distale TVT, Rezidivthrombose, positive D-Dimer/negative Sonografie und diskordante Klinik brauchen Wiederholung oder erweitertes Vorgehen.",
+    "stages": [
+      {
+        "id": "dvt-ddimer-stage",
+        "testId": "d-dimer-dvt",
+        "evidenceProfileId": "d-dimer-dvt-high-sensitivity",
+        "label": "Screening/Rule-out: hochsensitives D-Dimer",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "dvt-cus-stage",
+        "testId": "compression-ultrasound-dvt",
+        "evidenceProfileId": "compression-ultrasound-dvt-proximal-meta",
+        "label": "Bildgebung: proximale Kompressionssonografie",
+        "expectedUse": "confirmation"
+      }
+    ],
+    "sources": [
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Beschreibt Wells-, D-Dimer- und proximalen Ultraschallpfad bei TVT-Verdacht."
+      },
+      {
+        "title": "Systematic review and meta-analysis of ultrasonography for deep vein thrombosis",
+        "year": 2005,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1262723/",
+        "kind": "Review",
+        "note": "Stützt die Kompressionssonografie-Testgüte für proximale TVT."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Didaktische Sequenz; lokale TVT-Algorithmen und Wiederholungsstrategie prüfen."
+  },
+  {
+    "id": "pe-ddimer-to-ctpa",
+    "conditionId": "lungenembolie",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme"
+    ],
+    "label": "LE: D-Dimer → CTPA",
+    "description": "Typische LE-Kette aus klinischer Wahrscheinlichkeit, D-Dimer und CT-Pulmonalisangiografie.",
+    "rationale": "Bei niedriger/intermediärer Wahrscheinlichkeit kann ein negatives D-Dimer PE ausschließen; ein positives D-Dimer oder hohe Wahrscheinlichkeit führt zur Bildgebung, deren Wert wiederum von der Prätestwahrscheinlichkeit abhängt.",
+    "limitations": "D-Dimer nicht bei hoher klinischer Wahrscheinlichkeit als Ausschlussstrategie nutzen. Negative CTPA ist bei hoher Wahrscheinlichkeit weniger beruhigend; Schwangerschaft, Kontrastmittelrisiko und V/Q-Alternativen berücksichtigen.",
+    "stages": [
+      {
+        "id": "pe-ddimer-stage",
+        "testId": "d-dimer-pe",
+        "evidenceProfileId": "d-dimer-pe-high-sensitivity",
+        "label": "Screening/Rule-out: hochsensitives D-Dimer",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "pe-ctpa-stage",
+        "testId": "ctpa-pe",
+        "evidenceProfileId": "ctpa-pe-pioped-ii",
+        "label": "Bildgebung: CT-Pulmonalisangiografie",
+        "expectedUse": "confirmation"
+      }
+    ],
+    "sources": [
+      {
+        "title": "2019 ESC Guidelines for Acute Pulmonary Embolism",
+        "year": 2019,
+        "url": "https://academic.oup.com/eurheartj/article/41/4/543/5556136",
+        "kind": "Leitlinie",
+        "note": "Beschreibt D-Dimer nach klinischer Wahrscheinlichkeit und CTPA als zweite Stufe bzw. erste Stufe bei hoher Wahrscheinlichkeit."
+      },
+      {
+        "title": "NICE NG158: Venous thromboembolic diseases",
+        "year": 2020,
+        "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Beschreibt PE-Wells/PERC/D-Dimer und CTPA im PE-Pfad."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Didaktische Sequenz; klinische Wahrscheinlichkeit und lokale Bildgebungsalternativen sind entscheidend."
+  },
+  {
+    "id": "hf-ntprobnp-to-lung-ultrasound",
+    "conditionId": "herzinsuffizienz",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie"
+    ],
+    "label": "Herzinsuffizienz: NT-proBNP → Lungenultraschall",
+    "description": "Didaktische Kette bei Dyspnoe/Herzinsuffizienzverdacht: natriuretisches Peptid plus bildgebender Stauungsnachweis.",
+    "rationale": "NT-proBNP und Lungenultraschall liefern unterschiedliche Informationen. Zusammen zeigen sie, wie Labor-Rule-out und bildgebender Stauungskontext die Wahrscheinlichkeit sequenziell verändern.",
+    "limitations": "Echo ist weiterhin der notwendige Folge-/Bestätigungsschritt für Struktur, EF, Klappen und Ätiologie, wird aber nicht als einzelner binärer LR-Test modelliert. LUS-Werte gelten vor allem für akute Dyspnoe.",
+    "stages": [
+      {
+        "id": "hf-ntprobnp-stage",
+        "testId": "ntprobnp",
+        "evidenceProfileId": "ntprobnp-400",
+        "label": "Labor: NT-proBNP 400 pg/ml",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "hf-lus-stage",
+        "testId": "lung-ultrasound-b-lines-hf",
+        "evidenceProfileId": "lung-ultrasound-b-lines-acute-hf",
+        "label": "Bildgebung: Lungenultraschall-B-Linien",
+        "expectedUse": "follow-up"
+      }
+    ],
+    "sources": [
+      {
+        "title": "NICE NG106: Chronic heart failure in adults",
+        "year": 2018,
+        "url": "https://www.nice.org.uk/guidance/ng106/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt NT-proBNP und anschließende Echokardiographie/Spezialbeurteilung bei erhöhten Werten."
+      },
+      {
+        "title": "Lung ultrasound in acute and chronic heart failure: EACVI clinical consensus statement",
+        "year": 2023,
+        "url": "https://academic.oup.com/ehjcimaging/article/24/12/1569/7224431",
+        "kind": "Leitlinie",
+        "note": "Beschreibt LUS-B-Linien als schnelle Zusatzdiagnostik für akute kardiale Dyspnoe und die Integration mit Echokardiographie."
+      },
+      {
+        "title": "Emergency department ultrasound for B-lines in acute decompensated heart failure: systematic review and meta-analysis",
+        "year": 2018,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/29619917/",
+        "kind": "Review",
+        "note": "Stützt die diagnostische Rolle von B-Linien bei akuter Dyspnoe, zeigt aber heterogene Genauigkeit."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Echo bewusst nicht als LR-Stufe modelliert; LUS dient als quantitativ abbildbare didaktische Zusatzstufe.",
+    "reviewPriority": "medium"
+  },
+  {
+    "id": "celiac-ttg-iga-to-ema-iga",
+    "conditionId": "zoliakie",
+    "settingIds": [
+      "hausarztpraxis",
+      "ambulant-diabetologie",
+      "ambulant-endokrinologie"
+    ],
+    "label": "Zöliakie: tTG-IgA → EMA-IgA",
+    "description": "Serologische Sequenz aus empfindlichem tTG-IgA-Screening und sehr spezifischem EMA-IgA-Bestätigungstest.",
+    "rationale": "tTG-IgA eignet sich als erster Test, EMA-IgA erhöht als sehr spezifischer zweiter Test die Bestätigungskraft. Beide hängen stark von Glutenexposition und IgA-Status ab.",
+    "limitations": "Nicht ohne Glutenexposition anwenden. IgA-Mangel, niedrige Titer, Kinder-No-biopsy-Regeln, Biopsieindikation und HLA-Kontext sind gesondert zu beurteilen.",
+    "stages": [
+      {
+        "id": "celiac-ttg-stage",
+        "testId": "ttg-iga-celiac",
+        "evidenceProfileId": "ttg-iga-adults-meta",
+        "label": "Screening: tTG-IgA plus Gesamt-IgA",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "celiac-ema-stage",
+        "testId": "ema-iga-celiac",
+        "evidenceProfileId": "ema-iga-celiac-confirmation",
+        "label": "Bestätigung: EMA-IgA",
+        "expectedUse": "confirmation"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+        "year": 2017,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+        "kind": "Review",
+        "note": "Vergleicht tTG-IgA, EMA-IgA, DGP und HLA im Zöliakie-Kontext."
+      },
+      {
+        "title": "ACG Clinical Guideline: Diagnosis and Management of Celiac Disease",
+        "year": 2023,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36602833/",
+        "kind": "Leitlinie",
+        "note": "Stützt serologische Diagnostik unter Glutenexposition und Kontextentscheidung zu Biopsie/weiterer Diagnostik."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Didaktische Sequenz; lokale pädiatrische/erwachsene Biopsie- und No-biopsy-Regeln nicht automatisch abbilden.",
+    "reviewPriority": "medium"
+  },
+  {
+    "id": "graves-trab-to-doppler",
+    "conditionId": "morbus-basedow",
+    "settingIds": [
+      "hausarztpraxis",
+      "ambulant-endokrinologie"
+    ],
+    "label": "Basedow: TRAb → Doppler/Szintigrafie-Kontext",
+    "description": "Sequenz bei Thyreotoxikose: TRAb als Haupttest, danach Doppler-Sonografie oder Szintigrafie-Kontext bei unklarer oder diskordanter Ursache.",
+    "rationale": "TRAb ist sehr stark. Ein zweiter bildgebender Kontexttest ist vor allem lehrreich bei TRAb-negativer/diskordanter Thyreotoxikose, nodulärer Schilddrüse oder Abgrenzung zur Thyreoiditis.",
+    "limitations": "Bei klar positivem TRAb und typischer Klinik ist zusätzliche Bildgebung oft nicht nötig. Die quantitative Doppler-Testgüte ist stärker geräte-/untersucherabhängig; Szintigrafie ist bei Schwangerschaft/Stillzeit kontraindiziert und durch Jod/Amiodaron beeinflusst.",
+    "stages": [
+      {
+        "id": "graves-trab-stage",
+        "testId": "trab-graves",
+        "evidenceProfileId": "trab-third-generation-meta",
+        "label": "Labor: TRAb 3. Generation",
+        "expectedUse": "screening"
+      },
+      {
+        "id": "graves-doppler-stage",
+        "testId": "thyroid-doppler-graves",
+        "evidenceProfileId": "thyroid-doppler-graves-vs-thyroiditis",
+        "label": "Kontext: Doppler-Sonografie / ggf. Szintigrafie",
+        "expectedUse": "follow-up"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Endotext: Diagnosis and Treatment of Graves Disease",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK285548/",
+        "kind": "Lehrtext",
+        "note": "Beschreibt TRAb als Test der Wahl sowie Szintigrafie und Doppler als Kontexttests bei der Differenzialdiagnose der Thyreotoxikose."
+      },
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves Hyperthyroidism",
+        "year": 2018,
+        "url": "https://doi.org/10.1159/000490384",
+        "kind": "Leitlinie",
+        "note": "Unterstützt TRAb-basierte Diagnose und Bildgebung bei unklarer Ätiologie."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "partial",
+    "reviewNote": "Didaktische Kontextkette; Doppler/Szintigrafie nicht pauschal nach jedem positiven TRAb erforderlich.",
+    "reviewPriority": "high"
   }
 ]
