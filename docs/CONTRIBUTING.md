@@ -10,7 +10,8 @@ Bitte pro Test angeben:
 
 - `name`: verständlicher Name des Tests.
 - `category`: Fachgebiet oder thematische Gruppe.
-- `condition`: Krankheitsbild oder diagnostische Fragestellung.
+- `conditionId`: stabile ID aus `src/data/conditions.json`.
+- `condition`: lesbarer Name des Krankheitsbilds als Anzeige-Fallback.
 - `description`: kurze Beschreibung, wofür dieser Testeintrag steht.
 
 ## Evidenzprofil ergänzen
@@ -42,7 +43,7 @@ Szenarien sind bewusst abweichende Werte. Sie müssen zusätzlich `deviationFrom
 Eine neue Annahme gehört in `src/data/pretest-assumptions.json`. Bitte angeben:
 
 - `condition`: Krankheitsbild.
-- `conditionId`: stabile ID des Krankheitsbilds, aus dem Namen abgeleitet.
+- `conditionId`: stabile ID aus `src/data/conditions.json`.
 - `setting`: z. B. Hausarztpraxis, Klinik-Notaufnahme, Ambulant: Endokrinologie.
 - `settingId`: stabile Setting-ID; allgemeine Erkrankungs-Fallbacks nutzen `general`.
 - `evidenceLevel`: `direct` für konkrete Setting-Daten, `fallback` für allgemeine Erkrankungsannahmen.
@@ -108,6 +109,7 @@ Die Datenstruktur ist zusätzlich als JSON Schema dokumentiert:
 - `schemas/evidence-profile.schema.json`
 - `schemas/pretest-assumption.schema.json`
 - `schemas/clinical-modifier.schema.json`
+- `schemas/condition-guidance.schema.json`
 - `schemas/user-data-export.schema.json`
 
 Ein vollständiges Beispiel für eigene importierbare Daten steht in `examples/user-data-example.json`.

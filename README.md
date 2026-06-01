@@ -1,61 +1,49 @@
-# Likelihood-Ratio-Rechner
+# LikelihoodMD
 
-Deutschsprachiges Lehr- und Rechentool für medizinisches Fachpersonal zum Abschätzen und Visualisieren von Vor- und Nachtestwahrscheinlichkeiten diagnostischer Maßnahmen. Öffentliche Instanz unter [likelihood.engert.me](https://likelihood.engert.me)
+Deutschsprachiges Lehr- und Rechentool für medizinisches Fachpersonal: [likelihood.engert.me](https://likelihood.engert.me)
 
-## Zweck und Grenzen
+## Idee
 
-Die Idee: Ein Testergebnis ist nie einfach nur positiv oder negativ. Seine Bedeutung hängt stark davon ab, wie wahrscheinlich die Erkrankung vor dem Test war. Dieses Tool zeigt Prätestwahrscheinlichkeit (baserate), Testgüte beziehungsweise Likelihood Ratios und die daraus entstehende Posttestwahrscheinlichkeit visuell in Form eines Nomogrammes an.
+Ein Testergebnis ist nie einfach positiv oder negativ. Seine Bedeutung hängt davon ab, wie wahrscheinlich die Erkrankung vor dem Test war. LikelihoodMD zeigt deshalb Prätestwahrscheinlichkeit, Testgüte beziehungsweise Likelihood Ratios und daraus die Posttestwahrscheinlichkeit visuell an.
 
-Sinnvoll ist das vor allem für typische Praxisfallen: Seltene Erkrankungen werden bei niedriger Ausgangswahrscheinlichkeit trotz positivem Test oft überschätzt; umgekehrt kann ein negativer Test bei hoher Ausgangswahrscheinlichkeit nicht immer beruhigen.
+Das ist besonders hilfreich bei typischen Praxisfallen: Seltene Erkrankungen werden bei niedriger Ausgangswahrscheinlichkeit trotz positivem Test oft überschätzt. Umgekehrt kann ein negativer Test bei hoher Ausgangswahrscheinlichkeit nicht ausreichend beruhigen.
 
-Konzept:
+Grob benutzen:
 
-1. Klinisches Setting oder Prätestwahrscheinlichkeit manuell wählen.
-2. diagnostischen Test oder körperlichen Befund auswählen.
-3. Ergebnis visualisieren und anhand der Posttestwahrscheinlichkeit abschätzen.
+1. Klinisches Setting oder manuelle Prätestwahrscheinlichkeit wählen.
+2. Diagnostischen Test oder körperlichen Befund auswählen.
+3. Posttestwahrscheinlichkeit, Nomogramm und 1000er-Veranschaulichung prüfen.
 
-Es ist kein Therapie- oder Diagnoseautomat, sondern ein Denk- und Lehrtool. Es soll helfen, Tests, Befunde und klinisches Bauchgefühl besser zu kalibrieren.
-
-Eigene Tests und Prätest-Annahmen werden nur lokal im Browser gespeichert und können als JSON exportiert werden.
-
-## Diagnostischer Hintergrund
-
-Das Projekt basiert auf dem Prinzip, dass diagnostische Tests Wahrscheinlichkeiten verändern, aber Diagnosen nicht isoliert beweisen oder ausschließen. Die zentrale Grundlage ist die Vierfeldertafel:
-
-| | Krankheit vorhanden | Krankheit nicht vorhanden | Aussage |
-|---|---:|---:|---|
-| **Test positiv** | TP = richtig positiv | FP = falsch positiv | **PPV** = TP / (TP + FP) |
-| **Test negativ** | FN = falsch negativ | TN = richtig negativ | **NPV** = TN / (FN + TN) |
-| **Testgüte** | **Sensitivität** = TP / (TP + FN) | **Spezifität** = TN / (FP + TN) | **Prävalenz** = (TP + FN) / alle |
-
-Sensitivität und Spezifität beschreiben den Test. PPV und NPV beschreiben die Bedeutung des Testergebnisses in einer konkreten Population und hängen daher stark von Prävalenz beziehungsweise Prätestwahrscheinlichkeit ab.
-
-Likelihood Ratios verbinden Testgüte und Prätestwahrscheinlichkeit:
-
-    LR+ = Sensitivität / (1 − Spezifität)
-    LR− = (1 − Sensitivität) / Spezifität
-
-Das Tool soll helfen, diese Zusammenhänge sichtbar zu machen. Ziel ist nicht die automatische Diagnose, sondern eine transparentere, rationalere und weniger biasanfällige diagnostische Entscheidungsfindung. Eine ausführlichere Erklärung steht auf der Info-Seite [Diagnostische Kennzahlen verstehen](public/info/vierfeldertafel/index.html); veröffentlicht ist sie unter [GitHub Pages](https://bummsgeordy.github.io/LikelihoodMD/info/vierfeldertafel/).
+LikelihoodMD ist kein Diagnose- oder Therapieautomat. Es ist ein Denk- und Lehrtool, das Tests, Befunde und klinische Einschätzung transparenter kalibrieren soll.
 
 ## Funktionen
 
-- Kuratierte diagnostische Tests mit auswählbaren Evidenzprofilen für unterschiedliche Quellen, Cut-offs oder Populationen.
-- Umschalter zwischen diagnostischen Tests und körperlicher Untersuchung.
-- Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*: priorisierte Akut-/Innere- und endokrinologie-nahe Befunde mit LR+, LR−, 95%-KI, Prätestbereich und Reviewstatus.
-- Vordefinierte Diagnostikketten, die Nachtestwahrscheinlichkeiten einer Stufe als Prätestwahrscheinlichkeit der nächsten Stufe nutzen.
-- Kuratierte Prätest-Annahmen nach Setting und Erkrankung mit grüner Direktdaten- oder oranger Fallback-Markierung.
-- Erweiterte Prätest-Datenbasis mit Spannweiten, Qualitätslabel, Modifikatoren, Präanalytik- und Medikamentenwarnungen.
-- Manuelle Prätestwahrscheinlichkeit.
-- Klinische Modifikatoren wie Symptome, Zeichen oder Kontextfaktoren: qualitativ sichtbar, rechnerisch nur bei explizit hinterlegtem Faktor/LR und aktiver Übernahme.
-- Eigene Tests, Evidenzprofile, Szenarien und Prätest-Annahmen in einem getrennten Verwaltungs-Drawer.
-- Datenkatalog im Verwaltungs-Drawer mit tabellarischer Sicht auf Setting, Erkrankung, Prätest-Annahmen, Modifikatoren, Tests, Evidenzprofile, Quellen und Grenzen.
-- Szenarien markieren bewusst abweichende Werte mit Begründung, statt kuratierte Quellen still zu überschreiben.
-- Lokale Speicherung, JSON-Import und JSON-Export im Schema `schemaVersion: 5`.
-- Installierbare PWA: Nach dem ersten vollständigen Laden kann die GitHub-Pages-Version auf iPhone/iPad offline genutzt werden.
-- Review- und Qualitätsfelder für Datenpflege: `reviewStatus`, `evidenceQuality` und `dataCompleteness`.
-- Kurzbericht zum Kopieren.
-- Fagan-ähnliches Nomogramm und Balkendarstellung.
-- Separate Unterseiten für diagnostische Kennzahlen und interaktive Simulation.
+- Diagnostische Tests mit Evidenzprofilen für unterschiedliche Quellen, Cut-offs, Methoden und Populationen.
+- Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*, 6. Auflage, als knappe deutschsprachige Fakteneinträge.
+- Setting-basierte Prätestannahmen, plausible Spannweiten, Qualitätslabel und Quellen.
+- Erweiterte Prätestdaten mit klinischen Modifikatoren, Präanalytik- und Medikamentenwarnungen.
+- Vordefinierte Diagnostikketten, z. B. Screeningtest -> Bestätigungstest.
+- Nomogramme, Balkendarstellung und 1000er-Erklärung zur Reduktion von Base-Rate-Neglect.
+- Datenkatalog und lokaler Verwaltungs-Drawer für eigene Tests, Annahmen, Szenarien und JSON-Import/-Export.
+- Unterseiten für [diagnostische Kennzahlen](public/info/vierfeldertafel/index.html) und [interaktive Simulation](public/simulation/index.html).
+- GitHub-Pages- und PWA-fähiger statischer Build ohne Backend und ohne Online-Datenbank.
+
+Eigene Daten bleiben lokal im Browser gespeichert. Online-Nutzer können die kuratierte öffentliche Datenbasis nicht verändern.
+
+## Datenmodell
+
+Kuratierte Daten liegen in `src/data/`:
+
+- `conditions.json`: zentrale Krankheitsbilder.
+- `tests.json`: diagnostische Tests und Evidenzprofile.
+- `pretest-assumptions.json`: Setting- und Fallback-Prätestannahmen.
+- `pretest-probability-estimates.json`: erweiterte Prätestdaten mit Modifikatoren und Warnungen.
+- `clinical-modifiers.json`: Symptome, Zeichen, Anamnese- und Kontextfaktoren.
+- `diagnostic-chains.json`: vordefinierte sequentielle Testpfade.
+- `condition-guidance.json`: krankheitsspezifische Kurzinfos und Links.
+- `physical-*.json`: körperliche Untersuchung nach System, Krankheitsbild und Befund.
+
+Jede kuratierte Zahl soll Quelle, Population, Begründung, Grenzen, Reviewstatus, Evidenzqualität und Datum der letzten Prüfung enthalten. Unsichere Daten bleiben sichtbar als `needs-review`, `expert-opinion`, `partial` oder `minimal` markiert.
 
 ## Entwicklung
 
@@ -64,56 +52,46 @@ npm install
 npm run dev
 ```
 
-## Lokal per Doppelklick starten
-
-Auf macOS die Datei `Likelihood-Ratio-Rechner starten.command` doppelklicken. Sie baut die App bei Bedarf und öffnet sie lokal unter `http://127.0.0.1:5174/`.
-
-Mehr Details stehen in [LOKAL_STARTEN.md](LOKAL_STARTEN.md).
-
-## Offline auf iPhone und iPad
-
-Die veröffentlichte GitHub-Pages-Version ist als PWA vorbereitet. Für die Offline-Nutzung auf iPhone/iPad:
-
-1. In Safari `https://bummsgeordy.github.io/LikelihoodMD/` öffnen.
-2. Einmal vollständig laden lassen.
-3. Teilen-Symbol antippen.
-4. **Zum Home-Bildschirm** wählen.
-5. Die App danach über das Home-Screen-Symbol starten.
-
-Nach diesem Erstaufruf sind App, kuratierte Daten und Info-Seite offline verfügbar. Updates werden beim nächsten Online-Besuch automatisch in den Cache übernommen. Eigene Daten bleiben lokal im Browser-/App-Speicher des Geräts.
-
-Build und Prüfungen:
+Lokaler Produktionsbuild:
 
 ```bash
-npm run test:run
 npm run validate:data
+npm run test:run
 npm run build
 npm run check:pages
+npm run smoke:test
 ```
 
-## Veröffentlichung mit GitHub Pages
+Auf macOS kann alternativ `Likelihood-Ratio-Rechner starten.command` doppelt geklickt werden. Details stehen in [LOKAL_STARTEN.md](LOKAL_STARTEN.md).
 
-Das Projekt ist für GitHub Pages vorbereitet. Nach dem Push in den `main`-Branch baut der Workflow in `.github/workflows/deploy.yml` die statische Vite-App und veröffentlicht `dist/`.
+## Veröffentlichung
 
-Eine eigene Domain kann später über die GitHub-Pages-Einstellungen ergänzt werden. Dann sollte zusätzlich ein `CNAME` mit der Domain angelegt und die DNS-Konfiguration beim Domainanbieter gesetzt werden.
+Der GitHub-Workflow `.github/workflows/deploy.yml` prüft Daten, Tests, Build, Pages-Referenzen und Smoke-Test. Danach veröffentlicht er `dist/` über GitHub Pages.
 
-Eine Schritt-für-Schritt-Anleitung steht in [docs/PUBLISHING.md](docs/PUBLISHING.md).
+Empfohlener Ablauf vor dem Push:
 
-## Daten beitragen
+```bash
+npm run validate:data
+npm run test:run
+npm run build
+npm run check:pages
+npm run smoke:test
+git status
+```
 
-Sehr gerne können Anregungen, Verbesserungen, Ideen und Korrekturen an mich gesendet werden an likelihood@engert.me - ich bemühe mich darum, Passendes hier einzupflegen.
+Mehr dazu steht in [docs/PUBLISHING.md](docs/PUBLISHING.md).
 
-Kuratierte Tests liegen in `src/data/tests.json`, Prätest-Annahmen in `src/data/pretest-assumptions.json`, erweiterte Prätest-Startwerte in `src/data/pretest-probability-estimates.json`, klinische Modifikatoren in `src/data/clinical-modifiers.json`, klinische Settings in `src/data/clinical-settings.json`. Ein Test beschreibt das diagnostische Verfahren; Sensitivität, Spezifität, LR-Werte, Cut-off, Methode, knappe Durchführung und Quellen stehen in Evidenzprofilen. So können mehrere Studien oder konkurrierende Annahmen zum gleichen Test transparent nebeneinander stehen.
+## Beiträge
 
-Körperliche Untersuchungsbefunde liegen in `src/data/physical-findings.json`, gruppiert über `src/data/physical-systems.json` und `src/data/physical-conditions.json`. Die Werte basieren auf McGee, *Evidence-Based Physical Diagnosis*, und sind als knappe, deutsch beschriftete Fakteneinträge kuratiert. Der Umfang ist in [docs/mcgee-data-overview.md](docs/mcgee-data-overview.md) dokumentiert. Öffentliche Daten sind bewusst knapp transformiert und nicht als Kopie der Originaltabellen angelegt.
+Korrekturen und Ergänzungen sind willkommen, brauchen aber belastbare Quellen und klare Grenzen der Übertragbarkeit. Gute Beiträge nennen mindestens:
 
-Jede Zahl braucht eine Quelle, eine Begründung, eine Zielpopulation, Grenzen der Übertragbarkeit, ein Datum der letzten Prüfung und konservativ gesetzte Review-/Qualitätsfelder. Eigene lokale Ergänzungen aus dem Drawer bleiben im Browser gespeichert und können als JSON exportiert werden.
+- Erkrankung, Setting und Zielpopulation.
+- Test, Methode, Cut-off und intended use.
+- Sensitivität/Spezifität oder LR-Werte, falls vorhanden.
+- Präanalytik, Interferenzen und typische Fehlinterpretationen.
+- Quelle mit URL, DOI oder PubMed-Link.
 
-Details stehen in [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
-
-Maschinenlesbare Schemata liegen in `schemas/`. Ein Beispiel für eigene exportierte Daten liegt in `examples/user-data-example.json`.
-
-Für neue Inhalte können GitHub Issues über die vorbereiteten Templates angelegt werden. Fachliche Prüfregeln stehen in [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
+Externe Vorschläge können über GitHub Issues, Pull Requests oder JSON-Export aus der App eingereicht werden. Fachliche Regeln stehen in [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) und [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
 
 ## Lizenz
 

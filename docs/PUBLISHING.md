@@ -6,10 +6,15 @@ Die GitHub-Pages-Version ist eine statische Kopie der App mit den kuratierten Da
 
 Kuratierte Daten werden ausschließlich durch Änderungen im Repository gepflegt:
 
+- `src/data/conditions.json`
 - `src/data/tests.json`
 - `src/data/pretest-assumptions.json`
+- `src/data/pretest-probability-estimates.json`
 - `src/data/clinical-modifiers.json`
 - `src/data/clinical-settings.json`
+- `src/data/diagnostic-chains.json`
+- `src/data/condition-guidance.json`
+- `src/data/physical-*.json`
 
 ## Einmalig auf GitHub veröffentlichen
 
@@ -42,6 +47,7 @@ npm run validate:data
 npm run test:run
 npm run build
 npm run check:pages
+npm run smoke:test
 git add .
 git commit -m "Update curated diagnostic data"
 git push
@@ -60,11 +66,12 @@ Empfohlenes Vorgehen ohne Backend:
 5. Vor Veröffentlichung immer prüfen:
 
    ```bash
-   npm run validate:data
-   npm run test:run
-   npm run build
-   npm run check:pages
-   ```
+npm run validate:data
+npm run test:run
+npm run build
+npm run check:pages
+npm run smoke:test
+```
 
 6. Erst danach committen und pushen.
 
@@ -74,7 +81,7 @@ Damit bleiben öffentliche Daten unter deiner Kontrolle. Online-Nutzer können n
 
 - `Settings -> Pages`: Quelle `GitHub Actions`.
 - `Settings -> Branches`: Branch Protection für `main` aktivieren.
-- Pull Requests nur mergen, wenn `validate`, Tests und Build grün sind.
+- Pull Requests nur mergen, wenn Validierung, Tests, Build, Pages-Check und Smoke-Test grün sind.
 - Externe Vorschläge bevorzugt über Issue-Templates oder JSON-Vorschläge sammeln.
 - `reviewed` erst setzen, wenn du den medizinischen Inhalt fachlich geprüft hast.
 
