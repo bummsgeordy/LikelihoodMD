@@ -21,7 +21,7 @@
         "population": "Prospektive Diagnostikpopulation bei Verdacht auf Hyperkortisolismus.",
         "rationale": "Konservative aktuelle Basiseinstellung aus einer methodenspezifischen Studie.",
         "limitations": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus, Probenzeit und Präanalytik können vor allem die Spezifität beeinflussen.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -60,29 +60,38 @@
         "purpose": "screening",
         "specimen": "Speichel",
         "preanalytics": [
-          "Schlaf-Wach-Rhythmus erfassen",
-          "Schichtarbeit berücksichtigen",
-          "Probenzeit exakt dokumentieren",
-          "Kontamination mit topischen/oralen Glukokortikoiden vermeiden"
+          "Schlaf-Wach-Rhythmus, Schichtarbeit und tatsächliche Probenzeit dokumentieren",
+          "Speichelprobe passend zur individuellen Schlafenszeit nehmen, nicht mechanisch zur Uhrzeit bei Schichtarbeit",
+          "Blutbeimengung, orale Entzündung und direktes Zähneputzen vor der Probe vermeiden",
+          "Kontakt mit topischen, inhalativen, nasalen oder oralen Glukokortikoiden vermeiden und dokumentieren",
+          "Assaymethode und Cut-off dokumentieren; Immunoassay und LC-MS/MS nicht gleichsetzen"
         ],
         "falsePositiveReasons": [
-          "Schichtarbeit oder gestörter Schlafrhythmus",
-          "Depression, Alkohol, Stress",
-          "Glukokortikoid-Kontamination",
-          "falsche Probenzeit"
+          "Schichtarbeit, fehlende nächtliche Ruhephase oder falsche Probenzeit",
+          "Blutkontamination oder oraler Kontakt mit Glukokortikoidpräparaten",
+          "Depression, Alkohol, akute Erkrankung, Stress oder andere Pseudo-Cushing-Konstellation",
+          "Assay-/Cut-off-Unterschiede oder nicht vergleichbare Population"
         ],
         "falseNegativeReasons": [
-          "zyklischer Hyperkortisolismus",
-          "milder Hyperkortisolismus"
+          "zyklischer oder milder Hyperkortisolismus",
+          "nicht zum Schlafrhythmus passende Probenzeit",
+          "Intervall ohne aktive Hypercortisolismusphase",
+          "Assay-/Cut-off-Unterschiede"
         ],
         "interpretationCautions": [
-          "Nicht bei fehlender nächtlicher Ruhephase unkritisch interpretieren.",
-          "Assay-spezifische Cut-offs verwenden."
+          "LNSC visualisiert den Verlust des nächtlichen Cortisolnadirs; ohne regelhaften Schlafrhythmus ist die Aussagekraft reduziert.",
+          "Bei diskrepanten Resultaten mehrere Messungen und alternative Erstlinientests kombinieren.",
+          "Ein positives Screeningresultat braucht Bestätigung und Kontext, besonders bei niedriger Prätestwahrscheinlichkeit."
         ],
         "intendedUse": "screening",
-        "preanalyticRisk": "moderate",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Nur für vergleichbare Population, Methode und Cut-off plausibel. Schichtarbeit, Schlafrhythmus, Probenzeit und Präanalytik können vor allem die Spezifität beeinflussen.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "medicationInterferences": [
+          "Topische/orale/inhalative/nasale Glukokortikoide können Speichelproben kontaminieren oder die HPA-Achse beeinflussen",
+          "Lakritz/Carbenoxolon kann Cortisolmetabolismus beeinflussen und sollte dokumentiert werden",
+          "Östrogene beeinflussen primär Serum-Gesamtcortisol, sind aber für parallele Cushing-Tests relevant"
+        ]
       },
       {
         "id": "lnsc-meta-analysis",
@@ -99,7 +108,7 @@
         "population": "Zusammenfassung älterer Studienpopulationen mit Verdacht auf Cushing-Syndrom.",
         "rationale": "Alternative optimistischere Literaturannahme, bewusst als eigenes Evidenzprofil auswählbar.",
         "limitations": "Assays, Cut-offs und Patientenselektion unterscheiden sich deutlich; nicht als Standardwert für jedes Labor übernehmen.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": false,
         "sources": [
           {
@@ -108,6 +117,20 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/19502211/",
             "kind": "Review",
             "note": "Meta-Analyse mit gepoolter Sensitivität 92% und Spezifität 96%."
+          },
+          {
+            "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+            "year": 2008,
+            "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+            "kind": "Leitlinie",
+            "note": "Beschreibt LNSC, UFC und DST als Erstlinientests sowie Grenzen durch Schlafrhythmus, Medikamente und Pseudo-Cushing-Kontexte."
+          },
+          {
+            "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
+            "year": 2023,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
+            "kind": "Lehrtext",
+            "note": "Protokolle und Fallstricke für HPA-Achsen-Tests einschließlich LNSC und Dexamethason-Suppressionstests."
           }
         ],
         "reviewStatus": "needs-review",
@@ -115,9 +138,38 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Assays, Cut-offs und Patientenselektion unterscheiden sich deutlich; nicht als Standardwert für jedes Labor übernehmen.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "Schlaf-Wach-Rhythmus, Schichtarbeit und tatsächliche Probenzeit dokumentieren",
+          "Speichelprobe passend zur individuellen Schlafenszeit nehmen, nicht mechanisch zur Uhrzeit bei Schichtarbeit",
+          "Blutbeimengung, orale Entzündung und direktes Zähneputzen vor der Probe vermeiden",
+          "Kontakt mit topischen, inhalativen, nasalen oder oralen Glukokortikoiden vermeiden und dokumentieren",
+          "Assaymethode und Cut-off dokumentieren; Immunoassay und LC-MS/MS nicht gleichsetzen"
+        ],
+        "medicationInterferences": [
+          "Topische/orale/inhalative/nasale Glukokortikoide können Speichelproben kontaminieren oder die HPA-Achse beeinflussen",
+          "Lakritz/Carbenoxolon kann Cortisolmetabolismus beeinflussen und sollte dokumentiert werden",
+          "Östrogene beeinflussen primär Serum-Gesamtcortisol, sind aber für parallele Cushing-Tests relevant"
+        ],
+        "falsePositiveReasons": [
+          "Schichtarbeit, fehlende nächtliche Ruhephase oder falsche Probenzeit",
+          "Blutkontamination oder oraler Kontakt mit Glukokortikoidpräparaten",
+          "Depression, Alkohol, akute Erkrankung, Stress oder andere Pseudo-Cushing-Konstellation",
+          "Assay-/Cut-off-Unterschiede oder nicht vergleichbare Population"
+        ],
+        "falseNegativeReasons": [
+          "zyklischer oder milder Hyperkortisolismus",
+          "nicht zum Schlafrhythmus passende Probenzeit",
+          "Intervall ohne aktive Hypercortisolismusphase",
+          "Assay-/Cut-off-Unterschiede"
+        ],
+        "interpretationCautions": [
+          "LNSC visualisiert den Verlust des nächtlichen Cortisolnadirs; ohne regelhaften Schlafrhythmus ist die Aussagekraft reduziert.",
+          "Bei diskrepanten Resultaten mehrere Messungen und alternative Erstlinientests kombinieren.",
+          "Ein positives Screeningresultat braucht Bestätigung und Kontext, besonders bei niedriger Prätestwahrscheinlichkeit."
+        ]
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -144,7 +196,7 @@
         "population": "Screening bei klinischem Verdacht auf Hyperkortisolismus.",
         "rationale": "Hohe Sensitivität für Screening; Spezifität bewusst konservativ angenommen.",
         "limitations": "Falsch-positive Ergebnisse bei Medikamenteninteraktionen, Depression, Alkohol, Stress und unzureichender Dexamethason-Exposition möglich.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -190,36 +242,39 @@
         "purpose": "screening",
         "specimen": "Serum-Cortisol ± Serum-Dexamethason",
         "preanalytics": [
-          "Einnahmezeit und Dosis exakt dokumentieren",
-          "Dexamethasonspiegel erwägen, wenn fehlende Suppression unplausibel ist",
-          "Östrogene/CBG-Erhöhung berücksichtigen",
-          "CYP3A4-Induktoren und Pseudo-Cushing-Kontexte erfassen"
+          "Dexamethason-Einnahmezeit, Dosis und morgendliche Blutentnahmezeit dokumentieren",
+          "Serum-Dexamethasonspiegel erwägen, wenn fehlende Suppression unplausibel ist",
+          "Orale Östrogene, Schwangerschaft und CBG-Veränderungen bei Serum-Gesamtcortisol berücksichtigen",
+          "Pseudo-Cushing-Kontexte wie Alkohol, Depression, akute Erkrankung und Stress erfassen",
+          "Assay und Cut-off dokumentieren; lokale Laborvorgaben verwenden"
         ],
         "medicationInterferences": [
-          "CYP3A4-Induktoren: Carbamazepin, Phenytoin, Rifampicin, Johanniskraut",
-          "Östrogene/orale Kontrazeptiva durch CBG-Erhöhung",
-          "Glukokortikoide je nach Kreuzreaktivität und Timing"
+          "CYP3A4-Induktoren wie Carbamazepin, Phenytoin, Phenobarbital, Rifampicin und Johanniskraut können Dexamethasonspiegel senken",
+          "CYP3A4-Inhibitoren können Dexamethasonspiegel erhöhen und übermäßige Suppression begünstigen",
+          "Östrogene/orale Kontrazeptiva erhöhen CBG und können Serum-Gesamtcortisol falsch hoch erscheinen lassen",
+          "Exogene Glukokortikoide können je nach Präparat, Timing und Assay kreuzreagieren oder die Achse supprimieren"
         ],
         "falsePositiveReasons": [
-          "unzureichende Dexamethasonexposition",
-          "CYP3A4-Induktion",
-          "Östrogene/CBG-Erhöhung",
-          "Depression, Alkohol, akute Erkrankung",
-          "Adhärenz- oder Einnahmefehler"
+          "fehlende, verspätete oder unzureichende Dexamethason-Einnahme",
+          "CYP3A4-Induktion mit zu niedrigem Dexamethasonspiegel",
+          "Östrogene/CBG-Erhöhung bei Serum-Gesamtcortisol",
+          "Alkohol, Depression, schwere Erkrankung, Stress oder andere Pseudo-Cushing-Konstellation"
         ],
         "falseNegativeReasons": [
+          "CYP3A4-Hemmung mit zu hohem Dexamethasonspiegel",
           "milder oder zyklischer Hyperkortisolismus",
-          "nicht passender Zeitpunkt bei zyklischem Verlauf"
+          "Intervall ohne aktive Hypercortisolismusphase",
+          "assayabhängige Kreuzreaktivität oder nicht passender Cut-off"
         ],
         "interpretationCautions": [
-          "Bei niedriger Prätestwahrscheinlichkeit relevante falsch-positive Befunde möglich.",
-          "Beim Nebenniereninzidentalom dient der DST der Einordnung autonomer Cortisolsekretion/MACS; MACS ist nicht gleich manifestes Cushing-Syndrom.",
-          "Leitlinien empfehlen gezielte Testung, kein breites Screening bei jedem Diabetes/Adipositas."
+          "DST-Resultate ohne Angaben zu Dexamethasonexposition und Medikamenten sind nur eingeschränkt interpretierbar.",
+          "Östrogene können vor allem Serum-Gesamtcortisol-basierte DST falsch auffällig machen; alternative Tests oder Pause prüfen.",
+          "Bei niedriger Prätestwahrscheinlichkeit und Grenzwertbefund ist Wiederholung/Bestätigung wichtiger als unmittelbare Diagnose."
         ],
         "intendedUse": "screening",
-        "preanalyticRisk": "moderate",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Falsch-positive Ergebnisse bei Medikamenteninteraktionen, Depression, Alkohol, Stress und unzureichender Dexamethason-Exposition möglich.",
-        "reviewPriority": "high"
+        "reviewPriority": "medium"
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -246,7 +301,7 @@
         "population": "Bestätigende Diagnostik bei weiter bestehendem Verdacht.",
         "rationale": "Als zweite DST-Option mit separater Annahme geführt.",
         "limitations": "Protokoll, Cut-off, Assay und Präanalytik müssen lokal geprüft werden; die LR-Werte bleiben wegen starker Protokoll- und Populationsabhängigkeit needs-review.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -262,6 +317,13 @@
             "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
             "kind": "Lehrtext",
             "note": "Führt verschiedene Dexamethason-Testprotokolle auf und betont protokoll- und assayabhängige Interpretation."
+          },
+          {
+            "title": "Endocrine Society Guideline: Diagnosis of Cushing's Syndrome",
+            "year": 2008,
+            "url": "https://academic.oup.com/jcem/article/93/5/1526/2598096",
+            "kind": "Leitlinie",
+            "note": "Benennt DST-Cut-offs und Interferenzen durch CYP3A4-Induktoren, Östrogene/CBG und Pseudo-Cushing-Kontexte."
           }
         ],
         "reviewStatus": "needs-review",
@@ -269,9 +331,39 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Protokoll, Cut-off, Assay und Präanalytik müssen lokal geprüft werden; die LR-Werte bleiben wegen starker Protokoll- und Populationsabhängigkeit needs-review.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "Dexamethason-Einnahmezeit, Dosis und morgendliche Blutentnahmezeit dokumentieren",
+          "Serum-Dexamethasonspiegel erwägen, wenn fehlende Suppression unplausibel ist",
+          "Orale Östrogene, Schwangerschaft und CBG-Veränderungen bei Serum-Gesamtcortisol berücksichtigen",
+          "Pseudo-Cushing-Kontexte wie Alkohol, Depression, akute Erkrankung und Stress erfassen",
+          "Assay und Cut-off dokumentieren; lokale Laborvorgaben verwenden"
+        ],
+        "medicationInterferences": [
+          "CYP3A4-Induktoren wie Carbamazepin, Phenytoin, Phenobarbital, Rifampicin und Johanniskraut können Dexamethasonspiegel senken",
+          "CYP3A4-Inhibitoren können Dexamethasonspiegel erhöhen und übermäßige Suppression begünstigen",
+          "Östrogene/orale Kontrazeptiva erhöhen CBG und können Serum-Gesamtcortisol falsch hoch erscheinen lassen",
+          "Exogene Glukokortikoide können je nach Präparat, Timing und Assay kreuzreagieren oder die Achse supprimieren"
+        ],
+        "falsePositiveReasons": [
+          "fehlende, verspätete oder unzureichende Dexamethason-Einnahme",
+          "CYP3A4-Induktion mit zu niedrigem Dexamethasonspiegel",
+          "Östrogene/CBG-Erhöhung bei Serum-Gesamtcortisol",
+          "Alkohol, Depression, schwere Erkrankung, Stress oder andere Pseudo-Cushing-Konstellation"
+        ],
+        "falseNegativeReasons": [
+          "CYP3A4-Hemmung mit zu hohem Dexamethasonspiegel",
+          "milder oder zyklischer Hyperkortisolismus",
+          "Intervall ohne aktive Hypercortisolismusphase",
+          "assayabhängige Kreuzreaktivität oder nicht passender Cut-off"
+        ],
+        "interpretationCautions": [
+          "DST-Resultate ohne Angaben zu Dexamethasonexposition und Medikamenten sind nur eingeschränkt interpretierbar.",
+          "Östrogene können vor allem Serum-Gesamtcortisol-basierte DST falsch auffällig machen; alternative Tests oder Pause prüfen.",
+          "Bei niedriger Prätestwahrscheinlichkeit und Grenzwertbefund ist Wiederholung/Bestätigung wichtiger als unmittelbare Diagnose."
+        ]
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -298,7 +390,7 @@
         "population": "Patienten mit Hypertonie und klinischer Indikation zum Screening.",
         "rationale": "Plausible Standardannahme für ein gut vorbereitetes ARR-Screening.",
         "limitations": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
-        "lastReviewed": "2026-05-19",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -349,6 +441,27 @@
             "url": "https://academic.oup.com/jcem/article/101/7/2826/2810437",
             "kind": "Review",
             "note": "Systematischer Review zur Heterogenität von PA-Prävalenzschätzungen und Risikogruppen."
+          },
+          {
+            "title": "Hyperaldosteronism - Endotext",
+            "year": 2021,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/hyperaldosteronism/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt falsch positive ARR durch Betablocker/zentral wirkende Alpha-Agonisten und falsch negative durch Diuretika, ACE-Hemmer/ARB und MRAs."
+          },
+          {
+            "title": "The Effect of Antihypertensive Medications on Testing for Primary Aldosteronism",
+            "year": 2021,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8155700/",
+            "kind": "Review",
+            "note": "Review zu Medikamenteneffekten und pragmatischem Vorgehen bei ARR-Testung unter Antihypertensiva."
+          },
+          {
+            "title": "2023 Korean Endocrine Society Consensus Guidelines for Primary Aldosteronism",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10765003/",
+            "kind": "Leitlinie",
+            "note": "Tabelliert Medikamenten- und Elektrolyteffekte auf Aldosteron, Renin und ARR inklusive FP/FN-Richtung."
           }
         ],
         "reviewStatus": "needs-review",
@@ -358,43 +471,43 @@
         "purpose": "screening",
         "specimen": "Plasma/Serum je nach Labor",
         "preanalytics": [
-          "Kalium vor Test korrigieren",
-          "Salzrestriktion vermeiden und Salzstatus dokumentieren",
-          "Körperhaltung und Tageszeit standardisieren",
-          "Renin-Suppression und Aldosteronhöhe getrennt interpretieren",
-          "Medikamente dokumentieren und Ergebnis kontextualisieren"
+          "Kalium, Natriumzufuhr, Körperhaltung, Uhrzeit, Alter und Nierenfunktion dokumentieren",
+          "Kalium vor Testung korrigieren; Hypokaliämie kann Aldosteron senken",
+          "Aldosteron absolut und Renin-Suppression getrennt prüfen; Quotient allein ist nicht ausreichend",
+          "Bei unvermeidbaren Medikamenten Ergebnis mit Richtung der erwarteten Verzerrung kommentieren",
+          "PRA-basierte ARR und direkte Reninkonzentration nicht ohne methodenspezifischen Cut-off gleichsetzen"
         ],
         "medicationInterferences": [
-          "Mineralokortikoidrezeptor-Antagonisten",
-          "ENaC-Inhibitoren",
-          "Diuretika",
-          "ACE-Hemmer",
-          "AT1-Blocker",
-          "Betablocker",
-          "zentrale Alpha-2-Agonisten",
-          "NSAR",
-          "Östrogene je nach Reninmethode"
+          "MRAs und ENaC-Inhibitoren erhöhen Renin und können ARR falsch niedrig machen",
+          "Kalium-wasting und kaliumsparende Diuretika erhöhen Renin und können ARR falsch negativ machen",
+          "ACE-Hemmer, AT1-Blocker und direkte Renininhibitoren erhöhen Renin und können ARR senken",
+          "Betablocker und zentrale Alpha-2-Agonisten supprimieren Renin und können ARR falsch positiv machen",
+          "NSAR können Renin supprimieren und ARR erhöhen",
+          "Dihydropyridin-Calciumantagonisten können ARR senken; Verapamil, Hydralazin und Alpha-Blocker gelten oft als weniger störend",
+          "Östrogene können bei direkter Reninmessung assay-/methodenabhängig die Interpretation beeinflussen",
+          "Lakritz kann einen mineralokortikoiden Phänotyp imitieren, ist aber keine PA"
         ],
         "falsePositiveReasons": [
-          "Betablocker oder zentrale Sympatholytika mit Renin-Suppression",
-          "niedriges Renin aus anderen Gründen",
-          "Alter/CKD-Kontext je nach Reninmethode"
+          "Betablocker oder zentrale Alpha-2-Agonisten mit Reninsuppression",
+          "NSAR, höheres Alter oder CKD mit niedrigem Renin",
+          "hohe Natriumzufuhr mit Reninsuppression",
+          "niedriges Renin ohne inadäquat erhöhtes Aldosteron"
         ],
         "falseNegativeReasons": [
-          "Hypokaliämie",
-          "Diuretika, ACE-Hemmer oder AT1-Blocker durch Reninanstieg",
-          "nicht standardisierte Abnahme",
-          "Salzrestriktion"
+          "Hypokaliämie mit supprimierter Aldosteronsekretion",
+          "ACE-Hemmer, ARB, Diuretika, MRA oder ENaC-Inhibitoren mit Reninerhöhung",
+          "Salzrestriktion oder Volumenkontraktion",
+          "nicht standardisierte Haltung/Uhrzeit oder nicht passender Cut-off"
         ],
         "interpretationCautions": [
-          "ARR ist Screeningtest, kein alleiniger Diagnosenachweis.",
-          "ARR ohne absolut erhöhtes oder inadäquat hohes Aldosteron kann irreführend sein.",
-          "Cut-offs sind methoden- und einheitenabhängig."
+          "Ein hoher ARR unter störenden Medikamenten kann trotzdem bedeutsam sein, wenn Aldosteron inadäquat hoch und Renin supprimiert bleibt.",
+          "Ein negativer ARR unter MRA, Diuretikum, ACE-Hemmer oder ARB schließt PA bei hoher Prätestwahrscheinlichkeit nicht sicher aus.",
+          "Bei schwerer Hypertonie/Hypokaliämie darf Medikamentenpause nicht mechanisch erzwungen werden; Sicherheit und lokaler Pfad gehen vor."
         ],
         "intendedUse": "screening",
-        "preanalyticRisk": "moderate",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
-        "reviewPriority": "medium"
+        "reviewPriority": "high"
       },
       {
         "id": "arr-direct-renin-li-2016",
@@ -413,13 +526,16 @@
         "rationale": "Separates Evidenzprofil, weil direkte Reninkonzentration nicht mit Plasma-Renin-Aktivität gleichgesetzt werden sollte.",
         "limitations": "Gepoolte Werte sind cut-off-, einheiten- und laborabhängig; lokale Validierung nötig.",
         "preanalytics": [
-          "wie ARR",
-          "Methode direkte Reninkonzentration explizit speichern",
-          "keine automatische Einheitenumrechnung ohne Laborangabe"
+          "Kalium, Natriumzufuhr, Körperhaltung, Uhrzeit, Alter und Nierenfunktion dokumentieren",
+          "Kalium vor Testung korrigieren; Hypokaliämie kann Aldosteron senken",
+          "Aldosteron absolut und Renin-Suppression getrennt prüfen; Quotient allein ist nicht ausreichend",
+          "Bei unvermeidbaren Medikamenten Ergebnis mit Richtung der erwarteten Verzerrung kommentieren",
+          "PRA-basierte ARR und direkte Reninkonzentration nicht ohne methodenspezifischen Cut-off gleichsetzen"
         ],
         "interpretationCautions": [
-          "ADRR nicht mit PRA-basierter ARR gleichsetzen.",
-          "Sensitivität/Spezifität nach lokalem Cut-off validieren."
+          "Ein hoher ARR unter störenden Medikamenten kann trotzdem bedeutsam sein, wenn Aldosteron inadäquat hoch und Renin supprimiert bleibt.",
+          "Ein negativer ARR unter MRA, Diuretikum, ACE-Hemmer oder ARB schließt PA bei hoher Prätestwahrscheinlichkeit nicht sicher aus.",
+          "Bei schwerer Hypertonie/Hypokaliämie darf Medikamentenpause nicht mechanisch erzwungen werden; Sicherheit und lokaler Pfad gehen vor."
         ],
         "sources": [
           {
@@ -449,19 +565,62 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
             "kind": "Lehrtext",
             "note": "Beschreibt präanalytische Anforderungen an Aldosteron/Renin-Proben und die Einordnung von ARR im Hypertonie-Kontext."
+          },
+          {
+            "title": "Hyperaldosteronism - Endotext",
+            "year": 2021,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/hyperaldosteronism/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt falsch positive ARR durch Betablocker/zentral wirkende Alpha-Agonisten und falsch negative durch Diuretika, ACE-Hemmer/ARB und MRAs."
+          },
+          {
+            "title": "The Effect of Antihypertensive Medications on Testing for Primary Aldosteronism",
+            "year": 2021,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8155700/",
+            "kind": "Review",
+            "note": "Review zu Medikamenteneffekten und pragmatischem Vorgehen bei ARR-Testung unter Antihypertensiva."
+          },
+          {
+            "title": "2023 Korean Endocrine Society Consensus Guidelines for Primary Aldosteronism",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10765003/",
+            "kind": "Leitlinie",
+            "note": "Tabelliert Medikamenten- und Elektrolyteffekte auf Aldosteron, Renin und ARR inklusive FP/FN-Richtung."
           }
         ],
         "isDefault": false,
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-05-19",
+        "lastReviewed": "2026-06-01",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "testId": "arr",
         "intendedUse": "screening",
-        "preanalyticRisk": "moderate",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Gepoolte Werte sind cut-off-, einheiten- und laborabhängig; lokale Validierung nötig.",
-        "reviewPriority": "high"
+        "reviewPriority": "high",
+        "medicationInterferences": [
+          "MRAs und ENaC-Inhibitoren erhöhen Renin und können ARR falsch niedrig machen",
+          "Kalium-wasting und kaliumsparende Diuretika erhöhen Renin und können ARR falsch negativ machen",
+          "ACE-Hemmer, AT1-Blocker und direkte Renininhibitoren erhöhen Renin und können ARR senken",
+          "Betablocker und zentrale Alpha-2-Agonisten supprimieren Renin und können ARR falsch positiv machen",
+          "NSAR können Renin supprimieren und ARR erhöhen",
+          "Dihydropyridin-Calciumantagonisten können ARR senken; Verapamil, Hydralazin und Alpha-Blocker gelten oft als weniger störend",
+          "Östrogene können bei direkter Reninmessung assay-/methodenabhängig die Interpretation beeinflussen",
+          "Lakritz kann einen mineralokortikoiden Phänotyp imitieren, ist aber keine PA"
+        ],
+        "falsePositiveReasons": [
+          "Betablocker oder zentrale Alpha-2-Agonisten mit Reninsuppression",
+          "NSAR, höheres Alter oder CKD mit niedrigem Renin",
+          "hohe Natriumzufuhr mit Reninsuppression",
+          "niedriges Renin ohne inadäquat erhöhtes Aldosteron"
+        ],
+        "falseNegativeReasons": [
+          "Hypokaliämie mit supprimierter Aldosteronsekretion",
+          "ACE-Hemmer, ARB, Diuretika, MRA oder ENaC-Inhibitoren mit Reninerhöhung",
+          "Salzrestriktion oder Volumenkontraktion",
+          "nicht standardisierte Haltung/Uhrzeit oder nicht passender Cut-off"
+        ]
       }
     ],
     "conditionId": "primarer-hyperaldosteronismus"
@@ -779,7 +938,7 @@
         "population": "Patienten ohne Vorhofflimmern mit Verdacht auf Herzinsuffizienz.",
         "rationale": "Niedriger Cut-off mit hoher Sensitivität und begrenztem Rule-in-Effekt.",
         "limitations": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -788,6 +947,27 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/36543554/",
             "kind": "Studie",
             "note": "Primärversorgungsstudie: ESC-125-pg/ml-Schwelle Sensitivität 94,6%/Spezifität 50,0%; NICE-400-pg/ml-Schwelle 81,7%/80,3%."
+          },
+          {
+            "title": "2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+            "year": 2022,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.12.012",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt BNP/NT-proBNP bei Dyspnoe zur Unterstützung von Diagnose oder Ausschluss von Herzinsuffizienz."
+          },
+          {
+            "title": "NICE NG106: Chronic heart failure in adults - diagnosis and management",
+            "year": 2018,
+            "url": "https://www.nice.org.uk/guidance/ng106/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Benennt Faktoren, die natriuretische Peptide erhöhen oder senken, darunter CKD, Vorhofflimmern, Adipositas und Therapieeffekte."
+          },
+          {
+            "title": "Diagnosing heart failure - Chronic Heart Failure in Adults",
+            "year": 2018,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK536086/",
+            "kind": "Leitlinie",
+            "note": "NICE-Evidenzzusammenfassung zu NT-proBNP; listet falsch hohe und falsch niedrige Kontexte."
           }
         ],
         "reviewStatus": "needs-review",
@@ -795,37 +975,38 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "moderate",
         "applicabilityWarning": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
         "reviewPriority": "medium",
         "preanalytics": [
-          "Alter, Nierenfunktion, Rhythmus und Akut-vs.-chronisch-Kontext dokumentieren",
-          "Vorhofflimmern und CKD erhöhen NT-proBNP unabhängig von akuter Herzinsuffizienz",
-          "Adipositas kann natriuretische Peptide senken"
+          "Akut-dekompensierte und chronische/ambulante Fragestellungen mit unterschiedlichen Cut-offs strikt trennen",
+          "eGFR, Alter, Vorhofflimmern, BMI und akute pulmonale/kardiale Begleiterkrankungen dokumentieren",
+          "Blutentnahme möglichst vor intensiver Akuttherapie dokumentieren; Verlauf unter Therapie nicht wie Erstdiagnostik interpretieren",
+          "Bei Adipositas niedrige Werte vorsichtiger interpretieren, da natriuretische Peptide niedriger sein können"
         ],
         "medicationInterferences": [
-          "ARNI beeinflusst BNP anders als NT-proBNP",
+          "ARNI senkt NT-proBNP im Verlauf, kann BNP aber anders beeinflussen; BNP und NT-proBNP nicht gleichsetzen",
           "Diuretika, ACE-Hemmer/ARB, Betablocker, MRA und SGLT2-Hemmer können Werte im Verlauf senken",
-          "akute Therapie vor Blutentnahme kann die Interpretation verändern"
+          "Akute Diurese oder Vasodilatation vor Probenentnahme kann die diagnostische Ausgangslage verändern"
         ],
         "falsePositiveReasons": [
-          "CKD",
-          "hohes Alter",
-          "Vorhofflimmern",
-          "akutes Koronarsyndrom",
-          "Lungenembolie",
-          "pulmonale Hypertonie",
-          "Sepsis oder kritische Erkrankung"
+          "Nierenfunktionsstörung/eGFR <60 ml/min/1,73 m²",
+          "Vorhofflimmern oder andere Tachyarrhythmien",
+          "Lungenembolie, pulmonale Hypertonie oder Rechtsherzbelastung",
+          "Sepsis, COPD, Hypoxämie oder kritische Erkrankung",
+          "akutes Koronarsyndrom, Myokarditis oder Klappenvitien",
+          "hohes Alter"
         ],
         "falseNegativeReasons": [
-          "Adipositas",
-          "frühe oder behandelte Dekompensation",
-          "HFpEF mit niedrigeren Peptidwerten",
-          "falscher Akut-/Chronisch-Cut-off"
+          "Adipositas oder sehr hoher BMI",
+          "früh behandelte oder partiell kompensierte Dekompensation",
+          "HFpEF oder vorwiegend rechts-/füllungsdruckabhängige Konstellationen mit niedrigeren Werten",
+          "falsche Anwendung eines chronischen Cut-offs im akuten Kontext oder umgekehrt"
         ],
         "interpretationCautions": [
-          "NT-proBNP ist besonders stark zum Ausschluss bei passender Vortestwahrscheinlichkeit.",
-          "Ein erhöhter Wert beweist Herzinsuffizienz nicht; Echokardiographie und klinischer Kontext bleiben entscheidend."
+          "Niedrige NT-proBNP-Werte sind besonders hilfreich zum Ausschluss im passenden Kontext; erhöhte Werte sind nicht spezifisch.",
+          "Bei Vorhofflimmern, CKD und hohem Alter sinkt die Spezifität; bei Adipositas kann die Sensitivität sinken.",
+          "Ein erhöhter Wert sollte zur strukturierten Echokardiographie-/Klinik-Einordnung führen, nicht allein zur Diagnose."
         ]
       },
       {
@@ -843,7 +1024,7 @@
         "population": "Patienten ohne Vorhofflimmern mit Verdacht auf Herzinsuffizienz.",
         "rationale": "Höherer Cut-off mit besserem Rule-in-Effekt und schwächerem Rule-out-Effekt.",
         "limitations": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": false,
         "sources": [
           {
@@ -852,6 +1033,27 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/36543554/",
             "kind": "Studie",
             "note": "Primärversorgungsstudie: ESC-125-pg/ml-Schwelle Sensitivität 94,6%/Spezifität 50,0%; NICE-400-pg/ml-Schwelle 81,7%/80,3%."
+          },
+          {
+            "title": "2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+            "year": 2022,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.12.012",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt BNP/NT-proBNP bei Dyspnoe zur Unterstützung von Diagnose oder Ausschluss von Herzinsuffizienz."
+          },
+          {
+            "title": "NICE NG106: Chronic heart failure in adults - diagnosis and management",
+            "year": 2018,
+            "url": "https://www.nice.org.uk/guidance/ng106/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Benennt Faktoren, die natriuretische Peptide erhöhen oder senken, darunter CKD, Vorhofflimmern, Adipositas und Therapieeffekte."
+          },
+          {
+            "title": "Diagnosing heart failure - Chronic Heart Failure in Adults",
+            "year": 2018,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK536086/",
+            "kind": "Leitlinie",
+            "note": "NICE-Evidenzzusammenfassung zu NT-proBNP; listet falsch hohe und falsch niedrige Kontexte."
           }
         ],
         "reviewStatus": "needs-review",
@@ -859,37 +1061,38 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "moderate",
         "applicabilityWarning": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
         "reviewPriority": "medium",
         "preanalytics": [
-          "Alter, Nierenfunktion, Rhythmus und Akut-vs.-chronisch-Kontext dokumentieren",
-          "Vorhofflimmern und CKD erhöhen NT-proBNP unabhängig von akuter Herzinsuffizienz",
-          "Adipositas kann natriuretische Peptide senken"
+          "Akut-dekompensierte und chronische/ambulante Fragestellungen mit unterschiedlichen Cut-offs strikt trennen",
+          "eGFR, Alter, Vorhofflimmern, BMI und akute pulmonale/kardiale Begleiterkrankungen dokumentieren",
+          "Blutentnahme möglichst vor intensiver Akuttherapie dokumentieren; Verlauf unter Therapie nicht wie Erstdiagnostik interpretieren",
+          "Bei Adipositas niedrige Werte vorsichtiger interpretieren, da natriuretische Peptide niedriger sein können"
         ],
         "medicationInterferences": [
-          "ARNI beeinflusst BNP anders als NT-proBNP",
+          "ARNI senkt NT-proBNP im Verlauf, kann BNP aber anders beeinflussen; BNP und NT-proBNP nicht gleichsetzen",
           "Diuretika, ACE-Hemmer/ARB, Betablocker, MRA und SGLT2-Hemmer können Werte im Verlauf senken",
-          "akute Therapie vor Blutentnahme kann die Interpretation verändern"
+          "Akute Diurese oder Vasodilatation vor Probenentnahme kann die diagnostische Ausgangslage verändern"
         ],
         "falsePositiveReasons": [
-          "CKD",
-          "hohes Alter",
-          "Vorhofflimmern",
-          "akutes Koronarsyndrom",
-          "Lungenembolie",
-          "pulmonale Hypertonie",
-          "Sepsis oder kritische Erkrankung"
+          "Nierenfunktionsstörung/eGFR <60 ml/min/1,73 m²",
+          "Vorhofflimmern oder andere Tachyarrhythmien",
+          "Lungenembolie, pulmonale Hypertonie oder Rechtsherzbelastung",
+          "Sepsis, COPD, Hypoxämie oder kritische Erkrankung",
+          "akutes Koronarsyndrom, Myokarditis oder Klappenvitien",
+          "hohes Alter"
         ],
         "falseNegativeReasons": [
-          "Adipositas",
-          "frühe oder behandelte Dekompensation",
-          "HFpEF mit niedrigeren Peptidwerten",
-          "falscher Akut-/Chronisch-Cut-off"
+          "Adipositas oder sehr hoher BMI",
+          "früh behandelte oder partiell kompensierte Dekompensation",
+          "HFpEF oder vorwiegend rechts-/füllungsdruckabhängige Konstellationen mit niedrigeren Werten",
+          "falsche Anwendung eines chronischen Cut-offs im akuten Kontext oder umgekehrt"
         ],
         "interpretationCautions": [
-          "NT-proBNP ist besonders stark zum Ausschluss bei passender Vortestwahrscheinlichkeit.",
-          "Ein erhöhter Wert beweist Herzinsuffizienz nicht; Echokardiographie und klinischer Kontext bleiben entscheidend."
+          "Niedrige NT-proBNP-Werte sind besonders hilfreich zum Ausschluss im passenden Kontext; erhöhte Werte sind nicht spezifisch.",
+          "Bei Vorhofflimmern, CKD und hohem Alter sinkt die Spezifität; bei Adipositas kann die Sensitivität sinken.",
+          "Ein erhöhter Wert sollte zur strukturierten Echokardiographie-/Klinik-Einordnung führen, nicht allein zur Diagnose."
         ]
       }
     ],
@@ -920,29 +1123,30 @@
         "rationale": "Ambulant gut passender Bestätigungstest mit publizierten Sensitivitäts- und Spezifitätsangaben.",
         "limitations": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
         "preanalytics": [
-          "Vor Test Kalium normalisieren und während Belastung kontrollieren",
-          "Blutdruck und klinische Verträglichkeit während der Salzbelastung beachten",
-          "Adäquate Natriurese und vollständige 24-h-Urinsammlung mit Natrium und Kreatinin prüfen",
-          "Bei unkontrollierter Hypertonie, relevanter Niereninsuffizienz, Herzinsuffizienz oder moderater/schwerer Hypokaliämie nicht unkritisch durchführen"
+          "Kalium vor und während Testung normalisieren",
+          "Natriumzufuhr/-ausscheidung, Blutdruck, Nierenfunktion und Volumenstatus dokumentieren",
+          "Kontraindikationen wie relevante CKD, Herzinsuffizienz, unkontrollierte Hypertonie oder ausgeprägte Hypokaliämie prüfen",
+          "Aldosteronmessmethode und lokaler Cut-off dokumentieren",
+          "Bei 24-h-Urin Natrium und Kreatinin zur Plausibilitätsprüfung erfassen"
         ],
         "falsePositiveReasons": [
-          "unvollständige oder fehlerhafte 24-h-Urinsammlung",
-          "nicht ausreichende oder nicht dokumentierte Natriumbelastung",
-          "methoden- und laborspezifische Aldosteronmessung",
-          "persistierende Medikamenteneffekte auf Renin-Aldosteron-System"
+          "nicht standardisierte Natrium-/Volumenbelastung",
+          "unvollständige 24-h-Urinsammlung oder fehlende Natrium-/Kreatinin-Plausibilitätsprüfung",
+          "persistierende Medikamenteneffekte",
+          "methodenabhängige Aldosteronmessung und ungeeigneter Cut-off"
         ],
         "falseNegativeReasons": [
-          "Hypokaliämie mit Suppression der Aldosteronsekretion",
-          "unzureichende Natriumbelastung oder Sammelfehler",
-          "mildere PA-Formen und Spektrumseffekte",
-          "nicht vergleichbarer lokaler Cut-off"
+          "Hypokaliämie",
+          "unzureichende Natrium-/Volumenbelastung",
+          "milde PA-Formen und Spektrumseffekte",
+          "fortbestehende RAAS-blockierende oder diuretische Effekte"
         ],
         "interpretationCautions": [
-          "Bestätigungstest nach auffälliger ARR; nicht als Primärscreening gedacht.",
-          "Bei klar biochemischem PA-Bild kann nach aktueller Leitlinie eine Bestätigungstestung je nach Managementziel entfallen.",
-          "Die LR-Werte sind ein didaktischer Startwert aus publizierter Sensitivität/Spezifität und müssen lokal gegen Protokoll, Labor und Population geprüft werden."
+          "Bestätigungstests sind nur nach plausibler positiver ARR sinnvoll; sie ersetzen keine Subtypisierung.",
+          "Bei spontaner Hypokaliämie, supprimiertem Renin und klar erhöhtem Aldosteron kann Bestätigung je nach Leitlinienpfad entfallen.",
+          "LR-Werte gelten nur für vergleichbares Protokoll, Population, Cut-off und Messmethode."
         ],
-        "lastReviewed": "2026-05-19",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -972,6 +1176,13 @@
             "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
             "kind": "Review",
             "note": "Ordnet Bestätigung, Subtypisierung und PA-spezifisches Management im Rahmen der Leitlinienaktualisierung ein; keine universellen Cut-offs ableiten."
+          },
+          {
+            "title": "Hyperaldosteronism - Endotext",
+            "year": 2021,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/hyperaldosteronism/",
+            "kind": "Lehrtext",
+            "note": "Betont Blutdruck-/Kaliumüberwachung und Medikamentenkontext bei Salzbelastungstests."
           }
         ],
         "reviewStatus": "needs-review",
@@ -979,9 +1190,14 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
-        "reviewPriority": "medium"
+        "reviewPriority": "high",
+        "medicationInterferences": [
+          "MRAs, ENaC-Inhibitoren, Diuretika, ACE-Hemmer, ARB und Renininhibitoren können Bestätigungstests beeinflussen",
+          "Betablocker, zentrale Alpha-2-Agonisten und NSAR können Screening-/Bestätigungskontext verzerren",
+          "Lakritz kann mineralokortikoide Effekte imitieren und muss vor Bestätigungstests erfragt werden"
+        ]
       }
     ],
     "conditionId": "primarer-hyperaldosteronismus"
@@ -1008,7 +1224,7 @@
         "population": "Erwachsene mit klinischem Verdacht auf Cushing-Syndrom.",
         "rationale": "Gepoolte Schätzung aus diagnostischen Studien; als Startannahme geeignet, aber wegen breiter publizierter Leistungsbereiche weiterhin reviewbedürftig.",
         "limitations": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus, biologische Variabilität und Assay-Unterschiede begrenzen die Übertragbarkeit; Endotext berichtet breite Sensitivitäts-/Spezifitätsbereiche.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -1047,31 +1263,38 @@
         "purpose": "screening",
         "specimen": "24-h-Urin",
         "preanalytics": [
-          "korrekte 24-h-Sammlung sicherstellen",
-          "Urinvolumen und Kreatinin zur Plausibilitätsprüfung erfassen",
-          "mindestens zwei Sammlungen wegen Variabilität erwägen",
-          "Nierenfunktion berücksichtigen",
-          "zyklischen Hyperkortisolismus berücksichtigen"
+          "Mindestens zwei korrekt gesammelte 24-h-Urine wegen biologischer Variabilität nutzen",
+          "Urinvolumen und Kreatinin zur Plausibilität jeder Sammlung prüfen",
+          "eGFR/Nierenfunktion dokumentieren; bei schwerer Niereninsuffizienz ist UFC eingeschränkt",
+          "Sehr hohe Flüssigkeitszufuhr und Sammelfehler aktiv erfragen",
+          "Assaymethode dokumentieren; Immunoassay-Kreuzreaktivität beachten"
         ],
         "falsePositiveReasons": [
-          "Sammelfehler",
-          "hohe Flüssigkeitszufuhr oder hohes Urinvolumen",
-          "Stress oder akute Erkrankung",
-          "Pseudo-Cushing-Konstellationen"
+          "Über- oder Fehlsammlung des 24-h-Urins",
+          "sehr hohe Flüssigkeitszufuhr mit hohem Urinvolumen",
+          "akute Erkrankung, Stress, Alkohol, Depression oder Pseudo-Cushing-Konstellation",
+          "assayabhängige Kreuzreaktivität mit Steroiden/Metaboliten"
         ],
         "falseNegativeReasons": [
-          "mildes Cushing",
-          "zyklisches Cushing",
-          "eingeschränkte Nierenfunktion"
+          "unvollständige Sammlung",
+          "eingeschränkte Nierenfunktion",
+          "milder oder zyklischer Hyperkortisolismus",
+          "Intervall ohne aktive Hypercortisolismusphase"
         ],
         "interpretationCautions": [
-          "Testgüte hängt stark von Cut-off und Referenzstandard ab.",
-          "Bei mildem oder zyklischem Cushing nicht allein ausreichend."
+          "Normales UFC schließt milden, zyklischen oder bei Niereninsuffizienz schwer interpretierbaren Hyperkortisolismus nicht sicher aus.",
+          "UFC eignet sich nicht gut bei schwerer Niereninsuffizienz; Leitlinien bevorzugen dann andere Erstlinientests.",
+          "Einzelne Grenzwertbefunde sollten wegen Sammel- und Variabilitätsproblemen wiederholt werden."
         ],
         "intendedUse": "screening",
-        "preanalyticRisk": "moderate",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Sammelfehler, Nierenfunktion, zyklischer Hyperkortisolismus, biologische Variabilität und Assay-Unterschiede begrenzen die Übertragbarkeit.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "medicationInterferences": [
+          "Exogene Glukokortikoide können abhängig von Assay und Timing interferieren oder die Achse supprimieren",
+          "Carbamazepin, Fenofibrat und weitere Medikamente können methodenabhängig analytische oder metabolische Effekte haben; Laborhinweise beachten",
+          "Lakritz/Carbenoxolon kann Cortisolmetabolismus beeinflussen und sollte dokumentiert werden"
+        ]
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -1201,7 +1424,7 @@
         "population": "Patienten mit Hyperthyreose zur Differenzialdiagnose Morbus Basedow.",
         "rationale": "Sehr starker Rule-in- und guter Rule-out-Test bei passender klinischer Fragestellung.",
         "limitations": "Assaygeneration und Vortestpopulation beeinflussen die Übertragbarkeit.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -1210,6 +1433,34 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
             "kind": "Review",
             "note": "Berichtet für TRAb-Assays der 3. Generation Sensitivität 98,3 % und Spezifität 99,2 %."
+          },
+          {
+            "title": "Endotext: Diagnosis and Treatment of Graves' Disease",
+            "year": 2026,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK285548/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt TRAb als Test der Wahl zur Bestätigung von Morbus Basedow und benennt Biotin als relevante Assayinterferenz."
+          },
+          {
+            "title": "Hyperthyroidism: A Review",
+            "year": 2024,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10873132/",
+            "kind": "Review",
+            "note": "Fasst Diagnostik der Hyperthyreose zusammen und weist auf falsch positive TRAb durch Biotin hin."
+          },
+          {
+            "title": "Endotext: Assay of Thyroid Hormone and Related Substances",
+            "year": 2025,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK279113/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Immunoassay-Interferenzen durch Biotin, Anti-Streptavidin-/Anti-Biotin- und heterophile Antikörper; relevant für Schilddrüsen- und Antikörpertests je nach Plattform."
+          },
+          {
+            "title": "Interferences With Thyroid Function Immunoassays: Clinical Implications and Detection Algorithm",
+            "year": 2018,
+            "url": "https://academic.oup.com/edrv/article/39/5/830/5048350",
+            "kind": "Review",
+            "note": "Review zu Immunoassay-Interferenzen, darunter Biotin, heterophile Antikörper und Plattformunterschiede."
           }
         ],
         "reviewStatus": "needs-review",
@@ -1217,31 +1468,36 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "moderate",
         "applicabilityWarning": "Assaygeneration und Vortestpopulation beeinflussen die Übertragbarkeit.",
         "reviewPriority": "medium",
         "preanalytics": [
-          "TSH, fT4 und fT3 müssen den Hyperthyreose-Kontext bestätigen",
-          "Assaygeneration und lokaler Grenzwert dokumentieren",
-          "Biotin-Supplemente vor Immunoassays nach Laborvorgabe pausieren"
+          "TRAb nur im Kontext biochemischer Thyreotoxikose interpretieren; TSH, fT4 und fT3 gleichzeitig prüfen",
+          "Vor Blutentnahme aktiv nach Biotin/Nahrungsergänzung fragen und je nach Labor 2-7 Tage pausieren",
+          "Bei klinisch unplausiblem Resultat Wiederholung mit anderem Assayprinzip oder Rücksprache mit dem Labor erwägen",
+          "Assaytyp dokumentieren: Bindungsassay misst stimulierende und blockierende TRAb nicht getrennt"
         ],
         "medicationInterferences": [
-          "Biotin je nach Assaydesign",
-          "Hochdosierte Glukokortikoide oder Immunsuppression können Autoimmunaktivität kontextuell beeinflussen"
+          "Biotin kann TRAb in streptavidin-basierten Immunoassays falsch positiv beeinflussen",
+          "Antithyreostatika senken TRAb im Verlauf; unter Therapie ist ein negativer/niedriger Wert nicht identisch mit fehlender Erstdiagnose",
+          "Immunsuppression oder hochdosierte Glukokortikoide können Autoantikörperkonstellationen klinisch verändern"
         ],
         "falsePositiveReasons": [
-          "niedrigtitrige Antikörper ohne aktuelle Hyperthyreose",
-          "Assayinterferenzen",
-          "andere autoimmune Schilddrüsenerkrankungen selten mit niedrigen TRAb-Werten"
+          "Biotin-Interferenz",
+          "heterophile Antikörper oder Anti-Reagenz-Antikörper",
+          "niedrigtitrige TRAb ohne passende aktuelle Thyreotoxikose",
+          "blockierende TRAb können in Bindungsassays positiv sein, ohne Morbus-Basedow-Hyperthyreose zu beweisen"
         ],
         "falseNegativeReasons": [
-          "seronegative oder sehr frühe Basedow-Konstellation",
-          "Assaygeneration/Cut-off",
-          "bereits behandelte oder abklingende Erkrankung"
+          "bereits behandelte oder remittierende Basedow-Erkrankung",
+          "sehr frühe oder seronegative Basedow-Konstellation",
+          "falsche Einordnung bei isoliertem TSH ohne fT4/fT3-Kontext",
+          "Assay-/Cut-off-Unterschiede zwischen Laboren"
         ],
         "interpretationCautions": [
-          "TRAb bestätigt Morbus Basedow vor allem bei biochemischer Hyperthyreose.",
-          "Bei knotiger Schilddrüse oder TRAb-negativer Thyreotoxikose Bildgebung/RAIU-Kontext prüfen."
+          "Ein positives TRAb ohne Thyreotoxikose ist kein automatischer Nachweis einer aktiven Basedow-Hyperthyreose.",
+          "Bei TRAb-negativer Thyreotoxikose mit hoher klinischer Wahrscheinlichkeit Sonografie/Durchblutung oder Radioiodaufnahme prüfen.",
+          "Bei Verdacht auf Immunoassay-Interferenz Labor kontaktieren, seriell verdünnen oder alternative Plattform nutzen."
         ]
       },
       {
@@ -1259,7 +1515,7 @@
         "population": "Patienten mit Hyperthyreose zur Differenzialdiagnose Morbus Basedow.",
         "rationale": "Alternative Profilannahme, falls lokal ein Assay der 2. Generation oder vergleichbare Daten genutzt werden.",
         "limitations": "Assaygeneration und lokale Grenzwerte prüfen.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": false,
         "sources": [
           {
@@ -1268,6 +1524,34 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
             "kind": "Review",
             "note": "Berichtet für TRAb-Assays der 2. Generation Sensitivität 97,1 % und Spezifität 97,4 %."
+          },
+          {
+            "title": "Endotext: Diagnosis and Treatment of Graves' Disease",
+            "year": 2026,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK285548/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt TRAb als Test der Wahl zur Bestätigung von Morbus Basedow und benennt Biotin als relevante Assayinterferenz."
+          },
+          {
+            "title": "Hyperthyroidism: A Review",
+            "year": 2024,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10873132/",
+            "kind": "Review",
+            "note": "Fasst Diagnostik der Hyperthyreose zusammen und weist auf falsch positive TRAb durch Biotin hin."
+          },
+          {
+            "title": "Endotext: Assay of Thyroid Hormone and Related Substances",
+            "year": 2025,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK279113/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Immunoassay-Interferenzen durch Biotin, Anti-Streptavidin-/Anti-Biotin- und heterophile Antikörper; relevant für Schilddrüsen- und Antikörpertests je nach Plattform."
+          },
+          {
+            "title": "Interferences With Thyroid Function Immunoassays: Clinical Implications and Detection Algorithm",
+            "year": 2018,
+            "url": "https://academic.oup.com/edrv/article/39/5/830/5048350",
+            "kind": "Review",
+            "note": "Review zu Immunoassay-Interferenzen, darunter Biotin, heterophile Antikörper und Plattformunterschiede."
           }
         ],
         "reviewStatus": "needs-review",
@@ -1275,31 +1559,36 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "moderate",
         "applicabilityWarning": "Assaygeneration und lokale Grenzwerte prüfen.",
         "reviewPriority": "medium",
         "preanalytics": [
-          "TSH, fT4 und fT3 müssen den Hyperthyreose-Kontext bestätigen",
-          "Assaygeneration und lokaler Grenzwert dokumentieren",
-          "Biotin-Supplemente vor Immunoassays nach Laborvorgabe pausieren"
+          "TRAb nur im Kontext biochemischer Thyreotoxikose interpretieren; TSH, fT4 und fT3 gleichzeitig prüfen",
+          "Vor Blutentnahme aktiv nach Biotin/Nahrungsergänzung fragen und je nach Labor 2-7 Tage pausieren",
+          "Bei klinisch unplausiblem Resultat Wiederholung mit anderem Assayprinzip oder Rücksprache mit dem Labor erwägen",
+          "Assaytyp dokumentieren: Bindungsassay misst stimulierende und blockierende TRAb nicht getrennt"
         ],
         "medicationInterferences": [
-          "Biotin je nach Assaydesign",
-          "Hochdosierte Glukokortikoide oder Immunsuppression können Autoimmunaktivität kontextuell beeinflussen"
+          "Biotin kann TRAb in streptavidin-basierten Immunoassays falsch positiv beeinflussen",
+          "Antithyreostatika senken TRAb im Verlauf; unter Therapie ist ein negativer/niedriger Wert nicht identisch mit fehlender Erstdiagnose",
+          "Immunsuppression oder hochdosierte Glukokortikoide können Autoantikörperkonstellationen klinisch verändern"
         ],
         "falsePositiveReasons": [
-          "niedrigtitrige Antikörper ohne aktuelle Hyperthyreose",
-          "Assayinterferenzen",
-          "andere autoimmune Schilddrüsenerkrankungen selten mit niedrigen TRAb-Werten"
+          "Biotin-Interferenz",
+          "heterophile Antikörper oder Anti-Reagenz-Antikörper",
+          "niedrigtitrige TRAb ohne passende aktuelle Thyreotoxikose",
+          "blockierende TRAb können in Bindungsassays positiv sein, ohne Morbus-Basedow-Hyperthyreose zu beweisen"
         ],
         "falseNegativeReasons": [
-          "seronegative oder sehr frühe Basedow-Konstellation",
-          "Assaygeneration/Cut-off",
-          "bereits behandelte oder abklingende Erkrankung"
+          "bereits behandelte oder remittierende Basedow-Erkrankung",
+          "sehr frühe oder seronegative Basedow-Konstellation",
+          "falsche Einordnung bei isoliertem TSH ohne fT4/fT3-Kontext",
+          "Assay-/Cut-off-Unterschiede zwischen Laboren"
         ],
         "interpretationCautions": [
-          "TRAb bestätigt Morbus Basedow vor allem bei biochemischer Hyperthyreose.",
-          "Bei knotiger Schilddrüse oder TRAb-negativer Thyreotoxikose Bildgebung/RAIU-Kontext prüfen."
+          "Ein positives TRAb ohne Thyreotoxikose ist kein automatischer Nachweis einer aktiven Basedow-Hyperthyreose.",
+          "Bei TRAb-negativer Thyreotoxikose mit hoher klinischer Wahrscheinlichkeit Sonografie/Durchblutung oder Radioiodaufnahme prüfen.",
+          "Bei Verdacht auf Immunoassay-Interferenz Labor kontaktieren, seriell verdünnen oder alternative Plattform nutzen."
         ]
       }
     ],
@@ -1327,7 +1616,7 @@
         "population": "Patienten mit Schilddrüsenknoten in diagnostischen Studien.",
         "rationale": "Hohe Sensitivität in Übersichtsarbeit; als starkes Rule-out-orientiertes Profil dokumentiert.",
         "limitations": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -1336,6 +1625,41 @@
             "url": "https://pubmed.ncbi.nlm.nih.gov/39178090/",
             "kind": "Review",
             "note": "Umbrella Review; berichtet für basales Calcitonin bei 10 pg/ml Sensitivität 100 % und Spezifität 97,2 %."
+          },
+          {
+            "title": "Revised American Thyroid Association Guidelines for Medullary Thyroid Carcinoma",
+            "year": 2015,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zu MTC, Calcitonin, CEA, RET/MEN2-Kontext und diagnostischer Einordnung."
+          },
+          {
+            "title": "Thyroid nodule update on diagnosis and management",
+            "year": 2017,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5471878/",
+            "kind": "Review",
+            "note": "Nennt falsch positive Calcitoninerhöhungen durch Hypergastrinämie/PPI, Niereninsuffizienz, Autoimmunthyreoiditis, neuroendokrine Tumoren und Medikamente."
+          },
+          {
+            "title": "Spurious hypercalcitoninemia and heterophilic antibodies in patients with thyroid nodules",
+            "year": 2010,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/20848426/",
+            "kind": "Studie",
+            "note": "Beschreibt klinisch relevante falsch positive Calcitoninresultate durch heterophile Antikörper bei Schilddrüsenknoten."
+          },
+          {
+            "title": "Endotext: Assay of Thyroid Hormone and Related Substances",
+            "year": 2025,
+            "url": "https://www.ncbi.nlm.nih.gov/books/NBK279113/",
+            "kind": "Lehrtext",
+            "note": "Beschreibt Immunoassay-Interferenzen durch Biotin, Anti-Streptavidin-/Anti-Biotin- und heterophile Antikörper; relevant für Schilddrüsen- und Antikörpertests je nach Plattform."
+          },
+          {
+            "title": "Interferences With Thyroid Function Immunoassays: Clinical Implications and Detection Algorithm",
+            "year": 2018,
+            "url": "https://academic.oup.com/edrv/article/39/5/830/5048350",
+            "kind": "Review",
+            "note": "Review zu Immunoassay-Interferenzen, darunter Biotin, heterophile Antikörper und Plattformunterschiede."
           }
         ],
         "reviewStatus": "needs-review",
@@ -1343,34 +1667,38 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
-        "reviewPriority": "medium",
+        "reviewPriority": "high",
         "preanalytics": [
-          "Assay, Geschlecht und lokaler Referenzbereich dokumentieren",
-          "Nierenfunktion und Raucherstatus erfassen",
-          "Grenzwertige Werte kontrollieren und Labor-/Präanalytik prüfen"
+          "Calcitonin nicht isoliert interpretieren: Knoten-/Lymphknotenbefund, Geschlecht, Nierenfunktion und CEA-Kontext dokumentieren",
+          "Bei grenzwertiger Erhöhung PPI, Rauchen, Nierenfunktion, Hypergastrinämie und Assayinterferenz prüfen",
+          "Bei klinisch unplausibel erhöhtem Calcitonin heterophile Antikörper/Assayinterferenz mit Labor abklären",
+          "Kontrollmessung möglichst mit derselben Methode; bei Diskrepanz alternative Plattform oder Heterophilenblocker erwägen"
         ],
         "medicationInterferences": [
-          "Protonenpumpenhemmer können Calcitonin erhöhen",
-          "Calcium-/Stimulationstests und neuroendokrine Medikamente nur nach Spezialprotokoll einordnen"
+          "Protonenpumpenhemmer können über Hypergastrinämie Calcitonin erhöhen",
+          "Biotin/Anti-Streptavidin-Interferenz ist assayabhängig möglich und muss nach Laborinformation bewertet werden",
+          "Calcium- oder Pentagastrin-Stimulation nur nach Spezialprotokoll und nicht mit basalem Cut-off verwechseln"
         ],
         "falsePositiveReasons": [
-          "Niereninsuffizienz",
-          "Protonenpumpenhemmer",
-          "Rauchen",
-          "C-Zell-Hyperplasie",
-          "andere neuroendokrine Tumoren",
-          "Assayinterferenzen"
+          "Hypergastrinämie, z. B. unter PPI",
+          "chronische Niereninsuffizienz",
+          "Autoimmunthyreoiditis, Struma oder C-Zell-Hyperplasie",
+          "Rauchen oder Alkohol",
+          "Sepsis oder schwere systemische Erkrankung",
+          "heterophile Antikörper/Assayinterferenz"
         ],
         "falseNegativeReasons": [
-          "kleines oder frühes MTC",
-          "assayabhängige Grenzwerte",
-          "präanalytische Fehler"
+          "sehr kleines MTC oder frühe C-Zell-Neoplasie",
+          "Hook-Effekt oder andere seltene Assayprobleme bei extrem hohen Konzentrationen",
+          "falscher geschlechts- oder assayspezifischer Cut-off",
+          "isolierte FNA-Zytologie kann MTC verpassen; Calcitonin-Washout bei suspekten Lymphknoten erwägen"
         ],
         "interpretationCautions": [
-          "Bei niedriger Prätestwahrscheinlichkeit sind grenzwertige Calcitoninerhöhungen nicht automatisch MTC.",
-          "RET/MEN2-Kontext und suspektes Zytologie-/Lymphknotenbild verändern die Prätestwahrscheinlichkeit stark."
+          "Grenzwertige Calcitoninerhöhungen haben bei niedriger Prätestwahrscheinlichkeit ein relevantes falsch-positives Risiko.",
+          "Sehr hohe Werte, RET/MEN2-Kontext oder suspekte Lymphknoten sind ein anderer klinischer Kontext als unselektiertes Knoten-Screening.",
+          "Assay, Geschlecht und lokale Grenzwerte müssen im Bericht sichtbar bleiben."
         ]
       }
     ],
@@ -1398,7 +1726,7 @@
         "population": "Erwachsene mit Verdacht auf Zöliakie.",
         "rationale": "Für diabetologische und endokrinologische Risikokonstellationen häufig relevanter Screeningtest.",
         "limitations": "IgA-Mangel, glutenarme Ernährung, Alter und Assay beeinflussen die Aussagekraft.",
-        "lastReviewed": "2026-05-17",
+        "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
           {
@@ -1407,6 +1735,27 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
             "kind": "Review",
             "note": "AHRQ Review; berichtet für tTG-IgA bei Erwachsenen Sensitivität 93,0 % und Spezifität 96,5 %."
+          },
+          {
+            "title": "ACG Clinical Guideline: Diagnosis and Management of Celiac Disease",
+            "year": 2023,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36602833/",
+            "kind": "Leitlinie",
+            "note": "Aktuelle ACG-Leitlinie zur Zöliakiediagnostik; tTG-IgA und Gesamt-IgA unter glutenhaltiger Ernährung zentral."
+          },
+          {
+            "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+            "year": 2015,
+            "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt als Ersttest Gesamt-IgA und IgA-tTG; bei IgA-Mangel IgG-basierte Tests."
+          },
+          {
+            "title": "Serologic testing in celiac disease: Practical guide for clinicians",
+            "year": 2016,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4721839/",
+            "kind": "Review",
+            "note": "Praktische Übersicht zu tTG-IgA, IgA-Mangel und falsch negativer Serologie bei Glutenrestriktion."
           }
         ],
         "reviewStatus": "needs-review",
@@ -1414,32 +1763,37 @@
         "dataCompleteness": "complete",
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
-        "preanalyticRisk": "unclear",
+        "preanalyticRisk": "high",
         "applicabilityWarning": "IgA-Mangel, glutenarme Ernährung, Alter und Assay beeinflussen die Aussagekraft.",
         "reviewPriority": "medium",
         "preanalytics": [
-          "Patientin/Patient muss ausreichend glutenhaltig essen",
-          "Gesamt-IgA mitbestimmen",
-          "Bei IgA-Mangel IgG-basierte Tests nutzen"
+          "Serologie nur unter ausreichender Glutenexposition interpretieren; glutenarme/glutenfreie Ernährung aktiv dokumentieren",
+          "Gesamt-IgA immer mitbestimmen; bei IgA-Mangel IgG-basierte Tests wie DGP-IgG oder tTG-IgG nutzen",
+          "Bei hoher klinischer Wahrscheinlichkeit trotz negativer Serologie Biopsie-/HLA-/Glutenexpositionskontext prüfen",
+          "Niedrige positive Titer bei niedriger Prätestwahrscheinlichkeit mit EMA, Verlauf oder Biopsie kontextualisieren"
         ],
         "medicationInterferences": [
-          "Immunsuppression kann Antikörperantwort abschwächen",
-          "Glutenfreie Diät ist der wichtigste interpretatorische Störfaktor"
+          "Glutenfreie oder glutenarme Diät senkt Antikörper und kann falsch negative Resultate verursachen",
+          "Immunsuppression kann die Antikörperantwort abschwächen",
+          "IgA-Mangel macht IgA-basierte Tests unzuverlässig; dies ist eine Patientenbedingung, keine Medikamenteninterferenz"
         ],
         "falsePositiveReasons": [
-          "andere Autoimmunerkrankungen oder Lebererkrankungen selten möglich",
-          "niedrige Titer bei niedriger Prätestwahrscheinlichkeit",
-          "Assayabhängigkeit"
+          "niedrigtitrige tTG-IgA bei niedriger Prätestwahrscheinlichkeit",
+          "andere Autoimmunerkrankungen",
+          "chronische Lebererkrankung",
+          "Assayabhängigkeit und Laborgrenzwerte"
         ],
         "falseNegativeReasons": [
-          "glutenarme/glutenfreie Ernährung",
+          "unzureichende Glutenexposition oder bereits begonnene glutenfreie Ernährung",
           "selektiver IgA-Mangel",
-          "frühe oder milde Enteropathie",
-          "Immunsuppression"
+          "seronegative Zöliakie oder milde/frühe Enteropathie",
+          "Immunsuppression oder Immundefizienz",
+          "kleinfleckige Läsionen oder Samplingfehler bei anschließender Biopsie"
         ],
         "interpretationCautions": [
-          "tTG-IgA ist nur unter Glutenexposition gut interpretierbar.",
-          "Positive Serologie sollte nicht ohne diagnostischen Plan zu einer dauerhaften glutenfreien Diät führen."
+          "Ein negativer tTG-IgA schließt Zöliakie bei IgA-Mangel oder glutenarmer Diät nicht zuverlässig aus.",
+          "Vor lebenslanger glutenfreier Diät sollte die Diagnostik geplant abgeschlossen werden.",
+          "Bei sehr hohem Titer und passendem Kontext steigt die Aussagekraft deutlich; bei Grenzwerten bleibt Kontext entscheidend."
         ]
       }
     ],
@@ -1470,26 +1824,28 @@
         "rationale": "Als Bestätigungstest-Profil aufgenommen; hohe Genauigkeit nur unter standardisiertem Protokoll und passender Messmethode plausibel.",
         "limitations": "Nicht als Primärscreening verwenden. Kontraindikationen, Körperhaltung, Kalium, Volumenstatus, Medikamente und Methode/Cut-off sind entscheidend.",
         "preanalytics": [
-          "Kalium normalisieren",
-          "Kontraindikationen prüfen: schwere unkontrollierte Hypertonie, Herzinsuffizienz, relevante CKD, Hypokaliämie",
-          "Körperhaltung und Protokoll standardisieren",
-          "Aldosteron-Cut-off labor- und protokollabhängig dokumentieren"
+          "Kalium vor und während Testung normalisieren",
+          "Natriumzufuhr/-ausscheidung, Blutdruck, Nierenfunktion und Volumenstatus dokumentieren",
+          "Kontraindikationen wie relevante CKD, Herzinsuffizienz, unkontrollierte Hypertonie oder ausgeprägte Hypokaliämie prüfen",
+          "Aldosteronmessmethode und lokaler Cut-off dokumentieren",
+          "Bei 24-h-Urin Natrium und Kreatinin zur Plausibilitätsprüfung erfassen"
         ],
         "falsePositiveReasons": [
-          "nicht standardisiertes Protokoll",
-          "Volumen-/Salzstatus nicht passend",
-          "Medikamenteneffekte",
-          "methodenabhängige Aldosteronmessung"
+          "nicht standardisierte Natrium-/Volumenbelastung",
+          "unvollständige 24-h-Urinsammlung oder fehlende Natrium-/Kreatinin-Plausibilitätsprüfung",
+          "persistierende Medikamenteneffekte",
+          "methodenabhängige Aldosteronmessung und ungeeigneter Cut-off"
         ],
         "falseNegativeReasons": [
-          "milde PA-Formen",
           "Hypokaliämie",
-          "nicht geeigneter Cut-off",
-          "Protokollabweichung"
+          "unzureichende Natrium-/Volumenbelastung",
+          "milde PA-Formen und Spektrumseffekte",
+          "fortbestehende RAAS-blockierende oder diuretische Effekte"
         ],
         "interpretationCautions": [
-          "Bestätigungstest nach positivem Screening; keine Primärscreening-Situation.",
-          "LR-Werte nur für vergleichbares Protokoll und vergleichbare Messmethode verwenden."
+          "Bestätigungstests sind nur nach plausibler positiver ARR sinnvoll; sie ersetzen keine Subtypisierung.",
+          "Bei spontaner Hypokaliämie, supprimiertem Renin und klar erhöhtem Aldosteron kann Bestätigung je nach Leitlinienpfad entfallen.",
+          "LR-Werte gelten nur für vergleichbares Protokoll, Population, Cut-off und Messmethode."
         ],
         "sources": [
           {
@@ -1519,18 +1875,30 @@
             "url": "https://www.ncbi.nlm.nih.gov/books/NBK278965/",
             "kind": "Lehrtext",
             "note": "Ordnet Kochsalzbelastungstests als PA-Bestätigungstests nach positivem Screening ein."
+          },
+          {
+            "title": "Hyperaldosteronism - Endotext",
+            "year": 2021,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/hyperaldosteronism/",
+            "kind": "Lehrtext",
+            "note": "Betont Blutdruck-/Kaliumüberwachung und Medikamentenkontext bei Salzbelastungstests."
           }
         ],
         "isDefault": true,
         "reviewStatus": "needs-review",
         "evidenceQuality": "low",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-05-19",
+        "lastReviewed": "2026-06-01",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "intendedUse": "confirmation",
         "preanalyticRisk": "high",
         "applicabilityWarning": "Nicht als Primärscreening verwenden. Kontraindikationen, Körperhaltung, Kalium, Volumenstatus, Medikamente und Methode/Cut-off sind entscheidend.",
-        "reviewPriority": "high"
+        "reviewPriority": "high",
+        "medicationInterferences": [
+          "MRAs, ENaC-Inhibitoren, Diuretika, ACE-Hemmer, ARB und Renininhibitoren können Bestätigungstests beeinflussen",
+          "Betablocker, zentrale Alpha-2-Agonisten und NSAR können Screening-/Bestätigungskontext verzerren",
+          "Lakritz kann mineralokortikoide Effekte imitieren und muss vor Bestätigungstests erfragt werden"
+        ]
       }
     ],
     "conditionId": "primarer-hyperaldosteronismus"
@@ -1799,29 +2167,31 @@
         "rationale": "D-Dimer ist wegen hoher Sensitivität vor allem zum Ausschluss einer TVT bei niedriger bis mittlerer Prätestwahrscheinlichkeit geeignet; ein positiver Test ist unspezifisch.",
         "limitations": "Approximate Arbeitswerte für ein hochsensitives D-Dimer; Assay, Alter, Schwangerschaft, Malignom, Entzündung, Operation, Trauma, stationärer Kontext und Dauer der Symptome beeinflussen die Aussagekraft.",
         "preanalytics": [
-          "D-Dimer nur zusammen mit klinischer Wahrscheinlichkeit interpretieren",
-          "Assay, Einheit und Cut-off dokumentieren",
-          "Bei hoher klinischer Wahrscheinlichkeit nicht als alleinigen Ausschlusstest verwenden",
-          "Alter, Schwangerschaft, Tumorerkrankung, Infektion/Entzündung, OP/Trauma und Hospitalisierung als Kontext dokumentieren"
+          "Vortestwahrscheinlichkeit vor der Blutentnahme festlegen; D-Dimer nicht als Screening ohne klinische Fragestellung nutzen",
+          "Zeitpunkt seit Symptombeginn und bereits begonnene Antikoagulation dokumentieren",
+          "Assay, Einheit und Cut-off dokumentieren; FEU/DDU und ng/ml/µg/l sind nicht austauschbar",
+          "Altersadjustierte oder wahrscheinlichkeitsadaptierte Cut-offs nur verwenden, wenn sie zum Algorithmus und Assay passen",
+          "Alter, Schwangerschaft, Malignom, Entzündung/Infektion, OP/Trauma und Hospitalisierung als Kontext dokumentieren"
         ],
         "falsePositiveReasons": [
-          "Alter",
-          "Entzündung oder Infektion",
-          "Malignom",
+          "hohes Alter mit sinkender Spezifität",
+          "akute Entzündung, Infektion oder Sepsis",
+          "aktive Tumorerkrankung",
           "Schwangerschaft oder Wochenbett",
-          "frische Operation, Trauma oder Blutung",
-          "stationäre oder schwer kranke Patienten"
+          "Operation, Trauma, Blutung oder Hospitalisierung",
+          "Lebererkrankung oder disseminierte intravasale Gerinnung als Differenzialkontext"
         ],
         "falseNegativeReasons": [
-          "sehr frühe oder sehr späte Testung",
-          "kleine oder distale Thrombosen",
-          "bereits begonnene Antikoagulation",
-          "nicht hochsensitiver Assay oder falscher Cut-off"
+          "Probenentnahme nach Beginn wirksamer Antikoagulation",
+          "sehr frühe oder späte Präsentation mit niedrigerer D-Dimer-Freisetzung",
+          "isolierte distale TVT oder kleine Emboluslast",
+          "nicht hochsensitiver Assay oder falsch angewendeter Cut-off",
+          "präanalytische Probenprobleme wie falsches Citratverhältnis oder verzögerte Verarbeitung nach Laborvorgabe"
         ],
         "interpretationCautions": [
-          "Negatives D-Dimer kann bei niedriger/mittlerer klinischer Wahrscheinlichkeit eine TVT ausschließen.",
-          "Positives D-Dimer beweist keine TVT und führt meist zur Bildgebung.",
-          "Bei hoher klinischer Wahrscheinlichkeit ist Sonographie der zentrale nächste Schritt."
+          "D-Dimer ist ein Rule-out-Baustein, kein Rule-in-Test.",
+          "Bei hoher klinischer Wahrscheinlichkeit soll D-Dimer die Bildgebung nicht ersetzen oder verzögern.",
+          "Ein positives D-Dimer ist erwartbar unspezifisch; der Nutzen entsteht vor allem aus einem negativen Test in geeigneter Vortestwahrscheinlichkeit."
         ],
         "sources": [
           {
@@ -1837,18 +2207,36 @@
             "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
             "kind": "Leitlinie",
             "note": "Empfiehlt den 2-Level-DVT-Wells-Score und D-Dimer im diagnostischen Pfad bei unwahrscheinlicher TVT."
+          },
+          {
+            "title": "D-dimer: Common Assay, Challenges Abound, Caution Advised",
+            "year": 2019,
+            "url": "https://academic.oup.com/jalm/article/3/5/756/5603126",
+            "kind": "Review",
+            "note": "Labororientierter Review zu D-Dimer-Nutzen als Rule-out-Test, begrenztem PPV und Assay-/Cut-off-Herausforderungen."
+          },
+          {
+            "title": "Diagnosis of Pulmonary Embolism: A Review of Evidence-Based Approaches",
+            "year": 2024,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11242034/",
+            "kind": "Review",
+            "note": "Übersicht zu PE-Diagnostik mit klinischer Wahrscheinlichkeit, D-Dimer, alters- und wahrscheinlichkeitsadjustierten Cut-offs."
           }
         ],
         "isDefault": true,
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-05-19",
+        "lastReviewed": "2026-06-01",
         "reviewNote": "Quantitative Werte sind konservative Arbeitswerte für hochsensitive Assays und müssen assay-/settingbezogen geprüft werden.",
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Nur sinnvoll nach klinischer Wahrscheinlichkeitsabschätzung; positives D-Dimer ist unspezifisch.",
-        "reviewPriority": "high"
+        "reviewPriority": "medium",
+        "medicationInterferences": [
+          "Bereits begonnene Antikoagulation kann D-Dimer senken und die Rule-out-Sicherheit beeinträchtigen",
+          "Thrombolyse oder länger laufende Antikoagulation verändert Verlauf und Interpretierbarkeit"
+        ]
       }
     ],
     "conditionId": "tiefe-venenthrombose"
@@ -1878,29 +2266,31 @@
         "rationale": "D-Dimer ist wegen hoher Sensitivität vor allem zum Ausschluss einer Lungenembolie in geeigneten Niedrig-/Intermediär-Risiko-Konstellationen geeignet; ein positiver Test ist unspezifisch.",
         "limitations": "Approximate Arbeitswerte für ein hochsensitives D-Dimer; Testgüte und Cut-off hängen von Assay, Alter, Strategie, Population, Schwangerschaft, Malignom, Entzündung, Operation/Trauma und stationärem Kontext ab.",
         "preanalytics": [
-          "D-Dimer nur zusammen mit klinischer Wahrscheinlichkeit interpretieren",
-          "Assay, Einheit und Cut-off dokumentieren",
-          "Altersadjustierte Cut-offs bei Patienten >50 Jahre prüfen, wenn lokal validiert",
-          "YEARS- oder andere wahrscheinlichkeitsadaptierte Strategien nur konsistent mit ihrer Originaldefinition nutzen"
+          "Vortestwahrscheinlichkeit vor der Blutentnahme festlegen; D-Dimer nicht als Screening ohne klinische Fragestellung nutzen",
+          "Zeitpunkt seit Symptombeginn und bereits begonnene Antikoagulation dokumentieren",
+          "Assay, Einheit und Cut-off dokumentieren; FEU/DDU und ng/ml/µg/l sind nicht austauschbar",
+          "Altersadjustierte oder wahrscheinlichkeitsadaptierte Cut-offs nur verwenden, wenn sie zum Algorithmus und Assay passen",
+          "Alter, Schwangerschaft, Malignom, Entzündung/Infektion, OP/Trauma und Hospitalisierung als Kontext dokumentieren"
         ],
         "falsePositiveReasons": [
-          "Alter",
-          "Entzündung oder Infektion",
-          "Malignom",
+          "hohes Alter mit sinkender Spezifität",
+          "akute Entzündung, Infektion oder Sepsis",
+          "aktive Tumorerkrankung",
           "Schwangerschaft oder Wochenbett",
-          "frische Operation, Trauma oder Blutung",
-          "stationäre oder schwer kranke Patienten"
+          "Operation, Trauma, Blutung oder Hospitalisierung",
+          "Lebererkrankung oder disseminierte intravasale Gerinnung als Differenzialkontext"
         ],
         "falseNegativeReasons": [
-          "sehr frühe oder sehr späte Testung",
-          "kleine embolische Last",
-          "bereits begonnene Antikoagulation",
-          "nicht hochsensitiver Assay oder nicht passende Cut-off-Strategie"
+          "Probenentnahme nach Beginn wirksamer Antikoagulation",
+          "sehr frühe oder späte Präsentation mit niedrigerer D-Dimer-Freisetzung",
+          "isolierte distale TVT oder kleine Emboluslast",
+          "nicht hochsensitiver Assay oder falsch angewendeter Cut-off",
+          "präanalytische Probenprobleme wie falsches Citratverhältnis oder verzögerte Verarbeitung nach Laborvorgabe"
         ],
         "interpretationCautions": [
-          "Negatives D-Dimer kann bei niedriger/mittlerer klinischer Wahrscheinlichkeit eine LE ausschließen.",
-          "Positives D-Dimer beweist keine LE und muss im Kontext zu Bildgebung/weiterer Diagnostik führen.",
-          "Bei hoher klinischer Wahrscheinlichkeit soll D-Dimer die Bildgebung nicht verzögern."
+          "D-Dimer ist ein Rule-out-Baustein, kein Rule-in-Test.",
+          "Bei hoher klinischer Wahrscheinlichkeit soll D-Dimer die Bildgebung nicht ersetzen oder verzögern.",
+          "Ein positives D-Dimer ist erwartbar unspezifisch; der Nutzen entsteht vor allem aus einem negativen Test in geeigneter Vortestwahrscheinlichkeit."
         ],
         "sources": [
           {
@@ -1923,18 +2313,36 @@
             "url": "https://www.nice.org.uk/guidance/ng158/chapter/Recommendations",
             "kind": "Leitlinie",
             "note": "Empfiehlt den 2-Level-PE-Wells-Score, PERC bei niedriger klinischer Suspicion und D-Dimer im diagnostischen Pfad."
+          },
+          {
+            "title": "D-dimer: Common Assay, Challenges Abound, Caution Advised",
+            "year": 2019,
+            "url": "https://academic.oup.com/jalm/article/3/5/756/5603126",
+            "kind": "Review",
+            "note": "Labororientierter Review zu D-Dimer-Nutzen als Rule-out-Test, begrenztem PPV und Assay-/Cut-off-Herausforderungen."
+          },
+          {
+            "title": "Diagnosis of Pulmonary Embolism: A Review of Evidence-Based Approaches",
+            "year": 2024,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11242034/",
+            "kind": "Review",
+            "note": "Übersicht zu PE-Diagnostik mit klinischer Wahrscheinlichkeit, D-Dimer, alters- und wahrscheinlichkeitsadjustierten Cut-offs."
           }
         ],
         "isDefault": true,
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-05-19",
+        "lastReviewed": "2026-06-01",
         "reviewNote": "Quantitative Werte sind konservative Arbeitswerte für hochsensitive Assays und müssen assay-/strategiebezogen geprüft werden.",
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Nur sinnvoll nach klinischer Wahrscheinlichkeitsabschätzung; positives D-Dimer ist unspezifisch.",
-        "reviewPriority": "high"
+        "reviewPriority": "medium",
+        "medicationInterferences": [
+          "Bereits begonnene Antikoagulation kann D-Dimer senken und die Rule-out-Sicherheit beeinträchtigen",
+          "Thrombolyse oder länger laufende Antikoagulation verändert Verlauf und Interpretierbarkeit"
+        ]
       }
     ],
     "conditionId": "lungenembolie"
