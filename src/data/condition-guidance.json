@@ -472,5 +472,249 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative D-Dimer-LR-Werte bleiben assay-, strategie- und settingabhängig."
+  },
+  {
+    "conditionId": "herzinsuffizienz",
+    "summary": "Herzinsuffizienz ist keine reine Labor- oder Symptomdiagnose. Die Wahrscheinlichkeit entsteht aus Dyspnoe/Ödemen, kardialen Risikofaktoren, Vorbefunden und objektiven Hinweisen auf strukturelle oder funktionelle kardiale Störung. BNP/NT-proBNP ist vor allem stark beim Ausschluss in geeigneten Niedrig-/Intermediärwahrscheinlichkeiten; ein erhöhter Wert braucht Kontext und meist Echokardiographie.",
+    "whenToTest": [
+      "Bei neuer oder progredienter Dyspnoe, Belastungsintoleranz, Orthopnoe, paroxysmaler nächtlicher Dyspnoe, Beinödemen oder unklarer Gewichtszunahme.",
+      "Bei hohem Risiko, z. B. KHK/Myokardinfarkt, Hypertonie, Diabetes, CKD, Vorhofflimmern, Klappenvitium oder kardiotoxischer Therapie.",
+      "In der Akutsituation bei Dyspnoe zur Abgrenzung kardialer von pulmonalen/anderen Ursachen, aber nicht isoliert ohne klinische Einschätzung."
+    ],
+    "recommendedTests": [
+      "BNP oder NT-proBNP zur Unterstützung von Diagnose bzw. Ausschluss; lokale Cut-offs und Akut-vs.-chronisch-Kontext beachten.",
+      "EKG, Basislabor inklusive Nierenfunktion, Elektrolyte, Blutbild, TSH und Eisenstatus je nach Setting.",
+      "Echokardiographie zur objektiven Bestätigung von systolischer/diastolischer Dysfunktion, Klappenerkrankung, Druck-/Volumenbelastung oder alternativen kardialen Ursachen.",
+      "Bei akuter Dyspnoe können Lungenultraschall, Thoraxbildgebung und klinische Volumenbeurteilung den Bayes-Kontext deutlich verändern."
+    ],
+    "pitfalls": [
+      "Natriuretische Peptide steigen mit Alter, CKD und Vorhofflimmern auch ohne akute Dekompensation.",
+      "Adipositas kann BNP/NT-proBNP senken und dadurch falsch beruhigende Werte begünstigen.",
+      "ARNI kann BNP anders beeinflussen als NT-proBNP; Verlauf und Medikamentenkontext müssen dokumentiert werden.",
+      "HFpEF braucht besonders sorgfältige Einordnung, weil Dyspnoe, Ödeme, CKD, COPD, Adipositas und Vorhofflimmern überlappen."
+    ],
+    "settingNotes": [
+      "Hausarztpraxis: niedrigere Basiswahrscheinlichkeit, aber stark alters- und komorbiditätsabhängig; NT-proBNP dient häufig als Triage zur Echokardiographie.",
+      "Notaufnahme: akute Dyspnoe ist eine selektierte Population; niedrige BNP/NT-proBNP-Werte sprechen gegen akute Herzinsuffizienz, positive Werte sind nicht spezifisch.",
+      "Kardiologie/Nephrologie/Diabetologie: kein universeller Settingwert; Symptomlast, CKD, Diabetes, KHK und Vorhofflimmern sollten als Risikostrata abgebildet werden."
+    ],
+    "links": [
+      {
+        "title": "2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+        "year": 2022,
+        "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.12.012",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt BNP/NT-proBNP bei Dyspnoe zur Unterstützung von Diagnose oder Ausschluss; betont Echokardiographie und objektive Struktur-/Funktionsnachweise."
+      },
+      {
+        "title": "2021 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+        "year": 2021,
+        "url": "https://academic.oup.com/eurheartj/article/42/36/3599/6358045",
+        "kind": "Leitlinie",
+        "note": "Definiert diagnostische Basis aus Symptomen/Zeichen plus objektiver kardialer Dysfunktion; natriuretische Peptide helfen beim Rule-out."
+      },
+      {
+        "title": "NICE NG106: Chronic heart failure in adults",
+        "year": 2018,
+        "url": "https://www.nice.org.uk/guidance/ng106/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Nutzt NT-proBNP-Schwellen zur Triage für Echokardiographie und Spezialistenbeurteilung."
+      },
+      {
+        "title": "Diagnosis of Acute Heart Failure in the Emergency Department: An Evidence-Based Review",
+        "year": 2019,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6860389/",
+        "kind": "Review",
+        "note": "Review zu klinischer Einschätzung, natriuretischen Peptiden, Ultraschall/Bildgebung und Fallstricken in der Notaufnahme."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Guidance; konkrete Prätestwerte bleiben stark an Symptom, Alter und Komorbidität gebunden."
+  },
+  {
+    "conditionId": "morbus-basedow",
+    "summary": "Morbus Basedow ist die wichtigste autoimmune Ursache einer Hyperthyreose. Die Prätestwahrscheinlichkeit ist erst sinnvoll, wenn eine echte Thyreotoxikose bzw. TSH-Suppression mit erhöhtem fT4/fT3 vorliegt. Danach erhöhen Orbitopathie, diffuse hypervaskuläre Struma und TRAb die Wahrscheinlichkeit deutlich.",
+    "whenToTest": [
+      "Bei biochemisch gesicherter Hyperthyreose zur Differenzialdiagnose gegenüber toxischer Knotenstruma, Thyreoiditis, exogener Hormonaufnahme oder jod-/medikamenteninduzierter Hyperthyreose.",
+      "Bei Hyperthyreose plus Orbitopathie, diffuser Struma, Schwirren, persönlicher/familiärer Autoimmunanamnese oder Schwangerschaft/Postpartum-Kontext.",
+      "Bei unklarer Ursache der Thyreotoxikose TRAb, Schilddrüsenultraschall/Durchblutung oder Radioiodaufnahme je nach Verfügbarkeit und Kontraindikationen nutzen."
+    ],
+    "recommendedTests": [
+      "TSH, fT4 und fT3 bestätigen zunächst die Hyperthyreose und deren Schwere.",
+      "TRAb/TSI ist der zentrale spezifische Labortest zur Bestätigung von Morbus Basedow.",
+      "Schilddrüsenultraschall mit Doppler kann diffuse Hypervaskularität und Knotenstatus zeigen.",
+      "Szintigraphie/Radioiodaufnahme hilft bei TRAb-negativer oder knotiger Thyreotoxikose, ist aber in Schwangerschaft kontraindiziert."
+    ],
+    "pitfalls": [
+      "TRAb nur im passenden Hyperthyreose-Kontext interpretieren; isolierte Antikörper ohne Thyreotoxikose sind keine aktuelle Basedow-Hyperthyreose.",
+      "T3-dominante Hyperthyreose kann fT4 weniger auffällig machen; fT3 nicht vergessen.",
+      "Thyreoiditis kann eine transiente Thyreotoxikose mit niedriger Aufnahme verursachen und wird anders behandelt.",
+      "Biotin kann Schilddrüsen-Immunoassays verfälschen; Schwangerschaft und hCG-vermittelte Hyperthyreose separat einordnen."
+    ],
+    "settingNotes": [
+      "Primärversorgung: Prätestannahme gilt für laborchemisch gesicherte Hyperthyreose, nicht für unspezifische Symptome allein.",
+      "Endokrinologie: höhere Vorselektion; Knotenstatus, Orbitopathie und TRAb bestimmen die konkrete Wahrscheinlichkeit.",
+      "Diabetologie/Zöliakie-/Autoimmun-Kontext: Autoimmuncluster erhöht die Aufmerksamkeit, ersetzt aber nicht die biochemische Hyperthyreose als Einstieg."
+    ],
+    "links": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves’ Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Diagnose ist bei Thyreotoxikose, positivem TSH-Rezeptor-Antikörper, hypervaskulärer/hypoechogener Schilddrüse und Orbitopathie meist eindeutig."
+      },
+      {
+        "title": "2016 American Thyroid Association Guidelines for Diagnosis and Management of Hyperthyroidism and Other Causes of Thyrotoxicosis",
+        "year": 2016,
+        "url": "https://journals.sagepub.com/doi/10.1089/thy.2016.0229",
+        "kind": "Leitlinie",
+        "note": "Wenn die Ursache der Thyreotoxikose nicht klinisch klar ist, kommen TRAb, Radioiodaufnahme oder Schilddrüsendurchblutung im Ultraschall infrage."
+      },
+      {
+        "title": "Endotext: Diagnosis and Treatment of Graves’ Disease",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/tyd-dgns-trt-graves/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Nennt typische Hinweise wie Autoimmunanamnese, diffuse Struma mit Schwirren, Orbitopathie, Dermopathie und Acropachie."
+      },
+      {
+        "title": "TSH receptor antibodies for the diagnosis of Graves disease: systematic review and meta-analysis",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+        "kind": "Review",
+        "note": "Metaanalyse zur hohen diagnostischen Genauigkeit moderner TRAb-Assays."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Guidance; Modifikatoren bleiben qualitativ, weil die diagnostische Frage eine bestätigte Thyreotoxikose voraussetzt."
+  },
+  {
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "summary": "MTC ist bei Schilddrüsenknoten selten, aber klinisch wichtig, weil Calcitonin, CEA und RET/MEN2-Kontext die Diagnostik stark verändern. Ein positives oder grenzwertiges Calcitonin ist bei niedriger Prätestwahrscheinlichkeit nicht automatisch MTC; Werte müssen mit Assay, Geschlecht, Nierenfunktion, Medikamenten und Knoten-/Familienkontext interpretiert werden.",
+    "whenToTest": [
+      "Bei Schilddrüsenknoten mit klinischem Verdacht, suspekter Zytologie, auffälligem Calcitonin/CEA oder zervikaler Lymphadenopathie.",
+      "Bei persönlicher oder familiärer MEN2-/RET-Konstellation, bekanntem MTC in der Familie, Phäochromozytom oder primärem Hyperparathyreoidismus im passenden Syndromkontext.",
+      "Bei bereits histologisch oder zytologisch gesichertem MTC immer RET-Keimbahntestung und Einordnung auf MEN2-assoziierte Erkrankungen."
+    ],
+    "recommendedTests": [
+      "Basales Calcitonin kann MTC in Knotenpopulationen unterstützen, ist aber je nach Region/Leitlinie nicht universell als Routine empfohlen.",
+      "CEA ergänzt die Tumormarker-Einordnung, ist aber nicht spezifisch genug als alleiniger Screeningtest.",
+      "FNA-Zytologie kann MTC übersehen; Calcitonin im FNA-Washout kann bei suspekten Knoten/Lymphknoten helfen.",
+      "RET-Keimbahntestung ist zentral bei gesichertem MTC oder familiärem/syndromalem Verdacht."
+    ],
+    "pitfalls": [
+      "MTC-Prävalenz bei Schilddrüsenknoten ist niedrig; dadurch können selbst gute Tests bei grenzwertigen Resultaten viele falsch positive Abklärungen erzeugen.",
+      "Calcitonin kann durch C-Zell-Hyperplasie, Niereninsuffizienz, Protonenpumpenhemmer, Rauchen, andere neuroendokrine Tumoren und Assayeffekte beeinflusst sein.",
+      "Familiäre RET/MEN2-Konstellation ist kein gewöhnlicher Knoten-Kontext; hier ist die Prätestwahrscheinlichkeit und Vorgehensweise grundlegend anders.",
+      "Auffällige Lymphknoten oder sehr hohe Calcitoninwerte sind bereits starke Hinweise und sollten nicht wie ein unselektierter Screeningbefund behandelt werden."
+    ],
+    "settingNotes": [
+      "Hausarztpraxis: bei neuem Schilddrüsenknoten bleibt MTC selten; wichtige Aufgabe ist Risikokontext und strukturierte Überweisung.",
+      "Endokrinologie: Prätest steigt bei auffälligem Calcitonin, RET/MEN2-Anamnese, suspekter Sonografie oder Lymphknotenbefund.",
+      "Nicht-thyreoidale Settings: ohne Schilddrüsenknoten/Calcitonin/RET-Kontext ist eine generische Prätestannahme nicht sinnvoll."
+    ],
+    "links": [
+      {
+        "title": "Revised American Thyroid Association Guidelines for the Management of Medullary Thyroid Carcinoma",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+        "kind": "Leitlinie",
+        "note": "Zentrale Leitlinie zu MTC, RET-Testung, Calcitonin, CEA, MEN2 und präoperativer Einordnung."
+      },
+      {
+        "title": "Prevalence and significance of indeterminate calcitonin values in patients with thyroid nodules: a systematic review and meta-analysis",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10404572/",
+        "kind": "Review",
+        "note": "Berichtet niedrige MTC-Prävalenz in Schilddrüsenknotenpopulationen und das PPV-Problem grenzwertiger Calcitoninwerte."
+      },
+      {
+        "title": "Calcitonin testing for detection of medullary thyroid cancer in people with thyroid nodules",
+        "year": 2020,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32176812/",
+        "kind": "Review",
+        "note": "Cochrane Review zur Calcitonin-Testung bei Schilddrüsenknoten; Evidenz und Unsicherheiten der Screeningstrategie."
+      },
+      {
+        "title": "2015 ATA Management Guidelines for Adult Patients with Thyroid Nodules and Differentiated Thyroid Cancer",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+        "kind": "Leitlinie",
+        "note": "Nodulenabklärung, Sonografie-Risikomuster und FNA-Kontext; MTC-spezifische Fragen brauchen zusätzliche Calcitonin/RET-Einordnung."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinien- und Review-basierte Guidance; Calcitonin-Grenzwerte und Assays müssen lokal geprüft werden."
+  },
+  {
+    "conditionId": "zoliakie",
+    "summary": "Zöliakie ist häufig genug, dass Case-finding bei Symptomen und Risikogruppen sinnvoll ist, aber selten genug, dass Serologie im Niedrigrisiko-Kontext falsch positive oder schwer interpretierbare Befunde erzeugen kann. Entscheidend ist, dass vor und während der Diagnostik ausreichend Gluten gegessen wird und IgA-Mangel berücksichtigt wird.",
+    "whenToTest": [
+      "Bei chronischer Diarrhoe, Gewichtsverlust, Malabsorption, Eisenmangelanämie, Folsäure-/Vitamin-D-Mangel, Osteoporose, rezidivierenden Aphthen oder Dermatitis herpetiformis.",
+      "Bei Risikogruppen wie Typ-1-Diabetes, Autoimmunthyreopathie, erstgradigen Angehörigen, Down-/Turner-/Williams-Syndrom, Autoimmunhepatitis, Addison-Erkrankung oder selektivem IgA-Mangel.",
+      "Bei Reizdarm-ähnlichen Beschwerden oder unerklärter Müdigkeit nur im Kontext von Symptomen/Risiko und mit realistischer Prätestannahme."
+    ],
+    "recommendedTests": [
+      "tTG-IgA plus Gesamt-IgA unter glutenhaltiger Ernährung als Standard-Ersttest bei den meisten Erwachsenen.",
+      "Bei IgA-Mangel IgG-basierte Tests wie DGP-IgG oder tTG-IgG verwenden.",
+      "EMA-IgA kann bei unklaren oder grenzwertigen Befunden Spezifität erhöhen.",
+      "Duodenalbiopsie bleibt bei vielen Erwachsenen relevant, besonders bei niedrigerem Antikörpertiter oder diagnostischer Unsicherheit; HLA-DQ2/DQ8 eignet sich vor allem zum Ausschluss bei unklaren Fällen."
+    ],
+    "pitfalls": [
+      "Glutenarme oder glutenfreie Ernährung vor der Testung kann Serologie und Histologie falsch negativ machen.",
+      "IgA-Mangel kann tTG-IgA falsch negativ machen; Gesamt-IgA mitbestimmen.",
+      "Positive Serologie bei niedriger Prätestwahrscheinlichkeit braucht Bestätigung und klinischen Kontext, nicht sofortige Selbstdiagnose.",
+      "Nicht mit glutenfreier Diät beginnen, bevor die Diagnose gesichert oder ein diagnostischer Plan festgelegt ist."
+    ],
+    "settingNotes": [
+      "Hausarztpraxis: Case-finding nach Symptom- und Risikoprofil; Populationsrisiko liegt grob um 1%, einzelne Risikogruppen deutlich höher.",
+      "Diabetologie: Typ-1-Diabetes ist eine wichtige Risikogruppe; Screening-/Wiederholungspfade hängen von Alter, Symptomen und Leitlinie ab.",
+      "Endokrinologie: Autoimmunthyreopathie, Addison-Erkrankung und andere Autoimmuncluster erhöhen die Aufmerksamkeit, ersetzen aber nicht glutenhaltige Ernährung und passende Serologie."
+    ],
+    "links": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines, Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Guideline zu Diagnostik, Risikogruppen, Serologie und Biopsiestrategien bei Erwachsenen."
+      },
+      {
+        "title": "ACG Guideline: Diagnosis and Management of Celiac Disease",
+        "year": 2023,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36602833/",
+        "kind": "Leitlinie",
+        "note": "US-amerikanische Guideline zur Diagnostik und Betreuung der Zöliakie; DOI 10.14309/ajg.0000000000002075."
+      },
+      {
+        "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+        "year": 2015,
+        "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serologie bei Symptomen und bei erhöhtem Risiko, u. a. Typ-1-Diabetes, Autoimmunthyreopathie und erstgradigen Angehörigen."
+      },
+      {
+        "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+        "year": 2017,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+        "kind": "Review",
+        "note": "AHRQ Review zur diagnostischen Genauigkeit serologischer Tests wie tTG-IgA."
+      }
+    ],
+    "lastReviewed": "2026-06-01",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Leitlinienbasierte Guidance; konkrete Prätestwerte sollten nach Risikogruppe getrennt weiter ausgebaut werden."
   }
 ]

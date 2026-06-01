@@ -797,7 +797,36 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
         "applicabilityWarning": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "Alter, Nierenfunktion, Rhythmus und Akut-vs.-chronisch-Kontext dokumentieren",
+          "Vorhofflimmern und CKD erhöhen NT-proBNP unabhängig von akuter Herzinsuffizienz",
+          "Adipositas kann natriuretische Peptide senken"
+        ],
+        "medicationInterferences": [
+          "ARNI beeinflusst BNP anders als NT-proBNP",
+          "Diuretika, ACE-Hemmer/ARB, Betablocker, MRA und SGLT2-Hemmer können Werte im Verlauf senken",
+          "akute Therapie vor Blutentnahme kann die Interpretation verändern"
+        ],
+        "falsePositiveReasons": [
+          "CKD",
+          "hohes Alter",
+          "Vorhofflimmern",
+          "akutes Koronarsyndrom",
+          "Lungenembolie",
+          "pulmonale Hypertonie",
+          "Sepsis oder kritische Erkrankung"
+        ],
+        "falseNegativeReasons": [
+          "Adipositas",
+          "frühe oder behandelte Dekompensation",
+          "HFpEF mit niedrigeren Peptidwerten",
+          "falscher Akut-/Chronisch-Cut-off"
+        ],
+        "interpretationCautions": [
+          "NT-proBNP ist besonders stark zum Ausschluss bei passender Vortestwahrscheinlichkeit.",
+          "Ein erhöhter Wert beweist Herzinsuffizienz nicht; Echokardiographie und klinischer Kontext bleiben entscheidend."
+        ]
       },
       {
         "id": "ntprobnp-400",
@@ -832,7 +861,36 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
         "applicabilityWarning": "Alter, Nierenfunktion, Adipositas, Vorhofflimmern und Akutsituation beeinflussen die Interpretation.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "Alter, Nierenfunktion, Rhythmus und Akut-vs.-chronisch-Kontext dokumentieren",
+          "Vorhofflimmern und CKD erhöhen NT-proBNP unabhängig von akuter Herzinsuffizienz",
+          "Adipositas kann natriuretische Peptide senken"
+        ],
+        "medicationInterferences": [
+          "ARNI beeinflusst BNP anders als NT-proBNP",
+          "Diuretika, ACE-Hemmer/ARB, Betablocker, MRA und SGLT2-Hemmer können Werte im Verlauf senken",
+          "akute Therapie vor Blutentnahme kann die Interpretation verändern"
+        ],
+        "falsePositiveReasons": [
+          "CKD",
+          "hohes Alter",
+          "Vorhofflimmern",
+          "akutes Koronarsyndrom",
+          "Lungenembolie",
+          "pulmonale Hypertonie",
+          "Sepsis oder kritische Erkrankung"
+        ],
+        "falseNegativeReasons": [
+          "Adipositas",
+          "frühe oder behandelte Dekompensation",
+          "HFpEF mit niedrigeren Peptidwerten",
+          "falscher Akut-/Chronisch-Cut-off"
+        ],
+        "interpretationCautions": [
+          "NT-proBNP ist besonders stark zum Ausschluss bei passender Vortestwahrscheinlichkeit.",
+          "Ein erhöhter Wert beweist Herzinsuffizienz nicht; Echokardiographie und klinischer Kontext bleiben entscheidend."
+        ]
       }
     ],
     "conditionId": "herzinsuffizienz"
@@ -1161,7 +1219,30 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
         "applicabilityWarning": "Assaygeneration und Vortestpopulation beeinflussen die Übertragbarkeit.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "TSH, fT4 und fT3 müssen den Hyperthyreose-Kontext bestätigen",
+          "Assaygeneration und lokaler Grenzwert dokumentieren",
+          "Biotin-Supplemente vor Immunoassays nach Laborvorgabe pausieren"
+        ],
+        "medicationInterferences": [
+          "Biotin je nach Assaydesign",
+          "Hochdosierte Glukokortikoide oder Immunsuppression können Autoimmunaktivität kontextuell beeinflussen"
+        ],
+        "falsePositiveReasons": [
+          "niedrigtitrige Antikörper ohne aktuelle Hyperthyreose",
+          "Assayinterferenzen",
+          "andere autoimmune Schilddrüsenerkrankungen selten mit niedrigen TRAb-Werten"
+        ],
+        "falseNegativeReasons": [
+          "seronegative oder sehr frühe Basedow-Konstellation",
+          "Assaygeneration/Cut-off",
+          "bereits behandelte oder abklingende Erkrankung"
+        ],
+        "interpretationCautions": [
+          "TRAb bestätigt Morbus Basedow vor allem bei biochemischer Hyperthyreose.",
+          "Bei knotiger Schilddrüse oder TRAb-negativer Thyreotoxikose Bildgebung/RAIU-Kontext prüfen."
+        ]
       },
       {
         "id": "trab-second-generation-meta",
@@ -1196,7 +1277,30 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
         "applicabilityWarning": "Assaygeneration und lokale Grenzwerte prüfen.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "TSH, fT4 und fT3 müssen den Hyperthyreose-Kontext bestätigen",
+          "Assaygeneration und lokaler Grenzwert dokumentieren",
+          "Biotin-Supplemente vor Immunoassays nach Laborvorgabe pausieren"
+        ],
+        "medicationInterferences": [
+          "Biotin je nach Assaydesign",
+          "Hochdosierte Glukokortikoide oder Immunsuppression können Autoimmunaktivität kontextuell beeinflussen"
+        ],
+        "falsePositiveReasons": [
+          "niedrigtitrige Antikörper ohne aktuelle Hyperthyreose",
+          "Assayinterferenzen",
+          "andere autoimmune Schilddrüsenerkrankungen selten mit niedrigen TRAb-Werten"
+        ],
+        "falseNegativeReasons": [
+          "seronegative oder sehr frühe Basedow-Konstellation",
+          "Assaygeneration/Cut-off",
+          "bereits behandelte oder abklingende Erkrankung"
+        ],
+        "interpretationCautions": [
+          "TRAb bestätigt Morbus Basedow vor allem bei biochemischer Hyperthyreose.",
+          "Bei knotiger Schilddrüse oder TRAb-negativer Thyreotoxikose Bildgebung/RAIU-Kontext prüfen."
+        ]
       }
     ],
     "conditionId": "morbus-basedow"
@@ -1241,7 +1345,33 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
         "applicabilityWarning": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "Assay, Geschlecht und lokaler Referenzbereich dokumentieren",
+          "Nierenfunktion und Raucherstatus erfassen",
+          "Grenzwertige Werte kontrollieren und Labor-/Präanalytik prüfen"
+        ],
+        "medicationInterferences": [
+          "Protonenpumpenhemmer können Calcitonin erhöhen",
+          "Calcium-/Stimulationstests und neuroendokrine Medikamente nur nach Spezialprotokoll einordnen"
+        ],
+        "falsePositiveReasons": [
+          "Niereninsuffizienz",
+          "Protonenpumpenhemmer",
+          "Rauchen",
+          "C-Zell-Hyperplasie",
+          "andere neuroendokrine Tumoren",
+          "Assayinterferenzen"
+        ],
+        "falseNegativeReasons": [
+          "kleines oder frühes MTC",
+          "assayabhängige Grenzwerte",
+          "präanalytische Fehler"
+        ],
+        "interpretationCautions": [
+          "Bei niedriger Prätestwahrscheinlichkeit sind grenzwertige Calcitoninerhöhungen nicht automatisch MTC.",
+          "RET/MEN2-Kontext und suspektes Zytologie-/Lymphknotenbild verändern die Prätestwahrscheinlichkeit stark."
+        ]
       }
     ],
     "conditionId": "medullares-schilddrusenkarzinom"
@@ -1286,7 +1416,31 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "unclear",
         "applicabilityWarning": "IgA-Mangel, glutenarme Ernährung, Alter und Assay beeinflussen die Aussagekraft.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "preanalytics": [
+          "Patientin/Patient muss ausreichend glutenhaltig essen",
+          "Gesamt-IgA mitbestimmen",
+          "Bei IgA-Mangel IgG-basierte Tests nutzen"
+        ],
+        "medicationInterferences": [
+          "Immunsuppression kann Antikörperantwort abschwächen",
+          "Glutenfreie Diät ist der wichtigste interpretatorische Störfaktor"
+        ],
+        "falsePositiveReasons": [
+          "andere Autoimmunerkrankungen oder Lebererkrankungen selten möglich",
+          "niedrige Titer bei niedriger Prätestwahrscheinlichkeit",
+          "Assayabhängigkeit"
+        ],
+        "falseNegativeReasons": [
+          "glutenarme/glutenfreie Ernährung",
+          "selektiver IgA-Mangel",
+          "frühe oder milde Enteropathie",
+          "Immunsuppression"
+        ],
+        "interpretationCautions": [
+          "tTG-IgA ist nur unter Glutenexposition gut interpretierbar.",
+          "Positive Serologie sollte nicht ohne diagnostischen Plan zu einer dauerhaften glutenfreien Diät führen."
+        ]
       }
     ],
     "conditionId": "zoliakie"

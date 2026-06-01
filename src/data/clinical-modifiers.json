@@ -953,5 +953,469 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
     "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung, um Mischstrategien zu vermeiden."
+  },
+  {
+    "id": "graves-orbitopathy-thyrotoxicosis",
+    "conditionId": "morbus-basedow",
+    "label": "Orbitopathie bei biochemischer Hyperthyreose",
+    "category": "Klinisches Zeichen",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Graves-Orbitopathie/TED ist in passendem Hyperthyreose-Kontext ein starker Hinweis auf Morbus Basedow.",
+    "limitations": "Augenbefunde ohne Hyperthyreose brauchen differenzialdiagnostische Einordnung; selten kann TED euthyreot oder antikörpernegativ auftreten.",
+    "sources": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves’ Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Diagnose ist bei Thyreotoxikose, positivem TSH-Rezeptor-Antikörper, hypervaskulärer/hypoechogener Schilddrüse und Orbitopathie meist eindeutig."
+      },
+      {
+        "title": "2016 American Thyroid Association Guidelines for Diagnosis and Management of Hyperthyroidism and Other Causes of Thyrotoxicosis",
+        "year": 2016,
+        "url": "https://journals.sagepub.com/doi/10.1089/thy.2016.0229",
+        "kind": "Leitlinie",
+        "note": "Wenn die Ursache der Thyreotoxikose nicht klinisch klar ist, kommen TRAb, Radioiodaufnahme oder Schilddrüsendurchblutung im Ultraschall infrage."
+      },
+      {
+        "title": "Endotext: Diagnosis and Treatment of Graves’ Disease",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/tyd-dgns-trt-graves/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Nennt typische Hinweise wie Autoimmunanamnese, diffuse Struma mit Schwirren, Orbitopathie, Dermopathie und Acropachie."
+      },
+      {
+        "title": "TSH receptor antibodies for the diagnosis of Graves disease: systematic review and meta-analysis",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+        "kind": "Review",
+        "note": "Metaanalyse zur hohen diagnostischen Genauigkeit moderner TRAb-Assays."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "thyreotoxikose-mit-orbitopathie"
+  },
+  {
+    "id": "graves-diffuse-goiter-bruit",
+    "conditionId": "morbus-basedow",
+    "label": "Diffuse Struma mit Schwirren oder Hypervaskularität",
+    "category": "Klinisches Zeichen",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Diffuse Struma mit Schwirren bzw. hypervaskulärem/hypoechogenem Ultraschallmuster spricht bei Thyreotoxikose für Morbus Basedow.",
+    "limitations": "Knotenstruma und Thyreoiditis können die Bildgebung verändern; Ultraschallmuster ersetzt TRAb/RAIU nicht in unklaren Fällen.",
+    "sources": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves’ Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Diagnose ist bei Thyreotoxikose, positivem TSH-Rezeptor-Antikörper, hypervaskulärer/hypoechogener Schilddrüse und Orbitopathie meist eindeutig."
+      },
+      {
+        "title": "2016 American Thyroid Association Guidelines for Diagnosis and Management of Hyperthyroidism and Other Causes of Thyrotoxicosis",
+        "year": 2016,
+        "url": "https://journals.sagepub.com/doi/10.1089/thy.2016.0229",
+        "kind": "Leitlinie",
+        "note": "Wenn die Ursache der Thyreotoxikose nicht klinisch klar ist, kommen TRAb, Radioiodaufnahme oder Schilddrüsendurchblutung im Ultraschall infrage."
+      },
+      {
+        "title": "Endotext: Diagnosis and Treatment of Graves’ Disease",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/tyd-dgns-trt-graves/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Nennt typische Hinweise wie Autoimmunanamnese, diffuse Struma mit Schwirren, Orbitopathie, Dermopathie und Acropachie."
+      },
+      {
+        "title": "TSH receptor antibodies for the diagnosis of Graves disease: systematic review and meta-analysis",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22776786/",
+        "kind": "Review",
+        "note": "Metaanalyse zur hohen diagnostischen Genauigkeit moderner TRAb-Assays."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "diffuse-hypervaskulaere-struma"
+  },
+  {
+    "id": "graves-nodular-goiter-older-age",
+    "conditionId": "morbus-basedow",
+    "label": "Knotige Struma oder ältere Patientin/älterer Patient",
+    "category": "Kontext",
+    "direction": "decreases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Bei thyreotoxischer knotiger Struma und höherem Alter steigt die Wahrscheinlichkeit alternativer Ursachen wie toxische Knotenstruma/toxisches Adenom.",
+    "limitations": "Morbus Basedow bleibt möglich, besonders bei positiven TRAb oder Orbitopathie; dieser Modifikator soll nur Differenzialdiagnosen sichtbar machen.",
+    "sources": [
+      {
+        "title": "2016 American Thyroid Association Guidelines for Diagnosis and Management of Hyperthyroidism and Other Causes of Thyrotoxicosis",
+        "year": 2016,
+        "url": "https://journals.sagepub.com/doi/10.1089/thy.2016.0229",
+        "kind": "Leitlinie",
+        "note": "Wenn die Ursache der Thyreotoxikose nicht klinisch klar ist, kommen TRAb, Radioiodaufnahme oder Schilddrüsendurchblutung im Ultraschall infrage."
+      },
+      {
+        "title": "Endotext: Diagnosis and Treatment of Graves’ Disease",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/tyd-dgns-trt-graves/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Nennt typische Hinweise wie Autoimmunanamnese, diffuse Struma mit Schwirren, Orbitopathie, Dermopathie und Acropachie."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "knotige-thyreotoxikose"
+  },
+  {
+    "id": "graves-autoimmune-postpartum-context",
+    "conditionId": "morbus-basedow",
+    "label": "Autoimmunanamnese oder Postpartum-Kontext",
+    "category": "Anamnese",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Autoimmuncluster und Postpartum-Phase erhöhen die Aufmerksamkeit für autoimmune Schilddrüsenerkrankungen einschließlich Morbus Basedow.",
+    "limitations": "Postpartum-Thyreoiditis ist eine wichtige Alternative und kann initial ebenfalls thyreotoxisch sein; Uptake/Verlauf/TRAb helfen bei der Abgrenzung.",
+    "sources": [
+      {
+        "title": "2018 European Thyroid Association Guideline for the Management of Graves’ Hyperthyroidism",
+        "year": 2018,
+        "url": "https://www.karger.com/Article/FullText/490384",
+        "kind": "Leitlinie",
+        "note": "Diagnose ist bei Thyreotoxikose, positivem TSH-Rezeptor-Antikörper, hypervaskulärer/hypoechogener Schilddrüse und Orbitopathie meist eindeutig."
+      },
+      {
+        "title": "Endotext: Diagnosis and Treatment of Graves’ Disease",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/n/endotext/tyd-dgns-trt-graves/?report=reader",
+        "kind": "Lehrtext",
+        "note": "Nennt typische Hinweise wie Autoimmunanamnese, diffuse Struma mit Schwirren, Orbitopathie, Dermopathie und Acropachie."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "autoimmun-postpartum"
+  },
+  {
+    "id": "mtc-ret-men2-family-history",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "label": "RET-Mutation, MEN2 oder MTC-Familienanamnese",
+    "category": "Anamnese",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "RET/MEN2-Kontext verändert die Prätestwahrscheinlichkeit grundlegend und rechtfertigt genetische bzw. syndromorientierte Abklärung.",
+    "limitations": "Nicht mit unselektiertem Schilddrüsenknoten-Screening vermischen; Phäochromozytom und Hyperparathyreoidismus müssen im MEN2-Kontext berücksichtigt werden.",
+    "sources": [
+      {
+        "title": "Revised American Thyroid Association Guidelines for the Management of Medullary Thyroid Carcinoma",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+        "kind": "Leitlinie",
+        "note": "Zentrale Leitlinie zu MTC, RET-Testung, Calcitonin, CEA, MEN2 und präoperativer Einordnung."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "ret-men2"
+  },
+  {
+    "id": "mtc-thyroid-nodule-suspicious-node",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "label": "Schilddrüsenknoten plus suspekter zervikaler Lymphknoten",
+    "category": "Klinisches Zeichen",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Knoten plus auffälliger Lymphknoten erhöht die Wahrscheinlichkeit einer relevanten Schilddrüsenmalignität; bei MTC kann Calcitonin im FNA-Washout hilfreich sein.",
+    "limitations": "Nicht MTC-spezifisch; papilläres Schilddrüsenkarzinom und andere Malignitäten bleiben häufigere Alternativen.",
+    "sources": [
+      {
+        "title": "Revised American Thyroid Association Guidelines for the Management of Medullary Thyroid Carcinoma",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+        "kind": "Leitlinie",
+        "note": "Zentrale Leitlinie zu MTC, RET-Testung, Calcitonin, CEA, MEN2 und präoperativer Einordnung."
+      },
+      {
+        "title": "2015 ATA Management Guidelines for Adult Patients with Thyroid Nodules and Differentiated Thyroid Cancer",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+        "kind": "Leitlinie",
+        "note": "Nodulenabklärung, Sonografie-Risikomuster und FNA-Kontext; MTC-spezifische Fragen brauchen zusätzliche Calcitonin/RET-Einordnung."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "knoten-plus-lymphknoten"
+  },
+  {
+    "id": "mtc-flushing-diarrhea-nodule",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "label": "Flush/Diarrhoe bei Schilddrüsenknoten oder Calcitoninverdacht",
+    "category": "Symptom",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Fortgeschrittenes MTC kann sekretorische Symptome wie Diarrhoe oder Flush verursachen; im Knoten- oder Calcitoninkontext erhöht das die klinische Aufmerksamkeit.",
+    "limitations": "Unspezifisch und meist eher bei fortgeschrittener Erkrankung; ohne Schilddrüsenknoten/Marker nicht als Screeninggrund verwenden.",
+    "sources": [
+      {
+        "title": "Revised American Thyroid Association Guidelines for the Management of Medullary Thyroid Carcinoma",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4490627/",
+        "kind": "Leitlinie",
+        "note": "Zentrale Leitlinie zu MTC, RET-Testung, Calcitonin, CEA, MEN2 und präoperativer Einordnung."
+      },
+      {
+        "title": "Calcitonin testing for detection of medullary thyroid cancer in people with thyroid nodules",
+        "year": 2020,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32176812/",
+        "kind": "Review",
+        "note": "Cochrane Review zur Calcitonin-Testung bei Schilddrüsenknoten; Evidenz und Unsicherheiten der Screeningstrategie."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "sekretorische-symptome"
+  },
+  {
+    "id": "mtc-low-risk-incidental-small-nodule",
+    "conditionId": "medullares-schilddrusenkarzinom",
+    "label": "Kleiner Niedrigrisiko-Knoten ohne MEN2/RET-Kontext",
+    "category": "Kontext",
+    "direction": "decreases",
+    "quantificationStatus": "qualitative",
+    "rationale": "MTC ist in unselektierten Schilddrüsenknotenpopulationen selten; ein Niedrigrisiko-Knoten ohne Syndrom- oder Markerhinweis senkt die MTC-Prätestwahrscheinlichkeit.",
+    "limitations": "Sonografische Niedrigrisikozeichen schließen Malignität nicht absolut aus; lokale Knotenleitlinien und Verlauf bleiben relevant.",
+    "sources": [
+      {
+        "title": "Prevalence and significance of indeterminate calcitonin values in patients with thyroid nodules: a systematic review and meta-analysis",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10404572/",
+        "kind": "Review",
+        "note": "Berichtet niedrige MTC-Prävalenz in Schilddrüsenknotenpopulationen und das PPV-Problem grenzwertiger Calcitoninwerte."
+      },
+      {
+        "title": "2015 ATA Management Guidelines for Adult Patients with Thyroid Nodules and Differentiated Thyroid Cancer",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+        "kind": "Leitlinie",
+        "note": "Nodulenabklärung, Sonografie-Risikomuster und FNA-Kontext; MTC-spezifische Fragen brauchen zusätzliche Calcitonin/RET-Einordnung."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "niedrigrisiko-knoten"
+  },
+  {
+    "id": "celiac-first-degree-relative",
+    "conditionId": "zoliakie",
+    "label": "Erstgradige Angehörige mit Zöliakie",
+    "category": "Anamnese",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Erstgradige Angehörige haben in Leitlinien/Reviews ein deutlich erhöhtes Lebenszeitrisiko gegenüber der Allgemeinbevölkerung.",
+    "limitations": "Risiko hängt von HLA, Symptomen und Familienstruktur ab; negative Serologie kann bei späterer Entwicklung erneut relevant werden.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines, Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Guideline zu Diagnostik, Risikogruppen, Serologie und Biopsiestrategien bei Erwachsenen."
+      },
+      {
+        "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+        "year": 2015,
+        "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serologie bei Symptomen und bei erhöhtem Risiko, u. a. Typ-1-Diabetes, Autoimmunthyreopathie und erstgradigen Angehörigen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "erstgradige-angehoerige"
+  },
+  {
+    "id": "celiac-type1-diabetes-autoimmune-thyroid",
+    "conditionId": "zoliakie",
+    "label": "Typ-1-Diabetes oder Autoimmunthyreopathie",
+    "category": "Kontext",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Typ-1-Diabetes und Autoimmunthyreopathien sind etablierte Risikogruppen, bei denen Leitlinien serologische Testung empfehlen.",
+    "limitations": "Nicht auf Typ-2-Diabetes oder unspezifische Schilddrüsenlaborabweichungen übertragen; Symptome und Glutenexposition bleiben entscheidend.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines, Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Guideline zu Diagnostik, Risikogruppen, Serologie und Biopsiestrategien bei Erwachsenen."
+      },
+      {
+        "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+        "year": 2015,
+        "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serologie bei Symptomen und bei erhöhtem Risiko, u. a. Typ-1-Diabetes, Autoimmunthyreopathie und erstgradigen Angehörigen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "autoimmun-risikogruppe"
+  },
+  {
+    "id": "celiac-malabsorption-iron-deficiency",
+    "conditionId": "zoliakie",
+    "label": "Malabsorption, chronische Diarrhoe oder Eisenmangel",
+    "category": "Symptom",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Klassische gastrointestinale Symptome, Malabsorption und Eisenmangelanämie erhöhen die Prätestwahrscheinlichkeit und sind klare Testindikationen.",
+    "limitations": "Symptome sind nicht spezifisch; IBD, Blutverlust, Ernährung, Medikamente und andere Malabsorptionsursachen bleiben Differenzialdiagnosen.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines, Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Guideline zu Diagnostik, Risikogruppen, Serologie und Biopsiestrategien bei Erwachsenen."
+      },
+      {
+        "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+        "year": 2015,
+        "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serologie bei Symptomen und bei erhöhtem Risiko, u. a. Typ-1-Diabetes, Autoimmunthyreopathie und erstgradigen Angehörigen."
+      },
+      {
+        "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+        "year": 2017,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+        "kind": "Review",
+        "note": "AHRQ Review zur diagnostischen Genauigkeit serologischer Tests wie tTG-IgA."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "symptomatisches-case-finding"
+  },
+  {
+    "id": "celiac-gluten-free-diet-before-testing",
+    "conditionId": "zoliakie",
+    "label": "Glutenarme/glutenfreie Ernährung vor Testung",
+    "category": "Kontext",
+    "direction": "uncertain",
+    "quantificationStatus": "qualitative",
+    "rationale": "Glutenreduktion vor Serologie oder Biopsie kann die diagnostische Aussagekraft deutlich senken und falsch negative Befunde erzeugen.",
+    "limitations": "Dies senkt nicht die Krankheitswahrscheinlichkeit, sondern macht die Testinterpretation unsicher; Glutenchallenge nur nach klinischem Plan.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines, Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Guideline zu Diagnostik, Risikogruppen, Serologie und Biopsiestrategien bei Erwachsenen."
+      },
+      {
+        "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+        "year": 2015,
+        "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serologie bei Symptomen und bei erhöhtem Risiko, u. a. Typ-1-Diabetes, Autoimmunthyreopathie und erstgradigen Angehörigen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "test-nicht-valide-ohne-gluten"
+  },
+  {
+    "id": "celiac-iga-deficiency",
+    "conditionId": "zoliakie",
+    "label": "Selektiver IgA-Mangel oder sehr niedriges Gesamt-IgA",
+    "category": "Labor/Vorbefund",
+    "direction": "increases",
+    "quantificationStatus": "qualitative",
+    "rationale": "Selektiver IgA-Mangel ist mit Zöliakie assoziiert und macht tTG-IgA als alleinigen Test unzuverlässig.",
+    "limitations": "Die Hauptwirkung ist Teststrategie: IgG-basierte Serologie verwenden; nicht als exakte Prätestmultiplikation interpretieren.",
+    "sources": [
+      {
+        "title": "European Society for the Study of Coeliac Disease 2025 Updated Guidelines, Part 1: Diagnostic Approach",
+        "year": 2025,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12704582/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Guideline zu Diagnostik, Risikogruppen, Serologie und Biopsiestrategien bei Erwachsenen."
+      },
+      {
+        "title": "NICE NG20: Coeliac disease recognition, assessment and management",
+        "year": 2015,
+        "url": "https://www.nice.org.uk/guidance/ng20/chapter/Recommendations",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt Serologie bei Symptomen und bei erhöhtem Risiko, u. a. Typ-1-Diabetes, Autoimmunthyreopathie und erstgradigen Angehörigen."
+      },
+      {
+        "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
+        "year": 2017,
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
+        "kind": "Review",
+        "note": "AHRQ Review zur diagnostischen Genauigkeit serologischer Tests wie tTG-IgA."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-06-01",
+    "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
+    "riskStratum": "iga-mangel"
   }
 ]
