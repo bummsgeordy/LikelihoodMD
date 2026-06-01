@@ -7,6 +7,12 @@ function resultLabel(path: DiagnosticChainPath): string {
   return `${first} → ${second}`;
 }
 
+function pathNoteKey(path: DiagnosticChainPath): string {
+  const first = path.firstResultLabel === 'positiv' ? 'pos' : 'neg';
+  const second = path.secondResultLabel === 'positiv' ? 'pos' : 'neg';
+  return `${first}-${second}`;
+}
+
 export function renderDiagnosticChains(
   container: HTMLElement,
   viewModels: DiagnosticChainViewModel[],
@@ -61,8 +67,12 @@ export function renderDiagnosticChains(
     viewModel.paths.forEach(path => {
       const row = document.createElement('tr');
       const finalProbability = chainPathFinalProbability(path);
+      const note = viewModel.chain.pathNotes?.[pathNoteKey(path)];
+      const label = note
+        ? `${resultLabel(path)}<br><small class="muted">${note}</small>`
+        : resultLabel(path);
       row.innerHTML = `
-        <td>${resultLabel(path)}</td>
+        <td>${label}</td>
         <td>${formatPercent(path.intermediateProbability)}</td>
         <td>${formatPercent(finalProbability)}</td>
       `;

@@ -351,6 +351,7 @@ export interface DiagnosticChain extends ReviewMetadata {
   description: string;
   rationale: string;
   limitations: string;
+  pathNotes?: Record<string, string>;
   stages: DiagnosticChainStage[];
   sources: EvidenceSource[];
   lastReviewed: string;

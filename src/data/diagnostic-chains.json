@@ -179,9 +179,9 @@
       "klinik-notaufnahme"
     ],
     "label": "LE: D-Dimer → CTPA",
-    "description": "Typische LE-Kette aus klinischer Wahrscheinlichkeit, D-Dimer und CT-Pulmonalisangiografie.",
-    "rationale": "Bei niedriger/intermediärer Wahrscheinlichkeit kann ein negatives D-Dimer PE ausschließen; ein positives D-Dimer oder hohe Wahrscheinlichkeit führt zur Bildgebung, deren Wert wiederum von der Prätestwahrscheinlichkeit abhängt.",
-    "limitations": "D-Dimer nicht bei hoher klinischer Wahrscheinlichkeit als Ausschlussstrategie nutzen. Negative CTPA ist bei hoher Wahrscheinlichkeit weniger beruhigend; Schwangerschaft, Kontrastmittelrisiko und V/Q-Alternativen berücksichtigen.",
+    "description": "Leitliniennaher LE-Pfad: D-Dimer als Rule-out bei niedriger/intermediärer klinischer Wahrscheinlichkeit; CTPA folgt normalerweise nur bei positivem D-Dimer oder hoher klinischer Wahrscheinlichkeit.",
+    "rationale": "Bei niedriger/intermediärer Wahrscheinlichkeit kann ein negatives hochsensitives D-Dimer PE meist ohne Bildgebung ausschließen. CTPA ist zweite Stufe nach positivem D-Dimer oder erste Bildgebung bei hoher klinischer Wahrscheinlichkeit. Die mathematischen Negativ-D-Dimer-→-CTPA-Pfade sind deshalb nur hypothetische Diskordanzszenarien.",
+    "limitations": "D-Dimer nicht bei hoher klinischer Wahrscheinlichkeit als Ausschlussstrategie nutzen. Nach negativem D-Dimer bei niedriger/intermediärer Wahrscheinlichkeit wird üblicherweise keine CTPA durchgeführt; ein dennoch positives CTPA-Ergebnis wäre diskordant und sollte mit Bildqualität, Lokalisation, klinischer Wahrscheinlichkeit und ggf. weiterer Diagnostik abgeglichen werden. Negative CTPA ist bei hoher Wahrscheinlichkeit weniger beruhigend; Schwangerschaft, Kontrastmittelrisiko und V/Q-Alternativen berücksichtigen.",
     "stages": [
       {
         "id": "pe-ddimer-stage",
@@ -219,7 +219,11 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Didaktische Sequenz; klinische Wahrscheinlichkeit und lokale Bildgebungsalternativen sind entscheidend."
+    "reviewNote": "Didaktische Sequenz; negative-D-Dimer-zu-CTPA-Pfade sind ausdrücklich als hypothetische Diskordanzszenarien markiert.",
+    "pathNotes": {
+      "neg-pos": "Kein Standardpfad: Nach negativem D-Dimer wird bei niedriger/intermediärer Wahrscheinlichkeit üblicherweise gestoppt; dieser Wert ist nur eine hypothetische Diskordanzrechnung.",
+      "neg-neg": "Kein Standardpfad: Nach negativem D-Dimer wird bei niedriger/intermediärer Wahrscheinlichkeit üblicherweise keine CTPA angeschlossen."
+    }
   },
   {
     "id": "hf-ntprobnp-to-lung-ultrasound",
