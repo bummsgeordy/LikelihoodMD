@@ -2773,5 +2773,1315 @@
       }
     ],
     "conditionId": "morbus-basedow"
+  },
+  {
+    "id": "egfr-creatinine-ckd",
+    "name": "eGFR nach Kreatinin",
+    "category": "Nephrologie",
+    "conditionId": "chronische-nierenkrankheit",
+    "condition": "Chronische Nierenkrankheit",
+    "description": "Kreatininbasierte eGFR als Basisbaustein der CKD-Erkennung und -Stadieneinteilung.",
+    "evidenceProfiles": [
+      {
+        "id": "egfr-creatinine-ckd-kdigo-2024",
+        "testId": "egfr-creatinine-ckd",
+        "label": "KDIGO 2024: eGFRcr",
+        "kind": "curated",
+        "method": "Serumkreatinin mit validierter eGFR-Gleichung",
+        "cutoff": "CKD-relevant bei persistierend eGFR <60 ml/min/1,73 m² oder anderem Nierenschaden über ≥3 Monate",
+        "procedure": "Kreatinin messen, eGFR mit validierter Gleichung berichten und Vorwerte/Chronizität prüfen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Personen mit CKD-Risikofaktoren oder zufällig erniedrigter eGFR.",
+        "rationale": "KDIGO empfiehlt bei CKD-Risiko die GFR-Bewertung zusammen mit Urinalbumin; eGFRcr ist Basis, eGFRcr-cys genauer, wenn verfügbar.",
+        "limitations": "Kein binärer LR-Test. Einzelwert beweist keine CKD; Muskelmasse, Ernährung, akute Erkrankung und Medikamente können Kreatinin/eGFR verfälschen.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "year": 2024,
+            "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+            "kind": "Leitlinie",
+            "note": "Definiert CKD über Struktur- oder Funktionsauffälligkeiten über mindestens 3 Monate und empfiehlt GFR- plus Albuminurie-Bewertung; eGFRcr-cys ist genauer, wenn Cystatin C verfügbar ist."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Als Definitions- und Stagingbaustein verwenden, nicht als einzelner Bayes-LR-Test. Chronizität über mindestens 3 Monate prüfen.",
+        "reviewPriority": "medium",
+        "purpose": "definition-staging",
+        "specimen": "Serum/Plasma",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Akute Erkrankung, Dehydratation oder AKI ausschließen",
+          "Kreatinin durch Muskelmasse, Ernährung und Assay beeinflusst",
+          "Vorwerte und Verlauf prüfen"
+        ],
+        "medicationInterferences": [
+          "Trimethoprim/Cimetidin können Kreatinin ohne echten GFR-Abfall erhöhen",
+          "ACE-Hemmer/ARB/SGLT2-Hemmer können initialen eGFR-Dip verursachen",
+          "NSAID können AKI begünstigen"
+        ],
+        "interpretationCautions": [
+          "CKD ist eine persistierende Kategorie, kein Einzelwert.",
+          "Albuminurie und Ursache der Nierenerkrankung separat erfassen."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "egfr-creatinine-cystatin-c-ckd",
+    "name": "eGFR nach Kreatinin und Cystatin C",
+    "category": "Nephrologie",
+    "conditionId": "chronische-nierenkrankheit",
+    "condition": "Chronische Nierenkrankheit",
+    "description": "Kombinierte eGFRcr-cys zur Bestätigung/Stadieneinteilung, wenn Kreatinin weniger zuverlässig ist.",
+    "evidenceProfiles": [
+      {
+        "id": "egfr-cr-cys-ckd-kdigo-2024",
+        "testId": "egfr-creatinine-cystatin-c-ckd",
+        "label": "KDIGO 2024: eGFRcr-cys",
+        "kind": "curated",
+        "method": "Serumkreatinin plus Cystatin C mit kombinierter Gleichung",
+        "cutoff": "GFR-Kategorie nach KDIGO; Bestätigung im klinischen Kontext",
+        "procedure": "Cystatin C ergänzen, wenn verfügbar oder wenn Kreatinin durch Muskelmasse/Ernährung/klinischen Kontext unsicher ist.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "CKD-Risikopersonen oder unklare eGFRcr-Befunde.",
+        "rationale": "KDIGO bewertet die kombinierte Gleichung als genauer als Einzelmarker.",
+        "limitations": "Kein eigenständiger LR-Test. Cystatin C kann durch Entzündung, Schilddrüsenstatus, Steroide und Adipositas beeinflusst werden.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "year": 2024,
+            "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+            "kind": "Leitlinie",
+            "note": "Definiert CKD über Struktur- oder Funktionsauffälligkeiten über mindestens 3 Monate und empfiehlt GFR- plus Albuminurie-Bewertung; eGFRcr-cys ist genauer, wenn Cystatin C verfügbar ist."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Verbessert die GFR-Schätzung, ersetzt aber nicht Chronizitäts- und Ursachenklärung.",
+        "reviewPriority": "medium",
+        "purpose": "confirmation-staging",
+        "specimen": "Serum/Plasma",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Nicht-kidney Determinanten von Cystatin C berücksichtigen",
+          "Chronizität und Albuminurie parallel prüfen"
+        ],
+        "medicationInterferences": [
+          "Glukokortikoide können Cystatin C beeinflussen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "albumin-creatinine-ratio-ckd",
+    "name": "Albumin-Kreatinin-Quotient im Urin (UACR)",
+    "category": "Nephrologie",
+    "conditionId": "chronische-nierenkrankheit",
+    "condition": "Chronische Nierenkrankheit",
+    "description": "Albuminurie als zweiter Kernbaustein der CKD-Klassifikation und Prognose.",
+    "evidenceProfiles": [
+      {
+        "id": "uacr-ckd-kdigo-2024",
+        "testId": "albumin-creatinine-ratio-ckd",
+        "label": "KDIGO 2024: Albuminurie A1-A3",
+        "kind": "curated",
+        "method": "Urin-Albumin/Kreatinin-Quotient, bevorzugt Morgenurin",
+        "cutoff": "A1 <30 mg/g, A2 30-300 mg/g, A3 >300 mg/g; Persistenz erforderlich",
+        "procedure": "UACR messen und erhöhte Werte wiederholen; transiente Ursachen ausschließen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "CKD-Risikopersonen, Diabetes, Hypertonie, kardiovaskuläre Erkrankung oder auffällige eGFR.",
+        "rationale": "KDIGO klassifiziert CKD nach Ursache, GFR und Albuminurie; UACR trägt wesentlich zu Prognose und Risikoabschätzung bei.",
+        "limitations": "Kein binärer LR-Test; Albuminurie kann transient sein und muss bestätigt werden.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "year": 2024,
+            "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+            "kind": "Leitlinie",
+            "note": "Definiert CKD über Struktur- oder Funktionsauffälligkeiten über mindestens 3 Monate und empfiehlt GFR- plus Albuminurie-Bewertung; eGFRcr-cys ist genauer, wenn Cystatin C verfügbar ist."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Albuminurie immer wiederholen und mit eGFR, Sediment und klinischem Kontext interpretieren.",
+        "reviewPriority": "medium",
+        "purpose": "screening-staging",
+        "specimen": "Urin",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Sport, Fieber, Harnwegsinfekt, Menstruation und Hyperglykämie können UACR transient erhöhen",
+          "Morgenurin reduziert Variabilität"
+        ],
+        "medicationInterferences": [
+          "RAAS-Blockade und SGLT2-Hemmer können Albuminurie therapeutisch senken"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "urine-dipstick-hematuria-proteinuria-gn",
+    "name": "Urinstatus: Hämaturie und Proteinurie",
+    "category": "Nephrologie",
+    "conditionId": "glomerulonephritis",
+    "condition": "Glomerulonephritis",
+    "description": "Urinstatus als Einstieg bei Verdacht auf glomeruläre Entzündung.",
+    "evidenceProfiles": [
+      {
+        "id": "urine-dipstick-gn-screening",
+        "testId": "urine-dipstick-hematuria-proteinuria-gn",
+        "label": "Hämaturie + Proteinurie als Warnsignal",
+        "kind": "curated",
+        "method": "Urinstix/automatisierter Urinstatus mit Protein, Blut, Albumin/Kreatinin-Kontext",
+        "cutoff": "Keine universelle LR-Schwelle; Kombination aus Hämaturie, Proteinurie und eGFR-Verlauf entscheidend",
+        "procedure": "Auffällige Stixbefunde mikroskopisch und quantitativ bestätigen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Patienten mit Hämaturie, Proteinurie, Hypertonie, Ödemen oder raschem eGFR-Abfall.",
+        "rationale": "KDIGO und nephrologische Reviews nutzen Urinbefunde als frühe Warnzeichen, aber nicht als alleinigen Krankheitsnachweis.",
+        "limitations": "Nicht spezifisch für GN; Infekt, Stein, Tumor, Sport oder Kontamination können Befunde erklären.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2021 Clinical Practice Guideline for the Management of Glomerular Diseases",
+            "year": 2021,
+            "url": "https://kdigo.org/guidelines/gd/",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zu glomerulären Erkrankungen; Urinsediment, Serologie, klinischer Kontext und Nierenbiopsie sind je nach Syndrom diagnostische Bausteine."
+          },
+          {
+            "title": "Glomerular Hematuria: Cause or Consequence of Renal Inflammation?",
+            "year": 2019,
+            "url": "https://www.mdpi.com/1422-0067/20/9/2205",
+            "kind": "Review",
+            "note": "Review zur glomerulären Hämaturie und zur Bedeutung dysmorpher Erythrozyten, Akanthozyten und Erythrozytenzylinder im Urinsediment."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Urinstatus ist ein Triage-/Warnsignal, keine eigenständige GN-Diagnose.",
+        "reviewPriority": "medium",
+        "purpose": "screening",
+        "specimen": "Urin",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Frischen Mittelstrahlurin nutzen",
+          "Menstruation, Harnwegsinfekt und Sport als Störfaktoren dokumentieren"
+        ],
+        "interpretationCautions": [
+          "Hämaturie plus relevante Proteinurie oder rascher eGFR-Abfall sollte weiter abgeklärt werden."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "urine-sediment-glomerulonephritis",
+    "name": "Urinsediment und Mikroskopie",
+    "category": "Nephrologie",
+    "conditionId": "glomerulonephritis",
+    "condition": "Glomerulonephritis",
+    "description": "Mikroskopie auf dysmorphe Erythrozyten, Akanthozyten und Erythrozytenzylinder.",
+    "evidenceProfiles": [
+      {
+        "id": "urine-sediment-gn-nephritic",
+        "testId": "urine-sediment-glomerulonephritis",
+        "label": "Nephritisches Sediment",
+        "kind": "curated",
+        "method": "Frisches Urinsediment, idealerweise Phasenkontrast/erfahrene Mikroskopie",
+        "cutoff": "Akanthozyten/Erythrozytenzylinder sprechen stark für glomeruläre Blutungsquelle; Schwellen laborabhängig",
+        "procedure": "Frischen Urin zeitnah zentrifugieren und mikroskopieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Patienten mit persistierender Hämaturie, Proteinurie oder nephritischem Syndrom.",
+        "rationale": "Dysmorphe Erythrozyten, Akanthozyten und Erythrozytenzylinder erhöhen die Wahrscheinlichkeit glomerulärer Erkrankungen deutlich, sind aber untersucherabhängig.",
+        "limitations": "Keine einheitlichen LR-Werte für alle GN-Formen; Sensitivität hängt stark von Probe, Timing und Erfahrung ab.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2021 Clinical Practice Guideline for the Management of Glomerular Diseases",
+            "year": 2021,
+            "url": "https://kdigo.org/guidelines/gd/",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zu glomerulären Erkrankungen; Urinsediment, Serologie, klinischer Kontext und Nierenbiopsie sind je nach Syndrom diagnostische Bausteine."
+          },
+          {
+            "title": "Glomerular Hematuria: Cause or Consequence of Renal Inflammation?",
+            "year": 2019,
+            "url": "https://www.mdpi.com/1422-0067/20/9/2205",
+            "kind": "Review",
+            "note": "Review zur glomerulären Hämaturie und zur Bedeutung dysmorpher Erythrozyten, Akanthozyten und Erythrozytenzylinder im Urinsediment."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Als qualitativer Befund mit hoher klinischer Bedeutung anzeigen; nicht als universeller LR berechnen.",
+        "reviewPriority": "medium",
+        "purpose": "diagnostic-support",
+        "specimen": "Urin",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Urin muss frisch sein; alte Proben verfälschen Zellmorphologie und Zylinder",
+          "Mikroskopie ist stark erfahrungs- und methodenabhängig"
+        ],
+        "interpretationCautions": [
+          "Erythrozytenzylinder oder rascher eGFR-Abfall sind dringliche Warnzeichen."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kidney-biopsy-glomerulonephritis",
+    "name": "Nierenbiopsie bei GN-Verdacht",
+    "category": "Nephrologie",
+    "conditionId": "glomerulonephritis",
+    "condition": "Glomerulonephritis",
+    "description": "Histologische Sicherung und Klassifikation glomerulärer Erkrankungen.",
+    "evidenceProfiles": [
+      {
+        "id": "kidney-biopsy-gn-kdigo-2021",
+        "testId": "kidney-biopsy-glomerulonephritis",
+        "label": "KDIGO 2021: histologische Einordnung",
+        "kind": "curated",
+        "method": "Nierenbiopsie mit Lichtmikroskopie, Immunfluoreszenz und Elektronenmikroskopie je nach Fragestellung",
+        "cutoff": "Nicht als positiver/negativer Screeningtest modellierbar",
+        "procedure": "Indikation nach klinischem Syndrom, Risiko, Gerinnung und therapeutischer Konsequenz stellen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Selektierte Patienten mit nephritischem/nephrotischem Syndrom, raschem eGFR-Abfall oder unklarer Proteinurie/Hämaturie.",
+        "rationale": "Die Biopsie ist bei vielen glomerulären Erkrankungen für Diagnose, Klassifikation und Therapieentscheidung zentral.",
+        "limitations": "Invasiv, Sampling-Fehler möglich; nicht zur unselektierten Abklärung geringfügiger Auffälligkeiten.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2021 Clinical Practice Guideline for the Management of Glomerular Diseases",
+            "year": 2021,
+            "url": "https://kdigo.org/guidelines/gd/",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zu glomerulären Erkrankungen; Urinsediment, Serologie, klinischer Kontext und Nierenbiopsie sind je nach Syndrom diagnostische Bausteine."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Biopsie ist ein Klassifikations-/Bestätigungsschritt, kein Bayes-Screeningtest.",
+        "reviewPriority": "medium",
+        "purpose": "confirmation-classification",
+        "specimen": "Nierengewebe",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Blutungsrisiko, Blutdruck und Antikoagulation prüfen",
+          "Befund im Licht der Klinik und Serologie interpretieren"
+        ],
+        "medicationInterferences": [
+          "Antikoagulanzien und Thrombozytenhemmer beeinflussen Biopsierisiko"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "glomerulonephritis-serology-panel",
+    "name": "GN-Serologiepanel",
+    "category": "Nephrologie",
+    "conditionId": "glomerulonephritis",
+    "condition": "Glomerulonephritis",
+    "description": "Serologische Einordnung, z. B. ANCA, Anti-GBM, Komplement, ANA/dsDNA, Hepatitis/HIV je nach Kontext.",
+    "evidenceProfiles": [
+      {
+        "id": "gn-serology-context-panel",
+        "testId": "glomerulonephritis-serology-panel",
+        "label": "Kontextabhängige Serologie",
+        "kind": "curated",
+        "method": "Gezieltes Antikörper-/Komplement-/Infektionspanel nach klinischem Syndrom",
+        "cutoff": "Assay- und Krankheits-spezifisch",
+        "procedure": "Serologie gezielt nach Syndrom und Vortestwahrscheinlichkeit wählen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Patienten mit nephritischem Syndrom, RPGN-Verdacht, systemischen Zeichen oder passendem Urinsediment.",
+        "rationale": "Serologie kann die Differenzialdiagnose stark lenken, ist aber kein einzelner Test für GN insgesamt.",
+        "limitations": "Positive Autoantikörper können unspezifisch sein; negative Serologie schließt nicht jede GN aus.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "KDIGO 2021 Clinical Practice Guideline for the Management of Glomerular Diseases",
+            "year": 2021,
+            "url": "https://kdigo.org/guidelines/gd/",
+            "kind": "Leitlinie",
+            "note": "Leitlinie zu glomerulären Erkrankungen; Urinsediment, Serologie, klinischer Kontext und Nierenbiopsie sind je nach Syndrom diagnostische Bausteine."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nicht als einheitliche LR berechnen; nur syndrombezogen interpretieren.",
+        "reviewPriority": "medium",
+        "purpose": "differential-diagnosis",
+        "specimen": "Serum/Plasma",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "interpretationCautions": [
+          "Bei RPGN-Verdacht zählt Zeit: Serologie darf Biopsie/Therapieentscheidung nicht unnötig verzögern."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "coronary-ct-angiography-cad",
+    "name": "Koronar-CT-Angiographie (CCTA)",
+    "category": "Kardiologie",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "description": "Anatomische Diagnostik bei stabilem Thoraxschmerz und Verdacht auf obstruktive KHK.",
+    "evidenceProfiles": [
+      {
+        "id": "ccta-cad-stable-chest-pain",
+        "testId": "coronary-ct-angiography-cad",
+        "label": "Stabiler Thoraxschmerz, CCTA",
+        "kind": "curated",
+        "method": "Koronar-CT-Angiographie",
+        "cutoff": "Obstruktive CAD meist ≥50% Stenose; CAD-RADS/FFR-CT abhängig von Fragestellung",
+        "procedure": "Herzfrequenzkontrolle, Kontrastmittel, nitratabhängiges Protokoll nach lokaler SOP.",
+        "sensitivity": 0.95,
+        "specificity": 0.76,
+        "population": "Symptomatische Patienten mit stabilem Thoraxschmerz und niedriger bis intermediärer Prätestwahrscheinlichkeit.",
+        "rationale": "Leitlinien bevorzugen CCTA in vielen stabilen Thoraxschmerz-Szenarien zur Diagnose/Risikostratifikation; hohe Sensitivität macht sie als Ausschlusstest stark.",
+        "limitations": "Spezifität sinkt bei starker Verkalkung; Nierenfunktion, Kontrastmittelallergie, Rhythmus und Herzfrequenz beeinflussen Durchführbarkeit.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+            "year": 2021,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+          },
+          {
+            "title": "Collaborative Meta-Analysis of Cardiac CT (COME-CCT): CCTA versus functional testing for obstructive CAD",
+            "year": 2024,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11324632/",
+            "kind": "Review",
+            "note": "Individual-Patient-Data-Metaanalyse zum Vergleich von CCTA und funktionellen Tests bei stabilen Thoraxschmerzen; quantitative Werte bleiben abhängig von Stenosedefinition und Referenzstandard."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "rule-out/risk-stratification",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Für stabilen Thoraxschmerz, nicht für akutes Koronarsyndrom ohne ACS-Algorithmus verwenden.",
+        "reviewPriority": "medium",
+        "purpose": "diagnostic-imaging",
+        "specimen": "Bildgebung",
+        "lrPositive": 3.96,
+        "lrNegative": 0.07,
+        "preanalytics": [
+          "Herzfrequenz/Rhythmus, Nierenfunktion und Kontrastmittelrisiko prüfen",
+          "Ausgeprägte Koronarkalzifikation kann Überdiagnostik fördern"
+        ],
+        "medicationInterferences": [
+          "Betablocker/Nitrate werden häufig protokollabhängig eingesetzt",
+          "Metformin-/Kontrastmittel-Management nach lokaler SOP"
+        ],
+        "interpretationCautions": [
+          "Anatomische Stenose ist nicht identisch mit Ischämie; bei intermediären Läsionen funktionelle Bewertung erwägen."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "exercise-ecg-cad",
+    "name": "Ergometrie / Belastungs-EKG",
+    "category": "Kardiologie",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "description": "Funktioneller Test bei interpretierbarem Ruhe-EKG und ausreichender Belastbarkeit.",
+    "evidenceProfiles": [
+      {
+        "id": "exercise-ecg-cad-classic",
+        "testId": "exercise-ecg-cad",
+        "label": "Belastungs-EKG, klassischer Startwert",
+        "kind": "curated",
+        "method": "Symptomlimitierte Fahrradergometrie/Laufband mit ST-Streckenanalyse",
+        "cutoff": "Typisch horizontale/deszendierende ST-Senkung ≥1 mm; lokale Kriterien beachten",
+        "procedure": "Nur bei belastbarem Patienten und interpretierbarem EKG durchführen.",
+        "sensitivity": 0.68,
+        "specificity": 0.77,
+        "population": "Stabiler Thoraxschmerz, interpretierbares Ruhe-EKG, ausreichende Belastbarkeit.",
+        "rationale": "Belastungs-EKG ist verfügbar und günstig, aber weniger sensitiv/spezifisch als moderne Bildgebung; Werte als didaktischer Startpunkt.",
+        "limitations": "Nicht geeignet bei nicht interpretierbarem EKG, Digitalis, LSB, ventrikulärem Schrittmacher, fehlender Belastbarkeit oder hohem Risiko.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+            "year": 2021,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Niedrigere diagnostische Aussage als CCTA/Stressbildgebung; nur bei passender Patientenauswahl.",
+        "reviewPriority": "medium",
+        "purpose": "functional-testing",
+        "specimen": "EKG/Belastung",
+        "lrPositive": 2.96,
+        "lrNegative": 0.42,
+        "medicationInterferences": [
+          "Betablocker, Nitrate und Calciumantagonisten können Symptome/Ischämieschwelle verändern"
+        ],
+        "falsePositiveReasons": [
+          "LVH, Elektrolytstörungen, Baseline-ST-Veränderungen"
+        ],
+        "falseNegativeReasons": [
+          "Unzureichende Belastung, antianginöse Medikation, Ein-Gefäß-Erkrankung ohne Ischämienachweis"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "stress-cmr-cad",
+    "name": "Stress-Kard-MRT",
+    "category": "Kardiologie",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "description": "Funktionelle Ischämiediagnostik und Myokardcharakterisierung bei KHK-Verdacht.",
+    "evidenceProfiles": [
+      {
+        "id": "stress-cmr-cad-meta-start",
+        "testId": "stress-cmr-cad",
+        "label": "Stress-CMR, stabiler Thoraxschmerz",
+        "kind": "curated",
+        "method": "Pharmakologische Stress-Perfusions-CMR ± Late Enhancement",
+        "cutoff": "Induzierbare Perfusionsdefekte/Ischämie; Protokoll abhängig",
+        "procedure": "Koffein/Methylxanthine vor Vasodilatatorstress beachten; MRT-Kontraindikationen prüfen.",
+        "sensitivity": 0.89,
+        "specificity": 0.87,
+        "population": "Patienten mit KHK-Verdacht, bei denen funktionelle Ischämiediagnostik geeignet ist.",
+        "rationale": "Stress-CMR ist in Leitlinien als Stressbildgebung anerkannt und kann Ischämie sowie Narben/Myokarditis-Differenzialdiagnosen erfassen.",
+        "limitations": "Werte abhängig von Protokoll, Scanner, Referenzstandard und Population; Kontraindikationen/Artefakte beachten.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+            "year": 2021,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nicht bei ungeeigneter MRT-Sicherheit, schwerer Klaustrophobie oder nicht beachteter Koffeinpause interpretieren.",
+        "reviewPriority": "medium",
+        "purpose": "functional-imaging",
+        "specimen": "Bildgebung",
+        "lrPositive": 6.85,
+        "lrNegative": 0.13,
+        "preanalytics": [
+          "Koffein/Methylxanthine vor vasodilatatorischem Stress vermeiden",
+          "MRT-Sicherheit und Nierenfunktion für Kontrastmittel prüfen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "high-sensitivity-troponin-t-acs",
+    "name": "High-sensitivity Troponin T",
+    "category": "Kardiologie / Akutmedizin",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "description": "Akutdiagnostik bei Verdacht auf Myokardschädigung/ACS, nicht zur stabilen KHK-Prätestdiagnose.",
+    "evidenceProfiles": [
+      {
+        "id": "hs-troponin-t-acs-context",
+        "testId": "high-sensitivity-troponin-t-acs",
+        "label": "ACS-Kontext, nicht stabile KHK",
+        "kind": "curated",
+        "method": "hs-cTnT seriell nach ACS-Algorithmus",
+        "cutoff": "Assay- und Algorithmus-spezifisch, z. B. 0/1h oder 0/2h",
+        "procedure": "Nur mit Symptomzeitpunkt, Verlauf und EKG interpretieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Akuter Thoraxschmerz / ACS-Verdacht.",
+        "rationale": "Troponin detektiert Myokardschädigung, nicht spezifisch obstruktive stabile KHK.",
+        "limitations": "CKD, Myokarditis, Tachyarrhythmien, Sepsis, Lungenembolie und Herzinsuffizienz können Troponin erhöhen.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+            "year": 2021,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "context-warning",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nicht als Test auf stabile obstruktive KHK verwenden; ACS-Algorithmen sind separate Fragestellung.",
+        "reviewPriority": "medium",
+        "purpose": "acute-rule-out-rule-in",
+        "specimen": "Serum/Plasma",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "falsePositiveReasons": [
+          "CKD, Herzinsuffizienz, Myokarditis, Sepsis, Tachyarrhythmie, Lungenembolie"
+        ],
+        "interpretationCautions": [
+          "Dynamik und klinischer Kontext sind entscheidend."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "resting-echocardiography-cad",
+    "name": "Echokardiographie bei KHK-Verdacht",
+    "category": "Kardiologie",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "description": "Ruhe-Echokardiographie zur Struktur-/Funktionsbeurteilung und Differenzialdiagnose.",
+    "evidenceProfiles": [
+      {
+        "id": "rest-echo-cad-context",
+        "testId": "resting-echocardiography-cad",
+        "label": "Ruhe-Echo als Kontexttest",
+        "kind": "curated",
+        "method": "Transthorakale Echokardiographie",
+        "cutoff": "Regionale Wandbewegungsstörung/Strukturhinweise, keine universelle KHK-LR",
+        "procedure": "Bildqualität, Vorbefunde und Akutsituation berücksichtigen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Thoraxschmerz/Dyspnoe, V. a. strukturelle Herzerkrankung oder Komplikation.",
+        "rationale": "Echo hilft bei Differenzialdiagnosen und Funktion, schließt stabile obstruktive KHK aber nicht zuverlässig aus.",
+        "limitations": "Normales Ruhe-Echo schließt KHK nicht aus; Wandbewegungsstörungen können alt oder nicht-ischämisch sein.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+            "year": 2021,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Als Ergänzung, nicht als isolierter KHK-Ausschlusstest verwenden.",
+        "reviewPriority": "medium",
+        "purpose": "context-imaging",
+        "specimen": "Bildgebung",
+        "lrPositive": 1,
+        "lrNegative": 1
+      }
+    ]
+  },
+  {
+    "id": "invasive-coronary-angiography-cad",
+    "name": "Koronarangiographie",
+    "category": "Kardiologie",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "description": "Invasive anatomische Darstellung und therapeutische Entscheidungsgrundlage.",
+    "evidenceProfiles": [
+      {
+        "id": "ica-cad-guideline-context",
+        "testId": "invasive-coronary-angiography-cad",
+        "label": "Invasive Angiographie",
+        "kind": "curated",
+        "method": "Invasive Koronarangiographie ± Druckdraht/FFR/iFR",
+        "cutoff": "Stenosegrad und funktionelle Relevanz nach Leitlinie/FFR",
+        "procedure": "Indikation nach Risiko, Symptomen, Vorbefunden und therapeutischer Konsequenz stellen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Hochrisiko, persistierende Beschwerden, pathologische nichtinvasive Diagnostik oder ACS-Kontext.",
+        "rationale": "ICA ist Entscheidungs- und Therapieverfahren, nicht erster Screeningtest bei niedriger Prätestwahrscheinlichkeit.",
+        "limitations": "Invasiv; anatomische Stenose allein beweist nicht immer Ischämie.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+            "year": 2021,
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "kind": "Leitlinie",
+            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nicht als niedrigschwelliger Screeningtest modellieren; für Managemententscheidung reservieren.",
+        "reviewPriority": "medium",
+        "purpose": "confirmation/management",
+        "specimen": "Bildgebung",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Kontrastmittelrisiko, Nierenfunktion, Blutungsrisiko und Antikoagulation prüfen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "calcium-pth-phpt",
+    "name": "Calcium + Parathormon-Konstellation",
+    "category": "Endokrinologie / Calciumstoffwechsel",
+    "conditionId": "primarer-hyperparathyreoidismus",
+    "condition": "Primärer Hyperparathyreoidismus",
+    "description": "Diagnostische Kernkonstellation aus erhöhtem Calcium und inadäquat normalem/erhöhtem PTH.",
+    "evidenceProfiles": [
+      {
+        "id": "calcium-pth-phpt-workshop",
+        "testId": "calcium-pth-phpt",
+        "label": "PHPT-Kernmuster",
+        "kind": "curated",
+        "method": "Albuminkorrigiertes oder ionisiertes Calcium plus intaktes PTH",
+        "cutoff": "Hyperkalzämie mit nicht supprimiertem PTH; normokalzämische PHPT nur nach Ausschluss sekundärer Ursachen",
+        "procedure": "Calcium wiederholen, Albumin/ionisiertes Calcium, PTH, Vitamin D und eGFR prüfen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Hyperkalzämie, Osteoporose, Nephrolithiasis oder zufällig erhöhte Calciumwerte.",
+        "rationale": "Leitlinien definieren PHPT über Calcium-PTH-Konstellation und Ausschluss wichtiger Differenzialdiagnosen.",
+        "limitations": "Kein einzelner LR-Test; Vitamin-D-Mangel, CKD, Lithium/Thiazide und FHH können die Interpretation verändern.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Evaluation and Management of Primary Hyperparathyroidism: Fifth International Workshop",
+            "year": 2022,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36245251/",
+            "kind": "Leitlinie",
+            "note": "Aktuelle Workshop-Leitlinie zu Diagnostik und Management von primärem Hyperparathyreoidismus."
+          },
+          {
+            "title": "Guidelines for the Management of Asymptomatic Primary Hyperparathyroidism: Fourth International Workshop",
+            "year": 2014,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5393490/",
+            "kind": "Leitlinie",
+            "note": "Beschreibt Diagnose über albuminkorrigiertes Calcium und PTH sowie die Rolle von Vitamin-D-Status und Urincalcium/FHH-Abgrenzung."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Als Musterdiagnose interpretieren, nicht als isolierte Prozentrechnung.",
+        "reviewPriority": "medium",
+        "purpose": "diagnosis-pattern",
+        "specimen": "Serum/Plasma",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Albumin korrigieren oder ionisiertes Calcium nutzen",
+          "Vitamin-D-Status und Nierenfunktion berücksichtigen",
+          "Werte wiederholen"
+        ],
+        "medicationInterferences": [
+          "Lithium kann PTH/Calcium-Konstellation verändern",
+          "Thiazide können Calcium erhöhen und Urincalcium senken",
+          "Calcium-/Vitamin-D-Supplemente dokumentieren"
+        ],
+        "interpretationCautions": [
+          "Normales PTH ist bei Hyperkalzämie inadäquat und kann für PHPT sprechen."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "urinary-calcium-cccr-phpt",
+    "name": "24h-Urincalcium / Calcium-Kreatinin-Clearance-Ratio",
+    "category": "Endokrinologie / Calciumstoffwechsel",
+    "conditionId": "primarer-hyperparathyreoidismus",
+    "condition": "Primärer Hyperparathyreoidismus",
+    "description": "Abgrenzung familiäre hypokalziurische Hyperkalzämie (FHH) und Beurteilung renaler Beteiligung.",
+    "evidenceProfiles": [
+      {
+        "id": "urinary-calcium-cccr-phpt-fhh",
+        "testId": "urinary-calcium-cccr-phpt",
+        "label": "FHH-Abgrenzung / Calciurie",
+        "kind": "curated",
+        "method": "24h-Urincalcium und Calcium-Kreatinin-Clearance-Ratio",
+        "cutoff": "CCCR <0,01 spricht für FHH, Überlappungen möglich; lokale Einheiten prüfen",
+        "procedure": "24h-Sammlung mit Kreatinin-Plausibilität; Nierenfunktion, Vitamin D und Thiazide beachten.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Hyperkalzämie mit nicht supprimiertem PTH, besonders vor OP-Entscheidung oder atypischem Bild.",
+        "rationale": "Leitlinien empfehlen Urincalcium/CCCR zur Differenzialdiagnose FHH und zur renalen Risikoeinordnung.",
+        "limitations": "Thiazide, CKD, Vitamin-D-Mangel und Sammelfehler können Werte verfälschen.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Evaluation and Management of Primary Hyperparathyroidism: Fifth International Workshop",
+            "year": 2022,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36245251/",
+            "kind": "Leitlinie",
+            "note": "Aktuelle Workshop-Leitlinie zu Diagnostik und Management von primärem Hyperparathyreoidismus."
+          },
+          {
+            "title": "Guidelines for the Management of Asymptomatic Primary Hyperparathyroidism: Fourth International Workshop",
+            "year": 2014,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5393490/",
+            "kind": "Leitlinie",
+            "note": "Beschreibt Diagnose über albuminkorrigiertes Calcium und PTH sowie die Rolle von Vitamin-D-Status und Urincalcium/FHH-Abgrenzung."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nicht als alleiniger PHPT-Ausschluss verwenden; Überlappungen mit FHH möglich.",
+        "reviewPriority": "medium",
+        "purpose": "differential-diagnosis",
+        "specimen": "24h-Urin",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Sammelqualität prüfen",
+          "Vitamin D und eGFR berücksichtigen"
+        ],
+        "medicationInterferences": [
+          "Thiazide senken Urincalcium",
+          "Lithium kann PHPT/FHH-ähnliche Konstellationen erzeugen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vitamin-d-context-phpt",
+    "name": "25-OH-Vitamin D im PHPT-Kontext",
+    "category": "Endokrinologie / Calciumstoffwechsel",
+    "conditionId": "primarer-hyperparathyreoidismus",
+    "condition": "Primärer Hyperparathyreoidismus",
+    "description": "Vitamin-D-Status zur Interpretation von PTH und Calcium.",
+    "evidenceProfiles": [
+      {
+        "id": "vitamin-d-phpt-context",
+        "testId": "vitamin-d-context-phpt",
+        "label": "Vitamin-D-Kontext",
+        "kind": "curated",
+        "method": "25-OH-Vitamin D",
+        "cutoff": "Mangelgrenzen leitlinien-/laborabhängig",
+        "procedure": "Vitamin D zusammen mit Calcium, PTH, eGFR und Phosphat interpretieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Hyperkalzämie, erhöhtes PTH oder Verdacht auf sekundären Hyperparathyreoidismus.",
+        "rationale": "Vitamin-D-Mangel kann PTH erhöhen, normokalzämische PHPT imitieren oder PHPT maskieren.",
+        "limitations": "Kein PHPT-Test, sondern Kontextvariable.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Evaluation and Management of Primary Hyperparathyroidism: Fifth International Workshop",
+            "year": 2022,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/36245251/",
+            "kind": "Leitlinie",
+            "note": "Aktuelle Workshop-Leitlinie zu Diagnostik und Management von primärem Hyperparathyreoidismus."
+          },
+          {
+            "title": "Guidelines for the Management of Asymptomatic Primary Hyperparathyroidism: Fourth International Workshop",
+            "year": 2014,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5393490/",
+            "kind": "Leitlinie",
+            "note": "Beschreibt Diagnose über albuminkorrigiertes Calcium und PTH sowie die Rolle von Vitamin-D-Status und Urincalcium/FHH-Abgrenzung."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "low",
+        "applicabilityWarning": "Nicht als Diagnose- oder Ausschlusstest für PHPT verwenden.",
+        "reviewPriority": "medium",
+        "purpose": "context",
+        "specimen": "Serum/Plasma",
+        "lrPositive": 1,
+        "lrNegative": 1
+      }
+    ]
+  },
+  {
+    "id": "renal-artery-duplex-ras",
+    "name": "Duplexsonographie der Nierenarterien",
+    "category": "Nephrologie / Gefäßmedizin",
+    "conditionId": "renale-arterienstenose",
+    "condition": "Renale Arterienstenose / renovaskuläre Hypertonie",
+    "description": "Nichtinvasive Erstbildgebung bei passender Hochrisikokonstellation.",
+    "evidenceProfiles": [
+      {
+        "id": "renal-duplex-ras-review-2024",
+        "testId": "renal-artery-duplex-ras",
+        "label": "Duplexsonographie, heterogene Schwellen",
+        "kind": "curated",
+        "method": "Farbduplex mit PSV/RAR/indirekten intrarenalen Kriterien",
+        "cutoff": "PSV/RAR-Schwellen labor- und protokollabhängig; keine universelle LR-Schwelle",
+        "procedure": "Erfahrenes Gefäßlabor, Nüchternheit/Schallbedingungen und vollständige Darstellung dokumentieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Resistente Hypertonie, unerklärter Nierenfunktionsabfall, Flash-Lungenödem oder FMD-/Atherosklerose-Kontext.",
+        "rationale": "ACR nennt Ultraschall, CT und MRT als primäre Modalitäten; aktuelle Reviews zeigen heterogene Duplexparameter, daher vorerst keine harte LR-Modellierung.",
+        "limitations": "Untersucherabhängig; Adipositas, Darmgas, Nierenlage, Zubehörarterien und FMD-Lokalisation können Befundqualität begrenzen.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "ACR Appropriateness Criteria: Renovascular Hypertension",
+            "year": 2017,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29101991/",
+            "kind": "Leitlinie",
+            "note": "Beschreibt CT, MRT und Ultraschall als primäre Bildgebungsmodalitäten bei Verdacht auf renovaskuläre Hypertonie abhängig von Nierenfunktion und klinischem Szenario."
+          },
+          {
+            "title": "Accuracy of Duplex Ultrasound for Detecting Renal Artery Stenosis: A Systematic Review",
+            "year": 2024,
+            "url": "https://journals.sagepub.com/doi/10.1177/15443167231223551",
+            "kind": "Review",
+            "note": "Systematischer Review: Duplexparameter und Schwellenwerte sind heterogen, weshalb kein universeller gepoolter LR-Wert sinnvoll ist."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Als bildgebender Baustein bei hoher klinischer Prätestwahrscheinlichkeit, nicht als universeller LR-Test.",
+        "reviewPriority": "medium",
+        "purpose": "screening-imaging",
+        "specimen": "Bildgebung",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Schallfenster und Untersucherfahrung sind entscheidend",
+          "Bei grenzwertigem oder nicht beurteilbarem Befund CTA/MRA je nach Nierenfunktion erwägen"
+        ],
+        "medicationInterferences": [
+          "ACE-Hemmer/ARB können Kreatininanstieg als Hinweis zeigen, sind aber kein Testersatz"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cta-mra-renal-arteries-ras",
+    "name": "CTA/MRA der Nierenarterien",
+    "category": "Nephrologie / Gefäßmedizin",
+    "conditionId": "renale-arterienstenose",
+    "condition": "Renale Arterienstenose / renovaskuläre Hypertonie",
+    "description": "Schnittbildangiographie zur weiteren Abklärung bei passender klinischer Fragestellung.",
+    "evidenceProfiles": [
+      {
+        "id": "cta-mra-ras-acr-context",
+        "testId": "cta-mra-renal-arteries-ras",
+        "label": "CTA/MRA im Hochrisikokontext",
+        "kind": "curated",
+        "method": "CT-Angiographie oder MR-Angiographie der Nierenarterien",
+        "cutoff": "Stenosegrad, hämodynamische Relevanz und Interventionseignung kontextabhängig",
+        "procedure": "Modalität nach Nierenfunktion, Kontrastmittelrisiko, Verkalkung/FMD-Frage und lokaler Expertise wählen.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Selektierte Patienten mit klinisch relevantem Verdacht auf renovaskuläre Hypertonie.",
+        "rationale": "ACR beschreibt CT/MRT/Ultraschall als primäre Modalitäten; Auswahl hängt stark von Nierenfunktion und Szenario ab.",
+        "limitations": "Anatomische Stenose ist nicht automatisch Ursache der Hypertonie; Kontrastmittel und Verkalkung/Artefakte beachten.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "ACR Appropriateness Criteria: Renovascular Hypertension",
+            "year": 2017,
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29101991/",
+            "kind": "Leitlinie",
+            "note": "Beschreibt CT, MRT und Ultraschall als primäre Bildgebungsmodalitäten bei Verdacht auf renovaskuläre Hypertonie abhängig von Nierenfunktion und klinischem Szenario."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nicht breit bei unkomplizierter Hypertonie einsetzen; nur wenn Ergebnis Management verändern würde.",
+        "reviewPriority": "medium",
+        "purpose": "diagnostic-imaging",
+        "specimen": "Bildgebung",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "eGFR/Kontrastmittelrisiko prüfen",
+          "FMD kann andere Bildgebungsanforderungen haben"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "thyroid-ultrasound-tirads",
+    "name": "Schilddrüsensonographie / TI-RADS",
+    "category": "Endokrinologie / Schilddrüse",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "description": "Morphologische Risikostratifikation und FNA-Indikation bei Schilddrüsenknoten.",
+    "evidenceProfiles": [
+      {
+        "id": "thyroid-us-tirads-guideline",
+        "testId": "thyroid-ultrasound-tirads",
+        "label": "EU-/ACR-/ATA-TIRADS Kontext",
+        "kind": "curated",
+        "method": "Hochauflösende Sonographie mit strukturierter Risikoklassifikation",
+        "cutoff": "EU-TIRADS/ACR-TIRADS/ATA-Muster und Größenkriterien; Kategorie-spezifisch",
+        "procedure": "Noduleigenschaften, Größe, Lymphknoten, TSH und Risikoanamnese dokumentieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Sonografisch nachgewiesene Schilddrüsenknoten.",
+        "rationale": "Leitlinien nutzen Sonographiemuster für Risikostratifikation und FNA-Schwellen; eine universelle LR für alle Knoten wäre irreführend.",
+        "limitations": "Untersucherabhängig; Systeme unterscheiden sich; Risiko hängt von Knoten-, Patienten- und Selektionsmerkmalen ab.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+            "year": 2017,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+            "kind": "Leitlinie",
+            "note": "EU-TIRADS strukturiert sonografische Malignitätsrisiken und FNA-Indikationen; Elastografie kann ergänzen, ersetzt die morphologische Risikostratifikation aber nicht."
+          },
+          {
+            "title": "2023 European Thyroid Association Clinical Practice Guidelines for thyroid nodule management",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
+            "kind": "Leitlinie",
+            "note": "Aktualisierte europäische Leitlinie zu Schilddrüsenknoten, FNA-Indikation, Risikoklassifikation und Kontextfaktoren."
+          },
+          {
+            "title": "2015 American Thyroid Association Management Guidelines for Adult Patients with Thyroid Nodules",
+            "year": 2015,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+            "kind": "Leitlinie",
+            "note": "ATA-Leitlinie mit sonografischen Mustern, FNA-Schwellen, Calcitonin- und molekularer Diagnostik im Kontext klinischer Beurteilung."
+          },
+          {
+            "title": "Diagnostic Performance of ACR and Kwak TI-RADS: Systematic Review and Meta-Analysis",
+            "year": 2022,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9740871/",
+            "kind": "Review",
+            "note": "Meta-Analyse zur diagnostischen Leistung von TI-RADS-Systemen; quantitative Schwellen sind von Kategorie und FNA-Kriterien abhängig."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Kategorie und Größe müssen angegeben werden; ohne Kategorie keine sinnvolle Prozentrechnung.",
+        "reviewPriority": "medium",
+        "purpose": "risk-stratification",
+        "specimen": "Bildgebung",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Standardisierte Dokumentation von Echogenität, Komposition, Rändern, Form und echogenen Foci",
+          "Pathologische Lymphknoten separat erfassen"
+        ],
+        "interpretationCautions": [
+          "TIRADS dient zur Auswahl für FNA/Follow-up, nicht als alleiniger Krebsnachweis."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "thyroid-elastography-nodule",
+    "name": "Schilddrüsen-Elastographie",
+    "category": "Endokrinologie / Schilddrüse",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "description": "Ergänzende Härte-/Steifigkeitsinformation bei Schilddrüsenknoten.",
+    "evidenceProfiles": [
+      {
+        "id": "thyroid-elastography-context",
+        "testId": "thyroid-elastography-nodule",
+        "label": "Ergänzung zur Sonographie",
+        "kind": "curated",
+        "method": "Strain- oder Shear-wave-Elastographie",
+        "cutoff": "Geräte-, Technik- und Studienabhängig",
+        "procedure": "Nur ergänzend zur morphologischen Risikoklassifikation verwenden.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Schilddrüsenknoten mit unklarer morphologischer Einschätzung.",
+        "rationale": "ETA beschreibt Elastographie als Zusatzinformation; sie ersetzt keine strukturierte Sonographie oder FNA-Indikationsstellung.",
+        "limitations": "Technik- und Untersucherabhängigkeit; Makrokalk, Zysten und Lage beeinflussen Messung.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+            "year": 2017,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+            "kind": "Leitlinie",
+            "note": "EU-TIRADS strukturiert sonografische Malignitätsrisiken und FNA-Indikationen; Elastografie kann ergänzen, ersetzt die morphologische Risikostratifikation aber nicht."
+          },
+          {
+            "title": "2023 European Thyroid Association Clinical Practice Guidelines for thyroid nodule management",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
+            "kind": "Leitlinie",
+            "note": "Aktualisierte europäische Leitlinie zu Schilddrüsenknoten, FNA-Indikation, Risikoklassifikation und Kontextfaktoren."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Keine eigenständige universelle LR; nur als Zusatz zur TIRADS-Klassifikation interpretieren.",
+        "reviewPriority": "medium",
+        "purpose": "adjunct-risk-stratification",
+        "specimen": "Bildgebung",
+        "lrPositive": 1,
+        "lrNegative": 1
+      }
+    ]
+  },
+  {
+    "id": "thyroid-fna-bethesda",
+    "name": "Feinnadelpunktion / Bethesda-Zytologie",
+    "category": "Endokrinologie / Schilddrüse",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "description": "Zytologische Abklärung bei sonografisch/FNA-kriteriell geeigneten Knoten.",
+    "evidenceProfiles": [
+      {
+        "id": "thyroid-fna-bethesda-guideline",
+        "testId": "thyroid-fna-bethesda",
+        "label": "Bethesda-Zytologie",
+        "kind": "curated",
+        "method": "Ultraschallgestützte Feinnadelaspiration mit Bethesda-Kategorie",
+        "cutoff": "Bethesda I-VI; Malignitätsrisiko Kategorie-spezifisch",
+        "procedure": "FNA nach TIRADS/ATA/EU-TIRADS, Größe, Risikoanamnese und Lymphknotenbefund.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Schilddrüsenknoten mit FNA-Indikation.",
+        "rationale": "Leitlinien stellen FNA-Indikationen nach Sonographiemuster und Größe; Bethesda ordnet die weitere Abklärung.",
+        "limitations": "Nicht diagnostische Proben und indeterminierte Kategorien brauchen Wiederholung, Molekulardiagnostik, MIBI oder OP-Kontext.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2015 American Thyroid Association Management Guidelines for Adult Patients with Thyroid Nodules",
+            "year": 2015,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+            "kind": "Leitlinie",
+            "note": "ATA-Leitlinie mit sonografischen Mustern, FNA-Schwellen, Calcitonin- und molekularer Diagnostik im Kontext klinischer Beurteilung."
+          },
+          {
+            "title": "2023 European Thyroid Association Clinical Practice Guidelines for thyroid nodule management",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
+            "kind": "Leitlinie",
+            "note": "Aktualisierte europäische Leitlinie zu Schilddrüsenknoten, FNA-Indikation, Risikoklassifikation und Kontextfaktoren."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nicht als dichotomer LR-Test modellieren; Bethesda-Kategorie muss separat bewertet werden.",
+        "reviewPriority": "medium",
+        "purpose": "cytology",
+        "specimen": "Zytologie",
+        "lrPositive": 1,
+        "lrNegative": 1,
+        "preanalytics": [
+          "Probenqualität und Zellularität sichern",
+          "Nicht-diagnostische Punktionen nicht als beruhigend werten"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "thyroid-mibi-indeterminate-nodule",
+    "name": "MIBI-Szintigraphie bei indeterminierter Schilddrüsenzytologie",
+    "category": "Endokrinologie / Nuklearmedizin",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "description": "Ergänzender Rule-out-Baustein bei hypofunktionellen Knoten mit intermediärem/hohem Risiko und indeterminierter Zytologie.",
+    "evidenceProfiles": [
+      {
+        "id": "thyroid-mibi-indeterminate-european-multicenter",
+        "testId": "thyroid-mibi-indeterminate-nodule",
+        "label": "Europäische Multicenter-Studie",
+        "kind": "curated",
+        "method": "99mTc-MIBI-Szintigraphie/SPECT",
+        "cutoff": "Visuell negativ vs. positiv; Protokoll abhängig",
+        "procedure": "Nur im passenden indeterminierten Zytologie-/Hypofunktionskontext erwägen.",
+        "sensitivity": 0.96,
+        "specificity": 0.21,
+        "population": "Hypofunktionelle Schilddrüsenknoten mit intermediärem/hohem Risiko und indeterminierter Zytologie.",
+        "rationale": "MIBI-negativ kann Malignität eher ausschließen; positive Befunde sind wegen niedriger Spezifität schwach.",
+        "limitations": "Nicht zur Primärabklärung aller Knoten; niedrige Spezifität und starke Kontextabhängigkeit.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "Diagnostic Performance of 99mTc-MIBI for Risk Stratification of Hypofunctioning Thyroid Nodules",
+            "year": 2022,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9221758/",
+            "kind": "Studie",
+            "note": "Europäische Multicenter-Studie: MIBI kann bei hypofunktionellen Knoten mit intermediärem/hohem Risiko und indeterminierter Zytologie Malignität eher ausschließen; Spezifität ist niedrig."
+          },
+          {
+            "title": "2023 European Thyroid Association Clinical Practice Guidelines for thyroid nodule management",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
+            "kind": "Leitlinie",
+            "note": "Aktualisierte europäische Leitlinie zu Schilddrüsenknoten, FNA-Indikation, Risikoklassifikation und Kontextfaktoren."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "moderate",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "rule-out-adjunct",
+        "preanalyticRisk": "moderate",
+        "applicabilityWarning": "Nur bei indeterminierter Zytologie/hypofunktionellem Knoten sinnvoll; positives Ergebnis allein beweist Malignität nicht.",
+        "reviewPriority": "medium",
+        "purpose": "rule-out-adjunct",
+        "specimen": "Nuklearmedizinische Bildgebung",
+        "lrPositive": 1.22,
+        "lrNegative": 0.19,
+        "interpretationCautions": [
+          "Schwaches Rule-in, nützlicheres Rule-out im passenden Kontext."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "thyroid-molecular-markers-nodule",
+    "name": "Molekulare Marker bei indeterminierter Schilddrüsenzytologie",
+    "category": "Endokrinologie / Schilddrüse",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "description": "Panelabhängige molekulare Zusatzdiagnostik bei Bethesda III/IV-Konstellationen.",
+    "evidenceProfiles": [
+      {
+        "id": "thyroid-molecular-marker-context",
+        "testId": "thyroid-molecular-markers-nodule",
+        "label": "Panelabhängige Zusatzdiagnostik",
+        "kind": "curated",
+        "method": "Molekularpanel, z. B. mutations-/fusion- oder expressionbasiert",
+        "cutoff": "Panel- und Labor-spezifisch",
+        "procedure": "Nur mit konkretem Panel, lokaler Prävalenz und Bethesda-Kategorie interpretieren.",
+        "sensitivity": null,
+        "specificity": null,
+        "population": "Indeterminierte Schilddrüsenzytologie, wenn das Ergebnis Management verändert.",
+        "rationale": "ATA betont, dass molekulare Marker klinische Informationen und Urteil nicht ersetzen; Testgüte ist panel- und populationsabhängig.",
+        "limitations": "Keine universelle LR; Werte ändern sich je nach Panelgeneration, lokaler Krebsprävalenz und Bethesda-Kategorie.",
+        "lastReviewed": "2026-06-01",
+        "isDefault": true,
+        "sources": [
+          {
+            "title": "2015 American Thyroid Association Management Guidelines for Adult Patients with Thyroid Nodules",
+            "year": 2015,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+            "kind": "Leitlinie",
+            "note": "ATA-Leitlinie mit sonografischen Mustern, FNA-Schwellen, Calcitonin- und molekularer Diagnostik im Kontext klinischer Beurteilung."
+          },
+          {
+            "title": "2023 European Thyroid Association Clinical Practice Guidelines for thyroid nodule management",
+            "year": 2023,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
+            "kind": "Leitlinie",
+            "note": "Aktualisierte europäische Leitlinie zu Schilddrüsenknoten, FNA-Indikation, Risikoklassifikation und Kontextfaktoren."
+          }
+        ],
+        "reviewStatus": "needs-review",
+        "evidenceQuality": "expert-opinion",
+        "dataCompleteness": "partial",
+        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "intendedUse": "diagnostic-support",
+        "preanalyticRisk": "high",
+        "applicabilityWarning": "Nur mit benanntem Panel und lokaler Prävalenz als quantitatives Profil anlegen.",
+        "reviewPriority": "medium",
+        "purpose": "adjunct-risk-stratification",
+        "specimen": "Zytologie/Molekularprobe",
+        "lrPositive": 1,
+        "lrNegative": 1
+      }
+    ]
   }
 ]

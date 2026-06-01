@@ -100,6 +100,12 @@ const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
   herzinsuffizienz: "ntprobnp",
   "tiefe-venenthrombose": "d-dimer-dvt",
   lungenembolie: "d-dimer-pe",
+  "chronische-nierenkrankheit": "egfr-creatinine-ckd",
+  glomerulonephritis: "urine-sediment-glomerulonephritis",
+  "obstruktive-koronare-herzkrankheit": "coronary-ct-angiography-cad",
+  "primarer-hyperparathyreoidismus": "calcium-pth-phpt",
+  "renale-arterienstenose": "renal-artery-duplex-ras",
+  "schilddrusenknoten-malignitatsrisiko": "thyroid-ultrasound-tirads",
 };
 
 let state: CalculatorState = loadState();
@@ -1145,6 +1151,10 @@ function conditionGroupLabel(
     "zoliakie",
     "tiefe-venenthrombose",
     "lungenembolie",
+    "chronische-nierenkrankheit",
+    "glomerulonephritis",
+    "obstruktive-koronare-herzkrankheit",
+    "renale-arterienstenose",
   ].includes(condition.id)
     ? "Internistisch"
     : "Endokrinologie";

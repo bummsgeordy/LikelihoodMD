@@ -1105,5 +1105,221 @@
     "reviewStatus": "needs-review",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Pragmatischer Notaufnahme-Startwert aus akuter Dyspnoe-Testpopulation; konkrete Prävalenz lokaler ED-Kohorten nachreichen."
+  },
+  {
+    "id": "ckd-general-fallback",
+    "condition": "Chronische Nierenkrankheit",
+    "conditionId": "chronische-nierenkrankheit",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Personen mit CKD-Risikofaktoren oder auffälliger eGFR/UACR ohne spezifischeres Setting.",
+    "probability": 0.1,
+    "rangeLow": 0.049,
+    "rangeHigh": 0.358,
+    "rationale": "Arbeitsannahme für Risikogruppen, nicht für unselektierte junge Gesunde. KDIGO betont Testung bei Risikopersonen mit GFR und Albuminurie sowie Bestätigung der Chronizität.",
+    "limitations": "Nicht als Populationsprävalenz für alle Erwachsenen interpretieren. Einzelne eGFR- oder Albuminurie-Auffälligkeit kann AKI, transiente Albuminurie oder Messstörung sein.",
+    "lastReviewed": "2026-06-01",
+    "sources": [
+      {
+        "title": "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+        "year": 2024,
+        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+        "kind": "Leitlinie",
+        "note": "CKD-Definition, GFR-/Albuminurie-Klassifikation und Chronizitätsprüfung."
+      },
+      {
+        "title": "Epidemiology of chronic kidney disease: an update 2022",
+        "year": 2022,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9073222/",
+        "kind": "Review",
+        "note": "Beschreibt CKD-Prävalenzen in Allgemein- und Risikopopulationen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
+  },
+  {
+    "id": "glomerulonephritis-general-fallback",
+    "condition": "Glomerulonephritis",
+    "conditionId": "glomerulonephritis",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Patientinnen und Patienten mit persistierender Hämaturie plus Proteinurie, nephritischem Sediment oder raschem eGFR-Abfall.",
+    "probability": 0.05,
+    "rangeLow": 0.001,
+    "rangeHigh": 0.2,
+    "rationale": "Expertische Arbeitsannahme für eine selektierte nephrologische Verdachtskonstellation; Urinsediment und klinisches Syndrom bestimmen das Risiko stärker als ein einzelnes Symptom.",
+    "limitations": "Sehr spektrumabhängig. Isolierte Mikrohämaturie ohne Proteinurie und stabile eGFR hat eine deutlich niedrigere GN-Wahrscheinlichkeit; RPGN-Konstellationen deutlich höher.",
+    "lastReviewed": "2026-06-01",
+    "sources": [
+      {
+        "title": "KDIGO 2021 Clinical Practice Guideline for the Management of Glomerular Diseases",
+        "year": 2021,
+        "url": "https://kdigo.org/guidelines/gd/",
+        "kind": "Leitlinie",
+        "note": "Leitlinie zu glomerulären Erkrankungen und diagnostischer Einordnung."
+      },
+      {
+        "title": "Glomerular Hematuria: Cause or Consequence of Renal Inflammation?",
+        "year": 2019,
+        "url": "https://www.mdpi.com/1422-0067/20/9/2205",
+        "kind": "Review",
+        "note": "Review zur glomerulären Hämaturie und Urinsedimentinterpretation."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "minimal",
+    "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
+  },
+  {
+    "id": "cad-stable-chest-pain-general-fallback",
+    "condition": "Obstruktive koronare Herzkrankheit",
+    "conditionId": "obstruktive-koronare-herzkrankheit",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Stabiler Thoraxschmerz oder Verdacht auf chronisches Koronarsyndrom vor anatomischer oder funktioneller Diagnostik.",
+    "probability": 0.15,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.61,
+    "rationale": "Arbeitsannahme im Bereich moderner PTP-Modelle; Alter, Geschlecht, Symptomtyp und Risikofaktoren müssen die Prätestwahrscheinlichkeit eigentlich strukturieren.",
+    "limitations": "Nicht auf akuten Thoraxschmerz/ACS übertragen. Für KHK sollte perspektivisch ein ESC-/AHA-PTP-Rechner nach Alter, Geschlecht und Schmerztyp ergänzt werden.",
+    "lastReviewed": "2026-06-01",
+    "sources": [
+      {
+        "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
+        "year": 2021,
+        "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+        "kind": "Leitlinie",
+        "note": "Testauswahl bei stabilem und akutem Thoraxschmerz."
+      },
+      {
+        "title": "Validation of European Society of Cardiology pre-test probabilities for obstructive coronary artery disease in suspected stable angina",
+        "year": 2020,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7590886/",
+        "kind": "Studie",
+        "note": "Validierung moderner ESC-Prätestwahrscheinlichkeiten."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
+  },
+  {
+    "id": "phpt-general-fallback",
+    "condition": "Primärer Hyperparathyreoidismus",
+    "conditionId": "primarer-hyperparathyreoidismus",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Abklärung wiederholt erhöhter Calciumwerte, Nephrolithiasis oder Osteoporose mit Frage nach PHPT.",
+    "probability": 0.2,
+    "rangeLow": 0.05,
+    "rangeHigh": 0.8,
+    "rationale": "Bei echter Hyperkalzämie mit nicht supprimiertem PTH ist PHPT eine zentrale Differenzialdiagnose. Die Zahl ist eine Verdachtskonstellation, keine Allgemeinbevölkerungsprävalenz.",
+    "limitations": "Bei unselektierter Bevölkerung deutlich niedriger; bei wiederholt erhöhtem Calcium plus inadäquat normalem/erhöhtem PTH deutlich höher. Vitamin-D-Mangel, CKD, Lithium/Thiazide und FHH beachten.",
+    "lastReviewed": "2026-06-01",
+    "sources": [
+      {
+        "title": "Evaluation and Management of Primary Hyperparathyroidism: Fifth International Workshop",
+        "year": 2022,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/36245251/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle Leitlinie zu Diagnose und Management von PHPT."
+      },
+      {
+        "title": "Guidelines for the Management of Asymptomatic Primary Hyperparathyroidism: Fourth International Workshop",
+        "year": 2014,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5393490/",
+        "kind": "Leitlinie",
+        "note": "Beschreibt albuminkorrigiertes Calcium, PTH und Differenzialdiagnosen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "partial",
+    "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
+  },
+  {
+    "id": "ras-high-risk-general-fallback",
+    "condition": "Renale Arterienstenose",
+    "conditionId": "renale-arterienstenose",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Resistente Hypertonie, unerklärter Nierenfunktionsabfall, Kreatininanstieg unter RAAS-Blockade, Flash-Lungenödem oder FMD-/Atherosklerose-Kontext.",
+    "probability": 0.1,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.4,
+    "rationale": "RAS ist bei unkomplizierter Hypertonie selten, in stark selektierten Hochrisikogruppen aber deutlich häufiger. Bildgebung soll nur erfolgen, wenn Ergebnis Management verändern würde.",
+    "limitations": "Nicht als Screening bei milder unkomplizierter Hypertonie verwenden. Anatomische Stenose ist nicht automatisch kausal für Hypertonie oder Nierenfunktionsverlust.",
+    "lastReviewed": "2026-06-01",
+    "sources": [
+      {
+        "title": "ACR Appropriateness Criteria: Renovascular Hypertension",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/29101991/",
+        "kind": "Leitlinie",
+        "note": "Bildgebungsindikationen bei renovaskulärer Hypertonie."
+      },
+      {
+        "title": "Renal Artery Stenosis",
+        "year": 2026,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK430718/",
+        "kind": "Lehrtext",
+        "note": "Zusammenfassung klinischer Konstellationen und Bildgebungsoptionen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
+  },
+  {
+    "id": "thyroid-nodule-malignancy-general-fallback",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Sonografisch nachgewiesener Schilddrüsenknoten ohne bereits bekannte Hochrisikokonstellation.",
+    "probability": 0.05,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.15,
+    "rationale": "Malignitätsrisiko hängt stark von Ultraschallmuster, Knotenanzahl, Größe, Lymphknoten, TSH, Anamnese und Selektionssetting ab. Fallback dient nur als Startwert.",
+    "limitations": "Bei EU-/ACR-TIRADS-Hochrisikomerkmalen, pathologischen Lymphknoten, Bestrahlungsanamnese oder familiärem Risiko höher; bei niedrigem TIRADS und multinodöser Struma niedriger.",
+    "lastReviewed": "2026-06-01",
+    "sources": [
+      {
+        "title": "2023 European Thyroid Association Clinical Practice Guidelines for thyroid nodule management",
+        "year": 2023,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
+        "kind": "Leitlinie",
+        "note": "Aktuelle Leitlinie für Schilddrüsenknotenmanagement."
+      },
+      {
+        "title": "2015 American Thyroid Association Management Guidelines for Adult Patients with Thyroid Nodules",
+        "year": 2015,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+        "kind": "Leitlinie",
+        "note": "ATA-Leitlinie zu Sonographie, FNA und weiteren Tests."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
   }
 ]
