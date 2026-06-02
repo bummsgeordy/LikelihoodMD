@@ -3926,17 +3926,17 @@
       {
         "id": "thyroid-fna-bethesda-guideline",
         "testId": "thyroid-fna-bethesda",
-        "label": "Bethesda-Zytologie",
+        "label": "FNA: Bethesda II vs. V/VI",
         "kind": "curated",
         "method": "Ultraschallgestützte Feinnadelaspiration mit Bethesda-Kategorie",
-        "cutoff": "Bethesda I-VI; Malignitätsrisiko Kategorie-spezifisch",
-        "procedure": "FNA nach TIRADS/ATA/EU-TIRADS, Größe, Risikoanamnese und Lymphknotenbefund.",
-        "sensitivity": null,
-        "specificity": null,
-        "population": "Schilddrüsenknoten mit FNA-Indikation.",
-        "rationale": "Leitlinien stellen FNA-Indikationen nach Sonographiemuster und Größe; Bethesda ordnet die weitere Abklärung.",
-        "limitations": "Nicht diagnostische Proben und indeterminierte Kategorien brauchen Wiederholung, Molekulardiagnostik, MIBI oder OP-Kontext.",
-        "lastReviewed": "2026-06-01",
+        "cutoff": "Positiv: Bethesda V/VI; negativ: Bethesda II. Bethesda I/III/IV werden nicht als klares positives oder negatives Ergebnis modelliert.",
+        "procedure": "FNA nach TIRADS/ATA/EU-TIRADS, Größe, Risikoanamnese und Lymphknotenbefund; Probe zytologisch nach Bethesda berichten.",
+        "sensitivity": 0.83,
+        "specificity": 0.92,
+        "population": "Schilddrüsenknoten mit FNA-Indikation; dichotome Auswertung nur bei verwertbarer benigner oder suspekter/maligner Zytologie.",
+        "rationale": "FNA ist der Standardtest nach sonografischer Risikostratifikation. Die hier verwendeten Startwerte entsprechen der in Endotext zusammengefassten mittleren Sensitivität und Spezifität und dienen nur für eine binäre Lehrdarstellung.",
+        "limitations": "Bethesda I, III und IV sind keine klar negativen oder positiven Testergebnisse. Follikuläre Neoplasien, Probenqualität, Samplingfehler und lokale Zytologiequalität können die Aussagekraft wesentlich verändern.",
+        "lastReviewed": "2026-06-02",
         "isDefault": true,
         "sources": [
           {
@@ -3952,23 +3952,43 @@
             "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10448590/",
             "kind": "Leitlinie",
             "note": "Aktualisierte europäische Leitlinie zu Schilddrüsenknoten, FNA-Indikation, Risikoklassifikation und Kontextfaktoren."
+          },
+          {
+            "title": "Endotext: Fine-Needle Aspiration of the Thyroid Gland",
+            "year": 2024,
+            "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK285544/",
+            "kind": "Lehrtext",
+            "note": "Fasst diagnostische Genauigkeit der Schilddrüsen-FNA zusammen: Sensitivität 65-98% mit Mittel 83%, Spezifität 72-100% mit Mittel 92%; positive/suspekte Zytologie ist stark vom Kollektiv abhängig."
+          },
+          {
+            "title": "Diagnostic Accuracy of Fine-Needle Biopsy in the Detection of Thyroid Malignancy",
+            "year": 2022,
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9558056/",
+            "kind": "Review",
+            "note": "Systematischer Review und Meta-Analyse zur FNA/FNB-Genauigkeit bei Schilddrüsenknoten; betont Heterogenität durch Bethesda-Kategorien, Definitionen und Follow-up."
           }
         ],
         "reviewStatus": "needs-review",
-        "evidenceQuality": "expert-opinion",
+        "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
-        "reviewNote": "Neu angelegt als quellenbasierter Startwert; bitte fachlich prüfen, bevor als reviewed markiert.",
+        "reviewNote": "Dichotomes Lehrprofil ergänzt. Bitte nicht auf indeterminierte Bethesda-Kategorien oder nicht-diagnostische Proben anwenden.",
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "high",
-        "applicabilityWarning": "Nicht als dichotomer LR-Test modellieren; Bethesda-Kategorie muss separat bewertet werden.",
+        "applicabilityWarning": "Nur für verwertbare Bethesda-II-gegen-V/VI-Frage geeignet; Bethesda I/III/IV separat bewerten.",
         "reviewPriority": "medium",
         "purpose": "cytology",
         "specimen": "Zytologie",
-        "lrPositive": 1,
-        "lrNegative": 1,
+        "lrPositive": 10.38,
+        "lrNegative": 0.18,
         "preanalytics": [
           "Probenqualität und Zellularität sichern",
-          "Nicht-diagnostische Punktionen nicht als beruhigend werten"
+          "Nicht-diagnostische Punktionen nicht als beruhigend werten",
+          "Bethesda III/IV nicht als positives oder negatives Ergebnis in die LR-Rechnung übernehmen"
+        ],
+        "interpretationCautions": [
+          "Ein positives Ergebnis meint hier Bethesda V/VI, nicht jede auffällige oder indeterminierte Zytologie.",
+          "Ein negatives Ergebnis meint Bethesda II bei ausreichender Probenqualität.",
+          "Die TIRADS-Kategorie bleibt die Prätestwahrscheinlichkeit; FNA aktualisiert diese Wahrscheinlichkeit."
         ]
       }
     ]

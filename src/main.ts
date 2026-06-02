@@ -105,7 +105,7 @@ const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
   "obstruktive-koronare-herzkrankheit": "coronary-ct-angiography-cad",
   "primarer-hyperparathyreoidismus": "calcium-pth-phpt",
   "renale-arterienstenose": "renal-artery-duplex-ras",
-  "schilddrusenknoten-malignitatsrisiko": "thyroid-ultrasound-tirads",
+  "schilddrusenknoten-malignitatsrisiko": "thyroid-fna-bethesda",
 };
 
 let state: CalculatorState = loadState();
@@ -817,6 +817,21 @@ function allSettings(): ClinicalSetting[] {
   return [...settings.values()];
 }
 
+function settingsForCondition(conditionId: string): ClinicalSetting[] {
+  const isThyroidNodule =
+    conditionId === "schilddrusenknoten-malignitatsrisiko";
+  return allSettings().filter(
+    (setting) => isThyroidNodule || !setting.id.startsWith("thyroid-"),
+  );
+}
+
+function ensureSettingMatchesCondition(conditionId: string): void {
+  const settings = settingsForCondition(conditionId);
+  if (!settings.some((setting) => setting.id === state.selectedSettingId)) {
+    state.selectedSettingId = settings[0]?.id ?? state.selectedSettingId;
+  }
+}
+
 function allConditions(): ClinicalCondition[] {
   return mergeConditions(
     clinicalConditions,
@@ -1208,7 +1223,7 @@ function populateSelectors(): void {
 
   populateSelect(
     controls.settingSelect,
-    allSettings().map((setting) => ({
+    settingsForCondition(selectedCondition.id).map((setting) => ({
       value: setting.id,
       label: setting.label,
     })),
@@ -3234,6 +3249,7 @@ function renderMode(): void {
 }
 
 function renderMain(): void {
+  ensureSettingMatchesCondition(state.selectedConditionId);
   populateSelectors();
   const { test, profile, assumption, pretestResolution, result } =
     currentCalculation();
@@ -4225,6 +4241,7 @@ controls.settingSelect.addEventListener("change", () => {
 });
 controls.conditionSelect.addEventListener("change", () => {
   state.selectedConditionId = controls.conditionSelect.value;
+  ensureSettingMatchesCondition(state.selectedConditionId);
   selectDefaultTestForCondition(state.selectedConditionId);
   state.selectedModifierIds = [];
   state.manualPretestPercent = clampProbabilityPercent(

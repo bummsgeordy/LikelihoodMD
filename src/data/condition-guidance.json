@@ -770,16 +770,16 @@
   },
   {
     "conditionId": "schilddrusenknoten-malignitatsrisiko",
-    "summary": "Das Malignitätsrisiko eines Schilddrüsenknotens ist primär eine strukturierte Ultraschallfrage. Eine generische Knotenprävalenz ist wenig hilfreich; ATA/EU-TIRADS-Muster, Lymphknoten, Größe, Wachstum, Bestrahlung und Familienanamnese bestimmen die Vortestwahrscheinlichkeit.",
+    "summary": "Das Malignitätsrisiko eines Schilddrüsenknotens ist primär eine strukturierte Ultraschallfrage. In der Rechner-Auswahl können EU-TIRADS 1-5 oder ACR TI-RADS 1-5 als Prätest-Risikostratum gewählt werden; die Feinnadelpunktion aktualisiert diese Wahrscheinlichkeit zytologisch.",
     "whenToTest": [
-      "Sonografisch nachgewiesener Schilddrüsenknoten mit Risikomerkmalen oder Größenkriterium.",
+      "Sonografisch nachgewiesener Schilddrüsenknoten mit EU-/ACR-TIRADS-Risikokategorie und Größenkriterium.",
       "Suspekte zervikale Lymphknoten oder extrathyreoidale Ausdehnung.",
       "Risikokontext wie kindliche Halsbestrahlung oder familiäres Schilddrüsenkarzinom."
     ],
     "recommendedTests": [
-      "Standardisierte Schilddrüsensonografie mit TIRADS/ATA-Muster.",
+      "Standardisierte Schilddrüsensonografie mit EU-TIRADS oder ACR TI-RADS als Prätest-Stratum.",
       "TSH zur funktionellen Einordnung; Szintigrafie bei supprimiertem TSH je nach lokalem Pfad.",
-      "FNA nach Risikomuster und Größe; Calcitonin/RET-Kontext separat bei MTC-Frage."
+      "FNA nach Risikomuster und Größe; Bethesda II kann beruhigen, Bethesda V/VI erhöht die Malignitätswahrscheinlichkeit deutlich, Bethesda I/III/IV bleibt ein eigener Abklärungspfad."
     ],
     "pitfalls": [
       "Interobserver-Variabilität der Sonografie kann Risikokategorie verändern.",
@@ -804,6 +804,20 @@
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
         "kind": "Leitlinie",
         "note": "EU-TIRADS-Risikostratifikation und FNA-Indikationen."
+      },
+      {
+        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+        "kind": "Leitlinie",
+        "note": "ACR TI-RADS definiert TR1-TR5, Ultraschallmerkmale und FNA-/Follow-up-Schwellen."
+      },
+      {
+        "title": "Endotext: Fine-Needle Aspiration of the Thyroid Gland",
+        "year": 2024,
+        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK285544/",
+        "kind": "Lehrtext",
+        "note": "Zusammenfassung von FNA-Genauigkeit, Probenqualität und Bethesda-Kontext."
       },
       {
         "title": "Thyroid Nodules: Advances in Evaluation and Management",

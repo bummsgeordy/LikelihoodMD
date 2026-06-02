@@ -175,6 +175,15 @@
       "note": "EU-TIRADS-Leitlinie für sonografische Risikostratifikation und FNA-Indikation bei Schilddrüsenknoten."
     },
     {
+      "id": "acr_tirads_2017",
+      "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+      "year": 2017,
+      "type": "guideline",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+      "doi": "10.1016/j.jacr.2017.01.046",
+      "note": "ACR-White-Paper zu TR1-TR5, Ultraschallmerkmalen sowie FNA- und Follow-up-Schwellen."
+    },
+    {
       "id": "esc_ccs_2024",
       "title": "2024 ESC Guidelines for the management of chronic coronary syndromes",
       "year": 2024,
@@ -810,18 +819,26 @@
         "thyroidnodulesfrontiers2025",
         "thyroidusriskfeatures2013",
         "ata_thyroid_nodules_2015",
-        "eu_tirads_2017"
+        "eu_tirads_2017",
+        "acr_tirads_2017"
       ],
       "modifiers": [
         {
-          "factor": "TIRADS 1–3",
+          "factor": "EU-TIRADS 1-2 oder ACR TI-RADS 1-2",
           "direction": "decreasesmoderately",
           "approximateEffect": "sehr niedrige Malignitätswahrscheinlichkeit",
           "evidenceQuality": "Bmoderatedirect"
         },
         {
-          "factor": "TIRADS ≥4a",
+          "factor": "EU-TIRADS 3 oder ACR TI-RADS 3",
+          "direction": "neutralorunclear",
+          "approximateEffect": "niedriges, aber nicht Null-Risiko",
+          "evidenceQuality": "Bmoderatedirect"
+        },
+        {
+          "factor": "EU-TIRADS 4-5 oder ACR TI-RADS 4-5",
           "direction": "increasesstrongly",
+          "approximateEffect": "deutlich höher als generische Knotenannahme; genaue Spanne kategoriespezifisch wählen",
           "evidenceQuality": "Bmoderatedirect"
         },
         {

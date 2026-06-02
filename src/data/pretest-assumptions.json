@@ -1321,5 +1321,295 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Neu angelegt als konservative Fallback-Annahme, damit neue Testprofile im Rechner auswählbar sind; Setting-spezifische Prätestdaten bitte weiter kuratieren."
+  },
+  {
+    "id": "thyroid-nodule-eu-tirads-1-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: EU-TIRADS 1",
+    "settingId": "thyroid-eu-tirads-1",
+    "evidenceLevel": "direct",
+    "population": "Normale Schilddrüsensonographie ohne abgrenzbaren Knoten; EU-TIRADS 1 ist streng genommen keine Knoten-Risikokategorie.",
+    "probability": 0.001,
+    "rangeLow": 0,
+    "rangeHigh": 0.005,
+    "rationale": "EU-TIRADS 1 beschreibt einen normalen Ultraschall ohne Knoten. Als Rechner-Startwert wird deshalb eine nahezu null liegende Arbeitsannahme genutzt.",
+    "limitations": "Nicht als Risiko eines konkreten Knotens interpretieren. Bei klinischem Hochrisikokontext, Lymphknotenbefund oder unvollständiger Sonographie nicht anwendbar.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "kind": "Leitlinie",
+        "note": "EU-TIRADS 1 entspricht normaler Sonographie ohne Knoten; Tabelle 2 berichtet keine Malignitätsrisiko-Kategorie."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "TIRADS-Startwert ergänzt; PTC-spezifische Übertragbarkeit fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-eu-tirads-2-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: EU-TIRADS 2",
+    "settingId": "thyroid-eu-tirads-2",
+    "evidenceLevel": "direct",
+    "population": "Benigne EU-TIRADS-2-Knoten, z. B. reine Zyste oder vollständig spongiformer Knoten.",
+    "probability": 0.001,
+    "rangeLow": 0,
+    "rangeHigh": 0.005,
+    "rationale": "Die EU-TIRADS-Leitlinie gibt für EU-TIRADS 2 ein Malignitätsrisiko von ungefähr 0% an. Für die Odds-Rechnung wird ein minimaler Startwert von 0,1% verwendet.",
+    "limitations": "Gilt nur bei korrekt klassifiziertem benignem Muster. Klinische Hochrisikofaktoren oder suspekte Lymphknoten müssen separat berücksichtigt werden.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "kind": "Leitlinie",
+        "note": "Tabelle 2: EU-TIRADS 2 benigne, Malignitätsrisiko ungefähr 0%."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "TIRADS-Startwert ergänzt; PTC-spezifische Übertragbarkeit fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-eu-tirads-3-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: EU-TIRADS 3",
+    "settingId": "thyroid-eu-tirads-3",
+    "evidenceLevel": "direct",
+    "population": "EU-TIRADS-3-Knoten mit niedrigem Risiko: oval, glatt, iso- oder hyperechogen ohne Hochrisikomerkmale.",
+    "probability": 0.03,
+    "rangeLow": 0.02,
+    "rangeHigh": 0.04,
+    "rationale": "Die EU-TIRADS-Leitlinie gibt für EU-TIRADS 3 ein Malignitätsrisiko von 2-4% an. Als Startwert wird die Mitte der Spanne genutzt.",
+    "limitations": "Risikowert bezieht sich auf sonografische Malignität, nicht exklusiv auf papilläres Karzinom; PTC ist jedoch die häufigste differenzierte Schilddrüsenmalignität.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "kind": "Leitlinie",
+        "note": "Tabelle 2: EU-TIRADS 3 low risk, Malignitätsrisiko 2-4%."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "TIRADS-Startwert ergänzt; PTC-spezifische Übertragbarkeit fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-eu-tirads-4-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: EU-TIRADS 4",
+    "settingId": "thyroid-eu-tirads-4",
+    "evidenceLevel": "direct",
+    "population": "EU-TIRADS-4-Knoten mit intermediärem Risiko: oval, glatt, mild hypoechogen ohne Hochrisikomerkmale.",
+    "probability": 0.11,
+    "rangeLow": 0.06,
+    "rangeHigh": 0.17,
+    "rationale": "Die EU-TIRADS-Leitlinie gibt für EU-TIRADS 4 ein Malignitätsrisiko von 6-17% an. Als Startwert wird ein gerundeter Mittelwert verwendet.",
+    "limitations": "Risikowert hängt von lokaler Sonographiequalität, FNA-Selektion und Knotenpopulation ab; nicht als PTC-exklusive Prävalenz verstehen.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "kind": "Leitlinie",
+        "note": "Tabelle 2: EU-TIRADS 4 intermediate risk, Malignitätsrisiko 6-17%."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "TIRADS-Startwert ergänzt; PTC-spezifische Übertragbarkeit fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-eu-tirads-5-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: EU-TIRADS 5",
+    "settingId": "thyroid-eu-tirads-5",
+    "evidenceLevel": "direct",
+    "population": "EU-TIRADS-5-Knoten mit mindestens einem Hochrisikomerkmal wie irreguläre Form/Ränder, Mikroverkalkungen oder ausgeprägte Hypoechogenität.",
+    "probability": 0.56,
+    "rangeLow": 0.26,
+    "rangeHigh": 0.87,
+    "rationale": "Die EU-TIRADS-Leitlinie gibt für EU-TIRADS 5 ein breites Malignitätsrisiko von 26-87% an; das Risiko steigt mit Anzahl und Ausprägung suspekter Merkmale.",
+    "limitations": "Breite Spanne: einzelne Hochrisikomerkmale und kombinierte Hochrisikomuster sind nicht gleichwertig. Lymphknotenbefund und klinischer Kontext separat bewerten.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "European Thyroid Association Guidelines for Ultrasound Malignancy Risk Stratification of Thyroid Nodules in Adults: EU-TIRADS",
+        "year": 2017,
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "kind": "Leitlinie",
+        "note": "Tabelle 2: EU-TIRADS 5 high risk, Malignitätsrisiko 26-87%."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "TIRADS-Startwert ergänzt; PTC-spezifische Übertragbarkeit fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-acr-tirads-1-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: ACR TI-RADS 1",
+    "settingId": "thyroid-acr-tirads-1",
+    "evidenceLevel": "direct",
+    "population": "ACR TI-RADS TR1, benignes sonografisches Muster.",
+    "probability": 0.003,
+    "rangeLow": 0,
+    "rangeHigh": 0.006,
+    "rationale": "ACR TI-RADS verwendet Kategorie-spezifische Risikostufen; für TR1 wird ein sehr niedriges Malignitätsrisiko um 0,3% als Startwert genutzt.",
+    "limitations": "Nicht auf klinische Hochrisikosituationen, suspekte Lymphknoten oder unvollständige Sonographie übertragen.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+        "kind": "Leitlinie",
+        "note": "ACR-White-Paper definiert TR1-TR5 und Managementschwellen; etablierte Kategorie-Risiken werden als Startwerte abgebildet."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "ACR-TIRADS-Startwert ergänzt; lokale Risikokalibrierung fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-acr-tirads-2-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: ACR TI-RADS 2",
+    "settingId": "thyroid-acr-tirads-2",
+    "evidenceLevel": "direct",
+    "population": "ACR TI-RADS TR2, nicht suspekter Schilddrüsenknoten.",
+    "probability": 0.015,
+    "rangeLow": 0.005,
+    "rangeHigh": 0.03,
+    "rationale": "Für ACR TI-RADS TR2 wird ein etabliertes Malignitätsrisiko von etwa 1,5% als Startwert genutzt.",
+    "limitations": "Sonografische Einstufung und lokale FNA-Selektion können das beobachtete Risiko verändern.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+        "kind": "Leitlinie",
+        "note": "ACR-White-Paper definiert TR1-TR5 und Managementschwellen; etablierte Kategorie-Risiken werden als Startwerte abgebildet."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "ACR-TIRADS-Startwert ergänzt; lokale Risikokalibrierung fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-acr-tirads-3-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: ACR TI-RADS 3",
+    "settingId": "thyroid-acr-tirads-3",
+    "evidenceLevel": "direct",
+    "population": "ACR TI-RADS TR3, mild suspekter Schilddrüsenknoten.",
+    "probability": 0.048,
+    "rangeLow": 0.03,
+    "rangeHigh": 0.07,
+    "rationale": "Für ACR TI-RADS TR3 wird ein etabliertes Malignitätsrisiko von etwa 4,8% als Startwert genutzt.",
+    "limitations": "Risikowert ist nicht PTC-exklusiv und hängt von Überweisungs- und FNA-Selektion ab.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+        "kind": "Leitlinie",
+        "note": "ACR-White-Paper definiert TR1-TR5 und Managementschwellen; etablierte Kategorie-Risiken werden als Startwerte abgebildet."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "ACR-TIRADS-Startwert ergänzt; lokale Risikokalibrierung fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-acr-tirads-4-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: ACR TI-RADS 4",
+    "settingId": "thyroid-acr-tirads-4",
+    "evidenceLevel": "direct",
+    "population": "ACR TI-RADS TR4, mäßig suspekter Schilddrüsenknoten.",
+    "probability": 0.091,
+    "rangeLow": 0.06,
+    "rangeHigh": 0.13,
+    "rationale": "Für ACR TI-RADS TR4 wird ein etabliertes Malignitätsrisiko von etwa 9,1% als Startwert genutzt.",
+    "limitations": "Innerhalb von TR4 variiert das Risiko je nach Punktzahl und Einzelmerkmalen; klinische Risikofaktoren separat berücksichtigen.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+        "kind": "Leitlinie",
+        "note": "ACR-White-Paper definiert TR1-TR5 und Managementschwellen; etablierte Kategorie-Risiken werden als Startwerte abgebildet."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "ACR-TIRADS-Startwert ergänzt; lokale Risikokalibrierung fachlich prüfen."
+  },
+  {
+    "id": "thyroid-nodule-acr-tirads-5-direct",
+    "condition": "Schilddrüsenknoten / Malignitätsrisiko",
+    "conditionId": "schilddrusenknoten-malignitatsrisiko",
+    "setting": "Schilddrüsenknoten: ACR TI-RADS 5",
+    "settingId": "thyroid-acr-tirads-5",
+    "evidenceLevel": "direct",
+    "population": "ACR TI-RADS TR5, hoch suspekter Schilddrüsenknoten.",
+    "probability": 0.35,
+    "rangeLow": 0.25,
+    "rangeHigh": 0.45,
+    "rationale": "Für ACR TI-RADS TR5 wird ein etabliertes Malignitätsrisiko von etwa 35% als Startwert genutzt.",
+    "limitations": "TR5 umfasst sehr unterschiedliche Hochrisikomuster. Pathologische Lymphknoten, extrathyreoidale Ausdehnung und klinischer Hochrisikokontext können das Risiko deutlich erhöhen.",
+    "lastReviewed": "2026-06-02",
+    "sources": [
+      {
+        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
+        "year": 2017,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
+        "kind": "Leitlinie",
+        "note": "ACR-White-Paper definiert TR1-TR5 und Managementschwellen; etablierte Kategorie-Risiken werden als Startwerte abgebildet."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "ACR-TIRADS-Startwert ergänzt; lokale Risikokalibrierung fachlich prüfen."
   }
 ]
