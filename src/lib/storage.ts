@@ -103,8 +103,6 @@ export const defaultState: CalculatorState = {
   modifierListExpanded: false,
   pretestStatusExpanded: false,
   pretestEstimateDetailsOpen: false,
-  pretestInterferenceDetailsOpen: false,
-  pretestInterferenceUserToggled: false,
   customTests: [],
   customEvidenceProfiles: [],
   customAssumptions: [],
@@ -228,10 +226,6 @@ export function loadState(): CalculatorState {
         modifierListExpanded: Boolean(parsed.modifierListExpanded),
         pretestStatusExpanded: Boolean(parsed.pretestStatusExpanded),
         pretestEstimateDetailsOpen: Boolean(parsed.pretestEstimateDetailsOpen),
-        pretestInterferenceDetailsOpen: parsed.pretestInterferenceUserToggled
-          ? Boolean(parsed.pretestInterferenceDetailsOpen)
-          : false,
-        pretestInterferenceUserToggled: Boolean(parsed.pretestInterferenceUserToggled),
         drawerOpen: false
       };
     }

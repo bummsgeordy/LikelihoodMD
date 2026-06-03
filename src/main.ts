@@ -1686,12 +1686,8 @@ function renderPretestEstimatePanel(
   const interferenceDetails = createEstimateDetails(
     "interference",
     `⚠ Wichtige Interferenzen anzeigen (${highWarningCount})`,
-    Boolean(state.pretestInterferenceDetailsOpen),
-    (open) => {
-      state.pretestInterferenceDetailsOpen = open;
-      state.pretestInterferenceUserToggled = true;
-      saveState(state);
-    },
+    false,
+    () => undefined,
   );
   interferenceDetails.append(highWarningWrap);
 
