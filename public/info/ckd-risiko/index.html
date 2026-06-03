@@ -142,7 +142,8 @@
         vertical-align: middle;
       }
 
-      .risk-table td {
+      .risk-table td,
+      .hazard-table td {
         font-weight: 800;
       }
 
@@ -213,6 +214,52 @@
         background: var(--soft);
       }
 
+      .hazard-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      .hazard-table th,
+      .hazard-table td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .hazard-cell {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.35rem 0.55rem;
+        min-width: 0;
+      }
+
+      .hazard-cell span {
+        display: inline-flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.18rem;
+        white-space: nowrap;
+      }
+
+      .hazard-cell b {
+        color: #374151;
+        font-size: 0.78rem;
+      }
+
+      .hazard-note-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+        margin: 12px 0 0;
+      }
+
+      .hazard-note-grid div {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px 12px;
+        background: var(--soft);
+      }
+
       @media (max-width: 760px) {
         .page {
           width: min(100% - 20px, 1120px);
@@ -220,6 +267,10 @@
 
         .risk-table {
           min-width: 680px;
+        }
+
+        .hazard-table {
+          min-width: 900px;
         }
 
         .table-scroll {
@@ -425,6 +476,113 @@
           mit ähnlicher eGFR und A1-Albuminurie. Umgekehrt sollte eine
           isolierte eGFR-Abweichung immer im Kontext von Alter, Muskelmasse,
           Dynamik, Urinbefund und Bildgebung interpretiert werden.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Hazard Ratios aus der CKD-Prognosematrix</h2>
+        <p>
+          Die folgenden Werte verarbeiten die mitgelieferte KDIGO/CKD-PC-Abbildung:
+          Jede Zahl ist eine adjustierte Hazard Ratio gegenüber der Referenzgruppe.
+          Sie beschreibt also ein relatives Risiko für Ereignisse, keine
+          Prätestwahrscheinlichkeit und keine Likelihood-Ratio.
+        </p>
+        <div class="hazard-note-grid" aria-label="Komplikationsgruppen">
+          <div><strong>A</strong><br />Gesamtsterblichkeit / Hospitalisierung</div>
+          <div><strong>B</strong><br />Atherosklerotische Ereignisse: Myokardinfarkt, Schlaganfall oder PAVK</div>
+          <div><strong>C</strong><br />Kardiovaskuläre Ereignisse: kardiovaskulärer Tod, Herzinsuffizienz oder Vorhofflimmern</div>
+          <div><strong>D</strong><br />Nierenereignisse: dialysepflichtiges Nierenversagen oder akute Nierenfunktionsverschlechterung</div>
+        </div>
+        <div class="table-scroll">
+          <table class="hazard-table" aria-label="Adjustierte Hazard Ratios nach eGFR- und Albuminurie-Kategorie">
+            <thead>
+              <tr>
+                <th>eGFR-Kategorie</th>
+                <th>A1<br /><small>&lt;30 mg/g</small></th>
+                <th>A2<br /><small>30-300 mg/g</small></th>
+                <th>A3<br /><small>&gt;300 mg/g</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>G1 ≥90</th>
+                <td class="risk-low">Referenz<br /><small>A/C/B/D</small></td>
+                <td class="risk-moderate">
+                  <div class="hazard-cell"><span><b>A</b>1,3</span><span><b>C</b>1,5</span><span><b>B</b>1,5</span><span><b>D</b>2,4</span></div>
+                </td>
+                <td class="risk-high">
+                  <div class="hazard-cell"><span><b>A</b>1,7</span><span><b>C</b>2,5</span><span><b>B</b>2,6</span><span><b>D</b>7,2</span></div>
+                </td>
+              </tr>
+              <tr>
+                <th>G2 60-89</th>
+                <td class="risk-low">
+                  <div class="hazard-cell"><span><b>A</b>0,7</span><span><b>C</b>0,8</span><span><b>B</b>0,9</span><span><b>D</b>2,1</span></div>
+                </td>
+                <td class="risk-moderate">
+                  <div class="hazard-cell"><span><b>A</b>1,0</span><span><b>C</b>1,2</span><span><b>B</b>1,4</span><span><b>D</b>4,7</span></div>
+                </td>
+                <td class="risk-high">
+                  <div class="hazard-cell"><span><b>A</b>1,3</span><span><b>C</b>1,9</span><span><b>B</b>2,2</span><span><b>D</b>13,4</span></div>
+                </td>
+              </tr>
+              <tr>
+                <th>G3a 45-59</th>
+                <td class="risk-moderate">
+                  <div class="hazard-cell"><span><b>A</b>0,9</span><span><b>C</b>1,1</span><span><b>B</b>1,2</span><span><b>D</b>6,4</span></div>
+                </td>
+                <td class="risk-high">
+                  <div class="hazard-cell"><span><b>A</b>1,2</span><span><b>C</b>1,5</span><span><b>B</b>1,6</span><span><b>D</b>11,4</span></div>
+                </td>
+                <td class="risk-very-high">
+                  <div class="hazard-cell"><span><b>A</b>1,5</span><span><b>C</b>2,2</span><span><b>B</b>2,5</span><span><b>D</b>28,2</span></div>
+                </td>
+              </tr>
+              <tr>
+                <th>G3b 30-44</th>
+                <td class="risk-high">
+                  <div class="hazard-cell"><span><b>A</b>1,1</span><span><b>C</b>1,4</span><span><b>B</b>1,5</span><span><b>D</b>14,8</span></div>
+                </td>
+                <td class="risk-very-high">
+                  <div class="hazard-cell"><span><b>A</b>1,3</span><span><b>C</b>1,8</span><span><b>B</b>1,8</span><span><b>D</b>23,3</span></div>
+                </td>
+                <td class="risk-very-high">
+                  <div class="hazard-cell"><span><b>A</b>1,8</span><span><b>C</b>2,6</span><span><b>B</b>2,8</span><span><b>D</b>47,7</span></div>
+                </td>
+              </tr>
+              <tr>
+                <th>G4 15-29</th>
+                <td class="risk-very-high">
+                  <div class="hazard-cell"><span><b>A</b>1,5</span><span><b>C</b>2,0</span><span><b>B</b>2,1</span><span><b>D</b>40,8</span></div>
+                </td>
+                <td class="risk-very-high">
+                  <div class="hazard-cell"><span><b>A</b>1,7</span><span><b>C</b>2,2</span><span><b>B</b>2,3</span><span><b>D</b>51,3</span></div>
+                </td>
+                <td class="risk-extreme">
+                  <div class="hazard-cell"><span><b>A</b>2,3</span><span><b>C</b>3,4</span><span><b>B</b>3,6</span><span><b>D</b>84,1</span></div>
+                </td>
+              </tr>
+              <tr>
+                <th>G5 &lt;15</th>
+                <td class="risk-extreme">
+                  <div class="hazard-cell"><span><b>A</b>2,4</span><span><b>C</b>3,2</span><span><b>B</b>4,1</span><span><b>D</b>78,3</span></div>
+                </td>
+                <td class="risk-extreme">
+                  <div class="hazard-cell"><span><b>A</b>2,7</span><span><b>C</b>3,5</span><span><b>B</b>4,1</span><span><b>D</b>94,5</span></div>
+                </td>
+                <td class="risk-extreme">
+                  <div class="hazard-cell"><span><b>A</b>3,1</span><span><b>C</b>4,7</span><span><b>B</b>5,2</span><span><b>D</b>97,7</span></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Lesebeispiel: G5/A3 bedeutet in dieser Darstellung etwa 3,1-fach
+          erhöhtes Risiko für Gesamtsterblichkeit/Hospitalisierung und etwa
+          97,7-fach erhöhtes Risiko für die zusammengefassten Nierenereignisse
+          gegenüber der Referenzgruppe. Die absoluten Risiken hängen trotzdem
+          von Alter, Komorbiditäten, Verlauf und Setting ab.
         </p>
       </section>
 
