@@ -453,10 +453,12 @@
         grid-template-columns: 1.4rem minmax(72px, 1fr) 3.3rem;
         gap: 8px;
         align-items: center;
+        border-radius: 999px;
+        padding: 0.1rem 0.15rem;
       }
 
-      .bar-line.is-selected .bar-track {
-        box-shadow: 0 0 0 2px #0b5cad;
+      .bar-line.is-selected {
+        background: rgba(11, 92, 173, 0.09);
       }
 
       .bar-line.is-selected .bar-value {
@@ -484,6 +486,7 @@
       }
 
       .bar-fill {
+        display: block;
         width: var(--bar-width);
         min-width: 10px;
         height: 100%;
@@ -519,29 +522,6 @@
 
       .outcome-D {
         background: #dc2626;
-      }
-
-      .focus-comparison {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 12px;
-        margin-top: 16px;
-      }
-
-      .focus-card {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 12px;
-        background: #fff;
-      }
-
-      .focus-card h3 {
-        margin-bottom: 0.25rem;
-      }
-
-      .focus-card p {
-        margin: 0 0 0.75rem;
-        color: var(--muted);
       }
 
       @media (max-width: 760px) {
@@ -884,7 +864,6 @@
         </div>
         <div class="hazard-view" id="barHazardView" hidden>
           <div class="bar-infographic" id="barInfographic" aria-label="Lineare Balken-Infografik der CKD-Hazard-Ratios"></div>
-          <div class="focus-comparison" id="focusComparison" aria-label="Fokusvergleich ausgewählter CKD-Situationen"></div>
         </div>
       </section>
 
@@ -978,7 +957,7 @@
       }
 
       function scaleHR(value) {
-        return Math.min(100, Math.max(value, 6));
+        return Math.min(100, Math.max((value / 100) * 100, 3));
       }
 
       function renderBarLines(values) {
@@ -997,8 +976,7 @@
 
       function renderBarInfographic() {
         const barInfographic = document.querySelector("#barInfographic");
-        const focusComparison = document.querySelector("#focusComparison");
-        if (!barInfographic || !focusComparison) return;
+        if (!barInfographic) return;
 
         const header = `
           <div class="bar-info-header">
@@ -1037,25 +1015,6 @@
         `).join("");
 
         barInfographic.innerHTML = header + rows;
-
-        const focusPairs = [
-          { gfr: "G2", albuminuria: "A3", comment: "Erhaltene eGFR, aber deutliche Albuminurie." },
-          { gfr: "G3a", albuminuria: "A3", comment: "Nur moderat verminderte eGFR, renal bereits sehr auffällig." },
-          { gfr: "G4", albuminuria: "A1", comment: "Niedrige eGFR auch ohne hohe Albuminurie." },
-          { gfr: "G4", albuminuria: "A3", comment: "Kombination aus niedriger eGFR und hoher Albuminurie." }
-        ];
-
-        focusComparison.innerHTML = focusPairs.map(pair => {
-          const row = riskData.find(candidate => candidate.gfr === pair.gfr);
-          const cell = row.cells[pair.albuminuria];
-          return `
-            <article class="focus-card">
-              <h3>${pair.gfr}/${pair.albuminuria}</h3>
-              <p>${pair.comment}</p>
-              ${renderBarLines(cell)}
-            </article>
-          `;
-        }).join("");
       }
 
       function setSelectedOutcome(outcome) {
