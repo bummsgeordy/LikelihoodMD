@@ -25,7 +25,7 @@ LikelihoodMD ist kein Diagnose- oder Therapieautomat. Es ist ein Denk- und Lehrt
 - Vordefinierte Diagnostikketten, z. B. Screeningtest -> Bestätigungstest.
 - Nomogramme, Balkendarstellung und 1000er-Erklärung zur Reduktion von Base-Rate-Neglect.
 - Datenkatalog und lokaler Verwaltungs-Drawer für eigene Tests, Annahmen, Szenarien und JSON-Import/-Export.
-- Unterseiten für [diagnostische Kennzahlen](public/info/vierfeldertafel/index.html) und [interaktive Simulation](public/simulation/index.html).
+- Unterseiten für [diagnostische Kennzahlen](public/info/vierfeldertafel/index.html), [CKD-Risiko nach eGFR/Albuminurie](public/info/ckd-risiko/index.html) und [interaktive Simulation](public/simulation/index.html).
 - GitHub-Pages- und PWA-fähiger statischer Build ohne Backend und ohne Online-Datenbank.
 
 Eigene Daten bleiben lokal im Browser gespeichert. Online-Nutzer können die kuratierte öffentliche Datenbasis nicht verändern.

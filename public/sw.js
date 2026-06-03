@@ -1,10 +1,12 @@
-const CACHE_VERSION = 'lr-rechner-schema-v5-2026-06-03-1';
+const CACHE_VERSION = 'lr-rechner-schema-v5-2026-06-03-2';
 const CACHE_NAME = `likelihood-ratio-rechner-${CACHE_VERSION}`;
 const APP_SHELL = [
   './',
   './index.html',
   './info/vierfeldertafel/',
   './info/vierfeldertafel/index.html',
+  './info/ckd-risiko/',
+  './info/ckd-risiko/index.html',
   './simulation/',
   './simulation/index.html',
   './favicon.svg',

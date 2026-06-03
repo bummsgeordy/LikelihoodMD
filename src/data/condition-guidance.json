@@ -886,14 +886,14 @@
   },
   {
     "conditionId": "chronische-nierenkrankheit",
-    "summary": "CKD ist eine persistierende Diagnose, keine Momentaufnahme. Entscheidend sind eGFR, Albuminurie/Urinsediment oder strukturelle Nierenauffälligkeiten über mindestens drei Monate sowie die Risikostratifikation nach GFR- und Albuminuriekategorie.",
+    "summary": "CKD ist eine persistierende Diagnose, keine Momentaufnahme. Entscheidend sind Ursache, eGFR, Albuminurie/Urinsediment oder strukturelle Nierenauffälligkeiten über mindestens drei Monate sowie die Risikostratifikation nach GFR- und Albuminuriekategorie.",
     "whenToTest": [
       "Diabetes, Hypertonie, kardiovaskuläre Erkrankung, höheres Alter oder familiäre/medikamentöse Risiken.",
       "Persistierend auffälliges Kreatinin/eGFR, Albuminurie, Proteinurie oder Urinsediment.",
       "Nach AKI oder bei nephrotoxischen Medikamenten Verlaufskontrollen planen."
     ],
     "recommendedTests": [
-      "Kreatinin/eGFR und Urin-Albumin-Kreatinin-Ratio, bei Unsicherheit Cystatin C.",
+      "Kreatinin/eGFR und Urin-Albumin-Kreatinin-Ratio nach KDIGO-CGA-System, bei Unsicherheit Cystatin C.",
       "Wiederholungsmessung zur Persistenz über mindestens drei Monate.",
       "Urinstatus/Sediment und Bildgebung je nach Kontext."
     ],
@@ -908,11 +908,18 @@
     ],
     "links": [
       {
-        "title": "KDIGO 2024 CKD Guideline Executive Summary",
+        "title": "KDIGO 2024 Clinical Practice Guideline for CKD",
         "year": 2024,
-        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline-Executive-Summary.pdf",
+        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
         "kind": "Leitlinie",
-        "note": "Definition, GFR-/Albuminurie-Risikostratifikation und Managementrahmen."
+        "note": "Definition, CGA-Klassifikation, GFR-/Albuminurie-Kategorien und Risikomatrix."
+      },
+      {
+        "title": "Estimated GFR, Albuminuria, and Adverse Outcomes",
+        "year": 2023,
+        "url": "https://jamanetwork.com/journals/jama/fullarticle/2810033",
+        "kind": "Studie",
+        "note": "CKD Prognosis Consortium; Individualdaten-Metaanalyse zu eGFR, Albuminurie und multiplen Outcomes."
       },
       {
         "title": "Epidemiology of chronic kidney disease: an update 2022",

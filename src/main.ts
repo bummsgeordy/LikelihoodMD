@@ -124,6 +124,7 @@ app.innerHTML = `
         <h1>LikelihoodMD</h1>
         <div class="hero-actions">
           <a class="secondary-button info-link" href="./info/vierfeldertafel/index.html">Hintergrund / Erklärung</a>
+          <a class="secondary-button info-link" href="./info/ckd-risiko/">CKD-Risiko</a>
           <a class="secondary-button info-link" href="./simulation/">freie Nomogramme</a>
           <button id="drawerOpenButton" class="menu-button" type="button" aria-controls="adminDrawer" aria-expanded="false">☰ Administration</button>
         </div>

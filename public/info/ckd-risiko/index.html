@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CKD-Risiko nach eGFR und Albuminurie | LikelihoodMD</title>
+    <meta
+      name="description"
+      content="Kompakte Erklärung der KDIGO-CGA-Klassifikation chronischer Nierenkrankheit nach Ursache, eGFR-Kategorie und Albuminurie-Kategorie."
+    />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #111827;
+        --muted: #4b5563;
+        --line: #d1d5db;
+        --soft: #f8fafc;
+        --blue: #0f4c81;
+        --green: #dcfce7;
+        --yellow: #fef9c3;
+        --orange: #fed7aa;
+        --red: #fecaca;
+        --deep-red: #fca5a5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.55;
+        color: var(--ink);
+        background: #eef2f7;
+      }
+
+      a {
+        color: #0b5cad;
+        font-weight: 700;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .top-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-bottom: 16px;
+        text-decoration: none;
+      }
+
+      .hero,
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      }
+
+      .hero {
+        padding: clamp(24px, 5vw, 48px);
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 0.65rem;
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 860px;
+        font-size: clamp(2.3rem, 6vw, 4.2rem);
+      }
+
+      h2 {
+        font-size: clamp(1.45rem, 3vw, 2rem);
+      }
+
+      h3 {
+        font-size: 1.15rem;
+      }
+
+      .lead {
+        max-width: 900px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.28rem);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .card {
+        padding: clamp(18px, 3vw, 28px);
+        margin-top: 16px;
+      }
+
+      .note {
+        border-left: 5px solid #f59e0b;
+        background: #fffbeb;
+        padding: 14px 16px;
+        border-radius: 6px;
+        color: #5f3b00;
+      }
+
+      .category-table,
+      .risk-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 0.75rem;
+        vertical-align: top;
+      }
+
+      th {
+        background: #f3f4f6;
+        text-align: left;
+      }
+
+      .risk-table th,
+      .risk-table td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .risk-table td {
+        font-weight: 800;
+      }
+
+      .risk-table small {
+        display: block;
+        margin-top: 0.2rem;
+        font-weight: 650;
+        color: #374151;
+      }
+
+      .risk-low {
+        background: var(--green);
+      }
+
+      .risk-moderate {
+        background: var(--yellow);
+      }
+
+      .risk-high {
+        background: var(--orange);
+      }
+
+      .risk-very-high {
+        background: var(--red);
+      }
+
+      .risk-extreme {
+        background: var(--deep-red);
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.35rem 0.65rem;
+        background: #fff;
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      .swatch {
+        width: 1rem;
+        height: 1rem;
+        border: 1px solid rgba(15, 23, 42, 0.18);
+        border-radius: 3px;
+      }
+
+      .source-list {
+        display: grid;
+        gap: 12px;
+        padding-left: 0;
+        list-style: none;
+      }
+
+      .source-list li {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px 14px;
+        background: var(--soft);
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+        }
+
+        .risk-table {
+          min-width: 680px;
+        }
+
+        .table-scroll {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        th,
+        td {
+          padding: 0.65rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <a class="top-link" href="../../">← Zurück zum Rechner</a>
+
+      <section class="hero">
+        <h1>CKD-Risiko nach eGFR und Albuminurie</h1>
+        <p class="lead">
+          Chronische Nierenkrankheit wird nach KDIGO nicht nur über die eGFR
+          beschrieben. Erst die Kombination aus Ursache, GFR-Kategorie und
+          Albuminurie-Kategorie macht Risiko und Verlauf sinnvoll sichtbar.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Was zeigt die KDIGO-Matrix?</h2>
+        <p>
+          Die Matrix ordnet zwei Achsen zusammen: die geschätzte glomeruläre
+          Filtrationsrate (G1-G5) und die persistierende Albuminurie (A1-A3).
+          Je niedriger die eGFR und je höher die Albuminurie, desto höher ist
+          das Risiko für Progression, Hospitalisierung, kardiovaskuläre
+          Ereignisse und Nierenversagen.
+        </p>
+        <div class="note">
+          Wichtig: Die Matrix ist kein einzelner diagnostischer Test und keine
+          Likelihood-Ratio. Sie ist eine Prognose- und Einordnungshilfe. Eine
+          CKD-Diagnose braucht Persistenz über mindestens drei Monate oder
+          andere Zeichen einer Nierenschädigung.
+        </div>
+      </section>
+
+      <section class="grid" aria-label="KDIGO-Kategorien">
+        <article class="card">
+          <h2>GFR-Kategorien</h2>
+          <table class="category-table">
+            <thead>
+              <tr>
+                <th>Kategorie</th>
+                <th>eGFR</th>
+                <th>Einordnung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>G1</td>
+                <td>≥ 90</td>
+                <td>normal oder hoch</td>
+              </tr>
+              <tr>
+                <td>G2</td>
+                <td>60-89</td>
+                <td>leicht vermindert</td>
+              </tr>
+              <tr>
+                <td>G3a</td>
+                <td>45-59</td>
+                <td>leicht bis moderat vermindert</td>
+              </tr>
+              <tr>
+                <td>G3b</td>
+                <td>30-44</td>
+                <td>moderat bis stark vermindert</td>
+              </tr>
+              <tr>
+                <td>G4</td>
+                <td>15-29</td>
+                <td>stark vermindert</td>
+              </tr>
+              <tr>
+                <td>G5</td>
+                <td>&lt; 15</td>
+                <td>Nierenversagen</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Einheit: ml/min/1,73 m². G1/G2 allein erfüllen ohne weitere
+            Nierenschädigungsmarker keine CKD-Kriterien.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Albuminurie-Kategorien</h2>
+          <table class="category-table">
+            <thead>
+              <tr>
+                <th>Kategorie</th>
+                <th>UACR mg/g</th>
+                <th>UACR mg/mmol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A1</td>
+                <td>&lt; 30</td>
+                <td>&lt; 3</td>
+              </tr>
+              <tr>
+                <td>A2</td>
+                <td>30-300</td>
+                <td>3-30</td>
+              </tr>
+              <tr>
+                <td>A3</td>
+                <td>&gt; 300</td>
+                <td>&gt; 30</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Näherungsweise gilt: UACR in mg/g × 0,113 = mg/mmol. Umgekehrt:
+            mg/g ≈ mg/mmol × 8,84.
+          </p>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Risikomatrix für CKD-Kategorien</h2>
+        <div class="table-scroll">
+          <table class="risk-table" aria-label="KDIGO-Risikomatrix nach eGFR und Albuminurie">
+            <thead>
+              <tr>
+                <th>eGFR-Kategorie</th>
+                <th>A1<br /><small>&lt;30 mg/g</small></th>
+                <th>A2<br /><small>30-300 mg/g</small></th>
+                <th>A3<br /><small>&gt;300 mg/g</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>G1 ≥90</th>
+                <td class="risk-low">niedrig<small>wenn keine weiteren Marker: keine CKD</small></td>
+                <td class="risk-moderate">moderat</td>
+                <td class="risk-high">hoch</td>
+              </tr>
+              <tr>
+                <th>G2 60-89</th>
+                <td class="risk-low">niedrig<small>wenn keine weiteren Marker: keine CKD</small></td>
+                <td class="risk-moderate">moderat</td>
+                <td class="risk-high">hoch</td>
+              </tr>
+              <tr>
+                <th>G3a 45-59</th>
+                <td class="risk-moderate">moderat</td>
+                <td class="risk-high">hoch</td>
+                <td class="risk-very-high">sehr hoch</td>
+              </tr>
+              <tr>
+                <th>G3b 30-44</th>
+                <td class="risk-high">hoch</td>
+                <td class="risk-very-high">sehr hoch</td>
+                <td class="risk-very-high">sehr hoch</td>
+              </tr>
+              <tr>
+                <th>G4 15-29</th>
+                <td class="risk-very-high">sehr hoch</td>
+                <td class="risk-very-high">sehr hoch</td>
+                <td class="risk-extreme">sehr hoch</td>
+              </tr>
+              <tr>
+                <th>G5 &lt;15</th>
+                <td class="risk-extreme">sehr hoch</td>
+                <td class="risk-extreme">sehr hoch</td>
+                <td class="risk-extreme">sehr hoch</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="legend" aria-label="Legende">
+          <span><i class="swatch risk-low"></i> niedrig</span>
+          <span><i class="swatch risk-moderate"></i> moderat erhöht</span>
+          <span><i class="swatch risk-high"></i> hoch</span>
+          <span><i class="swatch risk-very-high"></i> sehr hoch</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Warum Albuminurie nicht „nur Zusatzinformation“ ist</h2>
+        <p>
+          Große Individualdaten-Metaanalysen des CKD Prognosis Consortium
+          zeigen: niedrigere eGFR und stärkere Albuminurie sind jeweils mit
+          ungünstigen Nieren- und kardiovaskulären Outcomes assoziiert. Das
+          gilt nicht nur für Nierenversagen, sondern auch für Mortalität,
+          Hospitalisierung, Herzinsuffizienz, Vorhofflimmern und
+          atherosklerotische Ereignisse.
+        </p>
+        <p>
+          Praktisch bedeutet das: Eine Person mit nur leicht verminderter eGFR,
+          aber hoher Albuminurie kann ein höheres Risiko haben als eine Person
+          mit ähnlicher eGFR und A1-Albuminurie. Umgekehrt sollte eine
+          isolierte eGFR-Abweichung immer im Kontext von Alter, Muskelmasse,
+          Dynamik, Urinbefund und Bildgebung interpretiert werden.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Praxisfallen</h2>
+        <ul>
+          <li>
+            CKD nicht aus einem Einzelwert ableiten: Persistenz oder
+            Chronizitätszeichen prüfen.
+          </li>
+          <li>
+            Albuminurie bestätigen, wenn plausible Störfaktoren vorliegen:
+            Fieber, Sport, Harnwegsinfekt, Menstruation, Hyperglykämie oder
+            akute Erkrankung.
+          </li>
+          <li>
+            Kreatininbasierte eGFR kann bei sehr niedriger oder hoher
+            Muskelmasse irreführen; bei Unsicherheit Cystatin C ergänzen.
+          </li>
+          <li>
+            Die Matrix ersetzt nicht die Ursachenklärung. KDIGO beschreibt CKD
+            als CGA-System: Cause, GFR, Albuminuria.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Belege und weiterführende Quellen</h2>
+        <ul class="source-list">
+          <li>
+            <a href="https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf">
+              KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of CKD
+            </a>
+            <br />
+            Definition, CGA-Klassifikation, GFR-/Albuminurie-Kategorien,
+            Risikomatrix und praktische Monitoringhinweise.
+          </li>
+          <li>
+            <a href="https://jamanetwork.com/journals/jama/fullarticle/2810033">
+              CKD Prognosis Consortium: Estimated GFR, Albuminuria, and Adverse Outcomes
+            </a>
+            <br />
+            JAMA 2023;330:1266-1277. DOI: 10.1001/jama.2023.17002.
+            Individualdaten-Metaanalyse zu eGFR, Albuminurie und multiplen
+            Outcomes.
+          </li>
+          <li>
+            <a href="https://kdigo.org/guidelines/ckd-evaluation-and-management/kdigo-2024-ckd-guideline/">
+              KDIGO-Übersichtsseite zur CKD-Guideline
+            </a>
+            <br />
+            Offizielle Guideline-Seite mit Volltext, Executive Summary und
+            ergänzenden Materialien.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
