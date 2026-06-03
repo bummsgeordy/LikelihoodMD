@@ -323,6 +323,227 @@
         font-weight: 700;
       }
 
+      .hazard-view-switch {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 1rem 0;
+        padding: 6px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #f3f4f6;
+      }
+
+      .view-toggle-button {
+        appearance: none;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 0.6rem 0.85rem;
+        background: transparent;
+        color: #334155;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 800;
+      }
+
+      .view-toggle-button:hover,
+      .view-toggle-button:focus-visible {
+        border-color: #93c5fd;
+        outline: none;
+      }
+
+      .view-toggle-button[aria-pressed="true"] {
+        border-color: #0b5cad;
+        background: #fff;
+        color: #0b5cad;
+        box-shadow: 0 1px 5px rgba(15, 23, 42, 0.08);
+      }
+
+      .hazard-view[hidden] {
+        display: none;
+      }
+
+      .bar-infographic {
+        display: grid;
+        gap: 14px;
+      }
+
+      .bar-info-header {
+        display: grid;
+        grid-template-columns: minmax(180px, 0.8fr) repeat(3, minmax(220px, 1fr));
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .axis-placeholder,
+      .albuminuria-header,
+      .egfr-band,
+      .bar-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .albuminuria-header {
+        padding: 10px 12px;
+      }
+
+      .albuminuria-header strong,
+      .egfr-band strong {
+        display: block;
+        font-size: 1.05rem;
+      }
+
+      .albuminuria-header span,
+      .egfr-band span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .bar-info-row {
+        display: grid;
+        grid-template-columns: minmax(180px, 0.8fr) repeat(3, minmax(220px, 1fr));
+        gap: 10px;
+      }
+
+      .egfr-band {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .bar-card {
+        display: grid;
+        gap: 8px;
+        min-width: 0;
+        padding: 10px;
+      }
+
+      .bar-card.has-renal-high-risk {
+        box-shadow: inset 0 0 0 2px rgba(185, 28, 28, 0.35);
+      }
+
+      .bar-card-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-height: 1.35rem;
+      }
+
+      .bar-badge {
+        border-radius: 999px;
+        padding: 0.12rem 0.45rem;
+        background: #fff;
+        color: #374151;
+        border: 1px solid var(--line);
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      .bar-badge.warning {
+        border-color: #fecaca;
+        background: #fff1f2;
+        color: #991b1b;
+      }
+
+      .bar-line {
+        display: grid;
+        grid-template-columns: 1.4rem minmax(72px, 1fr) 3.3rem;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .bar-line.is-selected .bar-track {
+        box-shadow: 0 0 0 2px #0b5cad;
+      }
+
+      .bar-line.is-selected .bar-value {
+        color: #0b5cad;
+        font-size: 1.12rem;
+      }
+
+      .bar-label {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 999px;
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+
+      .bar-track {
+        height: 0.74rem;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.08);
+      }
+
+      .bar-fill {
+        width: var(--bar-width);
+        min-width: 10px;
+        height: 100%;
+        border-radius: inherit;
+      }
+
+      .bar-value {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-weight: 850;
+      }
+
+      .bar-value.is-high {
+        font-size: 1.04rem;
+      }
+
+      .bar-value.is-extreme {
+        color: #991b1b;
+        font-size: 1.12rem;
+      }
+
+      .outcome-A {
+        background: #2563eb;
+      }
+
+      .outcome-B {
+        background: #7c3aed;
+      }
+
+      .outcome-C {
+        background: #ea580c;
+      }
+
+      .outcome-D {
+        background: #dc2626;
+      }
+
+      .focus-comparison {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .focus-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: #fff;
+      }
+
+      .focus-card h3 {
+        margin-bottom: 0.25rem;
+      }
+
+      .focus-card p {
+        margin: 0 0 0.75rem;
+        color: var(--muted);
+      }
+
       @media (max-width: 760px) {
         .page {
           width: min(100% - 20px, 1120px);
@@ -334,6 +555,15 @@
 
         .hazard-table {
           min-width: 900px;
+        }
+
+        .bar-info-header,
+        .bar-info-row {
+          grid-template-columns: 1fr;
+        }
+
+        .axis-placeholder {
+          display: none;
         }
 
         .table-scroll {
@@ -562,7 +792,12 @@
         <p class="hazard-filter-hint" id="hazardSelectionHint">
           Ausgewählt: A. Die passenden Hazard Ratios sind in der Matrix vergrößert.
         </p>
-        <div class="table-scroll">
+        <div class="hazard-view-switch" aria-label="Darstellung wählen">
+          <button class="view-toggle-button" type="button" data-view="numeric" aria-pressed="true">Zahlenmatrix</button>
+          <button class="view-toggle-button" type="button" data-view="bars" aria-pressed="false">Balken-Infografik</button>
+        </div>
+        <div class="hazard-view" id="numericHazardView">
+          <div class="table-scroll">
           <table class="hazard-table" aria-label="Adjustierte Hazard Ratios nach eGFR- und Albuminurie-Kategorie">
             <thead>
               <tr>
@@ -645,6 +880,11 @@
               </tr>
             </tbody>
           </table>
+          </div>
+        </div>
+        <div class="hazard-view" id="barHazardView" hidden>
+          <div class="bar-infographic" id="barInfographic" aria-label="Lineare Balken-Infografik der CKD-Hazard-Ratios"></div>
+          <div class="focus-comparison" id="focusComparison" aria-label="Fokusvergleich ausgewählter CKD-Situationen"></div>
         </div>
       </section>
 
@@ -710,6 +950,114 @@
         D: "Nierenereignisse"
       };
 
+      const endpointOrder = ["A", "B", "C", "D"];
+      const albuminuriaColumns = [
+        { key: "A1", title: "A1", range: "<30 mg/g", label: "unauffällig oder leicht erhöht" },
+        { key: "A2", title: "A2", range: "30-300 mg/g", label: "moderat erhöht" },
+        { key: "A3", title: "A3", range: ">300 mg/g", label: "stark erhöht" }
+      ];
+      const riskData = [
+        { gfr: "G1", egfr: "≥90", label: "Unauffällig oder hoch", cells: { A1: { A: 1.0, B: 1.0, C: 1.0, D: 1.0 }, A2: { A: 1.3, B: 1.5, C: 1.5, D: 2.4 }, A3: { A: 1.7, B: 2.6, C: 2.5, D: 7.2 } } },
+        { gfr: "G2", egfr: "60-89", label: "Leicht vermindert", cells: { A1: { A: 0.7, B: 0.9, C: 0.8, D: 2.1 }, A2: { A: 1.0, B: 1.4, C: 1.2, D: 4.7 }, A3: { A: 1.3, B: 2.2, C: 1.9, D: 13.4 } } },
+        { gfr: "G3a", egfr: "45-59", label: "Leicht bis moderat vermindert", cells: { A1: { A: 0.9, B: 1.2, C: 1.1, D: 6.4 }, A2: { A: 1.2, B: 1.6, C: 1.5, D: 11.4 }, A3: { A: 1.5, B: 2.5, C: 2.2, D: 28.2 } } },
+        { gfr: "G3b", egfr: "30-44", label: "Moderat bis stark vermindert", cells: { A1: { A: 1.1, B: 1.5, C: 1.4, D: 14.8 }, A2: { A: 1.3, B: 1.8, C: 1.8, D: 23.3 }, A3: { A: 1.8, B: 2.8, C: 2.6, D: 47.7 } } },
+        { gfr: "G4", egfr: "15-29", label: "Stark vermindert", cells: { A1: { A: 1.5, B: 2.1, C: 2.0, D: 40.8 }, A2: { A: 1.7, B: 2.3, C: 2.2, D: 51.3 }, A3: { A: 2.3, B: 3.6, C: 3.4, D: 84.1 } } },
+        { gfr: "G5", egfr: "&lt;15", label: "Nierenversagen", cells: { A1: { A: 2.4, B: 4.1, C: 3.2, D: 78.3 }, A2: { A: 2.7, B: 4.1, C: 3.5, D: 94.5 }, A3: { A: 3.1, B: 5.2, C: 4.7, D: 97.7 } } }
+      ];
+      const riskClasses = {
+        "G1-A1": "risk-low", "G1-A2": "risk-moderate", "G1-A3": "risk-high",
+        "G2-A1": "risk-low", "G2-A2": "risk-moderate", "G2-A3": "risk-high",
+        "G3a-A1": "risk-moderate", "G3a-A2": "risk-high", "G3a-A3": "risk-very-high",
+        "G3b-A1": "risk-high", "G3b-A2": "risk-very-high", "G3b-A3": "risk-very-high",
+        "G4-A1": "risk-very-high", "G4-A2": "risk-very-high", "G4-A3": "risk-extreme",
+        "G5-A1": "risk-extreme", "G5-A2": "risk-extreme", "G5-A3": "risk-extreme"
+      };
+
+      function formatHR(value) {
+        return value.toFixed(1).replace(".", ",");
+      }
+
+      function scaleHR(value) {
+        return Math.min(100, Math.max(value, 6));
+      }
+
+      function renderBarLines(values) {
+        return endpointOrder.map(endpoint => {
+          const value = values[endpoint];
+          const highClass = value >= 50 ? "is-extreme" : value >= 10 ? "is-high" : "";
+          return `
+            <div class="bar-line" data-outcome="${endpoint}" tabindex="0" aria-label="${endpoint}: Hazard Ratio ${formatHR(value)} für ${outcomeLabels[endpoint]}">
+              <span class="bar-label outcome-${endpoint}">${endpoint}</span>
+              <span class="bar-track"><span class="bar-fill outcome-${endpoint}" style="--bar-width: ${scaleHR(value)}%"></span></span>
+              <span class="bar-value ${highClass}">${formatHR(value)}</span>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function renderBarInfographic() {
+        const barInfographic = document.querySelector("#barInfographic");
+        const focusComparison = document.querySelector("#focusComparison");
+        if (!barInfographic || !focusComparison) return;
+
+        const header = `
+          <div class="bar-info-header">
+            <div class="axis-placeholder" aria-hidden="true"></div>
+            ${albuminuriaColumns.map(column => `
+              <div class="albuminuria-header">
+                <strong>${column.title}</strong>
+                <span>${column.range}</span>
+                <span>${column.label}</span>
+              </div>
+            `).join("")}
+          </div>
+        `;
+
+        const rows = riskData.map(row => `
+          <div class="bar-info-row">
+            <div class="egfr-band">
+              <strong>${row.gfr} · ${row.egfr}</strong>
+              <span>${row.label}</span>
+            </div>
+            ${albuminuriaColumns.map(column => {
+              const cell = row.cells[column.key];
+              const isReference = row.gfr === "G1" && column.key === "A1";
+              const renalHighRisk = cell.D >= 50;
+              return `
+                <div class="bar-card ${riskClasses[`${row.gfr}-${column.key}`]} ${renalHighRisk ? "has-renal-high-risk" : ""}" tabindex="0" aria-label="${row.gfr}/${column.key}: Hazard Ratios A ${formatHR(cell.A)}, B ${formatHR(cell.B)}, C ${formatHR(cell.C)}, D ${formatHR(cell.D)}">
+                  <div class="bar-card-badges">
+                    ${isReference ? '<span class="bar-badge">Referenz</span>' : ""}
+                    ${renalHighRisk ? '<span class="bar-badge warning">renales Hochrisiko</span>' : ""}
+                  </div>
+                  ${renderBarLines(cell)}
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `).join("");
+
+        barInfographic.innerHTML = header + rows;
+
+        const focusPairs = [
+          { gfr: "G2", albuminuria: "A3", comment: "Erhaltene eGFR, aber deutliche Albuminurie." },
+          { gfr: "G3a", albuminuria: "A3", comment: "Nur moderat verminderte eGFR, renal bereits sehr auffällig." },
+          { gfr: "G4", albuminuria: "A1", comment: "Niedrige eGFR auch ohne hohe Albuminurie." },
+          { gfr: "G4", albuminuria: "A3", comment: "Kombination aus niedriger eGFR und hoher Albuminurie." }
+        ];
+
+        focusComparison.innerHTML = focusPairs.map(pair => {
+          const row = riskData.find(candidate => candidate.gfr === pair.gfr);
+          const cell = row.cells[pair.albuminuria];
+          return `
+            <article class="focus-card">
+              <h3>${pair.gfr}/${pair.albuminuria}</h3>
+              <p>${pair.comment}</p>
+              ${renderBarLines(cell)}
+            </article>
+          `;
+        }).join("");
+      }
+
       function setSelectedOutcome(outcome) {
         document.querySelectorAll(".hazard-filter-button").forEach(button => {
           button.setAttribute("aria-pressed", String(button.dataset.outcome === outcome));
@@ -720,9 +1068,26 @@
           value.classList.toggle("is-selected", label === outcome);
         });
 
+        document.querySelectorAll(".bar-line").forEach(line => {
+          line.classList.toggle("is-selected", line.dataset.outcome === outcome);
+        });
+
         const hint = document.querySelector("#hazardSelectionHint");
         if (hint) {
           hint.textContent = `Ausgewählt: ${outcome} (${outcomeLabels[outcome]}). Die passenden Hazard Ratios sind in der Matrix vergrößert.`;
+        }
+      }
+
+      function setHazardView(view) {
+        document.querySelectorAll(".view-toggle-button").forEach(button => {
+          button.setAttribute("aria-pressed", String(button.dataset.view === view));
+        });
+
+        const numericView = document.querySelector("#numericHazardView");
+        const barView = document.querySelector("#barHazardView");
+        if (numericView && barView) {
+          numericView.hidden = view !== "numeric";
+          barView.hidden = view !== "bars";
         }
       }
 
@@ -732,7 +1097,15 @@
         });
       });
 
+      document.querySelectorAll(".view-toggle-button").forEach(button => {
+        button.addEventListener("click", () => {
+          setHazardView(button.dataset.view || "numeric");
+        });
+      });
+
+      renderBarInfographic();
       setSelectedOutcome("A");
+      setHazardView("numeric");
     </script>
   </body>
 </html>
