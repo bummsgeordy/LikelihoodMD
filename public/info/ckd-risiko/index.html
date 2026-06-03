@@ -239,11 +239,31 @@
         justify-content: center;
         gap: 0.18rem;
         white-space: nowrap;
+        border-radius: 999px;
+        padding: 0.08rem 0.28rem;
+        transition:
+          background 0.15s ease,
+          box-shadow 0.15s ease,
+          color 0.15s ease,
+          transform 0.15s ease;
       }
 
       .hazard-cell b {
         color: #374151;
         font-size: 0.78rem;
+      }
+
+      .hazard-cell span.is-selected {
+        background: #fff;
+        color: #0b5cad;
+        box-shadow: 0 0 0 2px #0b5cad;
+        font-size: 1.22rem;
+        transform: scale(1.04);
+      }
+
+      .hazard-cell span.is-selected b {
+        color: #0b5cad;
+        font-size: 0.9rem;
       }
 
       .hazard-note-grid {
@@ -253,11 +273,54 @@
         margin: 12px 0 0;
       }
 
-      .hazard-note-grid div {
+      .hazard-filter-button {
+        appearance: none;
         border: 1px solid var(--line);
         border-radius: 8px;
         padding: 10px 12px;
         background: var(--soft);
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease,
+          box-shadow 0.15s ease,
+          transform 0.15s ease;
+      }
+
+      .hazard-filter-button:hover,
+      .hazard-filter-button:focus-visible {
+        border-color: #0b5cad;
+        box-shadow: 0 0 0 4px rgba(11, 92, 173, 0.12);
+        outline: none;
+        transform: translateY(-1px);
+      }
+
+      .hazard-filter-button[aria-pressed="true"] {
+        border-color: #0b5cad;
+        background: #eaf4ff;
+        box-shadow: inset 0 0 0 2px #0b5cad;
+      }
+
+      .hazard-filter-button strong {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 0.35rem;
+        border: 1px solid #bfdbfe;
+        border-radius: 999px;
+        background: #fff;
+        color: #0b5cad;
+      }
+
+      .hazard-filter-hint {
+        margin: 0.75rem 0 0;
+        color: var(--muted);
+        font-weight: 700;
       }
 
       @media (max-width: 760px) {
@@ -487,12 +550,23 @@
           Sie beschreibt also ein relatives Risiko für Ereignisse, keine
           Prätestwahrscheinlichkeit und keine Likelihood-Ratio.
         </p>
-        <div class="hazard-note-grid" aria-label="Komplikationsgruppen">
-          <div><strong>A</strong><br />Gesamtsterblichkeit / Hospitalisierung</div>
-          <div><strong>B</strong><br />Atherosklerotische Ereignisse: Myokardinfarkt, Schlaganfall oder PAVK</div>
-          <div><strong>C</strong><br />Kardiovaskuläre Ereignisse: kardiovaskulärer Tod, Herzinsuffizienz oder Vorhofflimmern</div>
-          <div><strong>D</strong><br />Nierenereignisse: dialysepflichtiges Nierenversagen oder akute Nierenfunktionsverschlechterung</div>
+        <div class="hazard-note-grid" aria-label="Komplikationsgruppen auswählen">
+          <button class="hazard-filter-button" type="button" data-outcome="A" aria-pressed="true">
+            <strong>A</strong> Gesamtsterblichkeit / Hospitalisierung
+          </button>
+          <button class="hazard-filter-button" type="button" data-outcome="B" aria-pressed="false">
+            <strong>B</strong> Atherosklerotische Ereignisse: Myokardinfarkt, Schlaganfall oder PAVK
+          </button>
+          <button class="hazard-filter-button" type="button" data-outcome="C" aria-pressed="false">
+            <strong>C</strong> Kardiovaskuläre Ereignisse: kardiovaskulärer Tod, Herzinsuffizienz oder Vorhofflimmern
+          </button>
+          <button class="hazard-filter-button" type="button" data-outcome="D" aria-pressed="false">
+            <strong>D</strong> Nierenereignisse: dialysepflichtiges Nierenversagen oder akute Nierenfunktionsverschlechterung
+          </button>
         </div>
+        <p class="hazard-filter-hint" id="hazardSelectionHint">
+          Ausgewählt: A. Die passenden Hazard Ratios sind in der Matrix vergrößert.
+        </p>
         <div class="table-scroll">
           <table class="hazard-table" aria-label="Adjustierte Hazard Ratios nach eGFR- und Albuminurie-Kategorie">
             <thead>
@@ -640,5 +714,37 @@
         </ul>
       </section>
     </main>
+    <script>
+      const outcomeLabels = {
+        A: "Gesamtsterblichkeit / Hospitalisierung",
+        B: "atherosklerotische Ereignisse",
+        C: "kardiovaskuläre Ereignisse",
+        D: "Nierenereignisse"
+      };
+
+      function setSelectedOutcome(outcome) {
+        document.querySelectorAll(".hazard-filter-button").forEach(button => {
+          button.setAttribute("aria-pressed", String(button.dataset.outcome === outcome));
+        });
+
+        document.querySelectorAll(".hazard-cell span").forEach(value => {
+          const label = value.querySelector("b")?.textContent?.trim();
+          value.classList.toggle("is-selected", label === outcome);
+        });
+
+        const hint = document.querySelector("#hazardSelectionHint");
+        if (hint) {
+          hint.textContent = `Ausgewählt: ${outcome} (${outcomeLabels[outcome]}). Die passenden Hazard Ratios sind in der Matrix vergrößert.`;
+        }
+      }
+
+      document.querySelectorAll(".hazard-filter-button").forEach(button => {
+        button.addEventListener("click", () => {
+          setSelectedOutcome(button.dataset.outcome || "A");
+        });
+      });
+
+      setSelectedOutcome("A");
+    </script>
   </body>
 </html>
