@@ -101,6 +101,9 @@ export const defaultState: CalculatorState = {
   manualPretestPercent: 5,
   selectedModifierIds: [],
   modifierListExpanded: false,
+  pretestStatusExpanded: false,
+  pretestEstimateDetailsOpen: false,
+  pretestInterferenceDetailsOpen: true,
   customTests: [],
   customEvidenceProfiles: [],
   customAssumptions: [],
@@ -222,6 +225,9 @@ export function loadState(): CalculatorState {
         })),
         selectedModifierIds: (parsed.selectedModifierIds ?? []).filter((id): id is string => typeof id === 'string'),
         modifierListExpanded: Boolean(parsed.modifierListExpanded),
+        pretestStatusExpanded: Boolean(parsed.pretestStatusExpanded),
+        pretestEstimateDetailsOpen: Boolean(parsed.pretestEstimateDetailsOpen),
+        pretestInterferenceDetailsOpen: parsed.pretestInterferenceDetailsOpen ?? true,
         drawerOpen: false
       };
     }

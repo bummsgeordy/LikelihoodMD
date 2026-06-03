@@ -1432,8 +1432,25 @@ function renderMismatchWarning(test: DiagnosticTest): void {
   controls.mismatchWarning.classList.remove("hidden");
 }
 
+function createDisclosure(
+  className: string,
+  summaryText: string,
+  onToggle: (open: boolean) => void,
+  open = false,
+): HTMLDetailsElement {
+  const details = document.createElement("details");
+  details.className = className;
+  details.open = open;
+  const summary = document.createElement("summary");
+  summary.textContent = summaryText;
+  details.append(summary);
+  details.addEventListener("toggle", () => onToggle(details.open));
+  return details;
+}
+
 function renderPretestStatus(resolution: PretestResolution): void {
   controls.pretestStatus.className = `pretest-status ${resolution.status}`;
+  controls.pretestStatus.textContent = "";
   const source = resolution.assumption.sources[0];
   const selectedCondition = getSelectedCondition().label;
   const selectedSetting = getSelectedSetting().label;
@@ -1455,7 +1472,21 @@ function renderPretestStatus(resolution: PretestResolution): void {
       : resolution.status === "fallback"
         ? `Keine spezifischen Setting-Daten für ${selectedCondition} im Setting ${selectedSetting}; allgemeine Annahme genutzt.`
         : resolution.message;
-  controls.pretestStatus.textContent = `${statusIcon ? `${statusIcon} ` : ""}${statusLabel}: ${formatPercent(resolution.probability)}. ${statusMessage}${source ? ` Quelle: ${source.title} (${source.year}).` : ""}`;
+
+  const details = createDisclosure(
+    `pretest-status-disclosure ${resolution.status}`,
+    `${statusIcon ? `${statusIcon} ` : ""}${statusLabel}: ${formatPercent(resolution.probability)} · Kontext anzeigen`,
+    (open) => {
+      state.pretestStatusExpanded = open;
+      saveState(state);
+    },
+    Boolean(state.pretestStatusExpanded),
+  );
+  const message = document.createElement("p");
+  message.textContent = `${statusMessage}${source ? ` Quelle: ${source.title} (${source.year}).` : ""}`;
+  details.append(message);
+  controls.pretestStatus.append(details);
+
   const suggestedPercent = clampProbabilityPercent(
     resolution.probability * 100,
   );
@@ -1495,6 +1526,15 @@ function createEstimateAlert(
   alert.className = `estimate-alert ${severity}`;
   alert.textContent = `${severity === "high" ? "⚠" : "!"} ${text}`;
   return alert;
+}
+
+function createEstimateDetails(
+  className: string,
+  summaryText: string,
+  open: boolean,
+  onToggle: (open: boolean) => void,
+): HTMLDetailsElement {
+  return createDisclosure(`estimate-disclosure ${className}`, summaryText, onToggle, open);
 }
 
 function renderPretestEstimatePanel(
@@ -1563,10 +1603,10 @@ function renderPretestEstimatePanel(
   const medications = estimate.medicationInterferences
     .filter((medication) => medication.severity === "high")
     .slice(0, 3);
-  const warningWrap = document.createElement("div");
-  warningWrap.className = "estimate-warning-list";
+  const highWarningWrap = document.createElement("div");
+  highWarningWrap.className = "estimate-warning-list";
   issues.forEach((issue) =>
-    warningWrap.append(
+    highWarningWrap.append(
       createEstimateAlert(
         `${issue.issue}: ${issue.effect}${issue.mitigation ? ` ${issue.mitigation}` : ""}`,
         "high",
@@ -1574,13 +1614,22 @@ function renderPretestEstimatePanel(
     ),
   );
   medications.forEach((medication) =>
-    warningWrap.append(
+    highWarningWrap.append(
       createEstimateAlert(
         `${medication.medicationOrClass}: ${medication.effect}${medication.mitigation ? ` ${medication.mitigation}` : ""}`,
         "high",
       ),
     ),
   );
+  const moderateWarnings = resolution.activeWarnings
+    .filter(
+      (warning) =>
+        warning !==
+        "Diese Angaben sind didaktische Entscheidungsunterstützung, keine Diagnose.",
+    )
+    .slice(0, 2);
+  const moderateWarningWrap = document.createElement("div");
+  moderateWarningWrap.className = "estimate-warning-list";
   resolution.activeWarnings
     .filter(
       (warning) =>
@@ -1589,8 +1638,28 @@ function renderPretestEstimatePanel(
     )
     .slice(0, 2)
     .forEach((warning) =>
-      warningWrap.append(createEstimateAlert(warning, "moderate")),
+      moderateWarningWrap.append(createEstimateAlert(warning, "moderate")),
     );
+
+  const detailCount =
+    1 +
+    modifiersToShow.length +
+    moderateWarnings.length +
+    resolution.sources.length;
+  const contextDetails = createEstimateDetails(
+    "context",
+    `! Kontext zur Prätest-Datenbasis anzeigen (${detailCount})`,
+    Boolean(state.pretestEstimateDetailsOpen),
+    (open) => {
+      state.pretestEstimateDetailsOpen = open;
+      saveState(state);
+    },
+  );
+  contextDetails.append(note);
+  if (modifierWrap.childElementCount > 0)
+    contextDetails.append(modifierWrap);
+  if (moderateWarningWrap.childElementCount > 0)
+    contextDetails.append(moderateWarningWrap);
 
   const sourcesDetails = document.createElement("details");
   sourcesDetails.className = "estimate-sources";
@@ -1611,13 +1680,24 @@ function renderPretestEstimatePanel(
     sourceList.append(item);
   });
   sourcesDetails.append(summary, sourceList);
+  contextDetails.append(sourcesDetails);
 
-  controls.pretestEstimatePanel.append(heading, grid, note);
-  if (modifierWrap.childElementCount > 0)
-    controls.pretestEstimatePanel.append(modifierWrap);
-  if (warningWrap.childElementCount > 0)
-    controls.pretestEstimatePanel.append(warningWrap);
-  controls.pretestEstimatePanel.append(sourcesDetails);
+  const highWarningCount = issues.length + medications.length;
+  const interferenceDetails = createEstimateDetails(
+    "interference",
+    `⚠ Wichtige Interferenzen anzeigen (${highWarningCount})`,
+    Boolean(state.pretestInterferenceDetailsOpen),
+    (open) => {
+      state.pretestInterferenceDetailsOpen = open;
+      saveState(state);
+    },
+  );
+  interferenceDetails.append(highWarningWrap);
+
+  controls.pretestEstimatePanel.append(heading, grid);
+  controls.pretestEstimatePanel.append(contextDetails);
+  if (highWarningWrap.childElementCount > 0)
+    controls.pretestEstimatePanel.append(interferenceDetails);
 }
 
 function renderModifierSelector(result: CalculationResult): void {

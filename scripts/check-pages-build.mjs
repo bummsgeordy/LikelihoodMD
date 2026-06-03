@@ -7,6 +7,7 @@ const infoPath = join(distPath, 'info', 'vierfeldertafel', 'index.html');
 const simulationPath = join(distPath, 'simulation', 'index.html');
 const manifestPath = join(distPath, 'manifest.webmanifest');
 const serviceWorkerPath = join(distPath, 'sw.js');
+const faviconPath = join(distPath, 'favicon.svg');
 const icon192Path = join(distPath, 'icons', 'icon-192.png');
 const icon512Path = join(distPath, 'icons', 'icon-512.png');
 if (!existsSync(indexPath)) {
@@ -27,6 +28,7 @@ if (!existsSync(simulationPath)) {
 for (const [filePath, label] of [
   [manifestPath, 'manifest.webmanifest'],
   [serviceWorkerPath, 'sw.js'],
+  [faviconPath, 'favicon.svg'],
   [icon192Path, 'icons/icon-192.png'],
   [icon512Path, 'icons/icon-512.png']
 ]) {
@@ -47,7 +49,7 @@ if (!html.includes('./assets/')) {
   process.exit(1);
 }
 
-if (!html.includes('./manifest.webmanifest') || !html.includes('./icons/apple-touch-icon.png')) {
+if (!html.includes('./manifest.webmanifest') || !html.includes('./icons/apple-touch-icon.png') || !html.includes('./favicon.svg')) {
   console.error('dist/index.html enthält nicht die erwarteten PWA-/iOS-Metadaten.');
   process.exit(1);
 }
@@ -76,8 +78,8 @@ if (!serviceWorker.includes('CACHE_VERSION') || !serviceWorker.includes('precach
   process.exit(1);
 }
 
-if (!serviceWorker.includes('./simulation/index.html')) {
-  console.error('sw.js enthält die Simulations-Unterseite nicht im App-Shell-Cache.');
+if (!serviceWorker.includes('./simulation/index.html') || !serviceWorker.includes('./favicon.svg')) {
+  console.error('sw.js enthält die Simulations-Unterseite oder das Favicon nicht im App-Shell-Cache.');
   process.exit(1);
 }
 

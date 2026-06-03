@@ -1317,7 +1317,7 @@ input[type="range"] {
 
 .pretest-status {
   margin: 0 0 12px;
-  padding: 10px 12px;
+  padding: 0;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 650;
@@ -1342,6 +1342,56 @@ input[type="range"] {
   border-left: 4px solid #3b82f6;
   background: #eff6ff;
   color: #1e3a8a;
+}
+
+.pretest-status-disclosure {
+  padding: 0;
+}
+
+.pretest-status-disclosure summary,
+.estimate-disclosure summary,
+.estimate-sources summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.pretest-status-disclosure summary::-webkit-details-marker,
+.estimate-disclosure summary::-webkit-details-marker,
+.estimate-sources summary::-webkit-details-marker {
+  display: none;
+}
+
+.pretest-status-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.pretest-status-disclosure summary::after,
+.estimate-disclosure summary::after,
+.estimate-sources summary::after {
+  content: "▾";
+  flex: 0 0 auto;
+  color: currentColor;
+  font-size: 0.78rem;
+  opacity: 0.78;
+  transform: rotate(-90deg);
+  transition: transform 0.15s ease;
+}
+
+.pretest-status-disclosure[open] summary::after,
+.estimate-disclosure[open] summary::after,
+.estimate-sources[open] summary::after {
+  transform: rotate(0deg);
+}
+
+.pretest-status-disclosure p {
+  margin: 0;
+  padding: 0 12px 11px;
+  line-height: 1.42;
+  font-weight: 650;
 }
 
 .pretest-estimate-panel {
@@ -1413,6 +1463,55 @@ input[type="range"] {
   margin: 8px 0;
 }
 
+.estimate-disclosure {
+  margin-top: 8px;
+  border: 1px solid #d7e1ea;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.estimate-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  color: #334155;
+  font-weight: 750;
+}
+
+.estimate-disclosure.context {
+  border-color: #fdba74;
+  background: #fff7ed;
+}
+
+.estimate-disclosure.context summary {
+  color: #7c2d12;
+}
+
+.estimate-disclosure.interference {
+  border-color: #fb7185;
+  border-left: 4px solid #e11d48;
+  background: #fff1f2;
+}
+
+.estimate-disclosure.interference summary {
+  color: #881337;
+}
+
+.estimate-disclosure > p,
+.estimate-disclosure > .estimate-chip-row,
+.estimate-disclosure > .estimate-warning-list,
+.estimate-disclosure > .estimate-sources {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.estimate-disclosure > :last-child {
+  margin-bottom: 10px;
+}
+
 .estimate-chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -1476,7 +1575,10 @@ input[type="range"] {
 }
 
 .estimate-sources summary {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   color: var(--accent-strong);
   font-weight: 750;
 }

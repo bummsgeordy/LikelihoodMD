@@ -320,6 +320,9 @@ export interface CalculatorState {
   manualPretestPercent: number;
   selectedModifierIds: string[];
   modifierListExpanded: boolean;
+  pretestStatusExpanded?: boolean;
+  pretestEstimateDetailsOpen?: boolean;
+  pretestInterferenceDetailsOpen?: boolean;
   customTests: DiagnosticTest[];
   customEvidenceProfiles: EvidenceProfile[];
   customAssumptions: PretestAssumption[];
