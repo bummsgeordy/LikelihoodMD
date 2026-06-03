@@ -249,8 +249,35 @@
       }
 
       .hazard-cell b {
-        color: #374151;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.15rem;
+        height: 1.15rem;
+        border-radius: 999px;
+        background: #64748b;
+        color: #fff;
         font-size: 0.78rem;
+      }
+
+      .hazard-cell span.numeric-outcome-A b {
+        background: #2563eb;
+        color: #fff;
+      }
+
+      .hazard-cell span.numeric-outcome-B b {
+        background: #7c3aed;
+        color: #fff;
+      }
+
+      .hazard-cell span.numeric-outcome-C b {
+        background: #ea580c;
+        color: #fff;
+      }
+
+      .hazard-cell span.numeric-outcome-D b {
+        background: #dc2626;
+        color: #fff;
       }
 
       .hazard-cell span.is-selected {
@@ -262,7 +289,7 @@
       }
 
       .hazard-cell span.is-selected b {
-        color: #0b5cad;
+        color: #fff;
         font-size: 0.9rem;
       }
 
@@ -425,29 +452,6 @@
         box-shadow: inset 0 0 0 2px rgba(185, 28, 28, 0.35);
       }
 
-      .bar-card-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        min-height: 1.35rem;
-      }
-
-      .bar-badge {
-        border-radius: 999px;
-        padding: 0.12rem 0.45rem;
-        background: #fff;
-        color: #374151;
-        border: 1px solid var(--line);
-        font-size: 0.78rem;
-        font-weight: 800;
-      }
-
-      .bar-badge.warning {
-        border-color: #fecaca;
-        background: #fff1f2;
-        color: #991b1b;
-      }
-
       .bar-line {
         display: grid;
         grid-template-columns: 1.4rem minmax(72px, 1fr) 3.3rem;
@@ -491,6 +495,20 @@
         min-width: 10px;
         height: 100%;
         border-radius: inherit;
+        position: relative;
+      }
+
+      .bar-fill.has-break::after {
+        content: "//";
+        position: absolute;
+        top: 50%;
+        left: min(52%, calc(100% - 1.4rem));
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 0.62rem;
+        font-weight: 950;
+        letter-spacing: -0.08rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       }
 
       .bar-value {
@@ -680,44 +698,44 @@
             <thead>
               <tr>
                 <th>eGFR-Kategorie</th>
-                <th>A1<br /><small>&lt;30 mg/g</small></th>
-                <th>A2<br /><small>30-300 mg/g</small></th>
-                <th>A3<br /><small>&gt;300 mg/g</small></th>
+                <th>A1<br /><small>&lt;30 mg/g<br />unauffällig oder leicht erhöht</small></th>
+                <th>A2<br /><small>30-300 mg/g<br />moderat erhöht</small></th>
+                <th>A3<br /><small>&gt;300 mg/g<br />stark erhöht</small></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th>G1 ≥90</th>
+                <th>G1 · ≥90<br /><small>Unauffällig oder hoch</small></th>
                 <td class="risk-low">niedrig<small>wenn keine weiteren Marker: keine CKD</small></td>
                 <td class="risk-moderate">moderat</td>
                 <td class="risk-high">hoch</td>
               </tr>
               <tr>
-                <th>G2 60-89</th>
+                <th>G2 · 60-89<br /><small>Leicht vermindert</small></th>
                 <td class="risk-low">niedrig<small>wenn keine weiteren Marker: keine CKD</small></td>
                 <td class="risk-moderate">moderat</td>
                 <td class="risk-high">hoch</td>
               </tr>
               <tr>
-                <th>G3a 45-59</th>
+                <th>G3a · 45-59<br /><small>Leicht bis moderat vermindert</small></th>
                 <td class="risk-moderate">moderat</td>
                 <td class="risk-high">hoch</td>
                 <td class="risk-very-high">sehr hoch</td>
               </tr>
               <tr>
-                <th>G3b 30-44</th>
+                <th>G3b · 30-44<br /><small>Moderat bis stark vermindert</small></th>
                 <td class="risk-high">hoch</td>
                 <td class="risk-very-high">sehr hoch</td>
                 <td class="risk-very-high">sehr hoch</td>
               </tr>
               <tr>
-                <th>G4 15-29</th>
+                <th>G4 · 15-29<br /><small>Stark vermindert</small></th>
                 <td class="risk-very-high">sehr hoch</td>
                 <td class="risk-very-high">sehr hoch</td>
                 <td class="risk-extreme">sehr hoch</td>
               </tr>
               <tr>
-                <th>G5 &lt;15</th>
+                <th>G5 · &lt;15<br /><small>Nierenversagen</small></th>
                 <td class="risk-extreme">sehr hoch</td>
                 <td class="risk-extreme">sehr hoch</td>
                 <td class="risk-extreme">sehr hoch</td>
@@ -863,6 +881,7 @@
           </div>
         </div>
         <div class="hazard-view" id="barHazardView" hidden>
+          <p class="hazard-filter-hint">Balken mit // nutzen ab HR 10 eine komprimierte Skala; die Zahlen rechts bleiben die exakten Hazard Ratios.</p>
           <div class="bar-infographic" id="barInfographic" aria-label="Lineare Balken-Infografik der CKD-Hazard-Ratios"></div>
         </div>
       </section>
@@ -957,17 +976,22 @@
       }
 
       function scaleHR(value) {
-        return Math.min(100, Math.max((value / 100) * 100, 3));
+        if (value <= 10) {
+          return Math.max(value * 5, 4);
+        }
+
+        return Math.min(100, 50 + ((value - 10) / 90) * 50);
       }
 
       function renderBarLines(values) {
         return endpointOrder.map(endpoint => {
           const value = values[endpoint];
           const highClass = value >= 50 ? "is-extreme" : value >= 10 ? "is-high" : "";
+          const breakClass = value > 10 ? "has-break" : "";
           return `
             <div class="bar-line" data-outcome="${endpoint}" tabindex="0" aria-label="${endpoint}: Hazard Ratio ${formatHR(value)} für ${outcomeLabels[endpoint]}">
               <span class="bar-label outcome-${endpoint}">${endpoint}</span>
-              <span class="bar-track"><span class="bar-fill outcome-${endpoint}" style="--bar-width: ${scaleHR(value)}%"></span></span>
+              <span class="bar-track"><span class="bar-fill outcome-${endpoint} ${breakClass}" style="--bar-width: ${scaleHR(value)}%"></span></span>
               <span class="bar-value ${highClass}">${formatHR(value)}</span>
             </div>
           `;
@@ -999,14 +1023,9 @@
             </div>
             ${albuminuriaColumns.map(column => {
               const cell = row.cells[column.key];
-              const isReference = row.gfr === "G1" && column.key === "A1";
               const renalHighRisk = cell.D >= 50;
               return `
                 <div class="bar-card ${riskClasses[`${row.gfr}-${column.key}`]} ${renalHighRisk ? "has-renal-high-risk" : ""}" tabindex="0" aria-label="${row.gfr}/${column.key}: Hazard Ratios A ${formatHR(cell.A)}, B ${formatHR(cell.B)}, C ${formatHR(cell.C)}, D ${formatHR(cell.D)}">
-                  <div class="bar-card-badges">
-                    ${isReference ? '<span class="bar-badge">Referenz</span>' : ""}
-                    ${renalHighRisk ? '<span class="bar-badge warning">renales Hochrisiko</span>' : ""}
-                  </div>
                   ${renderBarLines(cell)}
                 </div>
               `;
@@ -1024,6 +1043,9 @@
 
         document.querySelectorAll(".hazard-cell span").forEach(value => {
           const label = value.querySelector("b")?.textContent?.trim();
+          if (label) {
+            value.classList.add(`numeric-outcome-${label}`);
+          }
           value.classList.toggle("is-selected", label === outcome);
         });
 
