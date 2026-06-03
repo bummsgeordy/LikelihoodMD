@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'lr-rechner-schema-v5-2026-06-03-8';
+const CACHE_VERSION = 'lr-rechner-schema-v5-2026-06-03-9';
 const CACHE_NAME = `likelihood-ratio-rechner-${CACHE_VERSION}`;
 const APP_SHELL = [
   './',
