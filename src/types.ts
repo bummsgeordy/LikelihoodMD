@@ -323,6 +323,7 @@ export interface CalculatorState {
   pretestStatusExpanded?: boolean;
   pretestEstimateDetailsOpen?: boolean;
   pretestInterferenceDetailsOpen?: boolean;
+  pretestInterferenceUserToggled?: boolean;
   customTests: DiagnosticTest[];
   customEvidenceProfiles: EvidenceProfile[];
   customAssumptions: PretestAssumption[];

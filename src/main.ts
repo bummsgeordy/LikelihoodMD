@@ -1689,6 +1689,7 @@ function renderPretestEstimatePanel(
     Boolean(state.pretestInterferenceDetailsOpen),
     (open) => {
       state.pretestInterferenceDetailsOpen = open;
+      state.pretestInterferenceUserToggled = true;
       saveState(state);
     },
   );
