@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "exportedAt": "2026-05-17T00:00:00.000Z",
   "customTests": [
     {
@@ -19,6 +19,8 @@
       "testId": "custom-test-example",
       "label": "Beispielprofil",
       "kind": "custom",
+      "calculationMode": "binary-lr",
+      "lrDerivation": "derived",
       "method": "Lokales Testverfahren",
       "cutoff": "lokaler Cut-off",
       "sensitivity": 0.9,
@@ -52,6 +54,8 @@
       "testId": "custom-test-example",
       "label": "Abweichendes Beispiel-Szenario",
       "kind": "scenario",
+      "calculationMode": "binary-lr",
+      "lrDerivation": "derived",
       "method": "Lokales Testverfahren",
       "cutoff": "abweichender lokaler Cut-off",
       "sensitivity": 0.85,

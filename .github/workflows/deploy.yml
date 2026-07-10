@@ -31,6 +31,12 @@ jobs:
         run: npm run validate:data
       - name: Unit tests
         run: npm run test:run
+      - name: Dependency audit
+        run: npm audit --audit-level=high
+      - name: Regenerate evidence audit
+        run: npm run audit:evidence
+      - name: Ensure evidence audit is current
+        run: git diff --exit-code -- docs/EVIDENCE_AUDIT.md
 
   build:
     runs-on: ubuntu-latest
@@ -49,8 +55,14 @@ jobs:
         run: npm run build
       - name: Check GitHub Pages asset references
         run: npm run check:pages
+      - name: Check initial bundle budget
+        run: npm run check:bundle
       - name: Smoke test static build
         run: npm run smoke:test
+      - name: Install Chromium for browser tests
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke tests
+        run: npm run test:e2e
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

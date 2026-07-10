@@ -1,4 +1,4 @@
-import type { CalculationResult, EvidenceProfile } from '../types';
+import type { CalculationResult, EvidenceProfile, ProfileCalculationOutcome } from '../types';
 
 export const MIN_PROBABILITY_PERCENT = 0.1;
 export const MAX_PROBABILITY_PERCENT = 99.9;
@@ -36,19 +36,32 @@ export function likelihoodRatiosFromSensitivitySpecificity(
   };
 }
 
-export function resolveLikelihoodRatios(profile: EvidenceProfile): { lrPositive: number; lrNegative: number } {
+export function tryResolveLikelihoodRatios(profile: EvidenceProfile): { lrPositive: number; lrNegative: number } | null {
+  if (profile.calculationMode !== 'binary-lr') return null;
   if (typeof profile.lrPositive === 'number' && typeof profile.lrNegative === 'number') {
-    return {
+    const ratios = {
       lrPositive: profile.lrPositive,
       lrNegative: profile.lrNegative
     };
+    return Number.isFinite(ratios.lrPositive) && Number.isFinite(ratios.lrNegative) && ratios.lrPositive > 0 && ratios.lrNegative > 0
+      ? ratios
+      : null;
   }
 
   if (profile.sensitivity == null || profile.specificity == null) {
-    return { lrPositive: 1, lrNegative: 1 };
+    return null;
   }
 
-  return likelihoodRatiosFromSensitivitySpecificity(profile.sensitivity, profile.specificity);
+  const ratios = likelihoodRatiosFromSensitivitySpecificity(profile.sensitivity, profile.specificity);
+  return Number.isFinite(ratios.lrPositive) && Number.isFinite(ratios.lrNegative) && ratios.lrPositive > 0 && ratios.lrNegative > 0
+    ? ratios
+    : null;
+}
+
+export function resolveLikelihoodRatios(profile: EvidenceProfile): { lrPositive: number; lrNegative: number } {
+  const ratios = tryResolveLikelihoodRatios(profile);
+  if (!ratios) throw new Error(profile.nonComputableReason ?? 'Dieses Profil besitzt keine valide binäre Likelihood-Ratio.');
+  return ratios;
 }
 
 export function predictiveValues(
@@ -84,6 +97,24 @@ export function calculateResult(profile: EvidenceProfile, pretestProbability: nu
     ppv,
     npv
   };
+}
+
+export function calculateProfileOutcome(
+  profile: EvidenceProfile,
+  pretestProbability: number
+): ProfileCalculationOutcome {
+  const ratios = tryResolveLikelihoodRatios(profile);
+  if (!ratios) {
+    return {
+      status: 'not-computable',
+      reason:
+        profile.nonComputableReason ??
+        (profile.calculationMode === 'categorical'
+          ? 'Dieses Verfahren liefert Kategorien statt einer universellen binären Likelihood-Ratio.'
+          : 'Dieses Verfahren ist ein klinischer Workflow und nicht als einzelner binärer LR-Test berechenbar.')
+    };
+  }
+  return { status: 'computed', result: calculateResult(profile, pretestProbability) };
 }
 
 export function formatPercent(probability: number | null, digits = 1): string {

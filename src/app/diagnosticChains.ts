@@ -1,4 +1,4 @@
-import { calculateResult, formatPercent, formatRatio } from '../lib/calculations';
+import { calculateProfileOutcome, formatPercent, formatRatio } from '../lib/calculations';
 import type { CalculationResult, DiagnosticChain, DiagnosticTest, EvidenceProfile, EvidenceSource } from '../types';
 
 export interface DiagnosticChainStageResolution {
@@ -12,11 +12,13 @@ export interface DiagnosticChainPath {
   id: string;
   label: string;
   firstResultLabel: 'positiv' | 'negativ';
-  secondResultLabel: 'positiv' | 'negativ';
+  secondResultLabel: 'positiv' | 'negativ' | null;
   first: CalculationResult;
-  second: CalculationResult;
+  second: CalculationResult | null;
   intermediateProbability: number;
   finalProbability: number;
+  status: 'continued' | 'stopped';
+  note?: string;
 }
 
 export interface DiagnosticChainViewModel {
@@ -58,58 +60,61 @@ export function calculateDiagnosticChain(
   const stages = resolveChainStages(chain, tests, profiles);
   if (stages.length < 2) return null;
   const [firstStage, secondStage] = stages;
-  const first = calculateResult(firstStage.profile, startPretestProbability);
+  const firstOutcome = calculateProfileOutcome(firstStage.profile, startPretestProbability);
+  if (firstOutcome.status !== 'computed') return null;
+  const first = firstOutcome.result;
   const firstPositiveAsPretest = first.postPositiveProbability;
   const firstNegativeAsPretest = first.postNegativeProbability;
-  const secondAfterFirstPositive = calculateResult(secondStage.profile, firstPositiveAsPretest);
-  const secondAfterFirstNegative = calculateResult(secondStage.profile, firstNegativeAsPretest);
+  const continueOn = firstStage.profile.calculationMode === 'binary-lr'
+    ? chain.stages[0].continueOn ?? ['positive', 'negative']
+    : [];
+
+  const paths: DiagnosticChainPath[] = [];
+  (['positive', 'negative'] as const).forEach(firstResult => {
+    const firstResultLabel = firstResult === 'positive' ? 'positiv' : 'negativ';
+    const intermediateProbability = firstResult === 'positive'
+      ? firstPositiveAsPretest
+      : firstNegativeAsPretest;
+    if (!continueOn.includes(firstResult)) {
+      paths.push({
+        id: `${chain.id}:${firstResult === 'positive' ? 'pos' : 'neg'}-stop`,
+        label: `${firstResultLabel} → stoppen`,
+        firstResultLabel,
+        secondResultLabel: null,
+        first,
+        second: null,
+        intermediateProbability,
+        finalProbability: intermediateProbability,
+        status: 'stopped',
+        note: chain.stages[0].stopAfter?.[firstResult] ?? 'Standardpfad endet nach Test 1.'
+      });
+      return;
+    }
+    const secondOutcome = calculateProfileOutcome(secondStage.profile, intermediateProbability);
+    if (secondOutcome.status !== 'computed') return;
+    const second = secondOutcome.result;
+    (['positive', 'negative'] as const).forEach(secondResult => {
+      paths.push({
+        id: `${chain.id}:${firstResult === 'positive' ? 'pos' : 'neg'}-${secondResult === 'positive' ? 'pos' : 'neg'}`,
+        label: `${firstResultLabel} → ${secondResult === 'positive' ? 'positiv' : 'negativ'}`,
+        firstResultLabel,
+        secondResultLabel: secondResult === 'positive' ? 'positiv' : 'negativ',
+        first,
+        second,
+        intermediateProbability,
+        finalProbability: secondResult === 'positive'
+          ? second.postPositiveProbability
+          : second.postNegativeProbability,
+        status: 'continued'
+      });
+    });
+  });
 
   return {
     chain,
     stages,
     sources: chain.sources,
-    paths: [
-      {
-        id: `${chain.id}:pos-pos`,
-        label: '+ dann +',
-        firstResultLabel: 'positiv',
-        secondResultLabel: 'positiv',
-        first,
-        second: secondAfterFirstPositive,
-        intermediateProbability: firstPositiveAsPretest,
-        finalProbability: secondAfterFirstPositive.postPositiveProbability
-      },
-      {
-        id: `${chain.id}:pos-neg`,
-        label: '+ dann −',
-        firstResultLabel: 'positiv',
-        secondResultLabel: 'negativ',
-        first,
-        second: secondAfterFirstPositive,
-        intermediateProbability: firstPositiveAsPretest,
-        finalProbability: secondAfterFirstPositive.postNegativeProbability
-      },
-      {
-        id: `${chain.id}:neg-pos`,
-        label: '− dann +',
-        firstResultLabel: 'negativ',
-        secondResultLabel: 'positiv',
-        first,
-        second: secondAfterFirstNegative,
-        intermediateProbability: firstNegativeAsPretest,
-        finalProbability: secondAfterFirstNegative.postPositiveProbability
-      },
-      {
-        id: `${chain.id}:neg-neg`,
-        label: '− dann −',
-        firstResultLabel: 'negativ',
-        secondResultLabel: 'negativ',
-        first,
-        second: secondAfterFirstNegative,
-        intermediateProbability: firstNegativeAsPretest,
-        finalProbability: secondAfterFirstNegative.postNegativeProbability
-      }
-    ]
+    paths
   };
 }
 
@@ -118,7 +123,9 @@ export function chainPathFinalProbability(path: DiagnosticChainPath): number {
 }
 
 export function describeChainPath(path: DiagnosticChainPath): string {
-  return `${path.label}: nach Test 1 ${formatPercent(path.intermediateProbability)}, nach Test 2 ${formatPercent(chainPathFinalProbability(path))}`;
+  return path.status === 'stopped'
+    ? `${path.label}: nach Test 1 ${formatPercent(path.intermediateProbability)}; Standardpfad beendet.`
+    : `${path.label}: nach Test 1 ${formatPercent(path.intermediateProbability)}, nach Test 2 ${formatPercent(chainPathFinalProbability(path))}`;
 }
 
 export function chainStageSummary(stage: DiagnosticChainStageResolution): string {

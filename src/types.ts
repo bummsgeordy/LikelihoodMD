@@ -7,43 +7,9 @@ export type ReviewStatus = 'draft' | 'reviewed' | 'needs-review';
 export type EvidenceQuality = 'high' | 'moderate' | 'low' | 'expert-opinion' | 'unclear';
 export type DataCompleteness = 'complete' | 'partial' | 'minimal';
 export type QuantificationStatus = 'qualitative' | 'probability-factor' | 'likelihood-ratio';
+export type CalculationMode = 'binary-lr' | 'categorical' | 'workflow-only';
+export type LikelihoodRatioDerivation = 'reported' | 'derived';
 export type CalculatorMode = 'diagnostic-tests' | 'physical-exam';
-export type PretestEvidenceQualityCode =
-  | 'Adirecthighquality'
-  | 'Bmoderatedirect'
-  | 'Cindirectormixed'
-  | 'Dexpertestimate'
-  | 'E_uncertain';
-export type ProbabilityModifierDirection =
-  | 'decreasesstrongly'
-  | 'decreasesmoderately'
-  | 'neutralorunclear'
-  | 'increasesmildly'
-  | 'increasesmoderately'
-  | 'increasesstrongly'
-  | 'increasesvery_strongly';
-export type ClinicalDomain = 'endocrinology' | 'cardiology' | 'nephrology' | 'primary_care' | 'emergency';
-export type PretestSourceType =
-  | 'guideline'
-  | 'review'
-  | 'cohort'
-  | 'metaanalysis'
-  | 'educationalreview'
-  | 'expert_summary';
-export type PretestEstimateType =
-  | 'populationprevalence'
-  | 'clinicalsettingprevalence'
-  | 'highriskgroup'
-  | 'riskscorecategory'
-  | 'expertestimate';
-export type IssueSeverity = 'low' | 'moderate' | 'high';
-export type PretestQualitativeAdjustedRisk =
-  | 'niedriger als Basis'
-  | 'etwa Basisrisiko'
-  | 'moderat erhöht'
-  | 'deutlich erhöht'
-  | 'sehr deutlich erhöht'
-  | 'nicht valide berechenbar wegen Präanalytik/Medikamenten';
 
 export const REVIEW_STATUSES: ReviewStatus[] = ['draft', 'reviewed', 'needs-review'];
 export const EVIDENCE_QUALITIES: EvidenceQuality[] = ['high', 'moderate', 'low', 'expert-opinion', 'unclear'];
@@ -89,77 +55,6 @@ export interface EvidenceSource {
   note: string;
 }
 
-export interface SourceReference {
-  id: string;
-  title: string;
-  year?: number;
-  type: PretestSourceType;
-  url?: string;
-  doi?: string;
-  note?: string;
-}
-
-export interface ProbabilityModifier {
-  factor: string;
-  direction: ProbabilityModifierDirection;
-  approximateEffect?: string;
-  evidenceQuality: PretestEvidenceQualityCode;
-  note?: string;
-}
-
-export interface PreanalyticalIssue {
-  issue: string;
-  affectedTests: string[];
-  effect: string;
-  severity: IssueSeverity;
-  mitigation?: string;
-}
-
-export interface MedicationInterference {
-  medicationOrClass: string;
-  affectedTests: string[];
-  effect: string;
-  severity: IssueSeverity;
-  mitigation?: string;
-}
-
-export interface PretestProbabilityEstimate {
-  id: string;
-  diseaseId: string;
-  diseaseName: string;
-  domain: ClinicalDomain[];
-  settingId?: string;
-  setting: string;
-  baseProbabilityPercent?: number;
-  probabilityRangePercent: [number, number];
-  estimateType: PretestEstimateType;
-  evidenceQuality: PretestEvidenceQualityCode;
-  qualityNote: string;
-  sources: string[];
-  modifiers: ProbabilityModifier[];
-  preanalyticalIssues: PreanalyticalIssue[];
-  medicationInterferences: MedicationInterference[];
-  implementationNotes?: string;
-}
-
-export interface PretestProbabilityDataset {
-  sources: SourceReference[];
-  estimates: PretestProbabilityEstimate[];
-}
-
-export interface PretestEstimateResolution {
-  estimate: PretestProbabilityEstimate | null;
-  baseProbability: number | null;
-  probabilityRange: [number, number] | null;
-  qualitativeAdjustedRisk: PretestQualitativeAdjustedRisk;
-  activeWarnings: string[];
-  confidenceLabel: string;
-  sources: SourceReference[];
-  activeModifiers: ProbabilityModifier[];
-  activePreanalyticalIssues: PreanalyticalIssue[];
-  activeMedicationInterferences: MedicationInterference[];
-}
-
 export interface EvidenceProfile extends ReviewMetadata {
   id: string;
   testId: string;
@@ -171,13 +66,20 @@ export interface EvidenceProfile extends ReviewMetadata {
   preanalyticRisk?: 'low' | 'moderate' | 'high' | 'unclear';
   applicabilityWarning?: string;
   reviewPriority?: 'low' | 'medium' | 'high';
+  calculationMode: CalculationMode;
+  lrDerivation?: LikelihoodRatioDerivation;
+  nonComputableReason?: string;
   method: string;
   cutoff: string;
   procedure?: string;
   sensitivity: number | null;
   specificity: number | null;
+  sensitivityInterval?: NumericInterval;
+  specificityInterval?: NumericInterval;
   lrPositive?: number;
   lrNegative?: number;
+  lrPositiveInterval?: NumericInterval;
+  lrNegativeInterval?: NumericInterval;
   population: string;
   rationale: string;
   limitations: string;
@@ -192,6 +94,11 @@ export interface EvidenceProfile extends ReviewMetadata {
   isDefault?: boolean;
   deviationFromProfileId?: string;
   deviationReason?: string;
+}
+
+export interface NumericInterval {
+  low: number;
+  high: number;
 }
 
 export interface DiagnosticTest {
@@ -293,7 +200,6 @@ export interface PhysicalFinding {
   systemId: string;
   conditionId: string;
   findingLabel: string;
-  originalFindingLabel: string;
   positiveCriterion: string;
   negativeCriterion: string;
   lrPositive: PhysicalLikelihoodRatio;
@@ -343,6 +249,8 @@ export interface DiagnosticChainStage {
   evidenceProfileId: string;
   label: string;
   expectedUse: 'screening' | 'confirmation' | 'parallel' | 'follow-up';
+  continueOn?: Array<'positive' | 'negative'>;
+  stopAfter?: Partial<Record<'positive' | 'negative', string>>;
 }
 
 export interface DiagnosticChain extends ReviewMetadata {
@@ -370,8 +278,12 @@ export interface CalculationResult {
   npv: number | null;
 }
 
+export type ProfileCalculationOutcome =
+  | { status: 'computed'; result: CalculationResult }
+  | { status: 'not-computable'; reason: string };
+
 export interface UserDataExport {
-  schemaVersion: 5;
+  schemaVersion: 6;
   exportedAt: string;
   customTests: DiagnosticTest[];
   customEvidenceProfiles: EvidenceProfile[];

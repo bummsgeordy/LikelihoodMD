@@ -12,13 +12,18 @@ import type {
 } from '../types';
 import { likelihoodRatiosFromSensitivitySpecificity } from './calculations';
 
-const STORAGE_KEY = 'likelihood-ratio-rechner-state-v5';
-const PREVIOUS_STORAGE_KEYS = ['likelihood-ratio-rechner-state-v4', 'likelihood-ratio-rechner-state-v2'];
+const STORAGE_KEY = 'likelihood-ratio-rechner-state-v6';
+const PREVIOUS_STORAGE_KEYS = ['likelihood-ratio-rechner-state-v5', 'likelihood-ratio-rechner-state-v4', 'likelihood-ratio-rechner-state-v2'];
 const LEGACY_STORAGE_KEY = 'likelihood-ratio-rechner-state-v1';
+const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
+const MAX_COLLECTION_ITEMS = 500;
+const MAX_TEXT_LENGTH = 20_000;
+const MAX_URL_LENGTH = 2_048;
 
 type UserDataExportV2 = Omit<UserDataExport, 'schemaVersion' | 'customModifiers'> & { schemaVersion: 2 };
 type UserDataExportV3 = Omit<UserDataExport, 'schemaVersion'> & { schemaVersion: 3 };
 type UserDataExportV4 = Omit<UserDataExport, 'schemaVersion'> & { schemaVersion: 4 };
+type UserDataExportV5 = Omit<UserDataExport, 'schemaVersion'> & { schemaVersion: 5 };
 
 const defaultReview = {
   reviewStatus: 'draft' as ReviewStatus,
@@ -36,12 +41,27 @@ function withReviewFields<T extends Partial<EvidenceProfile | PretestAssumption 
 }
 
 function withProfileFields(profile: EvidenceProfile): EvidenceProfile {
+  const calculationMode =
+    profile.calculationMode ??
+    ((profile.lrPositive != null && profile.lrNegative != null) ||
+    (profile.sensitivity != null && profile.specificity != null)
+      ? 'binary-lr'
+      : 'workflow-only');
   return {
     ...withReviewFields(profile),
     intendedUse: profile.intendedUse ?? profile.purpose ?? 'diagnostic-support',
     preanalyticRisk: profile.preanalyticRisk ?? 'unclear',
     applicabilityWarning: profile.applicabilityWarning ?? profile.limitations,
-    reviewPriority: profile.reviewPriority ?? (profile.reviewStatus === 'reviewed' ? 'low' : 'medium')
+    reviewPriority: profile.reviewPriority ?? (profile.reviewStatus === 'reviewed' ? 'low' : 'medium'),
+    calculationMode,
+    lrDerivation:
+      calculationMode === 'binary-lr'
+        ? profile.lrDerivation ?? (profile.sensitivity != null && profile.specificity != null ? 'derived' : 'reported')
+        : undefined,
+    nonComputableReason:
+      calculationMode === 'binary-lr'
+        ? undefined
+        : profile.nonComputableReason ?? 'Aus älterem Export migriert: keine belastbare binäre Likelihood-Ratio hinterlegt.'
   };
 }
 
@@ -123,18 +143,42 @@ function migrateLegacyTest(test: Record<string, unknown>): { test: DiagnosticTes
   const ratios =
     sensitivity != null && specificity != null
       ? likelihoodRatiosFromSensitivitySpecificity(sensitivity, specificity)
-      : { lrPositive: 1, lrNegative: 1 };
+      : null;
+  const reportedRatios =
+    typeof test.lrPositive === 'number' && typeof test.lrNegative === 'number';
+  const calculationMode = ratios || reportedRatios ? 'binary-lr' : 'workflow-only';
   const profile: EvidenceProfile = {
     id: `${id}-profile`,
     testId: id,
     label: 'Migriertes Evidenzprofil',
     kind: 'custom',
+    calculationMode,
+    lrDerivation:
+      calculationMode === 'binary-lr'
+        ? sensitivity != null && specificity != null
+          ? 'derived'
+          : 'reported'
+        : undefined,
+    nonComputableReason:
+      calculationMode === 'workflow-only'
+        ? 'Aus älterem Export migriert: keine belastbare binäre Testgüte hinterlegt.'
+        : undefined,
     method: String(test.method ?? 'Migrierte Methode'),
     cutoff: String(test.cutoff ?? 'Migrierter Cut-off'),
     sensitivity,
     specificity,
-    lrPositive: typeof test.lrPositive === 'number' ? test.lrPositive : ratios.lrPositive,
-    lrNegative: typeof test.lrNegative === 'number' ? test.lrNegative : ratios.lrNegative,
+    lrPositive:
+      calculationMode === 'binary-lr'
+        ? typeof test.lrPositive === 'number'
+          ? test.lrPositive
+          : ratios!.lrPositive
+        : undefined,
+    lrNegative:
+      calculationMode === 'binary-lr'
+        ? typeof test.lrNegative === 'number'
+          ? test.lrNegative
+          : ratios!.lrNegative
+        : undefined,
     population: String(test.population ?? 'Migrierte Population'),
     rationale: String(test.rationale ?? 'Aus älterem lokalen Export migriert.'),
     limitations: String(test.limitations ?? 'Bitte Grenzen nach Migration prüfen.'),
@@ -249,8 +293,14 @@ export function loadState(): CalculatorState {
   }
 }
 
-export function saveState(state: CalculatorState): void {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, drawerOpen: false }));
+export function saveState(state: CalculatorState): boolean {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, drawerOpen: false }));
+    return true;
+  } catch {
+    window.dispatchEvent(new CustomEvent('likelihoodmd-storage-error'));
+    return false;
+  }
 }
 
 export function resetStoredState(): CalculatorState {
@@ -265,7 +315,7 @@ export function buildExport(
   customModifiers: ClinicalModifier[] = []
 ): UserDataExport {
   return {
-    schemaVersion: 5,
+    schemaVersion: 6,
     exportedAt: new Date().toISOString(),
     customTests,
     customEvidenceProfiles,
@@ -275,9 +325,30 @@ export function buildExport(
 }
 
 export function parseUserDataExport(text: string): UserDataExport {
+  if (new TextEncoder().encode(text).byteLength > MAX_IMPORT_BYTES) {
+    throw new Error('Import ist größer als 2 MiB. Bitte in kleinere Vorschläge aufteilen.');
+  }
   const parsed = JSON.parse(text) as UserDataExport | (Record<string, unknown> & { schemaVersion?: number });
+  validateImportShape(parsed);
+  if (parsed.schemaVersion === 6) {
+    const exportV6 = parsed as UserDataExport;
+    if (
+      !Array.isArray(exportV6.customTests) ||
+      !Array.isArray(exportV6.customEvidenceProfiles) ||
+      !Array.isArray(exportV6.customAssumptions) ||
+      !Array.isArray(exportV6.customModifiers)
+    ) {
+      throw new Error('Export enthält keine gültigen Test-, Profil-, Annahmen- oder Modifikatorlisten.');
+    }
+    return buildExport(
+      exportV6.customTests,
+      exportV6.customEvidenceProfiles.map(profile => withProfileFields(profile)),
+      exportV6.customAssumptions,
+      exportV6.customModifiers.map(withModifierFields)
+    );
+  }
   if (parsed.schemaVersion === 5) {
-    const exportV5 = parsed as UserDataExport;
+    const exportV5 = parsed as unknown as UserDataExportV5;
     if (
       !Array.isArray(exportV5.customTests) ||
       !Array.isArray(exportV5.customEvidenceProfiles) ||
@@ -286,7 +357,12 @@ export function parseUserDataExport(text: string): UserDataExport {
     ) {
       throw new Error('Export enthält keine gültigen Test-, Profil-, Annahmen- oder Modifikatorlisten.');
     }
-    return exportV5;
+    return buildExport(
+      exportV5.customTests,
+      exportV5.customEvidenceProfiles.map(profile => withProfileFields(profile)),
+      exportV5.customAssumptions,
+      exportV5.customModifiers
+    );
   }
   if (parsed.schemaVersion === 4) {
     const exportV4 = parsed as unknown as UserDataExportV4;
@@ -352,6 +428,30 @@ export function parseUserDataExport(text: string): UserDataExport {
     return buildExport(migrated.customTests, migrated.customEvidenceProfiles, migrated.customAssumptions, migrated.customModifiers);
   }
   throw new Error('Nicht unterstützte Export-Version.');
+}
+
+function validateImportShape(value: unknown): void {
+  let visited = 0;
+  const visit = (item: unknown, key = '', depth = 0): void => {
+    visited += 1;
+    if (visited > 25_000 || depth > 20) throw new Error('Import ist zu komplex.');
+    if (typeof item === 'string') {
+      const maximum = /url|doi/i.test(key) ? MAX_URL_LENGTH : MAX_TEXT_LENGTH;
+      if (item.length > maximum) throw new Error(`Feld „${key || 'Text'}“ überschreitet die erlaubte Länge.`);
+      return;
+    }
+    if (Array.isArray(item)) {
+      if (item.length > MAX_COLLECTION_ITEMS) throw new Error(`Sammlung „${key || 'Einträge'}“ enthält mehr als 500 Einträge.`);
+      item.forEach((entry, index) => visit(entry, `${key}[${index}]`, depth + 1));
+      return;
+    }
+    if (item && typeof item === 'object') {
+      Object.entries(item as Record<string, unknown>).forEach(([childKey, child]) =>
+        visit(child, childKey, depth + 1)
+      );
+    }
+  };
+  visit(value);
 }
 
 export function downloadJson(filename: string, payload: unknown): void {

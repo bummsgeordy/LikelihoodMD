@@ -19,11 +19,12 @@ Bitte pro Test angeben:
 Ein Evidenzprofil gehört zu genau einem Test. Es kann direkt im jeweiligen Test unter `evidenceProfiles` stehen oder als nutzereigenes Profil exportiert/importiert werden. Bitte pro Profil angeben:
 
 - `label`: verständlicher Name der Quelle oder Annahme, z. B. "Meta-Analyse 2019" oder "Cut-off 400 pg/ml".
+- `calculationMode`: `binary-lr`, `categorical` oder `workflow-only`. Nur `binary-lr` darf eine Bayes-Berechnung auslösen.
 - `kind`: `curated`, `custom` oder `scenario`.
 - `method`: Messmethode oder Testprotokoll.
 - `cutoff`: Schwellenwert mit Einheit.
 - optional `procedure`: sehr knappe Durchführung für die Testkarte.
-- `sensitivity` und `specificity`: als Dezimalzahlen zwischen 0 und 1.
+- optional `sensitivity` und `specificity`: als Dezimalzahlen zwischen 0 und 1, wenn sie direkt für Population, Methode und Cut-off berichtet sind.
 - optional `lrPositive` und `lrNegative`, wenn sie direkt aus der Quelle übernommen werden.
 - `population`: für wen gelten die Zahlen?
 - `rationale`: warum ist dieses Profil geeignet oder warum weicht es von anderen Profilen ab?
@@ -101,6 +102,9 @@ npm run validate:data
 npm run test:run
 npm run build
 npm run check:pages
+npm run check:bundle
+npm run smoke:test
+npm run test:e2e
 ```
 
 Die Datenstruktur ist zusätzlich als JSON Schema dokumentiert:

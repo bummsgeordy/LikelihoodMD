@@ -17,6 +17,8 @@ Dieses Projekt ist als öffentliches Lehr- und Rechentool angelegt. Damit die Za
 - Konkurrierende Studienwerte werden als getrennte Evidenzprofile geführt, nicht gegenseitig überschrieben.
 - Bewusst abweichende eigene Werte werden als Szenario mit Abweichungsgrund markiert.
 - Werte ohne klare Population werden nicht als kuratierte Standardwerte übernommen.
+- Binäre LR-Berechnung ist nur bei passender Population, Methode und Cut-off zulässig. Kategorische und workflowbasierte Verfahren erhalten keine LR-1/1-Platzhalter.
+- Quellenabgleich allein setzt keinen Eintrag auf `reviewed`; dafür ist ein benannter fachlicher Reviewer erforderlich.
 
 ## Reviewstatus
 
@@ -34,6 +36,8 @@ Die Verlässlichkeit wird konservativ markiert. Direkt gemessene Setting-Daten s
 
 Klinische Modifikatoren werden nicht naiv addiert. Ohne explizit belegte Odds Ratios oder Likelihood Ratios werden sie qualitativ als niedriger, moderat erhöht, deutlich erhöht oder sehr deutlich erhöht angezeigt.
 
+`pretest-assumptions.json` ist die einzige kanonische Prätestbasis. Konkurrierende Populationen werden getrennt benannt. Pro Erkrankung, Setting und Population darf nur eine aktive Startannahme bestehen.
+
 ## Review-Checkliste
 
 - Ist der intended use beschrieben?
@@ -45,6 +49,8 @@ Klinische Modifikatoren werden nicht naiv addiert. Ohne explizit belegte Odds Ra
 - Ist ein klinischer Modifikator nur dann quantifiziert, wenn der Faktor/LR selbst belegt ist?
 - Gibt es Hinweise auf Doppelzählung zwischen Setting-Prätestannahme und Modifikator?
 - Wurde `npm run validate:data` ausgeführt?
+- Ist der Eintrag korrekt als `binary-lr`, `categorical` oder `workflow-only` klassifiziert?
+- Hat eine Diagnostikkette einen klinisch begründeten Fortsetzungs- oder Stopppfad?
 
 ## GitHub-Prozess
 

@@ -25,6 +25,8 @@ const customProfile: EvidenceProfile = {
   testId: 'custom-test',
   label: 'Custom profile',
   kind: 'custom',
+  calculationMode: 'binary-lr',
+  lrDerivation: 'derived',
   method: 'Method',
   cutoff: 'Cutoff',
   sensitivity: 0.9,
@@ -101,9 +103,9 @@ const customModifier: ClinicalModifier = {
 };
 
 describe('user data export', () => {
-  it('builds a versioned v5 export bundle', () => {
+  it('builds a versioned v6 export bundle', () => {
     const payload = buildExport([customTest], [customProfile, scenarioProfile], [customAssumption], [customModifier]);
-    expect(payload.schemaVersion).toBe(5);
+    expect(payload.schemaVersion).toBe(6);
     expect(payload.customTests).toHaveLength(1);
     expect(payload.customEvidenceProfiles).toHaveLength(2);
     expect(payload.customAssumptions).toHaveLength(1);
@@ -111,7 +113,7 @@ describe('user data export', () => {
     expect(new Date(payload.exportedAt).toString()).not.toBe('Invalid Date');
   });
 
-  it('parses a valid v5 export bundle', () => {
+  it('parses a valid v6 export bundle', () => {
     const payload = buildExport([customTest], [customProfile], [customAssumption], [customModifier]);
     const parsed = parseUserDataExport(JSON.stringify(payload));
     expect(parsed.customTests[0].id).toBe('custom-test');
@@ -120,7 +122,23 @@ describe('user data export', () => {
     expect(parsed.customModifiers[0].id).toBe('custom-modifier');
   });
 
-  it('migrates a valid v3 export bundle to v5', () => {
+  it('migrates a valid v5 export bundle to v6', () => {
+    const parsed = parseUserDataExport(
+      JSON.stringify({
+        schemaVersion: 5,
+        exportedAt: new Date().toISOString(),
+        customTests: [customTest],
+        customEvidenceProfiles: [{ ...customProfile, calculationMode: undefined, lrDerivation: undefined }],
+        customAssumptions: [customAssumption],
+        customModifiers: [customModifier]
+      })
+    );
+    expect(parsed.schemaVersion).toBe(6);
+    expect(parsed.customEvidenceProfiles[0].calculationMode).toBe('binary-lr');
+    expect(parsed.customEvidenceProfiles[0].lrDerivation).toBe('derived');
+  });
+
+  it('migrates a valid v3 export bundle to v6', () => {
     const parsed = parseUserDataExport(
       JSON.stringify({
         schemaVersion: 3,
@@ -131,14 +149,14 @@ describe('user data export', () => {
         customModifiers: [{ ...customModifier, reviewStatus: undefined, evidenceQuality: undefined, dataCompleteness: undefined, quantificationStatus: undefined }]
       })
     );
-    expect(parsed.schemaVersion).toBe(5);
+    expect(parsed.schemaVersion).toBe(6);
     expect(parsed.customTests[0].conditionId).toBe('condition');
     expect(parsed.customEvidenceProfiles[0].reviewStatus).toBe('draft');
     expect(parsed.customAssumptions[0].dataCompleteness).toBe('minimal');
     expect(parsed.customModifiers[0].quantificationStatus).toBe('likelihood-ratio');
   });
 
-  it('migrates a valid v2 export bundle to v5', () => {
+  it('migrates a valid v2 export bundle to v6', () => {
     const parsed = parseUserDataExport(
       JSON.stringify({
         schemaVersion: 2,
@@ -148,7 +166,7 @@ describe('user data export', () => {
         customAssumptions: [customAssumption]
       })
     );
-    expect(parsed.schemaVersion).toBe(5);
+    expect(parsed.schemaVersion).toBe(6);
     expect(parsed.customModifiers).toEqual([]);
     expect(parsed.customEvidenceProfiles[0].reviewStatus).toBe('draft');
   });
@@ -179,7 +197,7 @@ describe('user data export', () => {
         selectedAssumptionId: 'pa-resistant-hypertension'
       })
     );
-    expect(parsed.schemaVersion).toBe(5);
+    expect(parsed.schemaVersion).toBe(6);
     expect(parsed.customEvidenceProfiles[0].testId).toBe('legacy-test');
     expect(parsed.customAssumptions[0].conditionId).toBe('condition');
     expect(parsed.customAssumptions[0].evidenceLevel).toBe('direct');
@@ -198,5 +216,47 @@ describe('user data export', () => {
         })
       )
     ).toThrow('Nicht unterstützte Export-Version.');
+  });
+
+  it('rejects oversized or excessively large import collections', () => {
+    expect(() => parseUserDataExport('x'.repeat(2 * 1024 * 1024 + 1))).toThrow('größer als 2 MiB');
+    expect(() =>
+      parseUserDataExport(
+        JSON.stringify({
+          schemaVersion: 6,
+          exportedAt: new Date().toISOString(),
+          customTests: Array.from({ length: 501 }, () => customTest),
+          customEvidenceProfiles: [],
+          customAssumptions: [],
+          customModifiers: []
+        })
+      )
+    ).toThrow('mehr als 500 Einträge');
+  });
+
+  it('migrates legacy tests without accuracy data as non-computable workflows', () => {
+    const parsed = parseUserDataExport(
+      JSON.stringify({
+        schemaVersion: 1,
+        exportedAt: new Date().toISOString(),
+        customTests: [{
+          id: 'legacy-workflow',
+          name: 'Legacy workflow',
+          category: 'Legacy',
+          condition: 'Condition',
+          method: 'Workflow',
+          cutoff: 'kein binärer Cut-off',
+          population: 'Population',
+          rationale: 'Rationale',
+          limitations: 'Limitations',
+          lastReviewed: '2026-05-17',
+          sources: customProfile.sources
+        }],
+        customAssumptions: []
+      })
+    );
+    expect(parsed.customEvidenceProfiles[0].calculationMode).toBe('workflow-only');
+    expect(parsed.customEvidenceProfiles[0].lrPositive).toBeUndefined();
+    expect(parsed.customEvidenceProfiles[0].lrNegative).toBeUndefined();
   });
 });

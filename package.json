@@ -4,17 +4,24 @@
   "private": true,
   "type": "module",
   "description": "Deutschsprachiges Lehr- und Rechentool für Vor- und Nachtestwahrscheinlichkeiten.",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && npm run validate:data && vite build",
     "check:pages": "node scripts/check-pages-build.mjs",
     "smoke:test": "node scripts/smoke-test.mjs",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run",
+    "test": "vitest src",
+    "test:run": "vitest run src",
+    "test:e2e": "playwright test",
+    "check:bundle": "node scripts/check-bundle-budget.mjs",
+    "audit:evidence": "node scripts/generate-evidence-audit.mjs",
     "validate:data": "node scripts/validate-data.mjs"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vitest": "^3.1.4"

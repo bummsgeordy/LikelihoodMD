@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'lr-rechner-schema-v5-2026-06-03-9';
+const CACHE_VERSION = 'lr-rechner-schema-v6-2026-07-10-1';
 const CACHE_NAME = `likelihood-ratio-rechner-${CACHE_VERSION}`;
 const APP_SHELL = [
   './',
@@ -58,7 +58,27 @@ async function networkFirst(request) {
     if (response.ok) cache.put(request, response.clone());
     return response;
   } catch {
-    return (await cache.match(request)) || (await cache.match('./index.html'));
+    const exact = await cache.match(request);
+    if (exact) return exact;
+    const url = new URL(request.url);
+    const path = url.pathname.replace(/\/+$/, '/');
+    if (path.endsWith('/info/vierfeldertafel/')) {
+      return (await cache.match('./info/vierfeldertafel/index.html')) || Response.error();
+    }
+    if (path.endsWith('/info/ckd-risiko/')) {
+      return (await cache.match('./info/ckd-risiko/index.html')) || Response.error();
+    }
+    if (path.endsWith('/simulation/')) {
+      return (await cache.match('./simulation/index.html')) || Response.error();
+    }
+    const scopePath = new URL(self.registration.scope).pathname.replace(/\/+$/, '/');
+    if (path === scopePath) {
+      return (await cache.match('./index.html')) || Response.error();
+    }
+    return new Response('Diese Unterseite wurde noch nicht für die Offline-Nutzung geladen.', {
+      status: 503,
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+    });
   }
 }
 

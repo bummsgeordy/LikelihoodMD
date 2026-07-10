@@ -15,9 +15,13 @@
       {
         "id": "pa-arr-screen",
         "testId": "arr",
-        "evidenceProfileId": "arr-screening-guideline",
-        "label": "Screening: Aldosteron-Renin-Ratio",
-        "expectedUse": "screening"
+        "evidenceProfileId": "arr-direct-renin-li-2016",
+        "label": "Screening: Aldosteron/direct-Renin-Ratio (methodenspezifisches Beispiel)",
+        "expectedUse": "screening",
+        "continueOn": ["positive"],
+        "stopAfter": {
+          "negative": "Bei unauffälligem Screening endet der Standardpfad; bei hoher klinischer Wahrscheinlichkeit zuerst Präanalytik und Medikation prüfen und gegebenenfalls wiederholen."
+        }
       },
       {
         "id": "pa-oral-sodium-confirmation",
@@ -88,7 +92,11 @@
         "testId": "lnsc",
         "evidenceProfileId": "lnsc-elecsys-2024",
         "label": "Screening: Late-night salivary cortisol",
-        "expectedUse": "screening"
+        "expectedUse": "screening",
+        "continueOn": ["positive"],
+        "stopAfter": {
+          "negative": "Bei niedriger klinischer Wahrscheinlichkeit endet der Standardpfad; bei fortbestehend hohem Verdacht ist eine unabhängige Wiederholungs- oder Alternativtestung nötig."
+        }
       },
       {
         "id": "cushing-dst-screen",
@@ -138,7 +146,11 @@
         "testId": "d-dimer-dvt",
         "evidenceProfileId": "d-dimer-dvt-high-sensitivity",
         "label": "Screening/Rule-out: hochsensitives D-Dimer",
-        "expectedUse": "screening"
+        "expectedUse": "screening",
+        "continueOn": ["positive"],
+        "stopAfter": {
+          "negative": "Bei geeigneter niedriger oder mittlerer klinischer Wahrscheinlichkeit beendet ein negatives hochsensitives D-Dimer den Standardpfad."
+        }
       },
       {
         "id": "dvt-cus-stage",
@@ -180,15 +192,19 @@
     ],
     "label": "LE: D-Dimer → CTPA",
     "description": "Leitliniennaher LE-Pfad: D-Dimer als Rule-out bei niedriger/intermediärer klinischer Wahrscheinlichkeit; CTPA folgt normalerweise nur bei positivem D-Dimer oder hoher klinischer Wahrscheinlichkeit.",
-    "rationale": "Bei niedriger/intermediärer Wahrscheinlichkeit kann ein negatives hochsensitives D-Dimer PE meist ohne Bildgebung ausschließen. CTPA ist zweite Stufe nach positivem D-Dimer oder erste Bildgebung bei hoher klinischer Wahrscheinlichkeit. Die mathematischen Negativ-D-Dimer-→-CTPA-Pfade sind deshalb nur hypothetische Diskordanzszenarien.",
-    "limitations": "D-Dimer nicht bei hoher klinischer Wahrscheinlichkeit als Ausschlussstrategie nutzen. Nach negativem D-Dimer bei niedriger/intermediärer Wahrscheinlichkeit wird üblicherweise keine CTPA durchgeführt; ein dennoch positives CTPA-Ergebnis wäre diskordant und sollte mit Bildqualität, Lokalisation, klinischer Wahrscheinlichkeit und ggf. weiterer Diagnostik abgeglichen werden. Negative CTPA ist bei hoher Wahrscheinlichkeit weniger beruhigend; Schwangerschaft, Kontrastmittelrisiko und V/Q-Alternativen berücksichtigen.",
+    "rationale": "Bei niedriger/intermediärer Wahrscheinlichkeit kann ein negatives hochsensitives D-Dimer eine Lungenembolie meist ohne Bildgebung ausschließen. CTPA ist zweite Stufe nach positivem D-Dimer oder erste Bildgebung bei hoher klinischer Wahrscheinlichkeit.",
+    "limitations": "D-Dimer nicht bei hoher klinischer Wahrscheinlichkeit als Ausschlussstrategie nutzen. Nach negativem D-Dimer bei niedriger/intermediärer Wahrscheinlichkeit endet dieser Standardpfad. Eine negative CTPA ist bei hoher Wahrscheinlichkeit weniger beruhigend; Schwangerschaft, Kontrastmittelrisiko und V/Q-Alternativen berücksichtigen.",
     "stages": [
       {
         "id": "pe-ddimer-stage",
         "testId": "d-dimer-pe",
         "evidenceProfileId": "d-dimer-pe-high-sensitivity",
         "label": "Screening/Rule-out: hochsensitives D-Dimer",
-        "expectedUse": "screening"
+        "expectedUse": "screening",
+        "continueOn": ["positive"],
+        "stopAfter": {
+          "negative": "Bei niedriger oder intermediärer klinischer Wahrscheinlichkeit beendet ein negatives hochsensitives D-Dimer den Standardpfad; eine CTPA wird nicht angeschlossen."
+        }
       },
       {
         "id": "pe-ctpa-stage",
@@ -219,11 +235,7 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Didaktische Sequenz; negative-D-Dimer-zu-CTPA-Pfade sind ausdrücklich als hypothetische Diskordanzszenarien markiert.",
-    "pathNotes": {
-      "neg-pos": "Kein Standardpfad: Nach negativem D-Dimer wird bei niedriger/intermediärer Wahrscheinlichkeit üblicherweise gestoppt; dieser Wert ist nur eine hypothetische Diskordanzrechnung.",
-      "neg-neg": "Kein Standardpfad: Nach negativem D-Dimer wird bei niedriger/intermediärer Wahrscheinlichkeit üblicherweise keine CTPA angeschlossen."
-    }
+    "reviewNote": "Didaktische Sequenz; nach negativem D-Dimer wird der Standardpfad beendet und keine CTPA fortgerechnet."
   },
   {
     "id": "hf-ntprobnp-to-lung-ultrasound",
@@ -243,7 +255,11 @@
         "testId": "ntprobnp",
         "evidenceProfileId": "ntprobnp-400",
         "label": "Labor: NT-proBNP 400 pg/ml",
-        "expectedUse": "screening"
+        "expectedUse": "screening",
+        "continueOn": ["positive"],
+        "stopAfter": {
+          "negative": "Ein ausreichend niedriges natriuretisches Peptid macht Herzinsuffizienz im passenden Setting unwahrscheinlicher; Grenzwert, Alter, Nierenfunktion und Adipositas beachten."
+        }
       },
       {
         "id": "hf-lus-stage",
@@ -292,27 +308,38 @@
       "ambulant-diabetologie",
       "ambulant-endokrinologie"
     ],
-    "label": "Zöliakie: tTG-IgA → EMA-IgA",
-    "description": "Serologische Sequenz aus empfindlichem tTG-IgA-Screening und sehr spezifischem EMA-IgA-Bestätigungstest.",
-    "rationale": "tTG-IgA eignet sich als erster Test, EMA-IgA erhöht als sehr spezifischer zweiter Test die Bestätigungskraft. Beide hängen stark von Glutenexposition und IgA-Status ab.",
-    "limitations": "Nicht ohne Glutenexposition anwenden. IgA-Mangel, niedrige Titer, Kinder-No-biopsy-Regeln, Biopsieindikation und HLA-Kontext sind gesondert zu beurteilen.",
+    "label": "Zöliakie: tTG-IgA → Bestätigungskontext",
+    "description": "tTG-IgA plus Gesamt-IgA als Einstieg; EMA, Duodenalbiopsie, IgG-Serologie oder HLA werden nur entsprechend Titer, Alter, IgA-Status und Diskordanz eingesetzt.",
+    "rationale": "tTG-IgA ist der serologische Ersttest unter Glutenexposition. EMA ist ein möglicher hochspezifischer Bestätigungstest, aber nach ESsCD 2025 nicht pauschal obligatorische zweite Stufe.",
+    "limitations": "Nicht ohne ausreichende Glutenexposition anwenden. Bei IgA-Mangel ist ein IgG-basierter Pfad nötig. Für ausgewählte Erwachsene unter 45 Jahren mit IgA-anti-TG2 ≥10× ULN beschreibt ESsCD 2025 eine bedingte No-biopsy-Option; lokale Regeln und Ausschlusskriterien beachten.",
     "stages": [
       {
         "id": "celiac-ttg-stage",
         "testId": "ttg-iga-celiac",
         "evidenceProfileId": "ttg-iga-adults-meta",
         "label": "Screening: tTG-IgA plus Gesamt-IgA",
-        "expectedUse": "screening"
+        "expectedUse": "screening",
+        "continueOn": ["positive"],
+        "stopAfter": {
+          "negative": "Bei ausreichender Glutenexposition und normalem Gesamt-IgA endet der Standardpfad meist; bei IgA-Mangel oder hohem Verdacht ist ein anderer Pfad erforderlich."
+        }
       },
       {
         "id": "celiac-ema-stage",
         "testId": "ema-iga-celiac",
         "evidenceProfileId": "ema-iga-celiac-confirmation",
-        "label": "Bestätigung: EMA-IgA",
+        "label": "Mögliche Bestätigung bei diskordantem/niedrigerem Titer: EMA-IgA",
         "expectedUse": "confirmation"
       }
     ],
     "sources": [
+      {
+        "title": "ESsCD 2025 Updated Guidelines on the Diagnosis of Coeliac Disease in Adults",
+        "year": 2025,
+        "url": "https://doi.org/10.1002/ueg2.70119",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt tTG-IgA mit Gesamt-IgA und beschreibt eine bedingte No-biopsy-Option für ausgewählte Erwachsene unter 45 Jahren bei IgA-anti-TG2 ≥10× ULN."
+      },
       {
         "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
         "year": 2017,
@@ -353,7 +380,11 @@
         "testId": "trab-graves",
         "evidenceProfileId": "trab-third-generation-meta",
         "label": "Labor: TRAb 3. Generation",
-        "expectedUse": "screening"
+        "expectedUse": "screening",
+        "continueOn": ["negative"],
+        "stopAfter": {
+          "positive": "Bei klar positivem TRAb und passender Thyreotoxikose ist zusätzliche Bildgebung häufig nicht nötig."
+        }
       },
       {
         "id": "graves-doppler-stage",

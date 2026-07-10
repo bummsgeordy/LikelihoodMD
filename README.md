@@ -19,10 +19,11 @@ LikelihoodMD ist kein Diagnose- oder Therapieautomat. Es ist ein Denk- und Lehrt
 ## Funktionen
 
 - Diagnostische Tests mit Evidenzprofilen für unterschiedliche Quellen, Cut-offs, Methoden und Populationen.
-- Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*, 6. Auflage, als knappe deutschsprachige Fakteneinträge.
+- Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*, 6. Auflage, als deutschsprachig aufbereitete Arbeitsfassung. Alle Einträge bleiben bis zur fachlichen und sprachlichen Einzelprüfung `needs-review`.
 - Setting-basierte Prätestannahmen, plausible Spannweiten, Qualitätslabel und Quellen.
-- Erweiterte Prätestdaten mit klinischen Modifikatoren, Präanalytik- und Medikamentenwarnungen.
-- Vordefinierte Diagnostikketten, z. B. Screeningtest -> Bestätigungstest.
+- Klinische Modifikatoren sowie profilbezogene Präanalytik- und Medikamentenwarnungen.
+- Bedingte Diagnostikketten mit Fortsetzungs- und Stopppfaden.
+- Getrennte Darstellung von Bayes-Berechnung, kategorischer Risikoklassifikation und klinischem Workflow.
 - Nomogramme, Balkendarstellung und 1000er-Erklärung zur Reduktion von Base-Rate-Neglect.
 - Datenkatalog und lokaler Verwaltungs-Drawer für eigene Tests, Annahmen, Szenarien und JSON-Import/-Export.
 - Unterseiten für [diagnostische Kennzahlen](public/info/vierfeldertafel/index.html), [CKD-Risiko nach eGFR/Albuminurie](public/info/ckd-risiko/index.html) und [interaktive Simulation](public/simulation/index.html).
@@ -37,15 +38,18 @@ Kuratierte Daten liegen in `src/data/`:
 - `conditions.json`: zentrale Krankheitsbilder.
 - `tests.json`: diagnostische Tests und Evidenzprofile.
 - `pretest-assumptions.json`: Setting- und Fallback-Prätestannahmen.
-- `pretest-probability-estimates.json`: erweiterte Prätestdaten mit Modifikatoren und Warnungen.
 - `clinical-modifiers.json`: Symptome, Zeichen, Anamnese- und Kontextfaktoren.
 - `diagnostic-chains.json`: vordefinierte sequentielle Testpfade.
 - `condition-guidance.json`: krankheitsspezifische Kurzinfos und Links.
 - `physical-*.json`: körperliche Untersuchung nach System, Krankheitsbild und Befund.
 
-Jede kuratierte Zahl soll Quelle, Population, Begründung, Grenzen, Reviewstatus, Evidenzqualität und Datum der letzten Prüfung enthalten. Unsichere Daten bleiben sichtbar als `needs-review`, `expert-opinion`, `partial` oder `minimal` markiert.
+`pretest-assumptions.json` ist die einzige kanonische Prätestbasis. Präanalytik und Medikamente gehören an das jeweilige Evidenzprofil. Nicht quantifizierbare Verfahren erhalten keine künstlichen LR-Werte, sondern werden als Kategorie oder Workflow dargestellt.
+
+Jede kuratierte Zahl soll Quelle, Population, Begründung, Grenzen, Reviewstatus, Evidenzqualität und Datum der letzten Prüfung enthalten. Unsichere Daten bleiben als `needs-review`, `expert-opinion`, `partial` oder `minimal` sichtbar. Der vollständige Profilstand steht im [Evidenz-Audit](docs/EVIDENCE_AUDIT.md).
 
 ## Entwicklung
+
+Die CI verwendet Node.js 22; `.nvmrc` hält lokale Browser- und Buildtests auf derselben unterstützten Version.
 
 ```bash
 npm install
@@ -59,14 +63,16 @@ npm run validate:data
 npm run test:run
 npm run build
 npm run check:pages
+npm run check:bundle
 npm run smoke:test
+npm run test:e2e
 ```
 
 Auf macOS kann alternativ `Likelihood-Ratio-Rechner starten.command` doppelt geklickt werden. Details stehen in [LOKAL_STARTEN.md](LOKAL_STARTEN.md).
 
 ## Veröffentlichung
 
-Der GitHub-Workflow `.github/workflows/deploy.yml` prüft Daten, Tests, Build, Pages-Referenzen und Smoke-Test. Danach veröffentlicht er `dist/` über GitHub Pages.
+Der GitHub-Workflow `.github/workflows/deploy.yml` prüft Daten, Abhängigkeiten, Unit- und Browsertests, Evidenz-Audit, Build, Bundlebudget und Pages-Referenzen. Danach veröffentlicht er `dist/` über GitHub Pages.
 
 Empfohlener Ablauf vor dem Push:
 
@@ -75,7 +81,9 @@ npm run validate:data
 npm run test:run
 npm run build
 npm run check:pages
+npm run check:bundle
 npm run smoke:test
+npm run test:e2e
 git status
 ```
 

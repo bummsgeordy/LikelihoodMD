@@ -9,7 +9,6 @@ Kuratierte Daten werden ausschließlich durch Änderungen im Repository gepflegt
 - `src/data/conditions.json`
 - `src/data/tests.json`
 - `src/data/pretest-assumptions.json`
-- `src/data/pretest-probability-estimates.json`
 - `src/data/clinical-modifiers.json`
 - `src/data/clinical-settings.json`
 - `src/data/diagnostic-chains.json`
@@ -47,7 +46,9 @@ npm run validate:data
 npm run test:run
 npm run build
 npm run check:pages
+npm run check:bundle
 npm run smoke:test
+npm run test:e2e
 git add .
 git commit -m "Update curated diagnostic data"
 git push
@@ -66,12 +67,14 @@ Empfohlenes Vorgehen ohne Backend:
 5. Vor Veröffentlichung immer prüfen:
 
    ```bash
-npm run validate:data
-npm run test:run
-npm run build
-npm run check:pages
-npm run smoke:test
-```
+   npm run validate:data
+   npm run test:run
+   npm run build
+   npm run check:pages
+   npm run check:bundle
+   npm run smoke:test
+   npm run test:e2e
+   ```
 
 6. Erst danach committen und pushen.
 

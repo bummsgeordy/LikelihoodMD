@@ -17,9 +17,6 @@ const modifiers = JSON.parse(
 const physicalSystems = JSON.parse(fs.readFileSync(path.join(root, 'src/data/physical-systems.json'), 'utf8'));
 const physicalConditions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/physical-conditions.json'), 'utf8'));
 const physicalFindings = JSON.parse(fs.readFileSync(path.join(root, 'src/data/physical-findings.json'), 'utf8'));
-const pretestProbabilityDataset = JSON.parse(
-  fs.readFileSync(path.join(root, 'src/data/pretest-probability-estimates.json'), 'utf8')
-);
 
 const sourceKinds = new Set(['Leitlinie', 'Studie', 'Review', 'Lehrtext', 'Lokale Annahme']);
 const profileKinds = new Set(['curated', 'custom', 'scenario']);
@@ -32,25 +29,13 @@ const dataCompletenessLevels = new Set(['complete', 'partial', 'minimal']);
 const quantificationStatuses = new Set(['qualitative', 'probability-factor', 'likelihood-ratio']);
 const preanalyticRisks = new Set(['low', 'moderate', 'high', 'unclear']);
 const reviewPriorities = new Set(['low', 'medium', 'high']);
+const calculationModes = new Set(['binary-lr', 'categorical', 'workflow-only']);
+const lrDerivations = new Set(['reported', 'derived']);
 const pretestEvidenceGapStatuses = new Set([
   'no-setting-specific-estimate-found',
   'score-or-risk-stratum-required',
   'not-clinically-meaningful-as-setting'
 ]);
-const pretestSourceTypes = new Set(['guideline', 'review', 'cohort', 'metaanalysis', 'educationalreview', 'expert_summary']);
-const pretestEvidenceQualityCodes = new Set(['Adirecthighquality', 'Bmoderatedirect', 'Cindirectormixed', 'Dexpertestimate', 'E_uncertain']);
-const pretestEstimateTypes = new Set(['populationprevalence', 'clinicalsettingprevalence', 'highriskgroup', 'riskscorecategory', 'expertestimate']);
-const clinicalDomains = new Set(['endocrinology', 'cardiology', 'nephrology', 'primary_care', 'emergency']);
-const probabilityModifierDirections = new Set([
-  'decreasesstrongly',
-  'decreasesmoderately',
-  'neutralorunclear',
-  'increasesmildly',
-  'increasesmoderately',
-  'increasesstrongly',
-  'increasesvery_strongly'
-]);
-const issueSeverities = new Set(['low', 'moderate', 'high']);
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const errors = [];
 const knownConditionIds = new Set(conditions.map(condition => condition.id));
@@ -92,91 +77,6 @@ function validateSources(sources, prefix) {
   });
 }
 
-function validatePretestSourceReference(source, prefix) {
-  if (!hasText(source.id)) errors.push(`${prefix}.id fehlt`);
-  if (!hasText(source.title)) errors.push(`${prefix}.title fehlt`);
-  if (source.year !== undefined && (!Number.isInteger(source.year) || source.year < 1900 || source.year > 2100)) {
-    errors.push(`${prefix}.year unplausibel`);
-  }
-  if (!pretestSourceTypes.has(source.type)) errors.push(`${prefix}.type unbekannt`);
-  if (source.url !== undefined && (!hasText(source.url) || !/^https?:\/\//i.test(source.url))) {
-    errors.push(`${prefix}.url muss http/https sein`);
-  }
-  if (hasText(source.url) && source.url.includes('pubmed.ncbi.nlm.nih.gov/?term=')) {
-    errors.push(`${prefix}.url darf kein PubMed-Suchlink sein`);
-  }
-  if (source.doi !== undefined && !hasText(source.doi)) errors.push(`${prefix}.doi leer`);
-  if (source.note !== undefined && !hasText(source.note)) errors.push(`${prefix}.note leer`);
-}
-
-function validateIssue(issue, prefix, medication = false) {
-  const labelField = medication ? 'medicationOrClass' : 'issue';
-  if (!hasText(issue[labelField])) errors.push(`${prefix}.${labelField} fehlt`);
-  if (!Array.isArray(issue.affectedTests) || issue.affectedTests.length === 0) {
-    errors.push(`${prefix}.affectedTests fehlt`);
-  } else {
-    issue.affectedTests.forEach((test, index) => {
-      if (!hasText(test)) errors.push(`${prefix}.affectedTests[${index}] fehlt`);
-    });
-  }
-  if (!hasText(issue.effect)) errors.push(`${prefix}.effect fehlt`);
-  if (!issueSeverities.has(issue.severity)) errors.push(`${prefix}.severity unbekannt`);
-  if (issue.mitigation !== undefined && !hasText(issue.mitigation)) errors.push(`${prefix}.mitigation leer`);
-}
-
-function validatePretestProbabilityEstimate(estimate, prefix, sourceIds) {
-  ['id', 'diseaseId', 'diseaseName', 'setting', 'estimateType', 'evidenceQuality', 'qualityNote'].forEach(field => {
-    if (!hasText(estimate[field])) errors.push(`${prefix}.${field} fehlt`);
-  });
-  if (hasText(estimate.diseaseId) && !knownConditionIds.has(estimate.diseaseId)) {
-    errors.push(`${prefix}.diseaseId unbekannt`);
-  }
-  if (!Array.isArray(estimate.domain) || estimate.domain.length === 0) {
-    errors.push(`${prefix}.domain fehlt`);
-  } else {
-    estimate.domain.forEach((domain, index) => {
-      if (!clinicalDomains.has(domain)) errors.push(`${prefix}.domain[${index}] unbekannt`);
-    });
-  }
-  if (estimate.settingId !== undefined && !hasText(estimate.settingId)) errors.push(`${prefix}.settingId leer`);
-  if (hasText(estimate.settingId) && !knownSettingIds.has(estimate.settingId)) {
-    errors.push(`${prefix}.settingId unbekannt`);
-  }
-  if (estimate.baseProbabilityPercent !== undefined && (!Number.isFinite(estimate.baseProbabilityPercent) || estimate.baseProbabilityPercent < 0 || estimate.baseProbabilityPercent > 100)) {
-    errors.push(`${prefix}.baseProbabilityPercent unplausibel`);
-  }
-  if (!Array.isArray(estimate.probabilityRangePercent) || estimate.probabilityRangePercent.length !== 2) {
-    errors.push(`${prefix}.probabilityRangePercent braucht zwei Werte`);
-  } else {
-    const [low, high] = estimate.probabilityRangePercent;
-    if (!Number.isFinite(low) || !Number.isFinite(high) || low < 0 || high > 100 || low > high) {
-      errors.push(`${prefix}.probabilityRangePercent unplausibel`);
-    }
-  }
-  if (!pretestEstimateTypes.has(estimate.estimateType)) errors.push(`${prefix}.estimateType unbekannt`);
-  if (!pretestEvidenceQualityCodes.has(estimate.evidenceQuality)) errors.push(`${prefix}.evidenceQuality unbekannt`);
-  if (!Array.isArray(estimate.sources) || estimate.sources.length === 0) {
-    errors.push(`${prefix}.sources fehlt`);
-  } else {
-    estimate.sources.forEach((sourceId, index) => {
-      if (!sourceIds.has(sourceId)) errors.push(`${prefix}.sources[${index}] unbekannt`);
-    });
-  }
-  if (!Array.isArray(estimate.modifiers)) errors.push(`${prefix}.modifiers fehlt`);
-  else {
-    estimate.modifiers.forEach((modifier, index) => {
-      const modifierPrefix = `${prefix}.modifiers[${index}]`;
-      if (!hasText(modifier.factor)) errors.push(`${modifierPrefix}.factor fehlt`);
-      if (!probabilityModifierDirections.has(modifier.direction)) errors.push(`${modifierPrefix}.direction unbekannt`);
-      if (!pretestEvidenceQualityCodes.has(modifier.evidenceQuality)) errors.push(`${modifierPrefix}.evidenceQuality unbekannt`);
-    });
-  }
-  if (!Array.isArray(estimate.preanalyticalIssues)) errors.push(`${prefix}.preanalyticalIssues fehlt`);
-  else estimate.preanalyticalIssues.forEach((issue, index) => validateIssue(issue, `${prefix}.preanalyticalIssues[${index}]`));
-  if (!Array.isArray(estimate.medicationInterferences)) errors.push(`${prefix}.medicationInterferences fehlt`);
-  else estimate.medicationInterferences.forEach((issue, index) => validateIssue(issue, `${prefix}.medicationInterferences[${index}]`, true));
-}
-
 function validateReview(item, prefix) {
   if (!reviewStatuses.has(item.reviewStatus)) errors.push(`${prefix}.reviewStatus unbekannt`);
   if (!evidenceQualities.has(item.evidenceQuality)) errors.push(`${prefix}.evidenceQuality unbekannt`);
@@ -190,14 +90,50 @@ function validateProfile(profile, prefix) {
     if (!hasText(profile[field])) errors.push(`${prefix}.${field} fehlt`);
   });
   if (!profileKinds.has(profile.kind)) errors.push(`${prefix}.kind unbekannt`);
+  if (!calculationModes.has(profile.calculationMode)) errors.push(`${prefix}.calculationMode unbekannt`);
   if (profile.sensitivity !== null && !probability(profile.sensitivity)) errors.push(`${prefix}.sensitivity ungültig`);
   if (profile.specificity !== null && !probability(profile.specificity)) errors.push(`${prefix}.specificity ungültig`);
   if (profile.lrPositive !== undefined && (!Number.isFinite(profile.lrPositive) || profile.lrPositive <= 0)) {
     errors.push(`${prefix}.lrPositive ungültig`);
   }
-  if (profile.lrNegative !== undefined && (!Number.isFinite(profile.lrNegative) || profile.lrNegative < 0)) {
+  if (profile.lrNegative !== undefined && (!Number.isFinite(profile.lrNegative) || profile.lrNegative <= 0)) {
     errors.push(`${prefix}.lrNegative ungültig`);
   }
+  if (profile.lrDerivation !== undefined && !lrDerivations.has(profile.lrDerivation)) {
+    errors.push(`${prefix}.lrDerivation unbekannt`);
+  }
+  if (profile.calculationMode === 'binary-lr') {
+    const hasRatios = profile.lrPositive !== undefined && profile.lrNegative !== undefined;
+    const hasAccuracy = profile.sensitivity !== null && profile.specificity !== null;
+    if (!hasRatios && !hasAccuracy) errors.push(`${prefix} binär ohne LR oder Sensitivität/Spezifität`);
+    if (!lrDerivations.has(profile.lrDerivation)) errors.push(`${prefix}.lrDerivation fehlt`);
+    if (profile.lrPositive === 1 && profile.lrNegative === 1) errors.push(`${prefix} LR 1/1 darf nicht als Platzhalter dienen`);
+    if (hasAccuracy) {
+      const derivedPositive = profile.specificity < 1 ? profile.sensitivity / (1 - profile.specificity) : Infinity;
+      const derivedNegative = profile.specificity > 0 ? (1 - profile.sensitivity) / profile.specificity : Infinity;
+      if (!Number.isFinite(derivedPositive) || !Number.isFinite(derivedNegative) || derivedPositive <= 0 || derivedNegative <= 0) {
+        errors.push(`${prefix} erzeugt keine endlichen positiven LR-Werte`);
+      }
+    }
+  } else {
+    if (profile.lrPositive !== undefined || profile.lrNegative !== undefined) {
+      errors.push(`${prefix} nicht-binär mit LR-Werten`);
+    }
+    if (!hasText(profile.nonComputableReason)) errors.push(`${prefix}.nonComputableReason fehlt`);
+  }
+  [
+    ['sensitivityInterval', profile.sensitivityInterval, profile.sensitivity],
+    ['specificityInterval', profile.specificityInterval, profile.specificity],
+    ['lrPositiveInterval', profile.lrPositiveInterval, profile.lrPositive],
+    ['lrNegativeInterval', profile.lrNegativeInterval, profile.lrNegative]
+  ].forEach(([field, interval, value]) => {
+    if (interval === undefined) return;
+    if (!Number.isFinite(interval.low) || !Number.isFinite(interval.high) || interval.low > interval.high) {
+      errors.push(`${prefix}.${field} ungültig`);
+    } else if (value !== null && value !== undefined && (value < interval.low || value > interval.high)) {
+      errors.push(`${prefix}.${field} enthält Punktwert nicht`);
+    }
+  });
   if (profile.kind === 'scenario' && !hasText(profile.deviationReason)) errors.push(`${prefix}.deviationReason fehlt`);
   if (profile.preanalyticRisk !== undefined && !preanalyticRisks.has(profile.preanalyticRisk)) {
     errors.push(`${prefix}.preanalyticRisk unbekannt`);
@@ -250,6 +186,14 @@ assumptions.forEach((assumption, index) => {
   if (assumption.rangeLow > assumption.rangeHigh) errors.push(`${prefix}.range unplausibel`);
   validateReview(assumption, prefix);
   validateSources(assumption.sources, prefix);
+});
+
+const activeAssumptionKeys = new Set();
+assumptions.forEach((assumption, index) => {
+  const populationKey = String(assumption.population).trim().toLocaleLowerCase('de');
+  const key = `${assumption.conditionId}:${assumption.settingId}:${populationKey}`;
+  if (activeAssumptionKeys.has(key)) errors.push(`assumptions[${index}] doppelte aktive Population: ${key}`);
+  activeAssumptionKeys.add(key);
 });
 
 const directPretestKeys = new Set(
@@ -329,6 +273,13 @@ diagnosticChains.forEach((chain, index) => {
       if (!profile) errors.push(`${prefix}.stages[${stageIndex}].evidenceProfileId unbekannt`);
       if (test && test.conditionId !== chain.conditionId) errors.push(`${prefix}.stages[${stageIndex}].testId passt nicht zur Erkrankung`);
       if (test && profile && profile.testId !== test.id) errors.push(`${prefix}.stages[${stageIndex}].profile passt nicht zum Test`);
+      if (profile && profile.calculationMode !== 'binary-lr') errors.push(`${prefix}.stages[${stageIndex}] ist nicht binär berechenbar`);
+      if (stage.continueOn !== undefined) {
+        if (!Array.isArray(stage.continueOn) || stage.continueOn.length === 0) errors.push(`${prefix}.stages[${stageIndex}].continueOn leer`);
+        else stage.continueOn.forEach(result => {
+          if (!['positive', 'negative'].includes(result)) errors.push(`${prefix}.stages[${stageIndex}].continueOn unbekannt`);
+        });
+      }
     });
   }
   if (!profileKinds.has(chain.kind)) errors.push(`${prefix}.kind unbekannt`);
@@ -391,7 +342,7 @@ function validatePhysicalLr(lr, prefix) {
 
 physicalFindings.forEach((finding, index) => {
   const prefix = `physicalFindings[${index}]`;
-  ['id', 'systemId', 'conditionId', 'findingLabel', 'originalFindingLabel', 'positiveCriterion', 'negativeCriterion', 'limitations', 'reviewStatus'].forEach(field => {
+  ['id', 'systemId', 'conditionId', 'findingLabel', 'positiveCriterion', 'negativeCriterion', 'limitations', 'reviewStatus'].forEach(field => {
     if (!hasText(finding[field])) errors.push(`${prefix}.${field} fehlt`);
   });
   if (!physicalSystemIds.has(finding.systemId)) errors.push(`${prefix}.systemId unbekannt`);
@@ -412,25 +363,16 @@ physicalFindings.forEach((finding, index) => {
   physicalFindingKeys.add(duplicateKey);
 });
 
-const pretestSourceIds = new Set();
-if (!Array.isArray(pretestProbabilityDataset.sources)) {
-  errors.push('pretestProbabilityDataset.sources fehlt');
-} else {
-  pretestProbabilityDataset.sources.forEach((source, index) => {
-    validatePretestSourceReference(source, `pretestProbabilityDataset.sources[${index}]`);
-    if (pretestSourceIds.has(source.id)) errors.push(`pretestProbabilityDataset.sources[${index}].id doppelt`);
-    pretestSourceIds.add(source.id);
-  });
+const physicalAudit = {
+  strongRuleIn: physicalFindings.filter(finding => finding.lrPositive?.value >= 10).length,
+  strongRuleOut: physicalFindings.filter(finding => finding.lrNegative?.value != null && finding.lrNegative.value <= 0.1).length,
+  missingNegative: physicalFindings.filter(finding => finding.lrNegative?.notReported).length
+};
+if (physicalAudit.strongRuleIn !== 99 || physicalAudit.strongRuleOut !== 51 || physicalAudit.missingNegative !== 94) {
+  errors.push(`McGee-Auditgruppen unerwartet: ${JSON.stringify(physicalAudit)}`);
 }
-if (!Array.isArray(pretestProbabilityDataset.estimates)) {
-  errors.push('pretestProbabilityDataset.estimates fehlt');
-} else {
-  pretestProbabilityDataset.estimates.forEach((estimate, index) => {
-    validatePretestProbabilityEstimate(estimate, `pretestProbabilityDataset.estimates[${index}]`, pretestSourceIds);
-    if (hasText(estimate.diseaseId) && hasText(estimate.settingId)) {
-      directPretestKeys.add(`${estimate.diseaseId}:${estimate.settingId}`);
-    }
-  });
+if (physicalFindings.some(finding => finding.reviewStatus !== 'needs-review')) {
+  errors.push('Öffentliche McGee-Befunde müssen bis zur Einzelprüfung needs-review bleiben');
 }
 
 const fallbackConditionIds = new Set(
@@ -458,4 +400,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} pretest assumptions, ${pretestEvidenceGaps.length} pretest evidence gap groups, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains, ${conditionGuidance.length} condition guidance entries, ${physicalFindings.length} physical findings and ${pretestProbabilityDataset.estimates.length} extended pretest estimates.`);
+console.log(`Validated ${conditions.length} conditions, ${tests.length} tests, ${assumptions.length} canonical pretest assumptions, ${pretestEvidenceGaps.length} pretest evidence gap groups, ${modifiers.length} clinical modifiers, ${diagnosticChains.length} diagnostic chains, ${conditionGuidance.length} condition guidance entries and ${physicalFindings.length} physical findings.`);

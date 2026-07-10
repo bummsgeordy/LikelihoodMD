@@ -21,7 +21,7 @@ export interface NomogramCanvases {
   negative: HTMLCanvasElement;
 }
 
-function drawSingleNomogramOnCanvas(
+export function drawSingleNomogramOnCanvas(
   canvas: HTMLCanvasElement,
   result: CalculationResult,
   likelihoodRatio: number,

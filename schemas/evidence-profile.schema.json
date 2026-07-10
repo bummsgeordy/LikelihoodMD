@@ -9,10 +9,9 @@
     "testId",
     "label",
     "kind",
+    "calculationMode",
     "method",
     "cutoff",
-    "sensitivity",
-    "specificity",
     "population",
     "rationale",
     "limitations",
@@ -27,6 +26,9 @@
     "testId": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "kind": { "type": "string", "enum": ["curated", "custom", "scenario"] },
+    "calculationMode": { "type": "string", "enum": ["binary-lr", "categorical", "workflow-only"] },
+    "lrDerivation": { "type": "string", "enum": ["reported", "derived"] },
+    "nonComputableReason": { "type": "string", "minLength": 1 },
     "purpose": { "type": "string", "minLength": 1 },
     "specimen": { "type": "string", "minLength": 1 },
     "intendedUse": { "type": "string", "minLength": 1 },
@@ -39,7 +41,11 @@
     "sensitivity": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
     "specificity": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
     "lrPositive": { "type": "number", "exclusiveMinimum": 0 },
-    "lrNegative": { "type": "number", "minimum": 0 },
+    "lrNegative": { "type": "number", "exclusiveMinimum": 0 },
+    "sensitivityInterval": { "$ref": "#/$defs/interval" },
+    "specificityInterval": { "$ref": "#/$defs/interval" },
+    "lrPositiveInterval": { "$ref": "#/$defs/interval" },
+    "lrNegativeInterval": { "$ref": "#/$defs/interval" },
     "population": { "type": "string", "minLength": 1 },
     "rationale": { "type": "string", "minLength": 1 },
     "limitations": { "type": "string", "minLength": 1 },
@@ -78,10 +84,34 @@
       "items": { "$ref": "diagnostic-test.schema.json#/$defs/source" }
     }
   },
-  "if": {
-    "properties": { "kind": { "const": "scenario" } }
-  },
-  "then": {
-    "required": ["deviationReason"]
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "scenario" } } },
+      "then": { "required": ["deviationReason"] }
+    },
+    {
+      "if": { "properties": { "calculationMode": { "const": "binary-lr" } } },
+      "then": { "required": ["lrDerivation"] },
+      "else": {
+        "required": ["nonComputableReason"],
+        "not": {
+          "anyOf": [
+            { "required": ["lrPositive"] },
+            { "required": ["lrNegative"] }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["low", "high"],
+      "properties": {
+        "low": { "type": "number", "minimum": 0 },
+        "high": { "type": "number", "minimum": 0 }
+      }
+    }
   }
 }

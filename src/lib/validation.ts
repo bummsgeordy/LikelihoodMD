@@ -33,6 +33,8 @@ const quantificationStatuses = new Set(QUANTIFICATION_STATUSES);
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const preanalyticRisks = new Set(['low', 'moderate', 'high', 'unclear']);
 const reviewPriorities = new Set(['low', 'medium', 'high']);
+const calculationModes = new Set(['binary-lr', 'categorical', 'workflow-only']);
+const lrDerivations = new Set(['reported', 'derived']);
 
 function hasText(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
@@ -98,6 +100,9 @@ export function validateEvidenceProfile(profile: EvidenceProfile): ValidationIss
   if (!profileKinds.has(profile.kind)) {
     issues.push({ field: 'kind', message: 'Evidenzprofil benötigt einen gültigen Typ.' });
   }
+  if (!calculationModes.has(profile.calculationMode)) {
+    issues.push({ field: 'calculationMode', message: 'Berechnungsmodus ist ungültig.' });
+  }
   if (profile.sensitivity != null && !probabilityIsValid(profile.sensitivity)) {
     issues.push({ field: 'sensitivity', message: 'Sensitivität muss zwischen 0 und 1 liegen.' });
   }
@@ -107,9 +112,53 @@ export function validateEvidenceProfile(profile: EvidenceProfile): ValidationIss
   if (profile.lrPositive != null && (!Number.isFinite(profile.lrPositive) || profile.lrPositive <= 0)) {
     issues.push({ field: 'lrPositive', message: 'LR+ muss positiv sein.' });
   }
-  if (profile.lrNegative != null && (!Number.isFinite(profile.lrNegative) || profile.lrNegative < 0)) {
-    issues.push({ field: 'lrNegative', message: 'LR− darf nicht negativ sein.' });
+  if (profile.lrNegative != null && (!Number.isFinite(profile.lrNegative) || profile.lrNegative <= 0)) {
+    issues.push({ field: 'lrNegative', message: 'LR− muss endlich und größer als null sein.' });
   }
+  if (profile.lrDerivation != null && !lrDerivations.has(profile.lrDerivation)) {
+    issues.push({ field: 'lrDerivation', message: 'LR-Herkunft ist ungültig.' });
+  }
+  if (profile.calculationMode === 'binary-lr') {
+    const hasRatios = profile.lrPositive != null && profile.lrNegative != null;
+    const hasAccuracy = profile.sensitivity != null && profile.specificity != null;
+    if (!hasRatios && !hasAccuracy) {
+      issues.push({ field: 'calculationMode', message: 'Binärprofile brauchen LR-Werte oder Sensitivität und Spezifität.' });
+    }
+    if (!profile.lrDerivation || !lrDerivations.has(profile.lrDerivation)) {
+      issues.push({ field: 'lrDerivation', message: 'Binärprofile müssen die LR-Herkunft angeben.' });
+    }
+    if (profile.lrPositive === 1 && profile.lrNegative === 1) {
+      issues.push({ field: 'calculationMode', message: 'LR 1/1 darf nicht als Platzhalter verwendet werden.' });
+    }
+    if (hasAccuracy) {
+      const lrPositive = profile.specificity! < 1 ? profile.sensitivity! / (1 - profile.specificity!) : Infinity;
+      const lrNegative = profile.specificity! > 0 ? (1 - profile.sensitivity!) / profile.specificity! : Infinity;
+      if (!Number.isFinite(lrPositive) || !Number.isFinite(lrNegative) || lrPositive <= 0 || lrNegative <= 0) {
+        issues.push({ field: 'sensitivity', message: 'Sensitivität/Spezifität erzeugen keine endlichen positiven LR-Werte.' });
+      }
+    }
+  } else {
+    if (profile.lrPositive != null || profile.lrNegative != null) {
+      issues.push({ field: 'calculationMode', message: 'Kategorie-/Workflowprofile dürfen keine binären LR-Werte tragen.' });
+    }
+    if (!hasText(profile.nonComputableReason)) {
+      issues.push({ field: 'nonComputableReason', message: 'Nicht berechenbare Profile brauchen eine Begründung.' });
+    }
+  }
+  const intervals: Array<[string, { low: number; high: number } | undefined, number | null | undefined]> = [
+    ['sensitivityInterval', profile.sensitivityInterval, profile.sensitivity],
+    ['specificityInterval', profile.specificityInterval, profile.specificity],
+    ['lrPositiveInterval', profile.lrPositiveInterval, profile.lrPositive],
+    ['lrNegativeInterval', profile.lrNegativeInterval, profile.lrNegative]
+  ];
+  intervals.forEach(([field, interval, value]) => {
+    if (!interval) return;
+    if (!Number.isFinite(interval.low) || !Number.isFinite(interval.high) || interval.low > interval.high) {
+      issues.push({ field, message: 'Intervall ist ungültig.' });
+    } else if (value != null && (value < interval.low || value > interval.high)) {
+      issues.push({ field, message: 'Punktwert muss innerhalb des Intervalls liegen.' });
+    }
+  });
   if (profile.kind === 'scenario' && !hasText(profile.deviationReason)) {
     issues.push({ field: 'deviationReason', message: 'Szenarien brauchen eine Begründung der Abweichung.' });
   }
@@ -293,6 +342,14 @@ export function validateDiagnosticChain(
       if (profile && test && profile.testId !== test.id) {
         issues.push({ field: `stages.${index}.evidenceProfileId`, message: 'Evidenzprofil passt nicht zum Test der Kettenstufe.' });
       }
+      if (profile && profile.calculationMode !== 'binary-lr') {
+        issues.push({ field: `stages.${index}.evidenceProfileId`, message: 'Kettenstufen müssen binär berechenbar sein.' });
+      }
+      if (stage.continueOn != null) {
+        if (stage.continueOn.length === 0 || stage.continueOn.some(result => result !== 'positive' && result !== 'negative')) {
+          issues.push({ field: `stages.${index}.continueOn`, message: 'Fortsetzungspfade sind ungültig.' });
+        }
+      }
     });
   }
   const chainDateIssue = dateIssue(chain.lastReviewed);
@@ -346,7 +403,7 @@ export function validatePhysicalData(
   });
   findings.forEach((finding, index) => {
     const prefix = `physicalFindings.${index}`;
-    ['id', 'systemId', 'conditionId', 'findingLabel', 'originalFindingLabel', 'positiveCriterion', 'negativeCriterion', 'limitations', 'reviewStatus'].forEach(field => {
+    ['id', 'systemId', 'conditionId', 'findingLabel', 'positiveCriterion', 'negativeCriterion', 'limitations', 'reviewStatus'].forEach(field => {
       if (!hasText(finding[field as keyof PhysicalFinding])) issues.push({ field: `${prefix}.${field}`, message: 'Feld fehlt.' });
     });
     if (!systemIds.has(finding.systemId)) issues.push({ field: `${prefix}.systemId`, message: 'Unbekanntes Körpersystem.' });

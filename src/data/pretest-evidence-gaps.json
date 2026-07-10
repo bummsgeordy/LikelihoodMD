@@ -448,6 +448,7 @@
     "id": "gap-phpt-non-calcium-specific-settings",
     "conditionId": "primarer-hyperparathyreoidismus",
     "settingIds": [
+      "hausarztpraxis",
       "klinik-notaufnahme",
       "ambulant-kardiologie",
       "ambulant-endokrinologie",
@@ -491,6 +492,7 @@
     "id": "gap-thyroid-nodule-non-ultrasound-specific-settings",
     "conditionId": "schilddrusenknoten-malignitatsrisiko",
     "settingIds": [
+      "hausarztpraxis",
       "klinik-notaufnahme",
       "ambulant-kardiologie",
       "ambulant-endokrinologie",
@@ -536,6 +538,7 @@
     "settingIds": [
       "hausarztpraxis",
       "klinik-notaufnahme",
+      "ambulant-kardiologie",
       "ambulant-endokrinologie",
       "ambulant-diabetologie",
       "ambulant-nephrologie"
@@ -581,7 +584,8 @@
       "klinik-notaufnahme",
       "ambulant-kardiologie",
       "ambulant-endokrinologie",
-      "ambulant-diabetologie"
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
     ],
     "status": "score-or-risk-stratum-required",
     "summary": "CKD-Prätest hängt stark von Alter, Diabetes, Hypertonie, Albuminurie und Persistenz über ≥3 Monate ab. Fachabteilung allein ist nicht ausreichend.",
@@ -617,7 +621,8 @@
       "klinik-notaufnahme",
       "ambulant-kardiologie",
       "ambulant-endokrinologie",
-      "ambulant-diabetologie"
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
     ],
     "status": "score-or-risk-stratum-required",
     "summary": "Renale Arterienstenose ist bei unkomplizierter Hypertonie selten; die Wahrscheinlichkeit wird durch Hochrisikomerkmale bestimmt, nicht durch Setting allein.",
@@ -653,7 +658,8 @@
       "klinik-notaufnahme",
       "ambulant-kardiologie",
       "ambulant-endokrinologie",
-      "ambulant-diabetologie"
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
     ],
     "status": "score-or-risk-stratum-required",
     "summary": "GN ist syndromal und spektrumabhängig. Ohne Urinsediment, Proteinurie, eGFR-Verlauf und Systemzeichen ist eine Setting-Prätestwahrscheinlichkeit fachlich zu grob.",
@@ -687,5 +693,35 @@
     "dataCompleteness": "minimal",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Evidenzlücke ergänzt, nachdem erweiterte Prätestdaten zentralisiert wurden."
+  },
+  {
+    "id": "gap-acs-setting-without-clinical-path",
+    "conditionId": "akutes-koronarsyndrom-myokardschaden",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "score-or-risk-stratum-required",
+    "summary": "Bei akutem Thoraxschmerz hängt die Wahrscheinlichkeit eines ACS stark von Symptomen, EKG, Zeitpunkt, Alter, Risikofaktoren und Vorbefunden ab. Eine reine Setting-Prävalenz ist für den seriellen Troponinpfad zu grob.",
+    "searchedQuestion": "Übertragbare Setting-Prätestwahrscheinlichkeit für ACS vor EKG und serieller hs-cTn-Diagnostik.",
+    "searchedSources": [
+      {
+        "title": "2023 ESC Guidelines for the management of acute coronary syndromes",
+        "year": 2023,
+        "url": "https://doi.org/10.1093/eurheartj/ehad191",
+        "kind": "Leitlinie",
+        "note": "Stützt einen integrierten klinischen, EKG- und seriellen Troponinpfad statt eines universellen Prätestwerts."
+      }
+    ],
+    "recommendedNextStep": "Validierte lokale Akutpfade und assayspezifische 0/1-h- oder 0/2-h-Algorithmen verwenden; keine universelle LR oder Setting-Prävalenz ableiten.",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "minimal",
+    "lastReviewed": "2026-07-10",
+    "reviewNote": "Lücke bewusst dokumentiert, um Troponin nicht als universellen binären KHK-Test darzustellen."
   }
 ]

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   calculateResult,
+  calculateProfileOutcome,
   clampProbabilityPercent,
   likelihoodRatiosFromSensitivitySpecificity,
   oddsToProbability,
@@ -15,6 +16,8 @@ const exampleProfile: EvidenceProfile = {
   testId: 'example-test',
   label: 'Example profile',
   kind: 'curated',
+  calculationMode: 'binary-lr',
+  lrDerivation: 'derived',
   method: 'Example method',
   cutoff: 'Example cutoff',
   sensitivity: 0.9,
@@ -71,5 +74,21 @@ describe('Bayes calculations', () => {
     expect(result.lrPositive).toBeCloseTo(4.5, 5);
     expect(result.postPositiveProbability).toBeCloseTo(0.6, 5);
     expect(result.postNegativeProbability).toBeCloseTo(0.04, 5);
+  });
+
+  it('does not invent LR 1/1 for categorical or workflow profiles', () => {
+    const outcome = calculateProfileOutcome(
+      {
+        ...exampleProfile,
+        id: 'workflow-profile',
+        calculationMode: 'workflow-only',
+        lrDerivation: undefined,
+        sensitivity: null,
+        specificity: null,
+        nonComputableReason: 'Serieller klinischer Workflow.'
+      },
+      0.25
+    );
+    expect(outcome).toEqual({ status: 'not-computable', reason: 'Serieller klinischer Workflow.' });
   });
 });

@@ -1029,5 +1029,40 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Quantitative Prätestwahrscheinlichkeit bleibt bewusst unsicher; syndromale Hinweise ergänzt."
+  },
+  {
+    "conditionId": "akutes-koronarsyndrom-myokardschaden",
+    "summary": "Hochsensitives Troponin zeigt Myokardschädigung, nicht automatisch deren Ursache. Ein akutes Koronarsyndrom wird aus Symptomatik, EKG, serieller Troponindynamik und klinischem Kontext beurteilt.",
+    "whenToTest": [
+      "Akuter Thoraxschmerz oder anderes klinisches Bild mit Verdacht auf ein akutes Koronarsyndrom.",
+      "Zeitpunkt des Symptombeginns und EKG-Befund müssen zusammen mit der ersten Probe dokumentiert werden."
+    ],
+    "recommendedTests": [
+      "12-Kanal-EKG und hochsensitives kardiales Troponin ohne vermeidbare Verzögerung.",
+      "Assayvalidierten seriellen 0/1-h- oder 0/2-h-Algorithmus verwenden; bei unklarem Ergebnis weitere Beobachtung und Diagnostik."
+    ],
+    "pitfalls": [
+      "Ein einzelner Grenzwert ohne Dynamik ist kein universeller Rule-in/Rule-out-Test.",
+      "CKD, Herzinsuffizienz, Tachyarrhythmie, Myokarditis, Sepsis und Lungenembolie können Troponin erhöhen.",
+      "Troponin ist nicht der Screeningtest für stabile obstruktive KHK."
+    ],
+    "settingNotes": [
+      "Akutversorgung: lokales validiertes Assay-/Zeitprotokoll verwenden.",
+      "Stabiler Thoraxschmerz: separaten KHK-/CCTA- oder funktionellen Bildgebungspfad nutzen."
+    ],
+    "links": [
+      {
+        "title": "2023 ESC Guidelines for the management of acute coronary syndromes",
+        "year": 2023,
+        "url": "https://doi.org/10.1093/eurheartj/ehad191",
+        "kind": "Leitlinie",
+        "note": "Aktuelle europäische Leitlinie für integrierte ACS-Diagnostik und serielle hs-cTn-Algorithmen."
+      }
+    ],
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "high",
+    "dataCompleteness": "partial",
+    "lastReviewed": "2026-07-10",
+    "reviewNote": "Quellengeprüft, bleibt bis zur benannten fachlichen Freigabe needs-review."
   }
 ]

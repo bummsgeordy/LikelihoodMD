@@ -79,4 +79,18 @@ describe('curated data', () => {
     const testConditionIds = new Set((tests as DiagnosticTest[]).map(test => test.conditionId));
     expect([...testConditionIds].filter(conditionId => !fallbackConditionIds.has(conditionId))).toEqual([]);
   });
+
+  it('does not contain LR 1/1 placeholders or zero LR values', () => {
+    const profiles = (tests as DiagnosticTest[]).flatMap(test => test.evidenceProfiles);
+    expect(profiles.filter(profile => profile.lrPositive === 1 && profile.lrNegative === 1)).toEqual([]);
+    expect(profiles.filter(profile => profile.lrNegative === 0)).toEqual([]);
+  });
+
+  it('keeps the documented McGee priority audit groups stable', () => {
+    const findings = physicalFindings as PhysicalFinding[];
+    expect(findings.filter(finding => (finding.lrPositive.value ?? 0) >= 10)).toHaveLength(99);
+    expect(findings.filter(finding => finding.lrNegative.value != null && finding.lrNegative.value <= 0.1)).toHaveLength(51);
+    expect(findings.filter(finding => finding.lrNegative.notReported)).toHaveLength(94);
+    expect(findings.every(finding => finding.reviewStatus === 'needs-review')).toBe(true);
+  });
 });

@@ -1,24 +1,23 @@
 import "./styles.css";
 import clinicalSettingsRaw from "./data/clinical-settings.json";
-import conditionGuidanceRaw from "./data/condition-guidance.json";
 import conditionsRaw from "./data/conditions.json";
-import diagnosticChainsRaw from "./data/diagnostic-chains.json";
 import curatedModifiersRaw from "./data/clinical-modifiers.json";
 import curatedAssumptionsRaw from "./data/pretest-assumptions.json";
 import pretestEvidenceGapsRaw from "./data/pretest-evidence-gaps.json";
 import curatedTestsRaw from "./data/tests.json";
 import physicalSystemsRaw from "./data/physical-systems.json";
 import physicalConditionsRaw from "./data/physical-conditions.json";
-import physicalFindingsRaw from "./data/physical-findings.json";
 import {
   calculateResult,
+  calculateProfileOutcome,
   clamp,
   clampProbabilityPercent,
   formatPercent,
   formatRatio,
   likelihoodRatiosFromSensitivitySpecificity,
-  resolveLikelihoodRatios,
+  posttestProbability,
 } from "./lib/calculations";
+import { cohortExplanationParts } from "./lib/cohortExplanation";
 import {
   buildExport,
   defaultState,
@@ -28,7 +27,10 @@ import {
   resetStoredState,
   saveState,
 } from "./lib/storage";
-import { drawNomogramCanvases } from "./ui/renderNomogram";
+import {
+  drawNomogramCanvases,
+  drawSingleNomogramOnCanvas,
+} from "./ui/renderNomogram";
 import {
   filterCatalogRows,
   sortCatalogRows,
@@ -43,7 +45,7 @@ import {
   mergeConditions,
 } from "./app/conditions";
 import { calculateDiagnosticChain } from "./app/diagnosticChains";
-import { getPretestEstimate } from "./app/pretestEstimates";
+import { DEFAULT_TEST_BY_CONDITION } from "./app/defaultTests";
 import { renderDiagnosticChains } from "./ui/renderDiagnosticChains";
 import {
   validateClinicalModifier,
@@ -70,7 +72,6 @@ import type {
   PhysicalSystem,
   PretestAssumption,
   PretestEvidenceGap,
-  PretestEstimateResolution,
   ReviewMetadata,
   ReviewStatus,
   SourceKind,
@@ -82,36 +83,43 @@ const pretestEvidenceGaps = pretestEvidenceGapsRaw as PretestEvidenceGap[];
 const curatedModifiers = curatedModifiersRaw as ClinicalModifier[];
 const clinicalSettings = clinicalSettingsRaw as ClinicalSetting[];
 const clinicalConditions = conditionsRaw as ClinicalCondition[];
-const conditionGuidance = conditionGuidanceRaw as ConditionGuidance[];
-const diagnosticChains = diagnosticChainsRaw as DiagnosticChain[];
+let conditionGuidance: ConditionGuidance[] = [];
+let diagnosticChains: DiagnosticChain[] = [];
+let contextDataPromise: Promise<void> | null = null;
+
+async function ensureContextData(): Promise<void> {
+  if (conditionGuidance.length > 0 && diagnosticChains.length > 0) return;
+  contextDataPromise ??= Promise.all([
+    import("./data/condition-guidance.json"),
+    import("./data/diagnostic-chains.json"),
+  ]).then(([guidanceModule, chainsModule]) => {
+    conditionGuidance = guidanceModule.default as ConditionGuidance[];
+    diagnosticChains = chainsModule.default as DiagnosticChain[];
+  });
+  await contextDataPromise;
+}
 const physicalSystems = physicalSystemsRaw as PhysicalSystem[];
 const physicalConditions = physicalConditionsRaw as PhysicalCondition[];
-const physicalFindings = physicalFindingsRaw as PhysicalFinding[];
+let physicalFindings: PhysicalFinding[] = [];
+let physicalFindingsPromise: Promise<PhysicalFinding[]> | null = null;
 
-const DEFAULT_TEST_BY_CONDITION: Record<string, string> = {
-  akromegalie: "igf1-acromegaly",
-  "cushing-syndrom-hyperkortisolismus": "dst-1mg",
-  "morbus-basedow": "trab-graves",
-  "medullares-schilddrusenkarzinom": "basal-calcitonin-thyroid-nodule",
-  nebenniereninsuffizienz: "acth-stimulation-250",
-  "phaochromozytom-paragangliom": "metanephrines-plasma",
-  "primarer-hyperaldosteronismus": "arr",
-  zoliakie: "ttg-iga-celiac",
-  herzinsuffizienz: "ntprobnp",
-  "tiefe-venenthrombose": "d-dimer-dvt",
-  lungenembolie: "d-dimer-pe",
-  "chronische-nierenkrankheit": "egfr-creatinine-ckd",
-  glomerulonephritis: "urine-sediment-glomerulonephritis",
-  "obstruktive-koronare-herzkrankheit": "coronary-ct-angiography-cad",
-  "primarer-hyperparathyreoidismus": "calcium-pth-phpt",
-  "renale-arterienstenose": "renal-artery-duplex-ras",
-  "schilddrusenknoten-malignitatsrisiko": "thyroid-fna-bethesda",
-};
+async function ensurePhysicalFindings(): Promise<PhysicalFinding[]> {
+  if (physicalFindings.length > 0) return physicalFindings;
+  physicalFindingsPromise ??= import("./data/physical-findings.json").then(
+    (module) => module.default as PhysicalFinding[],
+  );
+  physicalFindings = await physicalFindingsPromise;
+  return physicalFindings;
+}
 
 let state: CalculatorState = loadState();
 let lastFocusBeforeDrawer: HTMLElement | null = null;
 let selectedCatalogRowKey = "";
 let catalogFiltersLoaded = false;
+let renderFrame: number | null = null;
+let resizeFrame: number | null = null;
+let catalogPage = 0;
+const CATALOG_PAGE_SIZE = 50;
 const CATALOG_FILTER_KEY = "likelihood-ratio-rechner-catalog-filters-v1";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -144,12 +152,12 @@ app.innerHTML = `
       </section>
     </header>
 
-    <nav class="mode-tabs" aria-label="Rechner-Modus">
-      <button id="diagnosticModeTab" type="button" data-mode-tab="diagnostic-tests">Diagnostische Tests</button>
-      <button id="physicalModeTab" type="button" data-mode-tab="physical-exam">Körperliche Untersuchung</button>
+    <nav class="mode-tabs" role="tablist" aria-label="Rechner-Modus">
+      <button id="diagnosticModeTab" type="button" role="tab" aria-controls="calculatorGrid" data-mode-tab="diagnostic-tests">Diagnostische Tests</button>
+      <button id="physicalModeTab" type="button" role="tab" aria-controls="physicalExamGrid" data-mode-tab="physical-exam">Körperliche Untersuchung</button>
     </nav>
 
-    <section class="calculator-grid" id="calculatorGrid" aria-label="Likelihood-Ratio-Rechner">
+    <section class="calculator-grid" id="calculatorGrid" role="tabpanel" aria-labelledby="diagnosticModeTab">
       <div class="calculator-column calculator-column-primary">
       <section class="card settings-card" aria-labelledby="settingsTitle">
         <h2 id="settingsTitle">Rechner</h2>
@@ -205,8 +213,11 @@ app.innerHTML = `
         <p class="message hidden" id="actionMessage" role="status"></p>
       </section>
 
-      <section class="card" id="resultsCard" aria-labelledby="resultsTitle" aria-live="polite">
-        <h2 id="resultsTitle">Ergebnisse</h2>
+      <section class="card" id="resultsCard" aria-labelledby="resultsTitle">
+        <div class="section-heading-row compact-heading">
+          <h2 id="resultsTitle">Ergebnisse</h2>
+          <span class="calculation-mode-badge" id="calculationModeBadge">Bayes-Berechnung</span>
+        </div>
         <div class="bars">
           <div>
             <div class="bar-heading"><span>Prätest</span><span id="pretestValue">–</span></div>
@@ -221,7 +232,9 @@ app.innerHTML = `
             <div class="bar-track" aria-hidden="true"><div class="bar negative" id="postNegativeBar"></div></div>
           </div>
         </div>
+        <div class="calculation-unavailable hidden" id="calculationUnavailable"></div>
         <div class="interpretation" id="interpretation">–</div>
+        <div class="uncertainty-summary hidden" id="uncertaintySummary"></div>
         <div class="cohort-explanation" id="cohortExplanation"></div>
         <div class="modifier-impact hidden" id="resultModifierImpact"></div>
       </section>
@@ -240,13 +253,14 @@ app.innerHTML = `
         <div class="nomogram-panels">
           <section class="nomogram-panel" aria-labelledby="nomogramPositiveTitle">
             <h3 id="nomogramPositiveTitle">Positives Testergebnis (LR+)</h3>
-            <canvas id="nomogramPositive" width="720" height="405" aria-label="Fagan-Nomogramm für positives Testergebnis"></canvas>
+            <canvas id="nomogramPositive" width="720" height="405" aria-label="Fagan-Nomogramm für positives Testergebnis">Prätestwahrscheinlichkeit, LR+ und Posttestwahrscheinlichkeit werden zusätzlich in der Ergebniskarte als Text angezeigt.</canvas>
           </section>
           <section class="nomogram-panel" aria-labelledby="nomogramNegativeTitle">
             <h3 id="nomogramNegativeTitle">Negatives Testergebnis (LR−)</h3>
-            <canvas id="nomogramNegative" width="720" height="405" aria-label="Fagan-Nomogramm für negatives Testergebnis"></canvas>
+            <canvas id="nomogramNegative" width="720" height="405" aria-label="Fagan-Nomogramm für negatives Testergebnis">Prätestwahrscheinlichkeit, LR− und Posttestwahrscheinlichkeit werden zusätzlich in der Ergebniskarte als Text angezeigt.</canvas>
           </section>
         </div>
+        <div class="calculation-unavailable hidden" id="nomogramUnavailable"></div>
         <div class="modifier-impact hidden" id="nomogramModifierImpact"></div>
         <div class="nomogram-guide">
           <h3>Nomogramm interpretieren</h3>
@@ -287,7 +301,7 @@ app.innerHTML = `
       </div>
     </section>
 
-    <section class="calculator-grid hidden" id="physicalExamGrid" aria-label="Likelihood-Ratio-Rechner für körperliche Untersuchung">
+    <section class="calculator-grid hidden" id="physicalExamGrid" role="tabpanel" aria-labelledby="physicalModeTab">
       <div class="calculator-column calculator-column-primary">
         <section class="card settings-card" aria-labelledby="physicalSettingsTitle">
           <h2 id="physicalSettingsTitle">Körperliche Untersuchung</h2>
@@ -320,7 +334,7 @@ app.innerHTML = `
           <p class="message hidden" id="physicalActionMessage" role="status"></p>
         </section>
 
-        <section class="card" id="physicalResultsCard" aria-labelledby="physicalResultsTitle" aria-live="polite">
+        <section class="card" id="physicalResultsCard" aria-labelledby="physicalResultsTitle">
           <h2 id="physicalResultsTitle">Ergebnisse</h2>
           <div class="bars">
             <div>
@@ -461,6 +475,11 @@ app.innerHTML = `
             </thead>
             <tbody id="catalogTableBody"></tbody>
           </table>
+        </div>
+        <div class="catalog-pagination" aria-label="Seitennavigation des Datenkatalogs">
+          <button id="catalogPreviousPageButton" type="button">Zurück</button>
+          <span id="catalogPageStatus"></span>
+          <button id="catalogNextPageButton" type="button">Weiter</button>
         </div>
         <aside id="catalogDetailPanel" class="catalog-detail-panel" aria-live="polite"></aside>
         <div class="button-row">
@@ -621,11 +640,15 @@ const controls = {
   postPositiveBar: $("postPositiveBar"),
   postNegativeBar: $("postNegativeBar"),
   interpretation: $("interpretation"),
+  uncertaintySummary: $("uncertaintySummary"),
+  calculationUnavailable: $("calculationUnavailable"),
+  calculationModeBadge: $("calculationModeBadge"),
   cohortExplanation: $("cohortExplanation"),
   decisionModifierCard: $("decisionModifierCard"),
   decisionModifierContent: $("decisionModifierContent"),
   resultModifierImpact: $("resultModifierImpact"),
   nomogramModifierImpact: $("nomogramModifierImpact"),
+  nomogramUnavailable: $("nomogramUnavailable"),
   calculatorGrid: $("calculatorGrid"),
   resultsCard: $("resultsCard"),
   nomogramCard: $("nomogramCard"),
@@ -664,6 +687,9 @@ const controls = {
   ),
   markCatalogReviewedButton: $<HTMLButtonElement>("markCatalogReviewedButton"),
   catalogTableBody: $("catalogTableBody"),
+  catalogPreviousPageButton: $<HTMLButtonElement>("catalogPreviousPageButton"),
+  catalogNextPageButton: $<HTMLButtonElement>("catalogNextPageButton"),
+  catalogPageStatus: $("catalogPageStatus"),
   catalogDetailPanel: $("catalogDetailPanel"),
   adminOverview: $("adminOverview"),
   profileTestSelect: $<HTMLSelectElement>("profileTestSelect"),
@@ -693,6 +719,14 @@ const physicalControls = {
   details: $("physicalDetails"),
   actionMessage: $("physicalActionMessage"),
 };
+
+window.addEventListener("likelihoodmd-storage-error", () => {
+  setMessage(
+    controls.actionMessage,
+    "Lokale Änderungen konnten wegen begrenztem Gerätespeicher nicht gespeichert werden. Bitte Daten exportieren und nicht benötigte lokale Vorschläge entfernen.",
+    true,
+  );
+});
 
 function allTests(): DiagnosticTest[] {
   return [...curatedTests, ...state.customTests];
@@ -946,6 +980,8 @@ function modifierPreviewProbability(
           testId: "modifier-preview",
           label: "Modifier preview",
           kind: "custom",
+          calculationMode: "binary-lr",
+          lrDerivation: "reported",
           method: "Modifier preview",
           cutoff: "Modifier preview",
           sensitivity: null,
@@ -1141,7 +1177,11 @@ function uniqueId(prefix: string): string {
 
 function saveAndRender(): void {
   saveState(state);
-  render();
+  if (renderFrame != null) return;
+  renderFrame = window.requestAnimationFrame(() => {
+    renderFrame = null;
+    render();
+  });
 }
 
 function populateSelect(
@@ -1170,6 +1210,7 @@ function conditionGroupLabel(
     "chronische-nierenkrankheit",
     "glomerulonephritis",
     "obstruktive-koronare-herzkrankheit",
+    "akutes-koronarsyndrom-myokardschaden",
     "renale-arterienstenose",
   ].includes(condition.id)
     ? "Internistisch"
@@ -1202,14 +1243,11 @@ function populateConditionSelect(
 
 function orderedTestsForCondition(conditionId: string): DiagnosticTest[] {
   const preferredId = DEFAULT_TEST_BY_CONDITION[conditionId];
-  return [...allTests()].sort((a, b) => {
+  return allTests().filter((test) => testMatchesCondition(test, conditionId)).sort((a, b) => {
     const aPreferred = a.id === preferredId ? 0 : 1;
     const bPreferred = b.id === preferredId ? 0 : 1;
-    const aMatch = testMatchesCondition(a, conditionId) ? 0 : 1;
-    const bMatch = testMatchesCondition(b, conditionId) ? 0 : 1;
     return (
       aPreferred - bPreferred ||
-      aMatch - bMatch ||
       a.name.localeCompare(b.name, "de")
     );
   });
@@ -1240,7 +1278,7 @@ function populateSelectors(): void {
     controls.testSelect,
     orderedTests.map((test) => ({
       value: test.id,
-      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? "Standard: " : ""}${selectedTestMatchesCondition(test) ? "" : "Nicht passend: "}${test.custom ? "Eigener Test: " : ""}${test.name}`,
+      label: `${test.id === DEFAULT_TEST_BY_CONDITION[selectedCondition.id] ? "Standard: " : ""}${test.custom ? "Eigener Test: " : ""}${test.name}`,
     })),
     selectedTest.id,
   );
@@ -1511,14 +1549,6 @@ function renderPretestStatus(resolution: PretestResolution): void {
   controls.pretestSuggestionHint.textContent = "";
 }
 
-function formatPercentRange(range: [number, number] | null): string {
-  if (!range) return "nicht hinterlegt";
-  const [low, high] = range;
-  return low === high
-    ? `${low.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`
-    : `${low.toLocaleString("de-DE", { maximumFractionDigits: 1 })}–${high.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`;
-}
-
 function createEstimateAlert(
   text: string,
   severity: "moderate" | "high" = "moderate",
@@ -1539,16 +1569,10 @@ function createEstimateDetails(
 }
 
 function renderPretestEstimatePanel(
-  resolution: PretestEstimateResolution,
+  assumption: PretestAssumption,
+  profile: EvidenceProfile,
 ): void {
   controls.pretestEstimatePanel.textContent = "";
-  const estimate = resolution.estimate;
-  if (!estimate) {
-    controls.pretestEstimatePanel.classList.add("is-empty");
-    controls.pretestEstimatePanel.textContent =
-      "Erweiterte Prätest-Datenbasis: noch nicht hinterlegt.";
-    return;
-  }
   controls.pretestEstimatePanel.classList.remove("is-empty");
 
   const heading = document.createElement("div");
@@ -1556,22 +1580,29 @@ function renderPretestEstimatePanel(
   const title = document.createElement("strong");
   title.textContent = "Prätest-Datenbasis";
   const confidence = document.createElement("span");
-  confidence.className = `quality-pill quality-${estimate.evidenceQuality.charAt(0).toLowerCase()}`;
-  confidence.textContent = resolution.confidenceLabel;
+  confidence.className = `quality-pill quality-${assumption.evidenceQuality}`;
+  confidence.textContent = qualityLabel(assumption.evidenceQuality);
   heading.append(title, confidence);
 
   const grid = document.createElement("div");
   grid.className = "estimate-meta-grid";
   const rows: Array<[string, string]> = [
-    ["Setting", estimate.setting],
+    ["Setting", assumption.setting],
+    ["Basis", formatPercent(assumption.probability)],
     [
-      "Basis",
-      resolution.baseProbability != null
-        ? `${resolution.baseProbability.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`
-        : "nicht als Einzelwert hinterlegt",
+      "Spanne",
+      assumption.rangeLow != null && assumption.rangeHigh != null
+        ? `${formatPercent(assumption.rangeLow)}–${formatPercent(assumption.rangeHigh)}`
+        : "nicht hinterlegt",
     ],
-    ["Spanne", formatPercentRange(resolution.probabilityRange)],
-    ["Anpassung", resolution.qualitativeAdjustedRisk],
+    [
+      "Herkunft",
+      assumption.evidenceLevel === "direct"
+        ? "direkte Setting-Annahme"
+        : assumption.evidenceLevel === "fallback"
+          ? "allgemeine Arbeitsannahme"
+          : "manuelle Einschätzung",
+    ],
   ];
   rows.forEach(([label, value]) => {
     const labelElement = document.createElement("span");
@@ -1583,70 +1614,45 @@ function renderPretestEstimatePanel(
 
   const note = document.createElement("p");
   note.className = "muted compact-note";
-  note.textContent = estimate.qualityNote;
+  note.textContent = `${assumption.rationale} Grenzen: ${assumption.limitations}`;
 
   const modifierWrap = document.createElement("div");
   modifierWrap.className = "estimate-chip-row";
-  const modifiersToShow = estimate.modifiers.slice(0, 6);
+  const modifiersToShow = selectedModifiers().slice(0, 6);
   modifiersToShow.forEach((modifier) => {
     const chip = document.createElement("span");
     chip.className = `estimate-chip ${modifier.direction}`;
-    const effect = modifier.approximateEffect
-      ? ` · ${modifier.approximateEffect}`
-      : "";
-    chip.textContent = `${modifier.factor}${effect}`;
+    chip.textContent = `${modifier.label} · ${directionLabel(modifier.direction)}`;
     modifierWrap.append(chip);
   });
 
-  const issues = estimate.preanalyticalIssues
-    .filter((issue) => issue.severity === "high")
-    .slice(0, 3);
-  const medications = estimate.medicationInterferences
-    .filter((medication) => medication.severity === "high")
-    .slice(0, 3);
   const highWarningWrap = document.createElement("div");
   highWarningWrap.className = "estimate-warning-list";
-  issues.forEach((issue) =>
+  (profile.preanalytics ?? []).forEach((issue) =>
     highWarningWrap.append(
       createEstimateAlert(
-        `${issue.issue}: ${issue.effect}${issue.mitigation ? ` ${issue.mitigation}` : ""}`,
-        "high",
+        issue,
+        profile.preanalyticRisk === "high" ? "high" : "moderate",
       ),
     ),
   );
-  medications.forEach((medication) =>
+  (profile.medicationInterferences ?? []).forEach((medication) =>
     highWarningWrap.append(
-      createEstimateAlert(
-        `${medication.medicationOrClass}: ${medication.effect}${medication.mitigation ? ` ${medication.mitigation}` : ""}`,
-        "high",
-      ),
+      createEstimateAlert(medication, "high"),
     ),
   );
-  const moderateWarnings = resolution.activeWarnings
-    .filter(
-      (warning) =>
-        warning !==
-        "Diese Angaben sind didaktische Entscheidungsunterstützung, keine Diagnose.",
-    )
-    .slice(0, 2);
   const moderateWarningWrap = document.createElement("div");
   moderateWarningWrap.className = "estimate-warning-list";
-  resolution.activeWarnings
-    .filter(
-      (warning) =>
-        warning !==
-        "Diese Angaben sind didaktische Entscheidungsunterstützung, keine Diagnose.",
-    )
-    .slice(0, 2)
-    .forEach((warning) =>
-      moderateWarningWrap.append(createEstimateAlert(warning, "moderate")),
+  if (profile.applicabilityWarning)
+    moderateWarningWrap.append(
+      createEstimateAlert(profile.applicabilityWarning, "moderate"),
     );
 
   const detailCount =
     1 +
     modifiersToShow.length +
-    moderateWarnings.length +
-    resolution.sources.length;
+    (profile.applicabilityWarning ? 1 : 0) +
+    assumption.sources.length;
   const contextDetails = createEstimateDetails(
     "context",
     `! Kontext zur Prätest-Datenbasis anzeigen (${detailCount})`,
@@ -1665,12 +1671,16 @@ function renderPretestEstimatePanel(
   const sourcesDetails = document.createElement("details");
   sourcesDetails.className = "estimate-sources";
   const summary = document.createElement("summary");
-  summary.textContent = `Quellen (${resolution.sources.length})`;
+  const sources = [...assumption.sources, ...profile.sources].filter(
+    (source, index, items) =>
+      items.findIndex((candidate) => candidate.url === source.url) === index,
+  );
+  summary.textContent = `Quellen (${sources.length})`;
   const sourceList = document.createElement("ul");
-  resolution.sources.forEach((source) => {
+  sources.forEach((source) => {
     const item = document.createElement("li");
     const link = document.createElement("a");
-    link.href = source.url ?? "#";
+    link.href = source.url;
     link.target = "_blank";
     link.rel = "noreferrer";
     link.textContent = `${source.title}${source.year ? ` (${source.year})` : ""}`;
@@ -1683,7 +1693,9 @@ function renderPretestEstimatePanel(
   sourcesDetails.append(summary, sourceList);
   contextDetails.append(sourcesDetails);
 
-  const highWarningCount = issues.length + medications.length;
+  const highWarningCount =
+    (profile.preanalytics?.length ?? 0) +
+    (profile.medicationInterferences?.length ?? 0);
   const interferenceDetails = createEstimateDetails(
     "interference",
     `⚠ Wichtige Interferenzen anzeigen (${highWarningCount})`,
@@ -1698,7 +1710,7 @@ function renderPretestEstimatePanel(
     controls.pretestEstimatePanel.append(interferenceDetails);
 }
 
-function renderModifierSelector(result: CalculationResult): void {
+function renderModifierSelector(pretestProbability: number): void {
   const modifiers = modifiersForCondition(state.selectedConditionId);
   const visibleModifiers = state.modifierListExpanded
     ? modifiers
@@ -1736,7 +1748,7 @@ function renderModifierSelector(result: CalculationResult): void {
     : "Mehr anzeigen";
 
   const preview = modifierPreviewProbability(
-    result.pretestProbability,
+    pretestProbability,
     selected,
   );
   const qualitative = selected.filter(
@@ -1812,85 +1824,6 @@ function renderModifierImpact(
   return impact;
 }
 
-function reconstructedSensitivitySpecificity(
-  lrPositive: number,
-  lrNegative: number,
-): { sensitivity: number; specificity: number } | null {
-  if (!Number.isFinite(lrPositive) || !Number.isFinite(lrNegative)) return null;
-  if (lrPositive <= 1 || lrNegative >= 1 || lrPositive <= lrNegative)
-    return null;
-  const specificity = (lrPositive - 1) / (lrPositive - lrNegative);
-  const sensitivity = lrPositive * (1 - specificity);
-  if (
-    sensitivity <= 0 ||
-    sensitivity >= 1 ||
-    specificity <= 0 ||
-    specificity >= 1
-  )
-    return null;
-  return { sensitivity, specificity };
-}
-
-function testPerformanceForCohort(
-  profile: EvidenceProfile,
-  result: CalculationResult,
-): { sensitivity: number; specificity: number; estimated: boolean } | null {
-  if (profile.sensitivity != null && profile.specificity != null) {
-    return {
-      sensitivity: profile.sensitivity,
-      specificity: profile.specificity,
-      estimated: false,
-    };
-  }
-  const reconstructed = reconstructedSensitivitySpecificity(
-    result.lrPositive,
-    result.lrNegative,
-  );
-  if (!reconstructed) return null;
-  return { ...reconstructed, estimated: true };
-}
-
-function roundedCount(value: number): number {
-  return Math.max(0, Math.min(1000, Math.round(value)));
-}
-
-function formatCount(value: number): string {
-  return value.toLocaleString("de-DE", { maximumFractionDigits: 0 });
-}
-
-function cohortExplanationParts(
-  profile: EvidenceProfile,
-  result: CalculationResult,
-  positiveLabel: string,
-  negativeLabel: string,
-): {
-  estimated: boolean;
-  title: string;
-  positive: string;
-  negative: string;
-} | null {
-  const performance = testPerformanceForCohort(profile, result);
-  if (!performance) return null;
-
-  const diseased = roundedCount(result.pretestProbability * 1000);
-  const notDiseased = 1000 - diseased;
-  const truePositive = roundedCount(diseased * performance.sensitivity);
-  const falsePositive = roundedCount(
-    notDiseased * (1 - performance.specificity),
-  );
-  const falseNegative = Math.max(0, diseased - truePositive);
-  const trueNegative = Math.max(0, notDiseased - falsePositive);
-  const note = performance.estimated
-    ? " Geschätzt aus LR+/LR−, weil Sensitivität/Spezifität nicht separat hinterlegt sind."
-    : "";
-  return {
-    estimated: performance.estimated,
-    title: "Anschaulich bei 1000 ähnlichen Patienten",
-    positive: `Etwa ${formatCount(diseased)} hätten die Erkrankung. Bei ${positiveLabel} wären etwa ${formatCount(truePositive)} richtig positiv und ${formatCount(falsePositive)} falsch positiv.`,
-    negative: `Bei ${negativeLabel} wären etwa ${formatCount(trueNegative)} richtig negativ und ${formatCount(falseNegative)} falsch negativ.${note}`,
-  };
-}
-
 function renderCohortExplanation(
   element: HTMLElement,
   profile: EvidenceProfile,
@@ -1908,11 +1841,11 @@ function renderCohortExplanation(
   if (!explanation) {
     element.className = "cohort-explanation warning";
     element.textContent =
-      "Für eine 1000er-Erklärung fehlen Sensitivität/Spezifität; aus den vorhandenen LR-Werten lässt sich keine plausible Näherung ableiten.";
+      "Für eine belastbare 1000er-Erklärung müssen Sensitivität und Spezifität direkt für diese Population und diesen Cut-off hinterlegt sein.";
     return;
   }
 
-  element.className = `cohort-explanation${explanation.estimated ? " estimated" : ""}`;
+  element.className = "cohort-explanation";
   const title = document.createElement("strong");
   title.textContent = explanation.title;
   const positive = document.createElement("p");
@@ -2016,7 +1949,8 @@ function renderDetails(
   test: DiagnosticTest,
   profile: EvidenceProfile,
   assumption: PretestAssumption,
-  result: CalculationResult,
+  result: CalculationResult | null,
+  pretestProbability: number,
   pretestResolution: PretestResolution,
 ): void {
   const selectedCondition = getSelectedCondition();
@@ -2057,12 +1991,13 @@ function renderDetails(
     ["Interpretation", joinedList(profile.interpretationCautions)],
     ["Sensitivität", formatPercent(profile.sensitivity)],
     ["Spezifität", formatPercent(profile.specificity)],
-    ["PPV", formatPercent(result.ppv)],
-    ["NPV", formatPercent(result.npv)],
+    ["Berechnungsart", profile.calculationMode === "binary-lr" ? "Bayes-Berechnung" : profile.calculationMode === "categorical" ? "Kategorische Risikoklassifikation" : "Klinischer Workflow"],
+    ["PPV", result ? formatPercent(result.ppv) : "nicht berechenbar"],
+    ["NPV", result ? formatPercent(result.npv) : "nicht berechenbar"],
     ["Prätest-Setting", assumption.setting],
     [
       "Aktuell verwendete Prätestwahrscheinlichkeit",
-      formatPercent(result.pretestProbability),
+      formatPercent(pretestProbability),
     ],
     [
       "Vorgeschlagene Prätestwahrscheinlichkeit",
@@ -2275,7 +2210,9 @@ function renderAdminOverview(): void {
         ],
         [
           "LR+ / LR−",
-          `${formatRatio(result.lrPositive)} / ${formatRatio(result.lrNegative)}`,
+          result
+            ? `${formatRatio(result.lrPositive)} / ${formatRatio(result.lrNegative)}`
+            : "nicht binär berechenbar",
         ],
         ["Population", profile.population],
         ["Begründung", profile.rationale],
@@ -2580,10 +2517,10 @@ function catalogRows(): CatalogRow[] {
     const assumptionsForRows =
       assumptions.length > 0 ? assumptions : [undefined];
     return assumptionsForRows.map((assumption) => {
-      const result = assumption
-        ? calculateResult(profile, assumption.probability)
+      const outcome = assumption
+        ? calculateProfileOutcome(profile, assumption.probability)
         : null;
-      const ratios = resolveLikelihoodRatios(profile);
+      const result = outcome?.status === "computed" ? outcome.result : null;
       const cells = [
         "Test / Evidenzprofil",
         test.condition,
@@ -2595,8 +2532,8 @@ function catalogRows(): CatalogRow[] {
         profile.cutoff,
         formatPercent(profile.sensitivity),
         formatPercent(profile.specificity),
-        formatRatio(ratios.lrPositive),
-        formatRatio(ratios.lrNegative),
+        formatRatio(result?.lrPositive ?? profile.lrPositive ?? null),
+        formatRatio(result?.lrNegative ?? profile.lrNegative ?? null),
         result
           ? `${formatPercent(result.ppv)} / ${formatPercent(result.npv)}`
           : "–",
@@ -2631,8 +2568,8 @@ function catalogRows(): CatalogRow[] {
           condition: test.condition,
           setting: settingLabelForId(assumption?.settingId, ""),
           test: test.name,
-          lrPositive: ratios.lrPositive,
-          lrNegative: ratios.lrNegative,
+          lrPositive: result?.lrPositive ?? profile.lrPositive ?? null,
+          lrNegative: result?.lrNegative ?? profile.lrNegative ?? null,
           reviewStatus: profile.reviewStatus,
         },
         detail: {
@@ -2653,14 +2590,6 @@ function catalogRows(): CatalogRow[] {
     const system = physicalSystems.find(
       (candidate) => candidate.id === finding.systemId,
     );
-    const midpointPretest =
-      clampProbabilityPercent(
-        (finding.pretestRange.low + finding.pretestRange.high) / 2,
-      ) / 100;
-    const result = calculateResult(
-      physicalProfileFromFinding(finding),
-      midpointPretest,
-    );
     const source = `${finding.source.title}; ${finding.source.sourceBox}; S. ${finding.source.sourcePage}`;
     const cells = [
       "Körperlicher Befund",
@@ -2675,12 +2604,12 @@ function catalogRows(): CatalogRow[] {
       "–",
       formatPhysicalLr(finding.lrPositive),
       formatPhysicalLr(finding.lrNegative),
-      `${formatPercent(result.ppv)} / ${formatPercent(result.npv)} bei Bereichsmitte`,
+      "nicht berichtet",
       reviewLabel(finding.reviewStatus),
       "moderate",
       "partial",
       source,
-      `${finding.limitations} Originalbezeichnung: ${finding.originalFindingLabel}. ${finding.reviewNote ?? ""}`,
+      `${finding.limitations} ${finding.reviewNote ?? ""}`,
     ];
     return {
       key: `physical-finding:${finding.id}`,
@@ -2697,7 +2626,6 @@ function catalogRows(): CatalogRow[] {
       cells,
       searchText: textSearchValue([
         cells,
-        finding.originalFindingLabel,
         finding.source.note,
       ]),
       sortValues: {
@@ -2758,14 +2686,21 @@ function renderDataCatalog(): void {
     ),
     (controls.catalogSortSelect.value || "condition") as CatalogSortKey,
   );
+  const pageCount = Math.max(1, Math.ceil(rows.length / CATALOG_PAGE_SIZE));
+  catalogPage = Math.min(catalogPage, pageCount - 1);
+  const pageRows = rows.slice(
+    catalogPage * CATALOG_PAGE_SIZE,
+    (catalogPage + 1) * CATALOG_PAGE_SIZE,
+  );
   if (
     selectedCatalogRowKey &&
-    !rows.some((row) => row.key === selectedCatalogRowKey)
+    !pageRows.some((row) => row.key === selectedCatalogRowKey)
   )
     selectedCatalogRowKey = "";
-  if (!selectedCatalogRowKey && rows[0]) selectedCatalogRowKey = rows[0].key;
+  if (!selectedCatalogRowKey && pageRows[0])
+    selectedCatalogRowKey = pageRows[0].key;
   controls.catalogTableBody.textContent = "";
-  rows.forEach((row) => {
+  pageRows.forEach((row) => {
     const tr = document.createElement("tr");
     tr.dataset.kind = row.kind;
     tr.dataset.id = row.id;
@@ -2817,8 +2752,11 @@ function renderDataCatalog(): void {
     tr.append(td);
     controls.catalogTableBody.append(tr);
   }
+  controls.catalogPageStatus.textContent = `${rows.length} Einträge · Seite ${catalogPage + 1} von ${pageCount}`;
+  controls.catalogPreviousPageButton.disabled = catalogPage === 0;
+  controls.catalogNextPageButton.disabled = catalogPage >= pageCount - 1;
   renderCatalogDetail(
-    rows.find((row) => row.key === selectedCatalogRowKey) ?? rows[0],
+    pageRows.find((row) => row.key === selectedCatalogRowKey) ?? pageRows[0],
   );
 }
 
@@ -3053,6 +2991,44 @@ function describeResult(result: CalculationResult): string {
   return `Ein positives Ergebnis zeigt einen ${ruleIn}en Rule-in-Effekt (${formatPercent(gain)} absolute Zunahme). Ein negatives Ergebnis zeigt einen ${ruleOut}en Rule-out-Effekt (${formatPercent(drop)} absolute Abnahme).`;
 }
 
+function renderPosttestUncertainty(
+  profile: EvidenceProfile,
+  assumption: PretestAssumption,
+  result: CalculationResult,
+): void {
+  const usesSuggestedPretest =
+    Math.abs(result.pretestProbability - assumption.probability) < 0.0005;
+  const pretestLow = usesSuggestedPretest
+    ? assumption.rangeLow ?? result.pretestProbability
+    : result.pretestProbability;
+  const pretestHigh = usesSuggestedPretest
+    ? assumption.rangeHigh ?? result.pretestProbability
+    : result.pretestProbability;
+  const positiveLow = profile.lrPositiveInterval?.low ?? result.lrPositive;
+  const positiveHigh = profile.lrPositiveInterval?.high ?? result.lrPositive;
+  const negativeLow = profile.lrNegativeInterval?.low ?? result.lrNegative;
+  const negativeHigh = profile.lrNegativeInterval?.high ?? result.lrNegative;
+  const hasRange =
+    (usesSuggestedPretest && assumption.rangeLow != null) ||
+    (usesSuggestedPretest && assumption.rangeHigh != null) ||
+    profile.lrPositiveInterval != null ||
+    profile.lrNegativeInterval != null;
+  controls.uncertaintySummary.classList.toggle("hidden", !hasRange);
+  if (!hasRange) {
+    controls.uncertaintySummary.textContent = "";
+    return;
+  }
+  const postPositiveLow = posttestProbability(pretestLow, positiveLow);
+  const postPositiveHigh = posttestProbability(pretestHigh, positiveHigh);
+  const postNegativeLow = posttestProbability(pretestLow, negativeLow);
+  const postNegativeHigh = posttestProbability(pretestHigh, negativeHigh);
+  controls.uncertaintySummary.textContent =
+    `Unsicherheitsbereich aus hinterlegter Prätestspanne und verfügbaren LR-Intervallen: ` +
+    `positives Ergebnis ${formatPercent(Math.min(postPositiveLow, postPositiveHigh))}–${formatPercent(Math.max(postPositiveLow, postPositiveHigh))}; ` +
+    `negatives Ergebnis ${formatPercent(Math.min(postNegativeLow, postNegativeHigh))}–${formatPercent(Math.max(postNegativeLow, postNegativeHigh))}. ` +
+    `Die Grenzen sind keine individuelle Konfidenzgarantie.`;
+}
+
 function drawNomogram(result: CalculationResult): void {
   const impact = modifierImpact(getSelectedProfile(), result);
   drawNomogramCanvases(
@@ -3065,24 +3041,37 @@ function drawNomogram(result: CalculationResult): void {
   );
 }
 
+function clearNomogram(): void {
+  [controls.nomogramPositive, controls.nomogramNegative].forEach((canvas) => {
+    const context = canvas.getContext("2d");
+    context?.clearRect(0, 0, canvas.width, canvas.height);
+  });
+}
+
 function currentCalculation(): {
   test: DiagnosticTest;
   profile: EvidenceProfile;
   assumption: PretestAssumption;
   pretestResolution: PretestResolution;
-  result: CalculationResult;
+  pretestProbability: number;
+  result: CalculationResult | null;
+  notComputableReason?: string;
 } {
   const test = getSelectedTest();
   const profile = getSelectedProfile();
   const pretestResolution = resolvePretestAssumption();
   const manualProbability =
     clampProbabilityPercent(state.manualPretestPercent) / 100;
+  const outcome = calculateProfileOutcome(profile, manualProbability);
   return {
     test,
     profile,
     assumption: pretestResolution.assumption,
     pretestResolution,
-    result: calculateResult(profile, manualProbability),
+    pretestProbability: manualProbability,
+    result: outcome.status === "computed" ? outcome.result : null,
+    notComputableReason:
+      outcome.status === "not-computable" ? outcome.reason : undefined,
   };
 }
 
@@ -3136,17 +3125,24 @@ function ensurePhysicalSelection(): void {
 }
 
 function physicalProfileFromFinding(finding: PhysicalFinding): EvidenceProfile {
+  const hasBothRatios =
+    finding.lrPositive.value != null && finding.lrNegative.value != null;
   return {
     id: `physical-${finding.id}`,
     testId: "physical-exam",
     label: finding.findingLabel,
     kind: "curated",
+    calculationMode: hasBothRatios ? "binary-lr" : "workflow-only",
+    lrDerivation: hasBothRatios ? "reported" : undefined,
+    nonComputableReason: hasBothRatios
+      ? undefined
+      : "Für mindestens eine Befundrichtung wurde keine Likelihood-Ratio berichtet.",
     method: "Körperlicher Untersuchungsbefund",
     cutoff: finding.positiveCriterion,
     sensitivity: null,
     specificity: null,
-    lrPositive: finding.lrPositive.value ?? 1,
-    lrNegative: finding.lrNegative.value ?? 1,
+    lrPositive: hasBothRatios ? finding.lrPositive.value! : undefined,
+    lrNegative: hasBothRatios ? finding.lrNegative.value! : undefined,
     population: `McGee-Prätestbereich: ${formatPhysicalPretestRange(finding)}.`,
     rationale:
       "Likelihood-Ratio eines körperlichen Untersuchungsbefunds aus McGee.",
@@ -3196,10 +3192,26 @@ function currentPhysicalCalculation(): {
     clampProbabilityPercent(
       state.physicalPretestPercent ?? finding.pretestRange.low,
     ) / 100;
+  const lrPositive = finding.lrPositive.value;
+  const lrNegative = finding.lrNegative.value;
   return {
     finding,
     condition,
-    result: calculateResult(physicalProfileFromFinding(finding), pretest),
+    result: {
+      pretestProbability: pretest,
+      lrPositive: lrPositive ?? Number.NaN,
+      lrNegative: lrNegative ?? Number.NaN,
+      postPositiveProbability:
+        lrPositive == null
+          ? Number.NaN
+          : posttestProbability(pretest, lrPositive),
+      postNegativeProbability:
+        lrNegative == null
+          ? Number.NaN
+          : posttestProbability(pretest, lrNegative),
+      ppv: null,
+      npv: null,
+    },
   };
 }
 
@@ -3283,8 +3295,8 @@ function renderPhysicalMain(): void {
   const gain = result.postPositiveProbability - result.pretestProbability;
   const drop = result.pretestProbability - result.postNegativeProbability;
   physicalControls.interpretation.textContent = `Für „${finding.findingLabel}“ bei ${condition.label}: Befund vorhanden verändert die Wahrscheinlichkeit um ${finding.lrPositive.value == null ? "nicht berechenbar" : formatPercent(gain)} absolut, Befund fehlend um ${finding.lrNegative.value == null ? "nicht berechenbar" : formatPercent(drop)} absolut.`;
-  physicalControls.findingHint.textContent = `${finding.source.sourceBox}, Referenzseite ${finding.source.sourcePage}. Original: ${finding.originalFindingLabel}.`;
-  physicalControls.details.innerHTML = "";
+  physicalControls.findingHint.textContent = `${finding.source.sourceBox}, Referenzseite ${finding.source.sourcePage}.`;
+  physicalControls.details.textContent = "";
   physicalControls.details.append(
     detailRow(
       "Körpersystem",
@@ -3303,14 +3315,31 @@ function renderPhysicalMain(): void {
     detailRow("Status", finding.reviewStatus),
     detailRow("Grenzen", finding.limitations),
   );
-  drawNomogramCanvases(
-    {
-      positive: physicalControls.nomogramPositive,
-      negative: physicalControls.nomogramNegative,
-    },
-    result,
-    { direction: "none" },
-  );
+  const clearCanvas = (canvas: HTMLCanvasElement): void => {
+    canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
+  };
+  if (finding.lrPositive.value != null) {
+    drawSingleNomogramOnCanvas(
+      physicalControls.nomogramPositive,
+      result,
+      finding.lrPositive.value,
+      result.postPositiveProbability,
+      "#167044",
+      "positive",
+      { direction: "none" },
+    );
+  } else clearCanvas(physicalControls.nomogramPositive);
+  if (finding.lrNegative.value != null) {
+    drawSingleNomogramOnCanvas(
+      physicalControls.nomogramNegative,
+      result,
+      finding.lrNegative.value,
+      result.postNegativeProbability,
+      "#b45309",
+      "negative",
+      { direction: "none" },
+    );
+  } else clearCanvas(physicalControls.nomogramNegative);
 }
 
 function renderMode(): void {
@@ -3324,57 +3353,107 @@ function renderMode(): void {
     String(!physicalMode),
   );
   controls.physicalModeTab.setAttribute("aria-selected", String(physicalMode));
+  controls.diagnosticModeTab.tabIndex = physicalMode ? -1 : 0;
+  controls.physicalModeTab.tabIndex = physicalMode ? 0 : -1;
 }
 
 function renderMain(): void {
   ensureSettingMatchesCondition(state.selectedConditionId);
+  if (!selectedTestMatchesCondition(getSelectedTest())) {
+    selectDefaultTestForCondition(state.selectedConditionId);
+  }
   populateSelectors();
-  const { test, profile, assumption, pretestResolution, result } =
-    currentCalculation();
+  const {
+    test,
+    profile,
+    assumption,
+    pretestResolution,
+    pretestProbability,
+    result,
+    notComputableReason,
+  } = currentCalculation();
   const pretestPercent = clampProbabilityPercent(
-    result.pretestProbability * 100,
+    pretestProbability * 100,
   );
   state.selectedEvidenceProfileId = profile.id;
   controls.pretestRange.value = String(pretestPercent);
   if (document.activeElement !== controls.pretestNumber) {
     controls.pretestNumber.value = formatPretestPercentInput(pretestPercent);
   }
-  controls.lrPositive.textContent = formatRatio(result.lrPositive);
-  controls.lrNegative.textContent = formatRatio(result.lrNegative);
-  controls.pretestValue.textContent = formatPercent(result.pretestProbability);
-  controls.postPositiveValue.textContent = formatPercent(
-    result.postPositiveProbability,
-  );
-  controls.postNegativeValue.textContent = formatPercent(
-    result.postNegativeProbability,
-  );
-  setBar(controls.pretestBar, result.pretestProbability);
-  setBar(controls.postPositiveBar, result.postPositiveProbability);
-  setBar(controls.postNegativeBar, result.postNegativeProbability);
-  controls.interpretation.textContent = describeResult(result);
-  renderCohortExplanation(
-    controls.cohortExplanation,
-    profile,
-    result,
-    "positivem Test",
-    "negativem Test",
-  );
+  controls.pretestValue.textContent = formatPercent(pretestProbability);
+  setBar(controls.pretestBar, pretestProbability);
+  const isComputable = result != null;
+  controls.calculationModeBadge.textContent = isComputable
+    ? "Bayes-Berechnung"
+    : profile.calculationMode === "categorical"
+      ? "Risikokategorie"
+      : "Klinischer Workflow";
+  controls.calculationModeBadge.className = `calculation-mode-badge mode-${profile.calculationMode}`;
+  controls.calculationUnavailable.classList.toggle("hidden", isComputable);
+  controls.nomogramUnavailable.classList.toggle("hidden", isComputable);
+  if (result) {
+    controls.lrPositive.textContent = formatRatio(result.lrPositive);
+    controls.lrNegative.textContent = formatRatio(result.lrNegative);
+    controls.postPositiveValue.textContent = formatPercent(
+      result.postPositiveProbability,
+    );
+    controls.postNegativeValue.textContent = formatPercent(
+      result.postNegativeProbability,
+    );
+    setBar(controls.postPositiveBar, result.postPositiveProbability);
+    setBar(controls.postNegativeBar, result.postNegativeProbability);
+    controls.interpretation.textContent = describeResult(result);
+    renderCohortExplanation(
+      controls.cohortExplanation,
+      profile,
+      result,
+      "positivem Test",
+      "negativem Test",
+    );
+    renderPosttestUncertainty(profile, assumption, result);
+    drawNomogram(result);
+  } else {
+    const modeLabel =
+      profile.calculationMode === "categorical"
+        ? "Kategorische Risikoklassifikation"
+        : "Klinischer Workflow";
+    const reason = notComputableReason ?? "Keine binäre Testgüte hinterlegt.";
+    controls.lrPositive.textContent = "–";
+    controls.lrNegative.textContent = "–";
+    controls.postPositiveValue.textContent = "–";
+    controls.postNegativeValue.textContent = "–";
+    setBar(controls.postPositiveBar, 0);
+    setBar(controls.postNegativeBar, 0);
+    controls.calculationUnavailable.textContent = `${modeLabel}: ${reason}`;
+    controls.nomogramUnavailable.textContent = `Kein Nomogramm: ${reason}`;
+    controls.interpretation.textContent =
+      "Dieses Verfahren wird als Kontext oder Ablauf dargestellt. Ohne belastbare binäre Likelihood-Ratios wird keine Posttestwahrscheinlichkeit berechnet.";
+    controls.cohortExplanation.className = "cohort-explanation warning";
+    controls.cohortExplanation.textContent =
+      "Keine 1000er-Veranschaulichung: Für dieses Profil liegt keine direkt anwendbare Sensitivität/Spezifität vor.";
+    controls.uncertaintySummary.classList.add("hidden");
+    controls.uncertaintySummary.textContent = "";
+    clearNomogram();
+  }
   renderScenarioBanner(profile);
   renderMismatchWarning(test);
   renderPretestStatus(pretestResolution);
-  renderPretestEstimatePanel(
-    getPretestEstimate(
-      state.selectedConditionId,
-      state.selectedSettingId,
-      selectedModifiers().map((modifier) => modifier.label),
-      [],
-      [],
-    ),
-  );
-  renderModifierSelector(result);
+  renderPretestEstimatePanel(assumption, profile);
+  renderModifierSelector(pretestProbability);
   renderDecisionModifiers();
-  renderModifierImpact(profile, result);
-  renderDetails(test, profile, assumption, result, pretestResolution);
+  if (result) renderModifierImpact(profile, result);
+  else {
+    controls.resultModifierImpact.classList.add("hidden");
+    controls.nomogramModifierImpact.classList.add("hidden");
+  }
+  renderDetails(
+    test,
+    profile,
+    assumption,
+    result,
+    pretestProbability,
+    pretestResolution,
+  );
   renderEvidence(profile, assumption, pretestResolution);
   renderConditionGuidance();
   const selectedChain =
@@ -3388,16 +3467,15 @@ function renderMain(): void {
           selectedChain,
           allTests(),
           allProfiles(),
-          result.pretestProbability,
+          pretestProbability,
         ),
       ].filter((chain): chain is NonNullable<typeof chain> => chain != null)
     : [];
   renderDiagnosticChains(
     controls.diagnosticChainsPanel,
     chainViewModels,
-    result.pretestProbability,
+    pretestProbability,
   );
-  drawNomogram(result);
 }
 
 function renderDrawer(): void {
@@ -3437,7 +3515,7 @@ function renderDrawer(): void {
 function render(): void {
   renderMode();
   renderMain();
-  renderPhysicalMain();
+  if (physicalFindings.length > 0) renderPhysicalMain();
   renderDrawer();
 }
 
@@ -3479,7 +3557,10 @@ function handleNomogramSizeToggle(): void {
   const expanded = controls.nomogramSizeToggle.checked;
   controls.calculatorGrid.classList.toggle("nomogram-focus", expanded);
   controls.nomogramCard.classList.toggle("is-focused", expanded);
-  window.requestAnimationFrame(() => drawNomogram(currentCalculation().result));
+  window.requestAnimationFrame(() => {
+    const result = currentCalculation().result;
+    if (result) drawNomogram(result);
+  });
   if (expanded) {
     controls.nomogramCard.scrollIntoView({
       block: "start",
@@ -3535,6 +3616,8 @@ function profileFromForm(kind: "custom" | "scenario"): EvidenceProfile {
       id: uniqueId("scenario-profile"),
       label: $<HTMLInputElement>("scenarioLabel").value.trim(),
       kind: "scenario",
+      calculationMode: "binary-lr",
+      lrDerivation: "derived",
       sensitivity,
       specificity,
       lrPositive: ratios.lrPositive,
@@ -3563,6 +3646,8 @@ function profileFromForm(kind: "custom" | "scenario"): EvidenceProfile {
     testId,
     label: $<HTMLInputElement>("profileLabel").value.trim(),
     kind: "custom",
+    calculationMode: "binary-lr",
+    lrDerivation: "derived",
     method: $<HTMLInputElement>("profileMethod").value.trim(),
     cutoff: $<HTMLInputElement>("profileCutoff").value.trim(),
     procedure: $<HTMLInputElement>("profileProcedure").value.trim(),
@@ -4037,8 +4122,8 @@ function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
     return;
   }
   if (kind === "pretest-gap") {
-    downloadJson("pretest-luecke-vorschlag-v5.json", {
-      schemaVersion: 5,
+    downloadJson("pretest-luecke-vorschlag-v6.json", {
+      schemaVersion: 6,
       type: "pretest-evidence-gap",
       gap: item as PretestEvidenceGap,
     });
@@ -4054,7 +4139,7 @@ function exportCatalogProposal(kind: CatalogRowKind, id: string): void {
     kind === "assumption" ? [proposal as PretestAssumption] : [],
     kind === "modifier" ? [proposal as ClinicalModifier] : [],
   );
-  downloadJson("likelihood-ratio-vorschlag-v5.json", payload);
+  downloadJson("likelihood-ratio-vorschlag-v6.json", payload);
   setMessage(controls.actionMessage, "JSON-Vorschlag exportiert.");
 }
 
@@ -4124,16 +4209,25 @@ function markSelectedCatalogReviewStatus(reviewStatus: ReviewStatus): void {
 }
 
 async function copySummary(): Promise<void> {
-  const { test, profile, assumption, pretestResolution, result } =
-    currentCalculation();
+  const {
+    test,
+    profile,
+    assumption,
+    pretestResolution,
+    pretestProbability,
+    result,
+    notComputableReason,
+  } = currentCalculation();
   const selectedCondition = getSelectedCondition();
   const selectedSetting = getSelectedSetting();
-  const cohortExplanation = cohortExplanationParts(
-    profile,
-    result,
-    "positivem Test",
-    "negativem Test",
-  );
+  const cohortExplanation = result
+    ? cohortExplanationParts(
+        profile,
+        result,
+        "positivem Test",
+        "negativem Test",
+      )
+    : null;
   const mismatch = selectedTestMatchesCondition(test)
     ? ""
     : `Warnung: Test für ${test.condition}, Prätestwahrscheinlichkeit für ${selectedCondition.label}.`;
@@ -4147,14 +4241,18 @@ async function copySummary(): Promise<void> {
       ? `Szenario-Begründung: ${profile.deviationReason ?? "–"}`
       : "",
     `Quellen: ${profile.sources.map((source) => `${source.title} (${source.year})`).join("; ")}`,
-    `Prätest: ${formatPercent(result.pretestProbability)} (${pretestResolution.title}; ${assumption.setting})`,
-    `LR+: ${formatRatio(result.lrPositive)} | LR−: ${formatRatio(result.lrNegative)}`,
-    `Posttest positiv: ${formatPercent(result.postPositiveProbability)}`,
-    `Posttest negativ: ${formatPercent(result.postNegativeProbability)}`,
-    `PPV: ${formatPercent(result.ppv)} | NPV: ${formatPercent(result.npv)}`,
-    cohortExplanation
+    `Prätest: ${formatPercent(pretestProbability)} (${pretestResolution.title}; ${assumption.setting})`,
+    result
+      ? `LR+: ${formatRatio(result.lrPositive)} | LR−: ${formatRatio(result.lrNegative)}`
+      : `Berechnungsart: ${profile.calculationMode === "categorical" ? "kategorische Risikoklassifikation" : "klinischer Workflow"}`,
+    result ? `Posttest positiv: ${formatPercent(result.postPositiveProbability)}` : `Keine Posttestberechnung: ${notComputableReason ?? "keine binären LR-Daten"}`,
+    result ? `Posttest negativ: ${formatPercent(result.postNegativeProbability)}` : "",
+    result ? `PPV: ${formatPercent(result.ppv)} | NPV: ${formatPercent(result.npv)}` : "",
+    result && cohortExplanation
       ? ""
-      : "Anschaulich bei 1000 ähnlichen Patienten: Für dieses Profil fehlen Sensitivität/Spezifität oder eine plausible LR-basierte Näherung.",
+      : result
+        ? "Anschaulich bei 1000 ähnlichen Patienten: Sensitivität und Spezifität sind für dieses Profil nicht direkt hinterlegt; deshalb wird keine scheinpräzise Hochrechnung erzeugt."
+        : "",
     cohortExplanation
       ? `${cohortExplanation.title}: ${cohortExplanation.positive} ${cohortExplanation.negative}`
       : "",
@@ -4233,9 +4331,10 @@ document.addEventListener("keydown", (event) => {
 document
   .querySelectorAll<HTMLButtonElement>("[data-admin-mode]")
   .forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       state.adminMode = button.dataset
         .adminMode as CalculatorState["adminMode"];
+      if (state.adminMode === "catalog") await ensurePhysicalFindings();
       renderDrawer();
     });
   });
@@ -4245,8 +4344,22 @@ controls.diagnosticModeTab.addEventListener("click", () => {
   saveAndRender();
 });
 controls.physicalModeTab.addEventListener("click", () => {
-  state.appMode = "physical-exam";
-  saveAndRender();
+  void ensurePhysicalFindings().then(() => {
+    state.appMode = "physical-exam";
+    saveAndRender();
+  });
+});
+[controls.diagnosticModeTab, controls.physicalModeTab].forEach((tab) => {
+  tab.addEventListener("keydown", (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const target =
+      event.key === 'ArrowLeft' || event.key === 'Home'
+        ? controls.diagnosticModeTab
+        : controls.physicalModeTab;
+    target.click();
+    target.focus();
+  });
 });
 physicalControls.systemSelect.addEventListener("change", () => {
   state.selectedPhysicalSystemId = physicalControls.systemSelect.value;
@@ -4373,6 +4486,7 @@ controls.adminProfileSelect.addEventListener("change", () => {
     () => {
       saveCatalogFilters();
       selectedCatalogRowKey = "";
+      catalogPage = 0;
       renderDataCatalog();
     },
   );
@@ -4407,6 +4521,16 @@ controls.catalogTableBody.addEventListener("click", (event) => {
   }
   if (!row) return;
   selectedCatalogRowKey = row.dataset.key ?? "";
+  renderDataCatalog();
+});
+controls.catalogPreviousPageButton.addEventListener("click", () => {
+  catalogPage = Math.max(0, catalogPage - 1);
+  selectedCatalogRowKey = "";
+  renderDataCatalog();
+});
+controls.catalogNextPageButton.addEventListener("click", () => {
+  catalogPage += 1;
+  selectedCatalogRowKey = "";
   renderDataCatalog();
 });
 controls.catalogDetailPanel.addEventListener("click", (event) => {
@@ -4464,7 +4588,7 @@ controls.toggleModifierListButton.addEventListener("click", () => {
 });
 controls.applyModifiedPretestButton.addEventListener("click", () => {
   const preview = modifierPreviewProbability(
-    currentCalculation().result.pretestProbability,
+    currentCalculation().pretestProbability,
     selectedModifiers(),
   );
   if (preview == null) return;
@@ -4566,8 +4690,19 @@ $("saveModifierButton").addEventListener("click", saveModifier);
 });
 
 window.addEventListener("resize", () => {
-  drawNomogram(currentCalculation().result);
-  renderPhysicalMain();
+  if (resizeFrame != null) return;
+  resizeFrame = window.requestAnimationFrame(() => {
+    resizeFrame = null;
+    const result = currentCalculation().result;
+    if (result) drawNomogram(result);
+    if (physicalFindings.length > 0 && state.appMode === "physical-exam")
+      renderPhysicalMain();
+  });
 });
 
-render();
+if (state.appMode === "physical-exam") {
+  void Promise.all([ensurePhysicalFindings(), ensureContextData()]).then(render);
+} else {
+  render();
+  void ensureContextData().then(render);
+}

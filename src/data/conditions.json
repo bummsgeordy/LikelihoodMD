@@ -154,6 +154,19 @@
     "description": "Prätestwahrscheinlichkeit und diagnostische Einordnung bei stabilem Thoraxschmerz oder Verdacht auf chronisches Koronarsyndrom."
   },
   {
+    "id": "akutes-koronarsyndrom-myokardschaden",
+    "label": "Akutes Koronarsyndrom / Myokardschaden",
+    "category": "Kardiologie / Akutmedizin",
+    "synonyms": [
+      "ACS",
+      "NSTEMI",
+      "STEMI",
+      "Acute coronary syndrome",
+      "Myokardschädigung"
+    ],
+    "description": "Akutdiagnostischer Kontext für EKG, Symptome und serielle hochsensitive Troponin-Algorithmen; Troponinerhöhung allein beweist keine Typ-1-Myokardinfarktdiagnose."
+  },
+  {
     "id": "chronische-nierenkrankheit",
     "label": "Chronische Nierenkrankheit",
     "category": "Nephrologie",

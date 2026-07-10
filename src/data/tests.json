@@ -91,7 +91,9 @@
           "Topische/orale/inhalative/nasale Glukokortikoide können Speichelproben kontaminieren oder die HPA-Achse beeinflussen",
           "Lakritz/Carbenoxolon kann Cortisolmetabolismus beeinflussen und sollte dokumentiert werden",
           "Östrogene beeinflussen primär Serum-Gesamtcortisol, sind aber für parallele Cushing-Tests relevant"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       },
       {
         "id": "lnsc-meta-analysis",
@@ -169,7 +171,9 @@
           "LNSC visualisiert den Verlust des nächtlichen Cortisolnadirs; ohne regelhaften Schlafrhythmus ist die Aussagekraft reduziert.",
           "Bei diskrepanten Resultaten mehrere Messungen und alternative Erstlinientests kombinieren.",
           "Ein positives Screeningresultat braucht Bestätigung und Kontext, besonders bei niedriger Prätestwahrscheinlichkeit."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -184,7 +188,7 @@
       {
         "id": "dst-1mg-statpearls",
         "testId": "dst-1mg",
-        "label": "Overnight-DST, StatPearls",
+        "label": "Overnight-DST, Leitlinien-/Reviewprofil",
         "kind": "curated",
         "method": "Overnight-Dexamethason-Suppressionstest",
         "cutoff": "typisch Cortisol nach DST < 1,8 µg/dl bzw. < 50 nmol/l als Suppression; assayabhängig prüfen",
@@ -274,7 +278,9 @@
         "intendedUse": "screening",
         "preanalyticRisk": "high",
         "applicabilityWarning": "Falsch-positive Ergebnisse bei Medikamenteninteraktionen, Depression, Alkohol, Stress und unzureichender Dexamethason-Exposition möglich.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -289,18 +295,16 @@
       {
         "id": "dst-2mg-48h-statpearls",
         "testId": "dst-2mg-48h",
-        "label": "48-h-DST, StatPearls",
+        "label": "48-h-DST, Protokollkontext ohne universelle LR",
         "kind": "curated",
         "method": "Low-dose Dexamethason-Suppressionstest über 48 h",
         "cutoff": "Cortisol cut-off abhängig vom Protokoll",
         "procedure": "Dexamethason 0,5 mg alle 6 h über 48 h, Cortisol am Testende bestimmen.",
-        "sensitivity": 0.96,
-        "specificity": 0.7,
-        "lrPositive": 3.2,
-        "lrNegative": 0.06,
+        "sensitivity": null,
+        "specificity": null,
         "population": "Bestätigende Diagnostik bei weiter bestehendem Verdacht.",
-        "rationale": "Als zweite DST-Option mit separater Annahme geführt.",
-        "limitations": "Protokoll, Cut-off, Assay und Präanalytik müssen lokal geprüft werden; die LR-Werte bleiben wegen starker Protokoll- und Populationsabhängigkeit needs-review.",
+        "rationale": "Als zweite DST-Option im diagnostischen Workflow geführt; ohne eindeutig übertragbare Population und Cut-off wird keine universelle LR berechnet.",
+        "limitations": "Protokoll, Cut-off, Assay, Population und Präanalytik müssen lokal geprüft werden. Die bisherige didaktische LR-Annahme wurde wegen unzureichender quantitativer Primärevidenz zurückgezogen.",
         "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
@@ -363,7 +367,9 @@
           "DST-Resultate ohne Angaben zu Dexamethasonexposition und Medikamenten sind nur eingeschränkt interpretierbar.",
           "Östrogene können vor allem Serum-Gesamtcortisol-basierte DST falsch auffällig machen; alternative Tests oder Pause prüfen.",
           "Bei niedriger Prätestwahrscheinlichkeit und Grenzwertbefund ist Wiederholung/Bestätigung wichtiger als unmittelbare Diagnose."
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Für den 48-h-DST ist in diesem Datensatz keine ausreichend populations-, assay- und cut-off-spezifische binäre Testgüte hinterlegt."
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -378,20 +384,18 @@
       {
         "id": "arr-screening-guideline",
         "testId": "arr",
-        "label": "ARR-Screening, Leitlinienannahme",
+        "label": "ARR-Screening, methodenabhängiger Leitlinienkontext",
         "kind": "curated",
         "method": "ARR-Screening",
         "cutoff": "Labor- und einheitenabhängig",
         "procedure": "Aldosteron und Renin nach lokalem Präanalytik-Protokoll bestimmen; Kalium, Medikation, Haltung und Uhrzeit dokumentieren.",
-        "sensitivity": 0.97,
-        "specificity": 0.94,
-        "lrPositive": 16.2,
-        "lrNegative": 0.03,
+        "sensitivity": null,
+        "specificity": null,
         "population": "Patienten mit Hypertonie und klinischer Indikation zum Screening.",
-        "rationale": "Plausible Standardannahme für ein gut vorbereitetes ARR-Screening.",
-        "limitations": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
+        "rationale": "Leitliniennahes Screeningprofil ohne universelle Testgüte: Aldosteron, Reninmethode, Einheit, Cut-off und Präanalytik müssen gemeinsam interpretiert werden.",
+        "limitations": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit, Reninmethode, Einheit und Laborverfahren verändern die Aussagekraft deutlich; ein globales LR-Paar ist nicht übertragbar.",
         "lastReviewed": "2026-06-01",
-        "isDefault": true,
+        "isDefault": false,
         "sources": [
           {
             "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
@@ -507,7 +511,9 @@
         "intendedUse": "screening",
         "preanalyticRisk": "high",
         "applicabilityWarning": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
-        "reviewPriority": "high"
+        "reviewPriority": "high",
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Die 2025-Leitlinie definiert kein universelles methoden- und cut-off-unabhängiges ARR-LR-Paar. Bitte ein passendes methodenspezifisches Profil wählen."
       },
       {
         "id": "arr-direct-renin-li-2016",
@@ -588,7 +594,7 @@
             "note": "Tabelliert Medikamenten- und Elektrolyteffekte auf Aldosteron, Renin und ARR inklusive FP/FN-Richtung."
           }
         ],
-        "isDefault": false,
+      "isDefault": true,
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
@@ -620,7 +626,9 @@
           "ACE-Hemmer, ARB, Diuretika, MRA oder ENaC-Inhibitoren mit Reninerhöhung",
           "Salzrestriktion oder Volumenkontraktion",
           "nicht standardisierte Haltung/Uhrzeit oder nicht passender Cut-off"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "primarer-hyperaldosteronismus"
@@ -704,7 +712,9 @@
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Lage bei Blutabnahme, Stress, Medikamente, Referenzbereiche und Risikokontext können die Spezifität und den PPV deutlich beeinflussen.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       },
       {
         "id": "metanephrines-plasma-fractionated-conservative",
@@ -808,7 +818,9 @@
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Lage bei Blutabnahme, Ruhephase, Stress, Medikamente, Referenzbereiche und Risikokontext beeinflussen vor allem Spezifität und PPV.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "phaochromozytom-paragangliom"
@@ -911,7 +923,9 @@
         "intendedUse": "rule_out",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Sammelqualität, Nierenfunktion, Medikamente, Laborverfahren und Risikokontext begrenzen die Übertragbarkeit.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "phaochromozytom-paragangliom"
@@ -1007,7 +1021,9 @@
           "Niedrige NT-proBNP-Werte sind besonders hilfreich zum Ausschluss im passenden Kontext; erhöhte Werte sind nicht spezifisch.",
           "Bei Vorhofflimmern, CKD und hohem Alter sinkt die Spezifität; bei Adipositas kann die Sensitivität sinken.",
           "Ein erhöhter Wert sollte zur strukturierten Echokardiographie-/Klinik-Einordnung führen, nicht allein zur Diagnose."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       },
       {
         "id": "ntprobnp-400",
@@ -1093,7 +1109,9 @@
           "Niedrige NT-proBNP-Werte sind besonders hilfreich zum Ausschluss im passenden Kontext; erhöhte Werte sind nicht spezifisch.",
           "Bei Vorhofflimmern, CKD und hohem Alter sinkt die Spezifität; bei Adipositas kann die Sensitivität sinken.",
           "Ein erhöhter Wert sollte zur strukturierten Echokardiographie-/Klinik-Einordnung führen, nicht allein zur Diagnose."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "herzinsuffizienz"
@@ -1197,7 +1215,9 @@
           "MRAs, ENaC-Inhibitoren, Diuretika, ACE-Hemmer, ARB und Renininhibitoren können Bestätigungstests beeinflussen",
           "Betablocker, zentrale Alpha-2-Agonisten und NSAR können Screening-/Bestätigungskontext verzerren",
           "Lakritz kann mineralokortikoide Effekte imitieren und muss vor Bestätigungstests erfragt werden"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "primarer-hyperaldosteronismus"
@@ -1294,7 +1314,9 @@
           "Exogene Glukokortikoide können abhängig von Assay und Timing interferieren oder die Achse supprimieren",
           "Carbamazepin, Fenofibrat und weitere Medikamente können methodenabhängig analytische oder metabolische Effekte haben; Laborhinweise beachten",
           "Lakritz/Carbenoxolon kann Cortisolmetabolismus beeinflussen und sollte dokumentiert werden"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "cushing-syndrom-hyperkortisolismus"
@@ -1397,7 +1419,9 @@
         "intendedUse": "rule_in",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Cut-off ist assayabhängig; frühe zentrale Insuffizienz kann übersehen werden.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "nebenniereninsuffizienz"
@@ -1498,7 +1522,9 @@
           "Ein positives TRAb ohne Thyreotoxikose ist kein automatischer Nachweis einer aktiven Basedow-Hyperthyreose.",
           "Bei TRAb-negativer Thyreotoxikose mit hoher klinischer Wahrscheinlichkeit Sonografie/Durchblutung oder Radioiodaufnahme prüfen.",
           "Bei Verdacht auf Immunoassay-Interferenz Labor kontaktieren, seriell verdünnen oder alternative Plattform nutzen."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       },
       {
         "id": "trab-second-generation-meta",
@@ -1589,7 +1615,9 @@
           "Ein positives TRAb ohne Thyreotoxikose ist kein automatischer Nachweis einer aktiven Basedow-Hyperthyreose.",
           "Bei TRAb-negativer Thyreotoxikose mit hoher klinischer Wahrscheinlichkeit Sonografie/Durchblutung oder Radioiodaufnahme prüfen.",
           "Bei Verdacht auf Immunoassay-Interferenz Labor kontaktieren, seriell verdünnen oder alternative Plattform nutzen."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "morbus-basedow"
@@ -1609,13 +1637,13 @@
         "method": "Basales Serum-Calcitonin",
         "cutoff": "10 pg/ml",
         "procedure": "Serum-Calcitonin basal bestimmen.",
-        "sensitivity": 1,
+        "sensitivity": 0.997,
         "specificity": 0.972,
-        "lrPositive": 35.7,
-        "lrNegative": 0,
+        "lrPositive": 35.61,
+        "lrNegative": 0.0031,
         "population": "Patienten mit Schilddrüsenknoten in diagnostischen Studien.",
-        "rationale": "Hohe Sensitivität in Übersichtsarbeit; als starkes Rule-out-orientiertes Profil dokumentiert.",
-        "limitations": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
+        "rationale": "Konservatives, berechenbares Profil aus der Cochrane-Auswertung für basales Calcitonin um 10 pg/ml. Der publizierte gerundete Sensitivitätspunktwert von 100 % darf nicht als absoluter Ausschluss interpretiert werden; für die didaktische Rechnung wird die untere Grenze der berichteten Sensitivität verwendet.",
+        "limitations": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität. Ein negatives Ergebnis schließt MTC nicht absolut aus; die Routinebestimmung bei Schilddrüsenknoten wird in der ETA-Leitlinie 2023 weder generell empfohlen noch generell abgelehnt.",
         "lastReviewed": "2026-06-01",
         "isDefault": true,
         "sources": [
@@ -1665,7 +1693,7 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "complete",
-        "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
+        "reviewNote": "Quellenabgleich 2026-07-10; konservativer Arbeitswert statt LR− 0, menschliche Freigabe ausstehend.",
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "high",
         "applicabilityWarning": "Assay, Geschlecht, Nierenfunktion, Medikamente und lokale Cut-offs beeinflussen die Spezifität.",
@@ -1699,7 +1727,21 @@
           "Grenzwertige Calcitoninerhöhungen haben bei niedriger Prätestwahrscheinlichkeit ein relevantes falsch-positives Risiko.",
           "Sehr hohe Werte, RET/MEN2-Kontext oder suspekte Lymphknoten sind ein anderer klinischer Kontext als unselektiertes Knoten-Screening.",
           "Assay, Geschlecht und lokale Grenzwerte müssen im Bericht sichtbar bleiben."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived",
+        "sensitivityInterval": {
+          "low": 0.997,
+          "high": 1
+        },
+        "specificityInterval": {
+          "low": 0.956,
+          "high": 0.986
+        },
+        "lrNegativeInterval": {
+          "low": 0.0001,
+          "high": 0.0032
+        }
       }
     ],
     "conditionId": "medullares-schilddrusenkarzinom"
@@ -1794,7 +1836,9 @@
           "Ein negativer tTG-IgA schließt Zöliakie bei IgA-Mangel oder glutenarmer Diät nicht zuverlässig aus.",
           "Vor lebenslanger glutenfreier Diät sollte die Diagnostik geplant abgeschlossen werden.",
           "Bei sehr hohem Titer und passendem Kontext steigt die Aussagekraft deutlich; bei Grenzwerten bleibt Kontext entscheidend."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "zoliakie"
@@ -1898,7 +1942,9 @@
           "MRAs, ENaC-Inhibitoren, Diuretika, ACE-Hemmer, ARB und Renininhibitoren können Bestätigungstests beeinflussen",
           "Betablocker, zentrale Alpha-2-Agonisten und NSAR können Screening-/Bestätigungskontext verzerren",
           "Lakritz kann mineralokortikoide Effekte imitieren und muss vor Bestätigungstests erfragt werden"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "primarer-hyperaldosteronismus"
@@ -1987,7 +2033,9 @@
         "intendedUse": "rule_in",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Verdünnungs- und Timingfehler können die Testgüte stark verschlechtern; Cut-offs alter Immunoassays nicht unkritisch übertragen.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "nebenniereninsuffizienz"
@@ -2011,8 +2059,6 @@
         "procedure": "Serum-IGF-1 bestimmen und gegen alters-/geschlechtsadjustierten Laborreferenzbereich interpretieren.",
         "sensitivity": null,
         "specificity": null,
-        "lrPositive": 1,
-        "lrNegative": 1,
         "population": "Patienten mit klinischem Verdacht auf Akromegalie, mehreren assoziierten Komorbiditäten oder Hypophysenmasse.",
         "rationale": "Leitlinien empfehlen IGF-1 als initialen Screeningtest; ein normaler IGF-1-Wert schließt Akromegalie in der Regel effektiv aus. Es ist jedoch kein kuratierter quantitativer LR-Wert hinterlegt.",
         "limitations": "Dieses Profil ist qualitativ: LR+ und LR− sind als neutrale Platzhalter gesetzt und dürfen nicht als echte Testgüte interpretiert werden.",
@@ -2061,7 +2107,9 @@
         "intendedUse": "screening",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Keine validierten LR-Werte hinterlegt; die Wahrscheinlichkeitsberechnung ist hier nur ein Platzhalter.",
-        "reviewPriority": "high"
+        "reviewPriority": "high",
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ],
     "conditionId": "akromegalie"
@@ -2085,8 +2133,6 @@
         "procedure": "75 g Glukose nüchtern geben; Glukose und GH basal sowie typischerweise über 2 h seriell messen und Hyperglykämie dokumentieren.",
         "sensitivity": null,
         "specificity": null,
-        "lrPositive": 1,
-        "lrNegative": 1,
         "population": "Patienten mit erhöhtem oder grenzwertigem IGF-1 zur biochemischen Bestätigung einer Akromegalie.",
         "rationale": "Die Leitlinie empfiehlt bei erhöhtem oder unklarem IGF-1 die Bestätigung durch fehlende GH-Suppression unter dokumentierter Hyperglykämie. Es ist kein kuratierter quantitativer LR-Wert hinterlegt.",
         "limitations": "Dieses Profil ist qualitativ: LR+ und LR− sind neutrale Platzhalter. GH-Assays, Cut-offs, BMI, Alter, Geschlecht und Diabetes beeinflussen die Interpretation.",
@@ -2137,7 +2183,9 @@
         "intendedUse": "confirmation",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Keine validierten LR-Werte hinterlegt; die Wahrscheinlichkeitsberechnung ist hier nur ein Platzhalter.",
-        "reviewPriority": "high"
+        "reviewPriority": "high",
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ],
     "conditionId": "akromegalie"
@@ -2236,7 +2284,9 @@
         "medicationInterferences": [
           "Bereits begonnene Antikoagulation kann D-Dimer senken und die Rule-out-Sicherheit beeinträchtigen",
           "Thrombolyse oder länger laufende Antikoagulation verändert Verlauf und Interpretierbarkeit"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "tiefe-venenthrombose"
@@ -2342,7 +2392,9 @@
         "medicationInterferences": [
           "Bereits begonnene Antikoagulation kann D-Dimer senken und die Rule-out-Sicherheit beeinträchtigen",
           "Thrombolyse oder länger laufende Antikoagulation verändert Verlauf und Interpretierbarkeit"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "lungenembolie"
@@ -2425,7 +2477,9 @@
         "intendedUse": "confirmation",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Vor allem für proximale TVT; bei distaler TVT, Rezidiv oder diskordant hohem Verdacht reicht ein negativer Befund nicht immer.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "tiefe-venenthrombose"
@@ -2507,7 +2561,9 @@
         "intendedUse": "confirmation",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Negative CTPA ist bei hoher klinischer Wahrscheinlichkeit weniger beruhigend; diskordante Situationen brauchen weitere Beurteilung.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "lungenembolie"
@@ -2560,18 +2616,18 @@
         ],
         "sources": [
           {
-            "title": "Dyspnea Due to Acute Heart Failure Syndrome",
-            "year": 2026,
-            "url": "https://thennt.com/lr/dyspnea-due-acute-heart-failure-syndrome/",
-            "kind": "Review",
-            "note": "Fasst Likelihood Ratios für akute Dyspnoe zusammen; für Lungenultraschall-B-Linien etwa LR+ 7,4 und LR− 0,16."
-          },
-          {
             "title": "Emergency department ultrasound for B-lines in acute decompensated heart failure: systematic review and meta-analysis",
             "year": 2018,
             "url": "https://pubmed.ncbi.nlm.nih.gov/29619917/",
             "kind": "Review",
             "note": "Systematischer Review: B-Linien bei ED-Dyspnoe mit gepoolter Sensitivität 82,5 % und Spezifität 83,6 %; unterstützt LUS als Zusatztest."
+          },
+          {
+            "title": "Dyspnea Due to Acute Heart Failure Syndrome",
+            "year": 2026,
+            "url": "https://thennt.com/lr/dyspnea-due-acute-heart-failure-syndrome/",
+            "kind": "Lehrtext",
+            "note": "Ergänzende didaktische Zusammenfassung; quantitative Werte werden durch den vorangestellten systematischen Review gestützt."
           },
           {
             "title": "Lung ultrasound in acute and chronic heart failure: EACVI clinical consensus statement",
@@ -2597,7 +2653,9 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Nur bei akuter Dyspnoe/kardialer Stauungsfrage plausibel; bei chronischem ambulantem HF-Verdacht nicht eins zu eins übertragen.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "herzinsuffizienz"
@@ -2687,7 +2745,9 @@
         "intendedUse": "confirmation",
         "preanalyticRisk": "high",
         "applicabilityWarning": "Nur unter Glutenexposition und mit IgA-Kontext sinnvoll; bei IgA-Mangel nicht als IgA-basierter Ausschluss verwenden.",
-        "reviewPriority": "medium"
+        "reviewPriority": "medium",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "zoliakie"
@@ -2769,7 +2829,9 @@
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "moderate",
         "applicabilityWarning": "Geräte-/Untersucherabhängigkeit und Vorbehandlung können die Aussage stark verändern; Szintigrafie ist bei bestimmten Fragestellungen die geeignetere Alternative.",
-        "reviewPriority": "high"
+        "reviewPriority": "high",
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ],
     "conditionId": "morbus-basedow"
@@ -2816,8 +2878,6 @@
         "reviewPriority": "medium",
         "purpose": "definition-staging",
         "specimen": "Serum/Plasma",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Akute Erkrankung, Dehydratation oder AKI ausschließen",
           "Kreatinin durch Muskelmasse, Ernährung und Assay beeinflusst",
@@ -2831,7 +2891,9 @@
         "interpretationCautions": [
           "CKD ist eine persistierende Kategorie, kein Einzelwert.",
           "Albuminurie und Ursache der Nierenerkrankung separat erfassen."
-        ]
+        ],
+        "calculationMode": "categorical",
+        "nonComputableReason": "Dieses Verfahren liefert eine Kategorie beziehungsweise Risikoklasse statt einer universellen binären Likelihood-Ratio."
       }
     ]
   },
@@ -2877,15 +2939,15 @@
         "reviewPriority": "medium",
         "purpose": "confirmation-staging",
         "specimen": "Serum/Plasma",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Nicht-kidney Determinanten von Cystatin C berücksichtigen",
           "Chronizität und Albuminurie parallel prüfen"
         ],
         "medicationInterferences": [
           "Glukokortikoide können Cystatin C beeinflussen"
-        ]
+        ],
+        "calculationMode": "categorical",
+        "nonComputableReason": "Dieses Verfahren liefert eine Kategorie beziehungsweise Risikoklasse statt einer universellen binären Likelihood-Ratio."
       }
     ]
   },
@@ -2931,15 +2993,15 @@
         "reviewPriority": "medium",
         "purpose": "screening-staging",
         "specimen": "Urin",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Sport, Fieber, Harnwegsinfekt, Menstruation und Hyperglykämie können UACR transient erhöhen",
           "Morgenurin reduziert Variabilität"
         ],
         "medicationInterferences": [
           "RAAS-Blockade und SGLT2-Hemmer können Albuminurie therapeutisch senken"
-        ]
+        ],
+        "calculationMode": "categorical",
+        "nonComputableReason": "Dieses Verfahren liefert eine Kategorie beziehungsweise Risikoklasse statt einer universellen binären Likelihood-Ratio."
       }
     ]
   },
@@ -2992,15 +3054,15 @@
         "reviewPriority": "medium",
         "purpose": "screening",
         "specimen": "Urin",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Frischen Mittelstrahlurin nutzen",
           "Menstruation, Harnwegsinfekt und Sport als Störfaktoren dokumentieren"
         ],
         "interpretationCautions": [
           "Hämaturie plus relevante Proteinurie oder rascher eGFR-Abfall sollte weiter abgeklärt werden."
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3053,15 +3115,15 @@
         "reviewPriority": "medium",
         "purpose": "diagnostic-support",
         "specimen": "Urin",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Urin muss frisch sein; alte Proben verfälschen Zellmorphologie und Zylinder",
           "Mikroskopie ist stark erfahrungs- und methodenabhängig"
         ],
         "interpretationCautions": [
           "Erythrozytenzylinder oder rascher eGFR-Abfall sind dringliche Warnzeichen."
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3107,15 +3169,15 @@
         "reviewPriority": "medium",
         "purpose": "confirmation-classification",
         "specimen": "Nierengewebe",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Blutungsrisiko, Blutdruck und Antikoagulation prüfen",
           "Befund im Licht der Klinik und Serologie interpretieren"
         ],
         "medicationInterferences": [
           "Antikoagulanzien und Thrombozytenhemmer beeinflussen Biopsierisiko"
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3161,11 +3223,11 @@
         "reviewPriority": "medium",
         "purpose": "differential-diagnosis",
         "specimen": "Serum/Plasma",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "interpretationCautions": [
           "Bei RPGN-Verdacht zählt Zeit: Serologie darf Biopsie/Therapieentscheidung nicht unnötig verzögern."
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3196,9 +3258,9 @@
           {
             "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
             "year": 2021,
-            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "url": "https://doi.org/10.1016/j.jacc.2021.07.053",
             "kind": "Leitlinie",
-            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+            "note": "Ordnet CCTA bei stabilem Thoraxschmerz nach klinischem Risiko und Patienteneigenschaften ein."
           },
           {
             "title": "Collaborative Meta-Analysis of Cardiac CT (COME-CCT): CCTA versus functional testing for obstructive CAD",
@@ -3230,7 +3292,9 @@
         ],
         "interpretationCautions": [
           "Anatomische Stenose ist nicht identisch mit Ischämie; bei intermediären Läsionen funktionelle Bewertung erwägen."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ]
   },
@@ -3286,7 +3350,9 @@
         ],
         "falseNegativeReasons": [
           "Unzureichende Belastung, antianginöse Medikation, Ein-Gefäß-Erkrankung ohne Ischämienachweis"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ]
   },
@@ -3337,7 +3403,9 @@
         "preanalytics": [
           "Koffein/Methylxanthine vor vasodilatatorischem Stress vermeiden",
           "MRT-Sicherheit und Nierenfunktion für Kontrastmittel prüfen"
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ]
   },
@@ -3345,8 +3413,8 @@
     "id": "high-sensitivity-troponin-t-acs",
     "name": "High-sensitivity Troponin T",
     "category": "Kardiologie / Akutmedizin",
-    "conditionId": "obstruktive-koronare-herzkrankheit",
-    "condition": "Obstruktive koronare Herzkrankheit",
+    "conditionId": "akutes-koronarsyndrom-myokardschaden",
+    "condition": "Akutes Koronarsyndrom / Myokardschaden",
     "description": "Akutdiagnostik bei Verdacht auf Myokardschädigung/ACS, nicht zur stabilen KHK-Prätestdiagnose.",
     "evidenceProfiles": [
       {
@@ -3366,11 +3434,11 @@
         "isDefault": true,
         "sources": [
           {
-            "title": "2021 AHA/ACC Guideline for the Evaluation and Diagnosis of Chest Pain",
-            "year": 2021,
-            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2021.07.053",
+            "title": "2023 ESC Guidelines for the management of acute coronary syndromes",
+            "year": 2023,
+            "url": "https://doi.org/10.1093/eurheartj/ehad191",
             "kind": "Leitlinie",
-            "note": "Empfiehlt diagnostische Testauswahl bei stabilem und akutem Thoraxschmerz nach Risiko, Fragestellung, EKG-Interpretierbarkeit und Testverfügbarkeit."
+            "note": "Empfiehlt hochsensitive Troponin-Assays mit seriellen 0/1-h- oder 0/2-h-Algorithmen; Symptome, EKG, Zeitpunkt und alternative Ursachen der Myokardschädigung bleiben entscheidend."
           }
         ],
         "reviewStatus": "needs-review",
@@ -3383,14 +3451,14 @@
         "reviewPriority": "medium",
         "purpose": "acute-rule-out-rule-in",
         "specimen": "Serum/Plasma",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "falsePositiveReasons": [
           "CKD, Herzinsuffizienz, Myokarditis, Sepsis, Tachyarrhythmie, Lungenembolie"
         ],
         "interpretationCautions": [
           "Dynamik und klinischer Kontext sind entscheidend."
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3436,8 +3504,8 @@
         "reviewPriority": "medium",
         "purpose": "context-imaging",
         "specimen": "Bildgebung",
-        "lrPositive": 1,
-        "lrNegative": 1
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3483,11 +3551,11 @@
         "reviewPriority": "medium",
         "purpose": "confirmation/management",
         "specimen": "Bildgebung",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Kontrastmittelrisiko, Nierenfunktion, Blutungsrisiko und Antikoagulation prüfen"
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3540,8 +3608,6 @@
         "reviewPriority": "medium",
         "purpose": "diagnosis-pattern",
         "specimen": "Serum/Plasma",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Albumin korrigieren oder ionisiertes Calcium nutzen",
           "Vitamin-D-Status und Nierenfunktion berücksichtigen",
@@ -3554,7 +3620,9 @@
         ],
         "interpretationCautions": [
           "Normales PTH ist bei Hyperkalzämie inadäquat und kann für PHPT sprechen."
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3607,8 +3675,6 @@
         "reviewPriority": "medium",
         "purpose": "differential-diagnosis",
         "specimen": "24h-Urin",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Sammelqualität prüfen",
           "Vitamin D und eGFR berücksichtigen"
@@ -3616,7 +3682,9 @@
         "medicationInterferences": [
           "Thiazide senken Urincalcium",
           "Lithium kann PHPT/FHH-ähnliche Konstellationen erzeugen"
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3669,8 +3737,8 @@
         "reviewPriority": "medium",
         "purpose": "context",
         "specimen": "Serum/Plasma",
-        "lrPositive": 1,
-        "lrNegative": 1
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3723,15 +3791,15 @@
         "reviewPriority": "medium",
         "purpose": "screening-imaging",
         "specimen": "Bildgebung",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Schallfenster und Untersucherfahrung sind entscheidend",
           "Bei grenzwertigem oder nicht beurteilbarem Befund CTA/MRA je nach Nierenfunktion erwägen"
         ],
         "medicationInterferences": [
           "ACE-Hemmer/ARB können Kreatininanstieg als Hinweis zeigen, sind aber kein Testersatz"
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3777,12 +3845,12 @@
         "reviewPriority": "medium",
         "purpose": "diagnostic-imaging",
         "specimen": "Bildgebung",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "eGFR/Kontrastmittelrisiko prüfen",
           "FMD kann andere Bildgebungsanforderungen haben"
-        ]
+        ],
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3849,15 +3917,15 @@
         "reviewPriority": "medium",
         "purpose": "risk-stratification",
         "specimen": "Bildgebung",
-        "lrPositive": 1,
-        "lrNegative": 1,
         "preanalytics": [
           "Standardisierte Dokumentation von Echogenität, Komposition, Rändern, Form und echogenen Foci",
           "Pathologische Lymphknoten separat erfassen"
         ],
         "interpretationCautions": [
           "TIRADS dient zur Auswahl für FNA/Follow-up, nicht als alleiniger Krebsnachweis."
-        ]
+        ],
+        "calculationMode": "categorical",
+        "nonComputableReason": "Dieses Verfahren liefert eine Kategorie beziehungsweise Risikoklasse statt einer universellen binären Likelihood-Ratio."
       }
     ]
   },
@@ -3910,8 +3978,8 @@
         "reviewPriority": "medium",
         "purpose": "adjunct-risk-stratification",
         "specimen": "Bildgebung",
-        "lrPositive": 1,
-        "lrNegative": 1
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   },
@@ -3989,7 +4057,9 @@
           "Ein positives Ergebnis meint hier Bethesda V/VI, nicht jede auffällige oder indeterminierte Zytologie.",
           "Ein negatives Ergebnis meint Bethesda II bei ausreichender Probenqualität.",
           "Die TIRADS-Kategorie bleibt die Prätestwahrscheinlichkeit; FNA aktualisiert diese Wahrscheinlichkeit."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ]
   },
@@ -4046,7 +4116,9 @@
         "lrNegative": 0.19,
         "interpretationCautions": [
           "Schwaches Rule-in, nützlicheres Rule-out im passenden Kontext."
-        ]
+        ],
+        "calculationMode": "binary-lr",
+        "lrDerivation": "derived"
       }
     ]
   },
@@ -4099,8 +4171,8 @@
         "reviewPriority": "medium",
         "purpose": "adjunct-risk-stratification",
         "specimen": "Zytologie/Molekularprobe",
-        "lrPositive": 1,
-        "lrNegative": 1
+        "calculationMode": "workflow-only",
+        "nonComputableReason": "Dieses Verfahren ist Teil eines klinischen Diagnose- oder Bestätigungsworkflows und nicht als einzelner binärer LR-Test valide berechenbar."
       }
     ]
   }

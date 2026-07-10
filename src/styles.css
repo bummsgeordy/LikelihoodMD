@@ -704,6 +704,53 @@ input[type="range"] {
   aspect-ratio: 16 / 9;
 }
 
+.calculation-unavailable {
+  border: 1px solid #d9a441;
+  border-left: 4px solid #b7791f;
+  border-radius: 6px;
+  background: #fff8e6;
+  color: #6b460d;
+  padding: 0.75rem;
+  font-weight: 700;
+}
+
+.calculation-mode-badge {
+  justify-self: end;
+  border: 1px solid #b7c9df;
+  border-radius: 999px;
+  background: #eef5ff;
+  color: #264e7a;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.calculation-mode-badge.mode-categorical,
+.calculation-mode-badge.mode-workflow-only {
+  border-color: #d9a441;
+  background: #fff8e6;
+  color: #6b460d;
+}
+
+.uncertainty-summary {
+  margin-top: 0.75rem;
+  border-left: 4px solid #4774b8;
+  background: #eef5ff;
+  color: #253b5c;
+  padding: 0.7rem 0.8rem;
+  line-height: 1.45;
+}
+
+.chain-path-note {
+  display: block;
+  margin-top: 0.35rem;
+  line-height: 1.35;
+}
+
+.chain-path-stopped td {
+  background: #f5f7fa;
+}
+
 .nomogram-card .section-heading-row + .nomogram-panels .nomogram-panel h3 {
   margin-top: 0;
 }
@@ -1080,6 +1127,14 @@ input[type="range"] {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: #fff;
+}
+
+.catalog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
 }
 
 .catalog-table {
@@ -1787,6 +1842,7 @@ canvas {
     grid-template-areas:
       "settings"
       "nomogram"
+      "decision"
       "chains"
       "results"
       "details";

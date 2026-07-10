@@ -1611,5 +1611,34 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "ACR-TIRADS-Startwert ergänzt; lokale Risikokalibrierung fachlich prüfen."
+  },
+  {
+    "id": "acs-acute-chest-pain-fallback",
+    "condition": "Akutes Koronarsyndrom / Myokardschaden",
+    "conditionId": "akutes-koronarsyndrom-myokardschaden",
+    "setting": "Allgemeine Erkrankungsannahme",
+    "settingId": "general",
+    "evidenceLevel": "fallback",
+    "population": "Akuter Thoraxschmerz mit klinischem Verdacht auf ein akutes Koronarsyndrom vor EKG- und serieller Troponinbewertung.",
+    "probability": 0.1,
+    "rangeLow": 0.01,
+    "rangeHigh": 0.5,
+    "rationale": "Nur didaktische Arbeitsannahme: Die tatsächliche Wahrscheinlichkeit muss aus Symptomen, EKG, Zeitpunkt, Alter, Risikofaktoren und Akutsetting abgeleitet werden.",
+    "limitations": "Nicht als populationsbasierte Prävalenz verwenden. Ein einzelner Prätestwert ersetzt weder EKG noch validierte Akutpfade; hs-Troponin wird seriell und assayspezifisch interpretiert.",
+    "lastReviewed": "2026-07-10",
+    "sources": [
+      {
+        "title": "2023 ESC Guidelines for the management of acute coronary syndromes",
+        "year": 2023,
+        "url": "https://doi.org/10.1093/eurheartj/ehad191",
+        "kind": "Leitlinie",
+        "note": "Beschreibt die integrierte Akutdiagnostik mit Symptomen, EKG und seriellen hochsensitiven Troponin-Algorithmen."
+      }
+    ],
+    "kind": "curated",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "expert-opinion",
+    "dataCompleteness": "minimal",
+    "reviewNote": "Bewusst breite Arbeitsannahme; keine direkte Prävalenzschätzung. Fachliche Freigabe ausstehend."
   }
 ]
