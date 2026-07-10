@@ -4,6 +4,7 @@
 
 ### Schema v6 / Stabilisierungsrelease
 
+- Sicherheitsupdate für Playwright 1.61, Vite 8 und Vitest 4; der CI-Abhängigkeitsaudit meldet keine bekannten Schwachstellen mehr. GitHub-Actions wurden auf ihre Node-24-kompatiblen Hauptversionen aktualisiert.
 - Berechnungsmodi `binary-lr`, `categorical` und `workflow-only` eingeführt; nicht quantifizierbare Verfahren erzeugen keine künstlichen LR- oder Posttestwerte mehr.
 - Exportformat auf Schema v6 angehoben; v1-v5 bleiben importierbar. Importgröße, Eintragszahl und Textlängen werden begrenzt.
 - Prätestdaten auf `pretest-assumptions.json` als einzige kanonische Struktur zusammengeführt.

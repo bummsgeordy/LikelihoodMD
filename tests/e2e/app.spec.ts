@@ -30,11 +30,11 @@ test('Datenkatalog und statische Unterseiten sind erreichbar', async ({ page }) 
   await page.locator('#catalogSearchInput').fill('Troponin');
   await expect(page.locator('#catalogTableBody')).toContainText('Troponin');
 
-  await page.goto('/info/vierfeldertafel/');
+  await page.goto('/info/vierfeldertafel/index.html');
   await expect(page.getByRole('heading', { name: 'Diagnostische Kennzahlen verstehen' })).toBeVisible();
-  await page.goto('/simulation/');
+  await page.goto('/simulation/index.html');
   await expect(page.getByRole('heading', { name: 'Interaktive Testsimulation' })).toBeVisible();
-  await page.goto('/info/ckd-risiko/');
+  await page.goto('/info/ckd-risiko/index.html');
   await expect(page.getByRole('heading', { name: /CKD-Risiko/ })).toBeVisible();
 });
 

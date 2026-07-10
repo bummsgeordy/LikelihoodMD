@@ -20,7 +20,13 @@ export default defineConfig({
     },
     {
       name: 'mobile-390',
-      use: { ...devices['iPhone 13'], viewport: { width: 390, height: 844 } }
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 3,
+        hasTouch: true,
+        isMobile: true
+      }
     }
   ],
   webServer: {
