@@ -7,9 +7,16 @@
     "direction": "increases",
     "rationale": "Resistente Hypertonie ist eine Hochrisikokonstellation für PA und sollte primär über ein passendes Prätest-Setting abgebildet werden.",
     "limitations": "Die Höhe der Prätestwahrscheinlichkeit hängt von Definition, Medikamenten, Kaliumstatus und Bestätigungstest ab.",
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "kind": "curated",
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Nennt etwa 17-23% PA bei resistenter Hypertonie in Tertiärzentren und ordnet sie als starkes Risikostratum ein."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -70,9 +77,16 @@
     "direction": "increases",
     "rationale": "Hypokaliämie ist ein klassischer Risikomarker für PA und eine leitlinienrelevante Screeningkonstellation.",
     "limitations": "Normokaliämie schließt PA nicht aus. Diuretika, Kaliumsubstitution und Salzstatus beeinflussen die Einordnung.",
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "kind": "curated",
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Bestätigt Hypokaliämie als Hochrisikomerkmal, betont aber, dass sie nur bei einer Minderheit von weniger als etwa 25-30% dokumentiert ist."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -123,9 +137,16 @@
     "direction": "increases",
     "rationale": "Hypertonie plus Nebenniereninzidentalom ist eine leitlinienrelevante Screeningkonstellation für PA.",
     "limitations": "Ein konkreter Prätestwert ist noch nicht separat kuratiert; Bildgebung beweist keine Hormonaktivität.",
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "kind": "curated",
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Nennt eine Nebennierenraumforderung bei Hypertonie als relevante PA-Konstellation, warnt aber vor einer Lokalisation allein anhand der CT-Morphologie."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -161,6 +182,63 @@
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "riskStratum": "nebenniereninzidentalom-mit-hypertonie"
+  },
+  {
+    "id": "pa-early-onset-family-history",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "label": "Sehr frühe Hypertonie oder familiäre PA/früher Schlaganfall",
+    "category": "Anamnese",
+    "direction": "increases",
+    "rationale": "Sehr früher Hypertoniebeginn, erstgradige Angehörige mit PA oder familiäre Schlaganfälle vor 40 Jahren erhöhen die Aufmerksamkeit für PA und seltene familiäre Formen.",
+    "limitations": "Der Effekt ist nicht als einheitlicher LR quantifiziert. Alter, familiäre Definition und bereits erfolgte Selektion beeinflussen die Aussage.",
+    "lastReviewed": "2026-07-12",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Beschreibt frühe Hypertonie und Familienanamnese als Hinweise auf PA; familiäre Formen machen schätzungsweise etwa 1-2% der Fälle aus."
+      },
+      {
+        "title": "Endocrine Society Clinical Practice Guideline: Primary Aldosteronism",
+        "year": 2025,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-aldosteronism-2",
+        "kind": "Leitlinie",
+        "note": "Empfiehlt breites Screening und beschreibt genetische Abklärung bei sehr frühem Beginn oder entsprechender Familienanamnese."
+      }
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer Risikohinweis aus Primer und Leitlinie; keine eigenständige numerische Prätestanpassung."
+  },
+  {
+    "id": "pa-atrial-fibrillation-no-structural-heart-disease",
+    "conditionId": "primarer-hyperaldosteronismus",
+    "label": "Vorhofflimmern ohne strukturelle Herzerkrankung",
+    "category": "Kontext",
+    "direction": "increases",
+    "rationale": "Vorhofflimmern ohne überzeugende strukturelle Ursache kann bei Hypertonie ein Hinweis auf übermäßige Mineralokortikoidwirkung und PA sein.",
+    "limitations": "Vorhofflimmern ist häufig und unspezifisch. Alter, Hypertoniedauer, Schlafapnoe, Klappenerkrankung und andere Ursachen müssen berücksichtigt werden.",
+    "lastReviewed": "2026-07-12",
+    "kind": "curated",
+    "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Nennt Vorhofflimmern ohne zugrunde liegende strukturelle Herzerkrankung als klinische Konstellation, die den PA-Verdacht erhöhen kann."
+      }
+    ],
+    "quantificationStatus": "qualitative",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "low",
+    "dataCompleteness": "partial",
+    "reviewNote": "Qualitativer Kontextfaktor; nicht als eigenständiger diagnostischer Test oder numerischer Faktor verwenden."
   },
   {
     "id": "ppgl-paroxysmal-symptoms",

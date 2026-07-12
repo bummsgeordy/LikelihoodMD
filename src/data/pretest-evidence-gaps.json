@@ -55,6 +55,13 @@
     "searchedQuestion": "Setting-spezifische PA-Prävalenz in Notaufnahme, Kardiologie, Endokrinologie und Diabetologie unabhängig von Hypertonieschwere/Risikostratum.",
     "searchedSources": [
       {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Bestätigt die starke Abhängigkeit der Prävalenz von Hypertonieschwere, Selektion, Krankheitsdefinition, Assay und Screeningstrategie; Fachabteilung allein ist kein valides Risikostratum."
+      },
+      {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
         "url": "https://academic.oup.com/jcem/article/110/9/e2833/8196230",
@@ -80,8 +87,8 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "lastReviewed": "2026-06-01",
-    "reviewNote": "Vorhandene Annahmen für Primärversorgung und Nephrologie/Resistenzhypertonie bleiben vorrangig."
+    "lastReviewed": "2026-07-12",
+    "reviewNote": "Mit Primer 2026 abgeglichen. Vorhandene Annahmen für Primärversorgung und Resistenzhypertonie bleiben vorrangig; zusätzliche Werte sollten nach Hypertonieschwere statt Fachabteilung modelliert werden."
   },
   {
     "id": "gap-ppgl-non-incidentaloma-settings",

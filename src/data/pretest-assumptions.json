@@ -104,10 +104,17 @@
     "probability": 0.2,
     "rangeLow": 0.1,
     "rangeHigh": 0.3,
-    "rationale": "Für resistente Hypertonie wird PA häufig ungefähr bei 10-20% oder höher gefunden; spezialisierte Zuweisung erhöht die Prätestwahrscheinlichkeit. Der 2025er systematische Review nennt bis etwa 29,8% in spezialisierten Referral-Zentren.",
+    "rationale": "Der Primer 2026 nennt etwa 17-23% bei resistenter Hypertonie in Tertiärzentren und etwa 25-30% in ausgewählten Therapiestudien; 20% ist ein konservativer Startwert für dieses Risikostratum.",
     "limitations": "Definition der resistenten Hypertonie, Medikamentenlage, Kaliumstatus, Aldosteron-Cut-off und Bestätigungstest verändern die Schätzung erheblich.",
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Nennt etwa 17-23% PA bei resistenter Hypertonie in Tertiärzentren und höhere Werte in ausgewählten Studien; betont die starke methodische Heterogenität."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -155,7 +162,7 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "complete",
-    "reviewNote": "Aktualisiert aus bereitgestellten Setting-Annahmen und Quellenabgleich; lokale Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Mit dem Primer 2026 abgeglichen; Definition der Resistenz, Selektion und lokaler diagnostischer Pfad bestimmen die Übertragbarkeit."
   },
   {
     "id": "pa-general-fallback",
@@ -168,10 +175,17 @@
     "probability": 0.06,
     "rangeLow": 0.03,
     "rangeHigh": 0.14,
-    "rationale": "Allgemeine Fallback-Annahme für Hypertonieabklärung. Monticone berichtete 3,9% bei Stadium 1, 5,9% insgesamt und 11,8% bei Stadium 3; der 2025er systematische Review nennt ungefähr 5-14% in Primärversorgungs-Hypertoniepopulationen.",
+    "rationale": "Allgemeine Fallback-Annahme für Hypertonieabklärung. Der Primer nennt ungefähr 5% in Primärversorgung, eine globale mittlere Schätzung von 9,4% und 3-6% bei milder gegenüber 10-19% bei schwerer Hypertonie; die starke Heterogenität spricht gegen einen universellen Einzelwert.",
     "limitations": "Bei unselektierter Primärversorgung niedriger, bei resistenter Hypertonie/Hypokaliämie höher. Stadium-1- und Stadium-3-Werte sind im Kommentar dokumentiert, aber aktuell nicht als eigene Setting-Auswahl modelliert.",
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Fasst Prävalenzschätzungen nach Versorgung und Hypertonieschwere zusammen und warnt vor Heterogenität durch Definition, Assay, Schwelle und Selektion."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -205,7 +219,7 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "complete",
-    "reviewNote": "Aktualisiert aus bereitgestellten Setting-Annahmen und Quellenabgleich; lokale Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Mit dem Primer 2026 abgeglichen; bewusst konservative Fallback-Annahme mit sichtbarer Spanne."
   },
   {
     "id": "ppgl-primary-care-direct",
@@ -520,9 +534,16 @@
     "probability": 0.06,
     "rangeLow": 0.04,
     "rangeHigh": 0.14,
-    "rationale": "Startwert für Hypertonie in Primärversorgung/allgemeiner internistischer Versorgung. Monticone fand in einer primärversorgungsnahen Hypertoniekohorte 5,9% PA; der 2025er systematische Review nennt ungefähr 5-14% in Primärversorgungs-Hypertoniepopulationen.",
+    "rationale": "Startwert für Hypertonie in Primärversorgung/allgemeiner internistischer Versorgung. Der Primer nennt ungefähr 5% in der Primärversorgung; Monticone fand 5,9%, und der Leitlinienreview berichtet ungefähr 5-14% je nach Population und Definition.",
     "limitations": "Bei wirklich unselektierter milder Hypertonie kann der Wert niedriger liegen; bei Stadium-3-Hypertonie, Hypokaliämie, Nebenniereninzidentalom oder resistenter Hypertonie höher ansetzen. Präanalytik und Medikamente beeinflussen Screening stark.",
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Nennt ungefähr 5% PA in der Primärversorgung und zeigt die Zunahme mit Hypertonieschwere; Werte sind stark von Screening und Definition abhängig."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -563,8 +584,8 @@
     "dataCompleteness": "complete",
     "kind": "curated",
     "reviewStatus": "needs-review",
-    "lastReviewed": "2026-05-19",
-    "reviewNote": "Aktualisiert aus bereitgestellten Setting-Annahmen und Quellenabgleich; lokale Übertragbarkeit weiter fachlich prüfen."
+    "lastReviewed": "2026-07-12",
+    "reviewNote": "Mit dem Primer 2026 abgeglichen; 6% bleibt ein konservativer Startwert für hypertensive Primärversorgung, nicht für die Allgemeinbevölkerung."
   },
   {
     "id": "ppgl-endocrine-high-suspicion-direct",

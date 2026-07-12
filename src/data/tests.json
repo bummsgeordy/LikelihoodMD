@@ -379,7 +379,7 @@
     "name": "Aldosteron-Renin-Ratio",
     "category": "Endokrinologie / Nephrologie",
     "condition": "Primärer Hyperaldosteronismus",
-    "description": "ARR-Screening bei geeigneten Hypertonie-Risikogruppen.",
+    "description": "Screening auf reninunabhängige Aldosteronproduktion bei Hypertonie.",
     "evidenceProfiles": [
       {
         "id": "arr-screening-guideline",
@@ -387,16 +387,23 @@
         "label": "ARR-Screening, methodenabhängiger Leitlinienkontext",
         "kind": "curated",
         "method": "ARR-Screening",
-        "cutoff": "Labor- und einheitenabhängig",
-        "procedure": "Aldosteron und Renin nach lokalem Präanalytik-Protokoll bestimmen; Kalium, Medikation, Haltung und Uhrzeit dokumentieren.",
+        "cutoff": "Orientierung 2025 bei Immunoassay: Aldosteron >=10 ng/dl mit PRA <=1 ng/ml/h und ARR >20; bei direktem Renin <=8,2 mIU/l ARR >2,5 (ng/dl)/(mIU/l). LC-MS/MS-Grenzen etwa 25% niedriger; lokale Assay-Grenzen gehen vor.",
+        "procedure": "Aldosteron und Renin morgens nach etwa 2 h aufrechter Aktivität und 15 min Sitzen bestimmen; Kalium gleichzeitig messen, Natriumrestriktion zuvor vermeiden und Medikation, Einheiten sowie Assay dokumentieren.",
         "sensitivity": null,
         "specificity": null,
-        "population": "Patienten mit Hypertonie und klinischer Indikation zum Screening.",
-        "rationale": "Leitliniennahes Screeningprofil ohne universelle Testgüte: Aldosteron, Reninmethode, Einheit, Cut-off und Präanalytik müssen gemeinsam interpretiert werden.",
+        "population": "Erwachsene mit Hypertonie; die Leitlinie 2025 schlägt ein Screening aller Menschen mit Hypertonie unter Berücksichtigung lokaler Ressourcen vor.",
+        "rationale": "Leitliniennahes Standardprofil ohne universelle Testgüte: niedriges oder supprimiertes Renin und dazu inadäquat hohes Aldosteron sind gemeinsam mit ARR, Assay, Einheit und Prätestwahrscheinlichkeit zu interpretieren.",
         "limitations": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit, Reninmethode, Einheit und Laborverfahren verändern die Aussagekraft deutlich; ein globales LR-Paar ist nicht übertragbar.",
-        "lastReviewed": "2026-06-01",
-        "isDefault": false,
+        "lastReviewed": "2026-07-12",
+        "isDefault": true,
         "sources": [
+          {
+            "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+            "year": 2026,
+            "url": "https://doi.org/10.1038/s41572-026-00714-w",
+            "kind": "Review",
+            "note": "Aktueller Überblick zu PA als Spektrum, breitem Screening, assay-spezifischen ARR-Grenzen, Wiederholungsmessungen und probabilistischer Subtypisierung."
+          },
           {
             "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
             "year": 2025,
@@ -475,9 +482,12 @@
         "purpose": "screening",
         "specimen": "Plasma/Serum je nach Labor",
         "preanalytics": [
-          "Kalium, Natriumzufuhr, Körperhaltung, Uhrzeit, Alter und Nierenfunktion dokumentieren",
+          "Morgens nach etwa 2 h aufrechter Aktivität und 15 min Sitzen messen; Abweichungen dokumentieren",
+          "Keine Natriumrestriktion in den Tagen vor der Messung; Natriumzufuhr und Volumenstatus dokumentieren",
+          "Kalium, Alter, Nierenfunktion, Assay, Reninmethode und Einheiten dokumentieren",
           "Kalium vor Testung korrigieren; Hypokaliämie kann Aldosteron senken",
           "Aldosteron absolut und Renin-Suppression getrennt prüfen; Quotient allein ist nicht ausreichend",
+          "Bei negativem oder grenzwertigem Ergebnis und hoher Prätestwahrscheinlichkeit Störfaktoren korrigieren und wiederholen",
           "Bei unvermeidbaren Medikamenten Ergebnis mit Richtung der erwarteten Verzerrung kommentieren",
           "PRA-basierte ARR und direkte Reninkonzentration nicht ohne methodenspezifischen Cut-off gleichsetzen"
         ],
@@ -506,14 +516,16 @@
         "interpretationCautions": [
           "Ein hoher ARR unter störenden Medikamenten kann trotzdem bedeutsam sein, wenn Aldosteron inadäquat hoch und Renin supprimiert bleibt.",
           "Ein negativer ARR unter MRA, Diuretikum, ACE-Hemmer oder ARB schließt PA bei hoher Prätestwahrscheinlichkeit nicht sicher aus.",
-          "Bei schwerer Hypertonie/Hypokaliämie darf Medikamentenpause nicht mechanisch erzwungen werden; Sicherheit und lokaler Pfad gehen vor."
+          "Bei schwerer Hypertonie/Hypokaliämie darf Medikamentenpause nicht mechanisch erzwungen werden; Sicherheit und lokaler Pfad gehen vor.",
+          "Normokaliämie schließt PA nicht aus; weniger als etwa 25-30% der Betroffenen sind dokumentiert hypokaliämisch.",
+          "LC-MS/MS misst Aldosteron häufig etwa 25% niedriger als Immunoassays; Grenzwerte sind nicht austauschbar."
         ],
         "intendedUse": "screening",
         "preanalyticRisk": "high",
         "applicabilityWarning": "Medikamente, Natriumzufuhr, Kalium, Körperposition, Tageszeit und Laborverfahren verändern die Aussagekraft deutlich.",
         "reviewPriority": "high",
         "calculationMode": "workflow-only",
-        "nonComputableReason": "Die 2025-Leitlinie definiert kein universelles methoden- und cut-off-unabhängiges ARR-LR-Paar. Bitte ein passendes methodenspezifisches Profil wählen."
+        "nonComputableReason": "Es gibt kein universelles methoden-, assay- und cut-off-unabhängiges ARR-LR-Paar. Aldosteron, Renin, ARR und Prätestwahrscheinlichkeit müssen gemeinsam interpretiert werden."
       },
       {
         "id": "arr-direct-renin-li-2016",
@@ -544,6 +556,13 @@
           "Bei schwerer Hypertonie/Hypokaliämie darf Medikamentenpause nicht mechanisch erzwungen werden; Sicherheit und lokaler Pfad gehen vor."
         ],
         "sources": [
+          {
+            "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+            "year": 2026,
+            "url": "https://doi.org/10.1038/s41572-026-00714-w",
+            "kind": "Review",
+            "note": "Ordnet gepoolte ARR-Testgüte in die ausgeprägte Assay-, Schwellen- und Populationsabhängigkeit ein; ein einzelnes LR-Paar ist nicht universell übertragbar."
+          },
           {
             "title": "Diagnostic accuracy of aldosterone/direct renin concentration ratio for primary aldosteronism",
             "year": 2016,
@@ -594,16 +613,16 @@
             "note": "Tabelliert Medikamenten- und Elektrolyteffekte auf Aldosteron, Renin und ARR inklusive FP/FN-Richtung."
           }
         ],
-      "isDefault": true,
+        "isDefault": false,
         "reviewStatus": "needs-review",
         "evidenceQuality": "moderate",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-06-01",
+        "lastReviewed": "2026-07-12",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "testId": "arr",
         "intendedUse": "screening",
         "preanalyticRisk": "high",
-        "applicabilityWarning": "Gepoolte Werte sind cut-off-, einheiten- und laborabhängig; lokale Validierung nötig.",
+        "applicabilityWarning": "Historisches gepooltes Profil aus selektierten Studien. Werte sind cut-off-, assay-, einheiten- und populationsabhängig und nicht als allgemeiner PA-Standard zu verwenden.",
         "reviewPriority": "high",
         "medicationInterferences": [
           "MRAs und ENaC-Inhibitoren erhöhen Renin und können ARR falsch niedrig machen",
@@ -1121,7 +1140,7 @@
     "name": "Oraler Kochsalzbelastungstest",
     "category": "Endokrinologie / Nephrologie",
     "condition": "Primärer Hyperaldosteronismus",
-    "description": "Bestätigungstest bei positiver oder unklarer Aldosteron-Renin-Ratio.",
+    "description": "Optionaler Aldosteron-Suppressionstest bei intermediärer Wahrscheinlichkeit und geplanter weiterer Subtypisierung.",
     "evidenceProfiles": [
       {
         "id": "oral-sodium-loading-endotext",
@@ -1138,8 +1157,8 @@
         "lrPositive": 13.7,
         "lrNegative": 0.04,
         "population": "Patienten mit Screening-Verdacht auf primären Hyperaldosteronismus.",
-        "rationale": "Ambulant gut passender Bestätigungstest mit publizierten Sensitivitäts- und Spezifitätsangaben.",
-        "limitations": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
+      "rationale": "Ambulant durchführbarer Suppressionstest, der in ausgewählten, vergleichbaren Populationen zusätzliche Information vor einer Subtypisierung liefern kann.",
+      "limitations": "Nicht als obligate Bestätigung nach jedem positiven ARR verwenden. Testgüte, Cut-off und Nutzen variieren; milde PA kann trotz Suppression vorliegen. Nur bei sicherer Durchführung und vollständiger Urinsammlung interpretierbar.",
         "preanalytics": [
           "Kalium vor und während Testung normalisieren",
           "Natriumzufuhr/-ausscheidung, Blutdruck, Nierenfunktion und Volumenstatus dokumentieren",
@@ -1159,14 +1178,22 @@
           "milde PA-Formen und Spektrumseffekte",
           "fortbestehende RAAS-blockierende oder diuretische Effekte"
         ],
-        "interpretationCautions": [
-          "Bestätigungstests sind nur nach plausibler positiver ARR sinnvoll; sie ersetzen keine Subtypisierung.",
-          "Bei spontaner Hypokaliämie, supprimiertem Renin und klar erhöhtem Aldosteron kann Bestätigung je nach Leitlinienpfad entfallen.",
-          "LR-Werte gelten nur für vergleichbares Protokoll, Population, Cut-off und Messmethode."
-        ],
-        "lastReviewed": "2026-06-01",
+      "interpretationCautions": [
+        "Suppressionstests sind keine obligate zweite Stufe nach jedem positiven ARR und ersetzen keine Subtypisierung.",
+        "Bei niedrigem Lateralisationpotenzial kann direkt medizinisch behandelt werden; bei starkem biochemischem Phänotyp kann der Suppressionstest vor CT/AVS entfallen.",
+        "Ein negatives Ergebnis schließt insbesondere milde oder posture-abhängige PA nicht zuverlässig aus.",
+        "LR-Werte gelten nur für vergleichbares Protokoll, Population, Cut-off und Messmethode."
+      ],
+      "lastReviewed": "2026-07-12",
         "isDefault": true,
-        "sources": [
+      "sources": [
+        {
+          "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+          "year": 2026,
+          "url": "https://doi.org/10.1038/s41572-026-00714-w",
+          "kind": "Review",
+          "note": "Betont begrenzte und heterogene Genauigkeit von Suppressionstests; empfiehlt ihren selektiven Einsatz bei intermediärer Wahrscheinlichkeit vor weiterer Subtypisierung."
+        },
           {
             "title": "Endotext: Primary Aldosteronism",
             "year": 2024,
@@ -1209,7 +1236,7 @@
         "reviewNote": "Kuratierter Startwert; fachliche Prüfung und Aktualität bitte im Reviewprozess bestätigen.",
         "intendedUse": "diagnostic-support",
         "preanalyticRisk": "high",
-        "applicabilityWarning": "Nur bei sicherer Durchführbarkeit und adäquater Urinsammlung interpretierbar; lokale Grenzwerte und Kontraindikationen beachten.",
+      "applicabilityWarning": "Selektiver Suppressionstest, kein obligater Bestätigungsschritt. Nur bei sicherer Durchführung, vollständiger Urinsammlung und passendem Protokoll interpretieren.",
         "reviewPriority": "high",
         "medicationInterferences": [
           "MRAs, ENaC-Inhibitoren, Diuretika, ACE-Hemmer, ARB und Renininhibitoren können Bestätigungstests beeinflussen",
@@ -1848,7 +1875,7 @@
     "name": "Kochsalzinfusionstest",
     "category": "Endokrinologie / Nephrologie",
     "condition": "Primärer Hyperaldosteronismus",
-    "description": "Intravenöser Kochsalzbelastungstest als Bestätigungstest bei Verdacht auf primären Hyperaldosteronismus.",
+    "description": "Sitzender intravenöser Aldosteron-Suppressionstest bei ausgewählter intermediärer Wahrscheinlichkeit.",
     "evidenceProfiles": [
       {
         "id": "saline-infusion-lcms-prosaldo",
@@ -1865,8 +1892,8 @@
         "lrPositive": 24,
         "lrNegative": 0.04,
         "population": "Patienten mit auffälligem PA-Screening in spezialisierten Zentren.",
-        "rationale": "Als Bestätigungstest-Profil aufgenommen; hohe Genauigkeit nur unter standardisiertem Protokoll und passender Messmethode plausibel.",
-        "limitations": "Nicht als Primärscreening verwenden. Kontraindikationen, Körperhaltung, Kalium, Volumenstatus, Medikamente und Methode/Cut-off sind entscheidend.",
+      "rationale": "Methodenspezifisches Suppressionstest-Profil; zusätzliche Information ist nur unter standardisiertem, sitzendem Protokoll und passender Aldosteronmessung plausibel.",
+      "limitations": "Nicht als Primärscreening oder obligate Bestätigung verwenden. Selbst sitzend können falsch negative Ergebnisse auftreten; liegende Durchführung ist für milde oder posture-abhängige PA besonders problematisch.",
         "preanalytics": [
           "Kalium vor und während Testung normalisieren",
           "Natriumzufuhr/-ausscheidung, Blutdruck, Nierenfunktion und Volumenstatus dokumentieren",
@@ -1886,12 +1913,20 @@
           "milde PA-Formen und Spektrumseffekte",
           "fortbestehende RAAS-blockierende oder diuretische Effekte"
         ],
-        "interpretationCautions": [
-          "Bestätigungstests sind nur nach plausibler positiver ARR sinnvoll; sie ersetzen keine Subtypisierung.",
-          "Bei spontaner Hypokaliämie, supprimiertem Renin und klar erhöhtem Aldosteron kann Bestätigung je nach Leitlinienpfad entfallen.",
-          "LR-Werte gelten nur für vergleichbares Protokoll, Population, Cut-off und Messmethode."
-        ],
-        "sources": [
+      "interpretationCautions": [
+        "Suppressionstests sind keine obligate zweite Stufe nach jedem positiven ARR und ersetzen keine Subtypisierung.",
+        "Der Test sollte sitzend durchgeführt werden; der Primer berichtet relevante falsch negative Suppression besonders bei liegendem Protokoll.",
+        "Bei starkem biochemischem Phänotyp kann ein Suppressionstest vor CT/AVS entfallen; bei niedrigem Lateralisationpotenzial kann direkt medizinisch behandelt werden.",
+        "LR-Werte gelten nur für vergleichbares Protokoll, Population, Cut-off und Messmethode."
+      ],
+      "sources": [
+        {
+          "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+          "year": 2026,
+          "url": "https://doi.org/10.1038/s41572-026-00714-w",
+          "kind": "Review",
+          "note": "Ordnet Kochsalzinfusion als selektiven Suppressionstest ein, betont falsch negative Ergebnisse und empfiehlt die sitzende statt liegende Durchführung."
+        },
           {
             "title": "Saline Infusion Test for Primary Aldosteronism: Implications of Immunoassay Inaccuracy",
             "year": 2022,
@@ -1932,11 +1967,11 @@
         "reviewStatus": "needs-review",
         "evidenceQuality": "low",
         "dataCompleteness": "partial",
-        "lastReviewed": "2026-06-01",
+      "lastReviewed": "2026-07-12",
         "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
         "intendedUse": "confirmation",
         "preanalyticRisk": "high",
-        "applicabilityWarning": "Nicht als Primärscreening verwenden. Kontraindikationen, Körperhaltung, Kalium, Volumenstatus, Medikamente und Methode/Cut-off sind entscheidend.",
+      "applicabilityWarning": "Nur selektiv und sitzend durchführen. Kontraindikationen, Kalium, Volumenstatus, Medikamente, Assay und lokaler Cut-off sind entscheidend.",
         "reviewPriority": "high",
         "medicationInterferences": [
           "MRAs, ENaC-Inhibitoren, Diuretika, ACE-Hemmer, ARB und Renininhibitoren können Bestätigungstests beeinflussen",

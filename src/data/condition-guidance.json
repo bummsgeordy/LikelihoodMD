@@ -89,30 +89,38 @@
   },
   {
     "conditionId": "primarer-hyperaldosteronismus",
-    "summary": "Primärer Hyperaldosteronismus ist eine häufige, oft übersehene und potenziell behandelbare Ursache endokriner Hypertonie. Der diagnostische Einstieg ist das Verhältnis aus Aldosteron und Renin; positive oder unklare Screeningbefunde brauchen je nach Konstellation Bestätigung und später Subtypisierung.",
+    "summary": "Primärer Hyperaldosteronismus ist ein Spektrum reninunabhängiger Aldosteronproduktion und eine häufige, oft übersehene Ursache von Hypertonie. Betroffene haben bei vergleichbarem Blutdruck ein höheres kardiorenales Risiko. Der Einstieg erfolgt mit Aldosteron, Renin und deren Verhältnis; die weitere Abklärung richtet sich probabilistisch nach Befundstärke, Therapieziel und Operationswunsch.",
     "whenToTest": [
-      "Screening bei resistenter Hypertonie, kontrollierter Hypertonie mit mindestens vier Medikamenten, persistierend hohem Blutdruck oder Hypertonie mit Hypokaliämie.",
-      "Screening bei Hypertonie plus Nebenniereninzidentalom, Schlafapnoe, früher Familienanamnese oder erstgradigen Angehörigen mit PA.",
-      "Bei spontaner Hypokaliämie, supprimiertem Renin und deutlich erhöhtem Aldosteron kann eine direkte Subtypisierung ohne klassischen Bestätigungstest erwogen werden."
+      "Die Endocrine-Society-Leitlinie 2025 schlägt ein Screening bei allen Menschen mit Hypertonie vor; Umsetzbarkeit, Ressourcen und lokale Versorgung müssen berücksichtigt werden.",
+      "Besonders hohe Priorität haben resistente oder schwere Hypertonie, Hypokaliämie, Hypertonie plus Nebenniereninzidentalom, frühe Hypertonie oder Schlaganfall-Familienanamnese und Vorhofflimmern ohne strukturelle Herzerkrankung.",
+      "Bei stark ausgeprägtem biochemischem Phänotyp mit Hypokaliämie, sehr niedrigem Renin und deutlich erhöhtem Aldosteron kann ein Suppressionstest vor der Subtypisierung entbehrlich sein."
     ],
     "recommendedTests": [
-      "ARR als Screeningtest: Aldosteron, Renin, Kalium, Medikation, Salzstatus, Körperhaltung und Uhrzeit dokumentieren.",
-      "Bestätigung je nach Setting mit Kochsalzinfusion, oralem Kochsalzbelastungstest, Fludrocortison-Suppression oder Captopril-Test.",
-      "Bestätigungstests nicht als Primärscreening interpretieren; Kontraindikationen wie relevante CKD, Herzinsuffizienz oder schwere Hypokaliämie beachten.",
-      "Der 2025er systematische Review stützt die Leitlinienaktualisierung: Evidenz zu Screening-Outcomes bleibt begrenzt, gezielte PA-spezifische Therapie ist aber mit besserer Blutdruckkontrolle assoziiert."
+      "Screening: Aldosteron und Renin morgens im Sitzen bestimmen; Kalium gleichzeitig messen, Natriumrestriktion zuvor vermeiden und Medikation sowie Messmethode dokumentieren.",
+      "Bei negativem oder grenzwertigem Ergebnis und hoher klinischer Wahrscheinlichkeit Kalium und Störfaktoren korrigieren und die Messung wiederholen.",
+      "Suppressionstests wie sitzende Kochsalzinfusion oder orale Natriumbelastung sind keine obligate zweite Stufe für alle. Sie können bei intermediärer Wahrscheinlichkeit helfen, die weitere Subtypisierung zu planen.",
+      "Bei Operationswunsch und ausreichender Wahrscheinlichkeit einer lateralisierten Erkrankung folgen Nebennieren-CT und in der Regel Nebennierenvenensampling; CT allein lokalisiert die Aldosteronquelle nicht zuverlässig."
     ],
     "pitfalls": [
       "Hypokaliämie kann Aldosteron senken und falsch negative Ergebnisse begünstigen.",
-      "Diuretika, ACE-Hemmer, AT1-Blocker, Betablocker, MR-Antagonisten, ENaC-Inhibitoren und Salzrestriktion können ARR und Bestätigungstests deutlich verschieben.",
-      "ARR-Cut-offs sind methoden-, einheiten- und laborabhängig; ein Quotient ohne absolut inadäquat hohes Aldosteron kann irreführend sein."
+      "Diuretika, ACE-Hemmer, AT1-Blocker, Betablocker, MR-Antagonisten, ENaC-Inhibitoren, NSAR und Salzrestriktion können Aldosteron, Renin und ARR deutlich verschieben.",
+      "ARR-Cut-offs sind assay-, reninmethoden-, einheiten- und laborabhängig. LC-MS/MS-Aldosteronwerte und Orientierungsgrenzen liegen häufig etwa 25% unter Immunoassay-Werten.",
+      "Nur eine Minderheit der Betroffenen ist hypokaliämisch; Normokaliämie schließt PA nicht aus. Kein einzelner ARR- oder Suppressionstest darf bei hoher Prätestwahrscheinlichkeit unkritisch ausschließen."
     ],
     "settingNotes": [
-      "In Primärversorgungs-Hypertoniepopulationen berichtet der 2025er Review ungefähr 5-14% PA; in spezialisierten Zuweisungszentren können Werte bis etwa 30% erreicht werden.",
+      "Der Primer nennt ungefähr 5% in der Primärversorgung, etwa 10% in Referral-Zentren und 17-23% bei resistenter Hypertonie; die globale mittlere Schätzung von 9,4% ist wegen heterogener Definitionen und Teststrategien nur orientierend.",
       "Ein älterer Literaturreview fand gewichtete PA-Prävalenzen von etwa 4,3% in Primärversorgung und 9,5% in überwiesenen Kollektiven; die Prävalenz steigt mit Hypertonieschwere.",
       "Resistente Hypertonie und Hypokaliämie sollten eher als eigenes Risikostratum bzw. Setting gewertet werden, um Doppelzählung mit Modifikatoren zu vermeiden.",
-      "Endotext nennt häufig verwendete ARR-Cut-offs und Probenhinweise, liefert aber keine universell übertragbare Testgüte für jedes Labor."
+      "PA bildet ein Kontinuum. Prävalenz und diagnostische Schwellen hängen von Population, Hypertonieschwere, Assay, Screeningstrategie und Krankheitsdefinition ab."
     ],
     "links": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Aktueller Primer zu Epidemiologie, Spektrum reninunabhängiger Aldosteronproduktion, Screening, probabilistischer Diagnostik, Subtypisierung und Therapie."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -163,11 +171,11 @@
         "note": "Systematischer Review zur Heterogenität von Prävalenzschätzungen nach Population und Teststrategie."
       }
     ],
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Leitlinienbasierte Kurznotiz; lokale ARR- und Bestätigungstest-Cut-offs müssen separat kuratiert werden."
+    "reviewNote": "Mit dem Nature Reviews Disease Primer 2026 und der Endocrine-Society-Leitlinie 2025 abgeglichen; lokale ARR- und Suppressionstest-Protokolle bleiben erforderlich."
   },
   {
     "conditionId": "phaochromozytom-paragangliom",

@@ -7,10 +7,10 @@
       "ambulant-nephrologie",
       "ambulant-endokrinologie"
     ],
-    "label": "PA: ARR → oraler Kochsalzbelastungstest",
-    "description": "Modulare Screening- und Bestätigungskette bei Verdacht auf primären Hyperaldosteronismus mit ambulanter oraler Natriumbelastung.",
-    "rationale": "Ein auffälliger Aldosteron-Renin-Quotient verändert die Wahrscheinlichkeit und kann als neue Vortestwahrscheinlichkeit für einen Bestätigungstest genutzt werden.",
-    "limitations": "Nur didaktische Sequenz. ARR-Präanalytik, Kalium, Medikation, Körperhaltung, sichere Salzbelastbarkeit, Blutdruck, Nierenfunktion und Vollständigkeit der 24-h-Urinsammlung müssen separat geprüft werden.",
+    "label": "PA: ARR → selektive orale Natriumbelastung",
+    "description": "Didaktischer Beispielpfad: methodenspezifisches ARR-Screening und optionaler Suppressionstest bei intermediärer Wahrscheinlichkeit vor einer möglichen Subtypisierung.",
+    "rationale": "Ein auffälliges Screening führt nicht automatisch zu einem Suppressionstest. Nach dem Primer 2026 hängt der nächste Schritt von Befundstärke, Wahrscheinlichkeit einer lateralisierten PA, Operationswunsch und lokaler Expertise ab.",
+    "limitations": "Kein Standardpfad für alle Betroffenen. Bei niedrigem Lateralisationpotenzial kann direkt medizinisch behandelt werden; bei starkem biochemischem Phänotyp kann CT/AVS ohne Suppressionstest folgen. Kalium, Medikation, sichere Salzbelastbarkeit, Blutdruck, Nierenfunktion und Vollständigkeit der 24-h-Urinsammlung müssen separat geprüft werden.",
     "stages": [
       {
         "id": "pa-arr-screen",
@@ -27,11 +27,18 @@
         "id": "pa-oral-sodium-confirmation",
         "testId": "oral-sodium-loading",
         "evidenceProfileId": "oral-sodium-loading-endotext",
-        "label": "Bestätigung: oraler Kochsalzbelastungstest",
+        "label": "Optional: oraler Suppressionstest bei intermediärer Wahrscheinlichkeit",
         "expectedUse": "confirmation"
       }
     ],
     "sources": [
+      {
+        "title": "Primary aldosteronism - Nature Reviews Disease Primers",
+        "year": 2026,
+        "url": "https://doi.org/10.1038/s41572-026-00714-w",
+        "kind": "Review",
+        "note": "Beschreibt den probabilistischen Pfad: Suppressionstests selektiv bei intermediärer Wahrscheinlichkeit; direkte medizinische Therapie oder CT/AVS sind je nach Lateralisationpotenzial Alternativen."
+      },
       {
         "title": "Systematic Review Supporting the Endocrine Society Guideline on Primary Aldosteronism",
         "year": 2025,
@@ -68,12 +75,12 @@
         "note": "Retrospektive direkte Vergleichsstudie: OSLT zeigte in der untersuchten Kohorte höhere Sensitivität als der sitzende Kochsalzinfusionstest; Übertragbarkeit und Referenzstandard beachten."
       }
     ],
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-07-12",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Didaktische Kette; lokale Protokolle und Leitlinienpfade fachlich prüfen."
+    "reviewNote": "Mit Primer 2026 aktualisierter didaktischer Beispielpfad; nicht als obligatorische Sequenz interpretieren."
   },
   {
     "id": "cushing-lnsc-to-dst",
