@@ -61,6 +61,7 @@ Lokaler Produktionsbuild:
 ```bash
 npm run validate:data
 npm run test:run
+npm run audit:evidence
 npm run build
 npm run check:pages
 npm run check:bundle
@@ -79,6 +80,7 @@ Empfohlener Ablauf vor dem Push:
 ```bash
 npm run validate:data
 npm run test:run
+npm run audit:evidence
 npm run build
 npm run check:pages
 npm run check:bundle

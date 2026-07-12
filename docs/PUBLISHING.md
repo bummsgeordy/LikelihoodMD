@@ -44,6 +44,7 @@ Nach einer Änderung an Daten oder Code:
 ```bash
 npm run validate:data
 npm run test:run
+npm run audit:evidence
 npm run build
 npm run check:pages
 npm run check:bundle
@@ -69,6 +70,7 @@ Empfohlenes Vorgehen ohne Backend:
    ```bash
    npm run validate:data
    npm run test:run
+   npm run audit:evidence
    npm run build
    npm run check:pages
    npm run check:bundle
