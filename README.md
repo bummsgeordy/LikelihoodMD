@@ -1,64 +1,78 @@
 # LikelihoodMD
 
-Deutschsprachiges Lehr- und Rechentool für medizinisches Fachpersonal: [likelihood.engert.me](https://likelihood.engert.me)
+[LikelihoodMD öffnen](https://likelihood.engert.me) · Deutschsprachiges Praxisnachschlage- und Lehrwerkzeug für medizinisches Fachpersonal.
 
-## Idee
+## Die Idee
 
-Ein Testergebnis ist nie einfach positiv oder negativ. Seine Bedeutung hängt davon ab, wie wahrscheinlich die Erkrankung vor dem Test war. LikelihoodMD zeigt deshalb Prätestwahrscheinlichkeit, Testgüte beziehungsweise Likelihood Ratios und daraus die Posttestwahrscheinlichkeit visuell an.
+Ein Testergebnis ist nicht einfach „positiv oder negativ“. Seine Bedeutung hängt davon ab, wie wahrscheinlich die Erkrankung zuvor war, ob der Test zur klinischen Frage passt und unter welchen Bedingungen er durchgeführt wurde.
 
-Das ist besonders hilfreich bei typischen Praxisfallen: Seltene Erkrankungen werden bei niedriger Ausgangswahrscheinlichkeit trotz positivem Test oft überschätzt. Umgekehrt kann ein negativer Test bei hoher Ausgangswahrscheinlichkeit nicht ausreichend beruhigen.
+LikelihoodMD verbindet diese Fragen mit einer visuellen Bayes-Berechnung. Ein positiver Test bei einer seltenen Erkrankung kann häufig falsch positiv sein; ein negativer Test bei hoher Ausgangswahrscheinlichkeit muss nicht ausreichend beruhigen. Die anschließende Entscheidung hängt außerdem von Folgen, Belastung, Alternativen und Patientenpräferenzen ab.
 
-Grob benutzen:
+## Benutzung
 
-1. Klinisches Setting oder manuelle Prätestwahrscheinlichkeit wählen.
-2. Diagnostischen Test oder körperlichen Befund auswählen.
-3. Posttestwahrscheinlichkeit, Nomogramm und 1000er-Veranschaulichung prüfen.
+1. Klinische Frage oder Erkrankung und Anlass wählen.
+2. Indikation, Voraussetzungen und passende Tests prüfen.
+3. Für ein berechenbares Profil eine begründete Prätestwahrscheinlichkeit eingeben.
+4. Positive und negative Ergebnisse, Unsicherheit und mögliche nächste Klärung vergleichen.
 
-LikelihoodMD ist kein Diagnose- oder Therapieautomat. Es ist ein Denk- und Lehrtool, das Tests, Befunde und klinische Einschätzung transparenter kalibrieren soll.
+Die App zeigt beide Testergebnisse gleichzeitig. Kategorische Befunde und klinische Abläufe bleiben ohne künstliche Posttestzahl. Unklare oder nicht verwertbare Befunde haben eigene Hinweise.
 
-## Funktionen
+## Ansichten
 
-- Diagnostische Tests mit Evidenzprofilen für unterschiedliche Quellen, Cut-offs, Methoden und Populationen.
-- Körperliche Untersuchungsbefunde nach McGee, *Evidence-Based Physical Diagnosis*, 6. Auflage, als deutschsprachig aufbereitete Arbeitsfassung. Alle Einträge bleiben bis zur fachlichen und sprachlichen Einzelprüfung `needs-review`.
-- Setting-basierte Prätestannahmen, plausible Spannweiten, Qualitätslabel und Quellen.
-- Klinische Modifikatoren sowie profilbezogene Präanalytik- und Medikamentenwarnungen.
-- Bedingte Diagnostikketten mit Fortsetzungs- und Stopppfaden.
-- Getrennte Darstellung von Bayes-Berechnung, kategorischer Risikoklassifikation und klinischem Workflow.
-- Nomogramme, Balkendarstellung und 1000er-Erklärung zur Reduktion von Base-Rate-Neglect.
-- Datenkatalog und lokaler Verwaltungs-Drawer für eigene Tests, Annahmen, Szenarien und JSON-Import/-Export.
-- Unterseiten für [diagnostische Kennzahlen](public/info/vierfeldertafel/index.html), [CKD-Risiko nach eGFR/Albuminurie](public/info/ckd-risiko/index.html) und [interaktive Simulation](public/simulation/index.html).
-- GitHub-Pages- und PWA-fähiger statischer Build ohne Backend und ohne Online-Datenbank.
+- **Praxis:** zwölf strukturierte Fragestellungen mit Indikation, Voraussetzungen, Befundkonstellationen und Quellen. Neue Themen sind Schilddrüsenfunktion, Hyperprolaktinämie, männlicher Hypogonadismus, Osteoporose, Hyperandrogenismus/Zyklusstörungen und Glukose/HbA1c.
+- **Rechner:** passende Evidenzprofile, Nomogramme, Prätestherkunft und ausklappbare Interferenzhinweise. Seltene Wahrscheinlichkeiten wie 0,006 % bleiben rechnerisch erhalten.
+- **Körperliche Untersuchung:** 732 deutschsprachig aufbereitete Befunde nach McGee, *Evidence-Based Physical Diagnosis*, 6. Auflage. Das Buch liefert den unverzichtbaren Untersuchungs- und Interpretationskontext. Die Arbeitsfassung ersetzt es nicht; fachlicher, sprachlicher und urheberrechtlicher Einzelreview bleiben offen.
+- **Simulation / Vortrag:** gemeinsame Rechenlogik und Katalogprofile, zwei Vergleichsszenarien, Häufigkeitsbäume, sechs schrittweise aufdeckbare Fallfragen und Druckansicht.
+- **Hintergrund:** diagnostische Kennzahlen und Einordnung der Prätestwahrscheinlichkeit.
+- **CKD-Risiko:** qualitative KDIGO-Klassifikation und belegte, endpunktspezifische Hazard Ratios. Prognostische HR sind keine diagnostischen LR.
+- **Administration:** filterbarer Datenkatalog mit 50 Einträgen je Seite, lokale Ergänzungen und JSON-Import/-Export.
 
-Eigene Daten bleiben lokal im Browser gespeichert. Online-Nutzer können die kuratierte öffentliche Datenbasis nicht verändern.
+## Was die Zahlen bedeuten
 
-## Datenmodell
+Ein passendes Setting ist kein Nachweis einer direkt gemessenen Prävalenz. Die Daten unterscheiden beobachtete Häufigkeiten, übertragene Kohorten und Schätzungen. Fehlt eine tragfähige Zahl, bleibt der Startwert leer; Spannweiten erhalten keinen erfundenen Mittelpunkt.
 
-Kuratierte Daten liegen in `src/data/`:
+Quellenprüfung (`sourceCheck`) und menschliche Freigabe (`reviewStatus`) sind getrennt. Eine recherchierte Fundstelle macht einen Eintrag nicht automatisch klinisch übertragbar oder freigegeben. Einschränkungen stehen am Ergebnis und im [Evidenz-Audit](docs/EVIDENCE_AUDIT.md).
 
-- `conditions.json`: zentrale Krankheitsbilder.
-- `tests.json`: diagnostische Tests und Evidenzprofile.
-- `pretest-assumptions.json`: Setting- und Fallback-Prätestannahmen.
-- `clinical-modifiers.json`: Symptome, Zeichen, Anamnese- und Kontextfaktoren.
-- `diagnostic-chains.json`: vordefinierte sequentielle Testpfade.
-- `condition-guidance.json`: krankheitsspezifische Kurzinfos und Links.
-- `physical-*.json`: körperliche Untersuchung nach System, Krankheitsbild und Befund.
+Häufigkeitsbäume verwenden nur direkt hinterlegte Sensitivität und Spezifität. LR-Werte werden nicht rückwärts in scheinexakte Testgüte umgerechnet. Kombinierte Extremwerte ergeben eine **Szenariospanne**, kein gemeinsames 95-%-Konfidenzintervall. Die derzeitigen Diagnostikketten sind klinische Abläufe ohne numerische LR-Verkettung.
 
-`pretest-assumptions.json` ist die einzige kanonische Prätestbasis. Präanalytik und Medikamente gehören an das jeweilige Evidenzprofil. Nicht quantifizierbare Verfahren erhalten keine künstlichen LR-Werte, sondern werden als Kategorie oder Workflow dargestellt.
+## Zweck und Grenzen
 
-Jede kuratierte Zahl soll Quelle, Population, Begründung, Grenzen, Reviewstatus, Evidenzqualität und Datum der letzten Prüfung enthalten. Unsichere Daten bleiben als `needs-review`, `expert-opinion`, `partial` oder `minimal` sichtbar. Der vollständige Profilstand steht im [Evidenz-Audit](docs/EVIDENCE_AUDIT.md).
+Ziel ist die Schulung analytischen Denkens in der erwachsenen ambulanten Versorgung, nicht eine automatische Diagnose, Therapie oder vollständige Laborinterpretation. Weniger Untersuchungen sind nicht grundsätzlich besser. Eine Verbesserung realer Patientenversorgung ist durch die App nicht nachgewiesen.
 
-## Entwicklung
+Keine Patientenakte, kein Login, kein Backend und kein Tracking. Eigene Ergänzungen bleiben im jeweiligen Browser; Webseitenbesucher verändern die öffentliche Datenbasis nicht. Externe Quellen brauchen Internet. Vor patientenbezogener Entscheidungsunterstützung muss die konkrete Zweckbestimmung fachlich und regulatorisch geprüft werden; ein Disclaimer allein genügt nicht.
 
-Die CI verwendet Node.js 22; `.nvmrc` hält lokale Browser- und Buildtests auf derselben unterstützten Version.
+[Medizinische Änderungen und offene Prüfungen](docs/PRACTICE_REVIEW.md) · [Fachliche Regeln](docs/GOVERNANCE.md)
+
+## Lokal starten
+
+Node.js 22 verwenden (`.nvmrc`):
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Lokaler Produktionsbuild:
+Die Simulation liegt unter `/simulation/`. Für einen Produktions- oder Offline-Test:
 
 ```bash
+npm run build
+npm run preview -- --host 127.0.0.1
+```
+
+Auf iPhone/iPad einmal online in Safari vollständig laden und über **Teilen → Zum Home-Bildschirm** installieren. Der Offline-Cache enthält auch Unterseiten und Untersuchungsbefunde. Gerätespeicher kann vom Browser gelöscht werden; eigene Daten regelmäßig exportieren. Weitere Hinweise: [Lokal starten](LOKAL_STARTEN.md).
+
+## Daten und Entwicklung
+
+Kuratierte Daten liegen in `src/data/`: Erkrankungen, Settings, Tests, Prätestannahmen, Evidenzlücken, Modifikatoren, Diagnostikketten, Guidance, Praxisfragen und Untersuchungsbefunde. `pretest-assumptions.json` ist die einzige kanonische Prätestbasis; `probability: null` bedeutet **kein belastbarer Punktwert**, nicht null Prozent.
+
+Exportformat **v7**; v1–v6 bleiben importierbar. Bestehende IDs und lokale Profile werden erhalten. Die private Mac-App gehört nicht zu diesem Repository und wurde nicht angepasst; ihre v7-Kompatibilität ist separat zu prüfen.
+
+Importe ergänzen vorhandene eigene Daten. Änderungen an derselben ID benötigen eine Bestätigung; kuratierte Einträge werden nicht überschrieben.
+
+Die Prüfungen vor einer Veröffentlichung:
+
+```bash
+npx playwright install chromium webkit
 npm run validate:data
 npm run test:run
 npm run audit:evidence
@@ -67,42 +81,13 @@ npm run check:pages
 npm run check:bundle
 npm run smoke:test
 npm run test:e2e
+npm audit --audit-level=high
 ```
 
-Auf macOS kann alternativ `Likelihood-Ratio-Rechner starten.command` doppelt geklickt werden. Details stehen in [LOKAL_STARTEN.md](LOKAL_STARTEN.md).
+Der Bundlecheck begrenzt den statischen JavaScript-Einstiegsgraphen je Seite auf 600 kB beziehungsweise 120 kB gzip. Nachgeladene Kontextdaten und die vollständige Offline-Vorhaltung sind zusätzlich zu berücksichtigen. Produktions-Sourcemaps werden nicht veröffentlicht.
 
-## Veröffentlichung
-
-Der GitHub-Workflow `.github/workflows/deploy.yml` prüft Daten, Abhängigkeiten, Unit- und Browsertests, Evidenz-Audit, Build, Bundlebudget und Pages-Referenzen. Danach veröffentlicht er `dist/` über GitHub Pages.
-
-Empfohlener Ablauf vor dem Push:
-
-```bash
-npm run validate:data
-npm run test:run
-npm run audit:evidence
-npm run build
-npm run check:pages
-npm run check:bundle
-npm run smoke:test
-npm run test:e2e
-git status
-```
-
-Mehr dazu steht in [docs/PUBLISHING.md](docs/PUBLISHING.md).
-
-## Beiträge
-
-Korrekturen und Ergänzungen sind willkommen, brauchen aber belastbare Quellen und klare Grenzen der Übertragbarkeit. Gute Beiträge nennen mindestens:
-
-- Erkrankung, Setting und Zielpopulation.
-- Test, Methode, Cut-off und intended use.
-- Sensitivität/Spezifität oder LR-Werte, falls vorhanden.
-- Präanalytik, Interferenzen und typische Fehlinterpretationen.
-- Quelle mit URL, DOI oder PubMed-Link.
-
-Externe Vorschläge können über GitHub Issues, Pull Requests oder JSON-Export aus der App eingereicht werden. Fachliche Regeln stehen in [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) und [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
+[Veröffentlichung mit GitHub Desktop](docs/PUBLISHING.md) · [Datenbeiträge](docs/CONTRIBUTING.md)
 
 ## Lizenz
 
-MIT, siehe [LICENSE](LICENSE).
+Projektcode: [MIT](LICENSE). Rechte an zitierten Quellen und am McGee-Buch verbleiben bei ihren Rechteinhabern. Die Code-Lizenz ersetzt keine Prüfung der Weiterverwendung von Quelleninhalten.

@@ -19,6 +19,7 @@ Dieses Projekt ist als öffentliches Lehr- und Rechentool angelegt. Damit die Za
 - Werte ohne klare Population werden nicht als kuratierte Standardwerte übernommen.
 - Binäre LR-Berechnung ist nur bei passender Population, Methode und Cut-off zulässig. Kategorische und workflowbasierte Verfahren erhalten keine LR-1/1-Platzhalter.
 - Quellenabgleich allein setzt keinen Eintrag auf `reviewed`; dafür ist ein benannter fachlicher Reviewer erforderlich.
+- `sourceCheck` nennt Datum, konkrete Fundstelle und Einordnung: `verified` (abgeglichen), `restricted` (eingeschränkt/offen), `withdrawn` (numerische Nutzung zurückgezogen). Der Status bezieht sich auf den dokumentierten Inhalt, nicht pauschal auf jede Aussage einer Quelle.
 
 ## Reviewstatus
 
@@ -34,7 +35,9 @@ Die hinterlegten Prätestwahrscheinlichkeiten sind quellenbasierte Startwerte f�
 
 Die Verlässlichkeit wird konservativ markiert. Direkt gemessene Setting-Daten sind belastbarer als ähnliche Referral-Kohorten, Register-/Routinedaten, leitlinien- oder reviewbasierte Schätzungen und lokale Expertenschätzungen. Lokale Population, Überweisungskontext, Spektrumseffekte, Präanalytik und Medikamente können die Prätestwahrscheinlichkeit und die Testinterpretation erheblich verändern.
 
-Klinische Modifikatoren werden nicht naiv addiert. Ohne explizit belegte Odds Ratios oder Likelihood Ratios werden sie qualitativ als niedriger, moderat erhöht, deutlich erhöht oder sehr deutlich erhöht angezeigt.
+Klinische Modifikatoren werden nicht addiert. Die aktuelle Rechenvorschau erlaubt nur einen einzelnen, quellengeprüften diagnostischen LR ohne bekannte Überlappung. Odds Ratios, mehrere korrelierte Faktoren und Testinterferenzen erzeugen keine neue Prozentzahl. Erkrankungsrisiko und Testverfälschung werden getrennt dargestellt.
+
+`probability: null` bezeichnet einen fehlenden Punktwert. Auch eine Leitlinienspanne rechtfertigt keinen automatisch gewählten Mittelpunkt. `evidenceLevel: direct` ist ein historisches Zuordnungsfeld, kein Beleg direkt gemessener Prävalenz; maßgeblich sind `origin`, Quellenfundstelle und Population.
 
 `pretest-assumptions.json` ist die einzige kanonische Prätestbasis. Konkurrierende Populationen werden getrennt benannt. Pro Erkrankung, Setting und Population darf nur eine aktive Startannahme bestehen.
 
@@ -62,3 +65,5 @@ Klinische Modifikatoren werden nicht naiv addiert. Ohne explizit belegte Odds Ra
 ## Regulatorische Grenze
 
 Die Anwendung darf nicht so beschrieben werden, dass sie eine individuelle Diagnose oder Therapieentscheidung vorgibt. Falls das Projekt später als klinisches Entscheidungsprodukt eingesetzt oder beworben werden soll, ist ein separater regulatorischer Review erforderlich.
+
+Ein Disclaimer ersetzt diese Prüfung nicht. Neue Praxisfragen bleiben indikationsbezogene Lehrinhalte ohne automatische Therapieentscheidung. Befund, Diagnose, Prognose und Handlungsentscheidung sind getrennt zu prüfen; ein günstigerer Prozentwert allein definiert keinen Patientennutzen.

@@ -1,5 +1,7 @@
-const CACHE_VERSION = 'lr-rechner-schema-v6-2026-07-10-1';
-const CACHE_NAME = `likelihood-ratio-rechner-${CACHE_VERSION}`;
+const CACHE_VERSION = 'development-v7';
+const BUILD_ASSETS = [];
+const CACHE_PREFIX = `likelihood-ratio-rechner-${new URL(self.registration.scope).pathname}-`;
+const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const APP_SHELL = [
   './',
   './index.html',
@@ -22,7 +24,7 @@ self.addEventListener('install', event => {
 
 async function precacheApp() {
   const cache = await caches.open(CACHE_NAME);
-  await cache.addAll(APP_SHELL);
+  await cache.addAll([...APP_SHELL, ...BUILD_ASSETS]);
 
   const indexResponse = await fetch('./index.html', { cache: 'no-store' });
   if (!indexResponse.ok) return;
@@ -43,7 +45,7 @@ self.addEventListener('activate', event => {
       .then(keys =>
         Promise.all(
           keys
-            .filter(key => key.startsWith('likelihood-ratio-rechner-') && key !== CACHE_NAME)
+            .filter(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
             .map(key => caches.delete(key))
         )
       )
@@ -83,12 +85,14 @@ async function networkFirst(request) {
 }
 
 async function cacheFirst(request) {
-  const cached = await caches.match(request);
+  const cache = await caches.open(CACHE_NAME);
+  // Immutable same-origin files are identical for preload and module requests,
+  // even when the static server varies its CORS headers by Origin.
+  const cached = await cache.match(request, { ignoreVary: true });
   if (cached) return cached;
 
   const response = await fetch(request);
   if (response.ok) {
-    const cache = await caches.open(CACHE_NAME);
     cache.put(request, response.clone());
   }
   return response;

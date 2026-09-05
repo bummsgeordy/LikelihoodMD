@@ -41,6 +41,6 @@ Die GitHub-Pages-Version kann als PWA auf iPhone und iPad installiert werden:
 4. **Zum Home-Bildschirm** auswählen.
 5. Die App danach über das neue Home-Screen-Symbol öffnen.
 
-Danach ist die App ohne Internet nutzbar. Für Aktualisierungen die App bei bestehender Internetverbindung erneut öffnen; der Offline-Cache wird dann aktualisiert.
+Nach erfolgreichem vollständigem Laden sind App, Simulation und Informationsseiten ohne Internet nutzbar. Externe Quellenlinks benötigen weiterhin Internet. Für Aktualisierungen die App online erneut öffnen und neu laden. Gerätespeicher kann vom Browser gelöscht werden; eigene Ergänzungen regelmäßig als JSON exportieren.
 
 Hinweis: Eine erstmalige Installation ganz ohne Internet ist damit nicht möglich. Dafür müsste das Projekt separat als Dateienpaket oder native iOS-App verteilt werden.

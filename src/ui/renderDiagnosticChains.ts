@@ -39,12 +39,12 @@ export function renderDiagnosticChains(
     title.textContent = viewModel.chain.label;
     const status = document.createElement('span');
     status.className = 'badge badge-warning';
-    status.textContent = viewModel.chain.reviewStatus;
+    status.textContent = viewModel.chain.reviewStatus === 'reviewed' ? 'Fachlich geprüft' : 'Fachliche Freigabe offen';
     heading.append(title, status);
 
     const description = document.createElement('p');
     description.className = 'muted';
-    description.textContent = `${viewModel.chain.description} Start-Prätest: ${formatPercent(startPretestProbability)}.`;
+    description.textContent = viewModel.chain.description + (viewModel.paths.length ? ` Start-Prätest: ${formatPercent(startPretestProbability)}.` : ' Klinischer Ablauf, keine gemeinsame Posttestberechnung.');
 
     const stages = document.createElement('ol');
     stages.className = 'chain-stages';
@@ -95,7 +95,30 @@ export function renderDiagnosticChains(
     limitations.className = 'chain-limitations';
     limitations.textContent = `Grenzen: ${viewModel.chain.limitations}`;
 
-    card.append(heading, description, stages, table, limitations);
+    card.append(heading, description, stages);
+    if (viewModel.paths.length) card.append(table);
+    const decisions = document.createElement('ol');
+    decisions.className = 'clinical-path';
+    for (const decision of viewModel.chain.decisions ?? []) {
+      const item = document.createElement('li');
+      item.className = `path-${decision.status}`;
+      const label = document.createElement('strong');
+      label.textContent = decision.when;
+      const text = document.createElement('p');
+      text.textContent = decision.action;
+      item.append(label, text); decisions.append(item);
+    }
+    card.append(decisions, limitations);
+    const sources = document.createElement('details');
+    const summary = document.createElement('summary'); summary.textContent = `Quellen (${viewModel.sources.length})`;
+    sources.append(summary);
+    for (const source of viewModel.sources) {
+      if (!/^https?:\/\//.test(source.url)) continue;
+      const p = document.createElement('p'); const link = document.createElement('a');
+      link.href = source.url; link.textContent = source.title; link.target = '_blank'; link.rel = 'noopener noreferrer';
+      p.append(link); sources.append(p);
+    }
+    card.append(sources);
     container.append(card);
   });
 }

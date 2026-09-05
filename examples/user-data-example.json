@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "exportedAt": "2026-05-17T00:00:00.000Z",
   "customTests": [
     {
@@ -19,6 +19,7 @@
       "testId": "custom-test-example",
       "label": "Beispielprofil",
       "kind": "custom",
+      "isDefault": true,
       "calculationMode": "binary-lr",
       "lrDerivation": "derived",
       "method": "Lokales Testverfahren",

@@ -59,8 +59,8 @@ jobs:
         run: npm run check:bundle
       - name: Smoke test static build
         run: npm run smoke:test
-      - name: Install Chromium for browser tests
-        run: npx playwright install --with-deps chromium
+      - name: Install Chromium and WebKit for browser tests
+        run: npx playwright install --with-deps chromium webkit
       - name: Browser smoke tests
         run: npm run test:e2e
       - name: Configure Pages

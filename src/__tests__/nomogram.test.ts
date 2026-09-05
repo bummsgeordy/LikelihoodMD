@@ -37,9 +37,9 @@ describe('Nomogram geometry', () => {
   });
 
   it('draws LR− as a visually falling line', () => {
-    const layout = createNomogramLayout({ width: 720, height: 405 });
     const pretest = 0.08;
     const lr = 0.03;
+    const layout = createNomogramLayout({ width: 720, height: 405 }, [pretest, posttestProbability(pretest, lr)]);
     const posttest = posttestProbability(pretest, lr);
     const points = nomogramPoints(pretest, lr, posttest, layout);
 
@@ -47,10 +47,10 @@ describe('Nomogram geometry', () => {
   });
 
   it('keeps very low likelihood ratios visible', () => {
-    const layout = createNomogramLayout({ width: 720, height: 405 });
     const pretest = 0.08;
     const lr = 0.03;
     const posttest = posttestProbability(pretest, lr);
+    const layout = createNomogramLayout({ width: 720, height: 405 }, [pretest, posttest]);
     const points = nomogramPoints(pretest, lr, posttest, layout);
 
     expectVisible(points.pre.y, layout.top, layout.bottom);

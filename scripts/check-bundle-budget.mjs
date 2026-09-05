@@ -1,25 +1,43 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { gzipSync } from 'node:zlib';
+import fs from "node:fs";
+import path from "node:path";
+import { gzipSync } from "node:zlib";
 
-const assetsDirectory = path.join(process.cwd(), 'dist', 'assets');
-const mainBundles = fs
-  .readdirSync(assetsDirectory)
-  .filter(file => /^index-.*\.js$/.test(file));
-
-if (mainBundles.length !== 1) {
-  throw new Error(`Genau ein initiales JavaScript-Bundle erwartet, gefunden: ${mainBundles.length}.`);
-}
-
-const bundle = fs.readFileSync(path.join(assetsDirectory, mainBundles[0]));
-const rawLimit = 600_000;
-const gzipLimit = 120_000;
-const gzipBytes = gzipSync(bundle).byteLength;
-
-if (bundle.byteLength > rawLimit || gzipBytes > gzipLimit) {
-  throw new Error(
-    `Initialbundle überschreitet das Budget: ${bundle.byteLength} B roh, ${gzipBytes} B gzip; erlaubt ${rawLimit}/${gzipLimit} B.`
+const manifest = JSON.parse(
+  fs.readFileSync("dist/.vite/manifest.json", "utf8"),
+);
+for (const entry of ["index.html", "simulation/index.html"]) {
+  const files = new Set();
+  const visit = (key) => {
+    const chunk = manifest[key];
+    if (!chunk) throw new Error("Bundle-Verweis fehlt: " + key);
+    if (files.has(chunk.file)) return;
+    files.add(chunk.file);
+    (chunk.imports ?? []).forEach(visit);
+  };
+  visit(entry);
+  const sizes = [...files].map((file) =>
+    fs.readFileSync(path.join("dist", file)),
+  );
+  const raw = sizes.reduce((sum, b) => sum + b.byteLength, 0),
+    gzip = sizes.reduce((sum, b) => sum + gzipSync(b).byteLength, 0);
+  if (raw > 600000 || gzip > 120000)
+    throw new Error(
+      entry +
+        ": initialer statischer Importgraph überschreitet 600000/120000 B: " +
+        raw +
+        "/" +
+        gzip,
+    );
+  console.log(
+    entry +
+      ": " +
+      raw +
+      " B roh, " +
+      gzip +
+      " B gzip; " +
+      files.size +
+      " statisch benötigte JS-Dateien.",
   );
 }
-
-console.log(`Bundle-Budget eingehalten: ${bundle.byteLength} B roh, ${gzipBytes} B gzip.`);
+if (fs.readdirSync("dist/assets").some((f) => f.endsWith(".map")))
+  throw new Error("Produktions-Sourcemaps gefunden.");

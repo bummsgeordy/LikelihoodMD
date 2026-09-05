@@ -1,63 +1,129 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://likelihoodmd.local/schemas/condition-guidance.schema.json",
-  "title": "ConditionGuidance",
+  "$id": "https://likelihoodmd.local/schemas/practice-question.schema.json",
+  "title": "PracticeQuestion",
   "type": "object",
+  "additionalProperties": false,
   "required": [
+    "id",
     "conditionId",
-    "summary",
-    "whenToTest",
-    "recommendedTests",
-    "pitfalls",
-    "settingNotes",
-    "links",
+    "label",
+    "contexts",
+    "testIds",
+    "indication",
+    "prerequisites",
+    "results",
+    "urgent",
+    "burden",
+    "reflection",
+    "sources",
     "lastReviewed",
     "reviewStatus",
     "evidenceQuality",
-    "dataCompleteness"
+    "dataCompleteness",
+    "sourceCheck"
   ],
   "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
     "conditionId": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 20000
     },
-    "summary": {
+    "label": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 20000
     },
-    "whenToTest": {
+    "indication": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "urgent": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "burden": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "reflection": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+    "testIds": {
       "type": "array",
       "minItems": 1,
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "minLength": 1
       }
     },
-    "recommendedTests": {
+    "prerequisites": {
       "type": "array",
       "minItems": 1,
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "minLength": 1
       }
     },
-    "pitfalls": {
+    "contexts": {
       "type": "array",
       "minItems": 1,
+      "uniqueItems": true,
       "items": {
-        "type": "string",
-        "minLength": 1
+        "enum": [
+          "screening",
+          "suspicion",
+          "incidental",
+          "follow-up"
+        ]
       }
     },
-    "settingNotes": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string",
-        "minLength": 1
+    "results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "normal",
+        "abnormal",
+        "borderline",
+        "discordant",
+        "uninterpretable"
+      ],
+      "properties": {
+        "normal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "abnormal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "borderline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "discordant": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uninterpretable": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
-    "links": {
+    "sources": {
       "type": "array",
       "minItems": 1,
       "items": {
@@ -132,6 +198,5 @@
     "sourceCheck": {
       "$ref": "source-check.schema.json"
     }
-  },
-  "additionalProperties": false
+  }
 }

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simulation und Vortrag | LikelihoodMD</title><link rel="icon" href="../favicon.svg"><link rel="manifest" href="../manifest.webmanifest"></head>
+<body><main class="learning-app">
+  <header><a class="button" href="../">← LikelihoodMD</a><h1>Interaktive Testsimulation</h1><div class="header-tools"><button id="lectureToggle" aria-pressed="false">Vortragsmodus</button><button id="printButton">Drucken</button></div></header>
+  <section class="workbench" aria-labelledby="simulationTitle">
+    <h2 id="simulationTitle">Ausgangswahrscheinlichkeit → Testinformation → Ergebnis</h2>
+    <div class="simulation-grid">
+      <aside class="sim-controls">
+        <label for="pretestNumber">Prätestwahrscheinlichkeit (%)</label><input id="pretestRange" type="range" min="0" max="100" step="any" value="10" aria-label="Prätestwahrscheinlichkeit"><input id="pretestNumber" inputmode="decimal" value="10,0">
+        <label for="lrPositiveNumber">LR+</label><input id="lrPositiveRange" type="range" min="0" max="1000" value="321" aria-label="LR positiv"><input id="lrPositiveNumber" inputmode="decimal" value="5">
+        <label for="lrNegativeNumber">LR−</label><input id="lrNegativeRange" type="range" min="0" max="1000" value="650" aria-label="LR negativ"><input id="lrNegativeNumber" inputmode="decimal" value="0,2">
+        <p id="inputError" class="warning" role="status"></p><p id="parameterMode" class="muted"></p>
+      </aside>
+      <section class="positive-panel"><h3>Positives Testergebnis (LR+)</h3><canvas id="nomogramPositive" role="img"></canvas></section>
+      <section class="negative-panel"><h3>Negatives Testergebnis (LR−)</h3><canvas id="nomogramNegative" role="img"></canvas></section>
+    </div>
+    <p id="resultLine" class="result-line"></p><p id="resultAnnouncement" class="sr-only" aria-live="polite"></p>
+  </section>
+  <section class="band" aria-labelledby="examplesTitle"><h2 id="examplesTitle">Reale Orientierungswerte</h2><label for="exampleSelect">Profil aus dem Datenkatalog</label><select id="exampleSelect"></select><div id="exampleEvidence"></div></section>
+  <section class="band" aria-labelledby="compareTitle"><h2 id="compareTitle">Zwei Szenarien vergleichen</h2>
+    <label for="comparisonMode">Vergleich</label><select id="comparisonMode"><option value="pretest">Gleicher Test, andere Ausgangswahrscheinlichkeit</option><option value="profile">Andere Evidenzprofile desselben Tests</option></select>
+    <div id="comparisonPretest"><label for="comparisonNumber">Prätest Szenario B (%)</label><input id="comparisonNumber" value="1" inputmode="decimal"></div>
+    <div id="comparisonProfileWrap" hidden><label for="comparisonProfile">Profil B</label><select id="comparisonProfile"></select></div>
+    <p id="comparisonCaution" class="warning"></p>
+    <div class="scenario-grid"><section><h3>Szenario A</h3><p id="scenarioAResult"></p><div id="treeA"></div></section><section><h3>Szenario B</h3><p id="scenarioBResult"></p><div id="treeB"></div></section></div>
+  </section>
+  <section class="band" aria-labelledby="decisionTitle"><h2 id="decisionTitle">Was würde sich am Vorgehen ändern?</h2>
+    <div class="decision-grid"><section><h3>Positiv</h3><p>Wie plausibel ist die Diagnose? Welche Bestätigung ist nötig? Welche Folgeuntersuchungen und Belastungen entstehen?</p></section><section><h3>Negativ</h3><p>Reicht die verbleibende Wahrscheinlichkeit? Welche Alternativhypothese erklärt den Befund? Welche Verlaufskontrolle ist angemessen?</p></section><section><h3>Unklar</h3><p>Ist der Test verwertbar? Hilft Wiederholung unter besseren Bedingungen mehr als ein zusätzlicher Test?</p></section></div>
+    <p>Testschwellen hängen von Folgen, Belastung und Patientenpräferenzen ab. Befund, Diagnose, Prognose und Handlungsentscheidung sind nicht dasselbe. Weniger Tests sind nicht automatisch besser.</p>
+    <a href="https://www.nice.org.uk/guidance/ng197/chapter/recommendations">NICE: gemeinsame Entscheidungsfindung und Risikokommunikation</a>
+  </section>
+  <section class="band" id="lectureCases" aria-labelledby="casesTitle"><h2 id="casesTitle">Sechs kurze Fallfragen</h2><label for="caseSelect">Fall</label><select id="caseSelect"></select><div id="caseContent"></div><button id="revealCase">Nächsten Schritt aufdecken</button><button id="resetCase">Fall zurücksetzen</button></section>
+  <footer><p>Lehrmodell für medizinisches Fachpersonal. Szenarien sind keine Patientenprognosen; fachliche Freigabe der Bestandsdaten bleibt offen.</p><a href="https://doi.org/10.1007/s10459-020-10025-8">Häufigkeitsbäume: didaktische Studie</a><p>Parallelfragen unterstützen die Diskussion von Testwahl, Begründung und Unsicherheit. Ein Effekt auf reale Patientenversorgung ist damit nicht nachgewiesen.</p></footer>
+</main><script type="module" src="../src/simulation.ts"></script></body></html>

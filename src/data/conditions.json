@@ -199,5 +199,41 @@
       "Glomeruläre Hämaturie"
     ],
     "description": "Einordnung glomerulärer Hämaturie, Proteinurie, nephritischer Sedimentbefunde und rascher eGFR-Verschlechterung."
+  },
+  {
+    "id": "schilddrusenfunktionsstorung",
+    "label": "Schilddrüsenfunktionsstörung",
+    "category": "Endokrinologie",
+    "description": "Klinische Konstellation und Vorbefunde vor einem Laborpanel klären. Ein isoliertes Symptom beweist keine Funktionsstörung."
+  },
+  {
+    "id": "hyperprolaktinamie",
+    "label": "Hyperprolaktinämie",
+    "category": "Endokrinologie",
+    "description": "Hyperprolaktinämie ist zunächst ein Befund, nicht automatisch ein Prolaktinom."
+  },
+  {
+    "id": "mannlicher-hypogonadismus",
+    "label": "Männlicher Hypogonadismus",
+    "category": "Endokrinologie",
+    "description": "Abklärung bei passenden Symptomen/Zeichen; kein allgemeines Screening asymptomatischer Männer."
+  },
+  {
+    "id": "osteoporose-frakturrisiko",
+    "label": "Osteoporose / Frakturrisiko",
+    "category": "Endokrinologie",
+    "description": "Frakturanamnese, Risikofaktoren und mögliche Konsequenzen entscheiden über die Basisdiagnostik."
+  },
+  {
+    "id": "hyperandrogenismus-zyklusstorung",
+    "label": "Hyperandrogenismus / Zyklusstörung (PCOS/PMOS)",
+    "category": "Endokrinologie",
+    "description": "Erwachsene mit Zyklusstörung oder Hyperandrogenismus; PCOS/PMOS ist eine Ausschlussdiagnose im passenden Kontext."
+  },
+  {
+    "id": "diabetes-diagnostik",
+    "label": "Diabetes mellitus: Glukose-/HbA1c-Diagnostik",
+    "category": "Endokrinologie",
+    "description": "Diabetesdiagnostik mit validiertem HbA1c oder Plasma-Glukosekriterien; Symptome und Krisenkontext unterscheiden."
   }
 ]

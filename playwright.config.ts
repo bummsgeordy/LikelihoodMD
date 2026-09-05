@@ -27,10 +27,12 @@ export default defineConfig({
         hasTouch: true,
         isMobile: true
       }
-    }
+    },
+    ...[390,768,1440].map(width=>({name:'webkit-'+width,use:{...devices['Desktop Safari'],viewport:{width,height:1000}}})),
+    {name:'lecture-1920',use:{...devices['Desktop Chrome'],viewport:{width:1920,height:1080}}}
   ],
   webServer: {
-    command: 'npm run dev -- --host 127.0.0.1 --port 4173',
+    command: 'npm run preview -- --host 127.0.0.1 --port 4173',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000

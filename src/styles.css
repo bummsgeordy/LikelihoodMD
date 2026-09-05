@@ -1673,6 +1673,11 @@ input[type="range"] {
   transform: translateY(0);
 }
 
+.admin-drawer[aria-hidden="true"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .drawer-header {
   display: flex;
   justify-content: space-between;

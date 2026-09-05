@@ -247,134 +247,92 @@
   },
   {
     "conditionId": "nebenniereninsuffizienz",
-    "summary": "Die Abklärung einer Nebenniereninsuffizienz bleibt eine HPA-Achsen-Fragestellung: basale Messungen können Hinweise geben, dynamische Tests prüfen die Cortisolreserve. Bei Hypopituitarismus ist besonders die zentrale ACTH-Defizienz relevant; die Interpretation hängt stark von Akutsituation, Glukokortikoidexposition, Assay, CBG/Albumin und Zeitpunkt der letzten Steroidgabe ab.",
+    "summary": "Erholungskontrolle bei geplanter Beendigung im Bereich physiologischer Dosen; keine Routinetestung während weiterhin notwendiger supraphysiologischer Behandlung. Verdacht auf primären Cortisolmangel, nicht als Synonym für Steroidentzug oder zentrale Insuffizienz behandeln.",
     "whenToTest": [
-      "Testen bei klinischem Verdacht, relevanter Glukokortikoidexposition oder bilateraler Nebennierenerkrankung.",
-      "Bei Hypophysen-/Hypothalamuserkrankung, sellärer Raumforderung, Hypophysenoperation, Schädelbestrahlung oder erwartbarer progredienter Hypophyseninsuffizienz die HPA-Achse gezielt prüfen.",
-      "Bei Hypophyseninzidentalom initial klinisch und laborchemisch auf Hypopituitarismus prüfen; bei Makroinzidentalomen werden Verlaufskontrollen empfohlen.",
-      "Bei akuter schwerer Erkrankung oder instabiler Situation darf Diagnostik die Behandlung nicht verzögern.",
-      "Morgen-Cortisol kann als Screening dienen; grenzwertige Ergebnisse brauchen dynamische Testung."
+      "Nebennierenachse nach Glukokortikoiden",
+      "Primäre Nebenniereninsuffizienz vermutet"
     ],
     "recommendedTests": [
-      "250-µg-ACTH-Stimulationstest mit 0-, 30- und/oder 60-Minuten-Cortisol nach lokalem Protokoll.",
-      "ACTH basal hilft bei der Einordnung primär vs. zentral, muss aber präanalytisch korrekt verarbeitet werden.",
-      "Bei Hypopituitarismus können 7-9-Uhr-Cortisol und ACTH orientieren; bei 100 bis 400-500 nmol/l Cortisol beschreibt Endotext dynamische Testung der ACTH-Reserve als erforderlich.",
-      "Bei Hypophyseninzidentalom können freies T4, Morgen-Cortisol, Gonadenachse und je nach Befund Stimulationstests zur Einordnung der Hypophysenfunktion gehören.",
-      "Assay-spezifische Cortisol-Cut-offs dokumentieren; historische Cut-offs nicht unkritisch übertragen."
+      "Exposition über alle Applikationswege und Präparate berücksichtigen.",
+      "Morgendliches Cortisol als Kontinuum im geeigneten Einnahme-/Abnahmekontext; assayspezifisch einordnen.",
+      "ACTH und morgendliches Cortisol im Kontext; bei Bedarf 250-µg-ACTH-Test nach lokalem Protokoll.",
+      "Elektrolyte, Mineralokortikoidachse und Ursachenklärung berücksichtigen; assayspezifischer Cortisol-Cut-off."
     ],
     "pitfalls": [
-      "Hydrocortison, Cortisonacetat und Prednisolon können Messungen beeinflussen.",
-      "Orale Östrogene erhöhen CBG und damit Gesamtcortisol.",
-      "Frische zentrale Nebenniereninsuffizienz kann trotz erhaltener Nebennierenantwort übersehen werden.",
-      "Bei kombinierter Hypophyseninsuffizienz sollte Cortisolmangel vor Beginn einer Thyroxintherapie abgesichert oder behandelt werden, da unbehandelte ACTH-Defizienz durch Schilddrüsenhormon klinisch dekompensieren kann."
+      "Dosis, Zeitpunkt, exogene Steroide, Assay und klinischen Zustand klären.",
+      "Primäre und zentrale Mechanismen sowie Steroidexposition unterscheiden."
     ],
     "settingNotes": [
-      "Nach exogener Steroidexposition hängt die Prätestwahrscheinlichkeit von Dosis, Dauer, Applikationsweg und Zeit seit Absetzen ab.",
-      "Bei primärer Nebenniereninsuffizienz erhöhen Hyperpigmentierung, Salzverlangen, Hyponatriämie und Hyperkaliämie den Verdacht.",
-      "Bei zentraler Nebenniereninsuffizienz sprechen bekannte Hypophysenerkrankung, mehrere Hypophysenachsen-Ausfälle, selläre Operation/Bestrahlung oder Hypophysitis eher für eine höhere Prätestwahrscheinlichkeit.",
-      "Die Inzidentalom-Leitlinie berichtet in kleinen Serien Hypopituitarismus bei relevanten Anteilen der Betroffenen; ACTH/Cortisol-Achsen-Defizite wurden bis etwa 18% beschrieben, aber nicht als universelle Prätestwahrscheinlichkeit."
+      "Morgendliche Kontrolle im empfohlenen Verlauf; dynamische Testung nicht routinemäßig erzwingen.",
+      "Geht es um Erholung, primäre Insuffizienz oder einen zentralen Ausfall?",
+      "Assaygerechte dynamische Prüfung kann erforderlich sein.",
+      "Welche Rolle spielt ACTH für die Lokalisation der Störung?"
     ],
     "links": [
       {
-        "title": "Endotext: Hypopituitarism",
-        "year": 2025,
-        "url": "https://www.ncbi.nlm.nih.gov/books/NBK278989/",
-        "kind": "Lehrtext",
-        "note": "Beschreibt Ursachen, Basaldiagnostik und dynamische Testung bei Hypopituitarismus, inklusive zentraler ACTH-Defizienz und Hormonreihenfolge."
-      },
-      {
-        "title": "Endocrine Society Clinical Practice Guideline: Pituitary Incidentaloma",
-        "year": 2011,
-        "url": "https://academic.oup.com/jcem/article/96/4/894/2720833",
-        "kind": "Leitlinie",
-        "note": "Empfiehlt initiale und verlaufsbezogene Evaluation auf Hypopituitarismus; nennt beobachtete ACTH/Cortisol-Achsen-Defizite in Inzidentalom-Serien."
-      },
-      {
-        "title": "Endotext: Endocrine Testing Protocols, HPA Axis",
-        "year": 2023,
-        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK278940/",
-        "kind": "Lehrtext",
-        "note": "Beschreibt ACTH-Stimulation, Probenhandling, Cut-offs und relevante präanalytische Einschränkungen."
-      },
-      {
-        "title": "ACTH Stimulation Tests for the Diagnosis of Adrenal Insufficiency: Systematic Review and Meta-Analysis",
-        "year": 2016,
-        "url": "https://pubmed.ncbi.nlm.nih.gov/26649617/",
-        "kind": "Review",
-        "note": "Metaanalyse zu 250-µg- und 1-µg-ACTH-Tests; sekundäre Nebenniereninsuffizienz ist mit ACTH-Stimulation eher rule-in- als sicher rule-out-fähig."
-      },
-      {
-        "title": "Endocrine Society: Primary Adrenal Insufficiency",
-        "year": 2016,
-        "url": "https://academic.oup.com/jcem/article/101/2/364/2804860",
-        "kind": "Leitlinie",
-        "note": "Leitlinie zu Diagnose und Management primärer Nebenniereninsuffizienz."
-      },
-      {
-        "title": "ESE/Endocrine Society: Glucocorticoid-induced Adrenal Insufficiency",
+        "title": "ESE/Endocrine Society: Glucocorticoid-induced adrenal insufficiency",
         "year": 2024,
         "url": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency",
         "kind": "Leitlinie",
-        "note": "Leitlinie zur HPA-Achsen-Suppression nach Glukokortikoiden."
+        "note": "R2.2, R2.7–R2.8 und R3: morgendliches Cortisol zur Erholungskontrolle; keine routinemäßigen dynamischen Tests bei Steroidreduktion."
+      },
+      {
+        "title": "Endocrine Society: Primary adrenal insufficiency",
+        "year": 2016,
+        "url": "https://www.endocrine.org/clinical-practice-guidelines/primary-adrenal-insufficiency",
+        "kind": "Leitlinie",
+        "note": "ACTH-Stimulation, morgendliches Cortisol/ACTH und Krisenkontext; keine Übertragung der Testgüte zentraler Insuffizienz."
       }
     ],
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-09-05",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Leitlinienbasierte Kurznotiz; konkrete Cut-offs müssen labor- und assaybezogen geprüft werden."
+    "reviewNote": "Leitlinienbasierte Kurznotiz; konkrete Cut-offs müssen labor- und assaybezogen geprüft werden.",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "R2.2, R2.7–R2.8 und R3: morgendliches Cortisol zur Erholungskontrolle; keine routinemäßigen dynamischen Tests bei Steroidreduktion.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
   },
   {
     "conditionId": "akromegalie",
-    "summary": "Akromegalie ist eine seltene, oft verzögert erkannte Hypophysenerkrankung durch GH-/IGF-1-Exzess. Die Quellen betonen: IGF-1 ist der erste biochemische Screeningtest; bei erhöhtem oder grenzwertigem IGF-1 wird die Diagnose durch fehlende GH-Suppression im oralen Glukosebelastungstest bestätigt.",
+    "summary": "Typischer Phänotyp oder begründeter hypophysärer Kontext; unspezifische Einzelkomorbiditäten genügen nicht.",
     "whenToTest": [
-      "IGF-1 messen bei typischen klinischen Merkmalen wie akraler oder fazialer Vergröberung, vergrößerten Händen/Füßen, Kiefer-/Zahnstellungsveränderungen oder Hyperhidrose.",
-      "IGF-1 erwägen bei mehreren assoziierten Konstellationen wie Schlafapnoe, Typ-2-Diabetes, Hypertonie, Karpaltunnelsyndrom, belastender Arthropathie oder Hyperhidrose auch ohne eindeutige klassische Zeichen.",
-      "Bei Hypophysenmasse empfiehlt die Leitlinie IGF-1 zur Abklärung eines GH-Exzesses."
+      "Akromegalie: IGF-1 im klinischen Kontext"
     ],
     "recommendedTests": [
-      "Alters- und geschlechtsadjustiertes Serum-IGF-1 als erster Screeningtest; ein normaler Wert schließt Akromegalie in der Regel effektiv aus.",
-      "Bei erhöhtem oder unklarem IGF-1: 75-g-oraler Glukosetest mit dokumentierter Hyperglykämie und GH-Messung über 2 Stunden.",
-      "Ein randomisiertes Einzel-GH sollte nicht zur Diagnose genutzt werden, weil GH pulsatil sezerniert wird."
+      "Alters- und assayspezifischen IGF-1-Referenzbereich beachten.",
+      "Malnutrition, Lebererkrankung, Diabeteskontrolle, Schilddrüsenfunktion, Schwangerschaft und orale Östrogene prüfen."
     ],
     "pitfalls": [
-      "IGF-1-Referenzbereiche sind assay-, alters-, geschlechts- und populationsabhängig.",
-      "Unterernährung, Lebererkrankung, schlecht kontrollierter Diabetes, Schilddrüsenfunktionsstörungen und Östrogene können IGF-1/GH-Interpretation beeinflussen.",
-      "Beim OGTT müssen Glukoseanstieg, GH-Assay und Cut-off berücksichtigt werden; Adipositas, Alter und Geschlecht können die GH-Suppression beeinflussen."
+      "Klinik, IGF-1 und GH nicht unabhängig multiplizieren; Messbedingungen und spezialärztliche Einordnung."
     ],
     "settingNotes": [
-      "Die allgemeine Prävalenz ist sehr niedrig; Endotext nennt grob 3-11 Neuerkrankungen pro Million pro Jahr und etwa 60 pro Million Prävalenz.",
-      "In endokrinologischer Abklärung steigt die Prätestwahrscheinlichkeit vor allem durch typische progrediente körperliche Veränderungen oder Kombination mehrerer Komorbiditäten.",
-      "Für die aktuell hinterlegten IGF-1-/OGTT-Profile sind keine belastbaren LR-Werte kuratiert; sie werden daher als qualitative Leitlinienprofile geführt."
+      "IGF-1 mit derselben validierten Methode bestätigen; OGTT kann zur Klärung beitragen.",
+      "Welche Unsicherheit würde ein OGTT hier tatsächlich klären?"
     ],
     "links": [
       {
-        "title": "Endocrine Society Clinical Practice Guideline: Acromegaly",
-        "year": 2014,
-        "url": "https://academic.oup.com/jcem/article/99/11/3933/2836347",
+        "title": "Consensus on criteria for acromegaly diagnosis and remission",
+        "year": 2024,
+        "url": "https://doi.org/10.1007/s11102-023-01360-1",
         "kind": "Leitlinie",
-        "note": "Empfiehlt IGF-1 als initialen Screeningtest, OGTT/GH-Suppression zur Bestätigung und keine Diagnosestellung über zufälliges Einzel-GH."
-      },
-      {
-        "title": "Endotext: Acromegaly",
-        "year": 2022,
-        "url": "https://www.ncbi.nlm.nih.gov/books/NBK279097/",
-        "kind": "Lehrtext",
-        "note": "Übersicht zu Epidemiologie, klinischer Präsentation, IGF-1, OGTT und wichtigen Störfaktoren der GH-/IGF-1-Achse."
-      },
-      {
-        "title": "Endocrine Society: Acromegaly Guideline",
-        "year": 2014,
-        "url": "https://www.endocrine.org/clinical-practice-guidelines/acromegaly",
-        "kind": "Leitlinie",
-        "note": "Leitlinienseite mit Zusammenfassung und Zugang zur vollständigen JCEM-Leitlinie."
+        "note": "Diagnostic criteria: typischer Phänotyp und IGF-1 >1,3 × altersbezogener ULN; Wiederholung/OGTT bei unklarer Konstellation."
       }
     ],
-    "lastReviewed": "2026-05-19",
+    "lastReviewed": "2026-09-05",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative LR-Werte für IGF-1 und OGTT sind noch nicht kuratiert."
+    "reviewNote": "Leitlinienbasierte Kurznotiz; quantitative LR-Werte für IGF-1 und OGTT sind noch nicht kuratiert.",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Diagnostic criteria: typischer Phänotyp und IGF-1 >1,3 × altersbezogener ULN; Wiederholung/OGTT bei unklarer Konstellation.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
   },
   {
     "conditionId": "tiefe-venenthrombose",
@@ -778,68 +736,49 @@
   },
   {
     "conditionId": "schilddrusenknoten-malignitatsrisiko",
-    "summary": "Das Malignitätsrisiko eines Schilddrüsenknotens ist primär eine strukturierte Ultraschallfrage. In der Rechner-Auswahl können EU-TIRADS 1-5 oder ACR TI-RADS 1-5 als Prätest-Risikostratum gewählt werden; die Feinnadelpunktion aktualisiert diese Wahrscheinlichkeit zytologisch.",
+    "summary": "Sonografische Kategorie, Größe, Lymphknoten, Symptome und funktioneller Kontext bestimmen die Abklärung.",
     "whenToTest": [
-      "Sonografisch nachgewiesener Schilddrüsenknoten mit EU-/ACR-TIRADS-Risikokategorie und Größenkriterium.",
-      "Suspekte zervikale Lymphknoten oder extrathyreoidale Ausdehnung.",
-      "Risikokontext wie kindliche Halsbestrahlung oder familiäres Schilddrüsenkarzinom."
+      "Schilddrüsenknoten: Ist eine FNA angezeigt?"
     ],
     "recommendedTests": [
-      "Standardisierte Schilddrüsensonografie mit EU-TIRADS oder ACR TI-RADS als Prätest-Stratum.",
-      "TSH zur funktionellen Einordnung; Szintigrafie bei supprimiertem TSH je nach lokalem Pfad.",
-      "FNA nach Risikomuster und Größe; Bethesda II kann beruhigen, Bethesda V/VI erhöht die Malignitätswahrscheinlichkeit deutlich, Bethesda I/III/IV bleibt ein eigener Abklärungspfad."
+      "EU-TIRADS 1: kein Knoten; EU-TIRADS 2: regelhaft keine FNA.",
+      "EU-TIRADS 3/4/5: FNA üblicherweise bei >20/>15/>10 mm; besondere Warnmerkmale gesondert bewerten.",
+      "ACR und EU-TIRADS nicht vermischen. Malignitätsrisiko ist nicht ausschließlich das Risiko eines papillären Karzinoms."
     ],
     "pitfalls": [
-      "Interobserver-Variabilität der Sonografie kann Risikokategorie verändern.",
-      "Nicht diagnostische FNA oder Samplingfehler können falsch beruhigen.",
-      "Größe allein ist kein ausreichendes Malignitätskriterium; Muster und Lymphknoten sind zentral."
+      "Diskrepanz zwischen Sonografie und Zytologie fachlich überprüfen."
     ],
     "settingNotes": [
-      "Primärversorgung: Knoten häufig, Krebs selten; TIRADS verhindert Überdiagnostik.",
-      "Endokrinologie: Überweisungskohorten und bereits suspekte Sonografie erhöhen die Prätestwahrscheinlichkeit."
+      "Bethesda III/IV sind unklare Kategorien, nicht einfach positiver oder negativer Test.",
+      "Was wäre nach einem unklaren Zytologiebefund der nächste Schritt?"
     ],
     "links": [
       {
-        "title": "2015 ATA Guidelines for Thyroid Nodules and Differentiated Thyroid Cancer",
-        "year": 2016,
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/",
+        "title": "ETA Clinical Practice Guidelines for thyroid nodule management",
+        "year": 2023,
+        "url": "https://doi.org/10.1530/ETJ-23-0067",
         "kind": "Leitlinie",
-        "note": "ATA-Ultraschallmuster und FNA-Schwellen."
+        "note": "Tabelle 3 und zytologischer Algorithmus: EU-TIRADS, Größenkriterien, Bethesda und Grenzen der Übertragbarkeit."
       },
       {
-        "title": "European Thyroid Association EU-TIRADS Guideline",
-        "year": 2017,
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5652895/",
+        "title": "DEGAM: Schilddrüsenknoten bei Erwachsenen",
+        "year": 2025,
+        "url": "https://www.degam.de/leitlinie-s3-053-058",
         "kind": "Leitlinie",
-        "note": "EU-TIRADS-Risikostratifikation und FNA-Indikationen."
-      },
-      {
-        "title": "ACR Thyroid Imaging, Reporting and Data System (TI-RADS): White Paper",
-        "year": 2017,
-        "url": "https://pubmed.ncbi.nlm.nih.gov/28372962/",
-        "kind": "Leitlinie",
-        "note": "ACR TI-RADS definiert TR1-TR5, Ultraschallmerkmale und FNA-/Follow-up-Schwellen."
-      },
-      {
-        "title": "Endotext: Fine-Needle Aspiration of the Thyroid Gland",
-        "year": 2024,
-        "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK285544/",
-        "kind": "Lehrtext",
-        "note": "Zusammenfassung von FNA-Genauigkeit, Probenqualität und Bethesda-Kontext."
-      },
-      {
-        "title": "Thyroid Nodules: Advances in Evaluation and Management",
-        "year": 2020,
-        "url": "https://www.aafp.org/pubs/afp/issues/2020/0901/p298.html",
-        "kind": "Review",
-        "note": "Praxisnahe Übersicht zu Knotenabklärung und Risikomerkmalen."
+        "note": "S3-Leitlinie, 2026 veröffentlicht: indikationsgerechte Abklärung im hausärztlichen Kontext."
       }
     ],
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "lastReviewed": "2026-06-01",
-    "reviewNote": "Zentrale Guidance für vorhandene erweiterte Prätestdaten ergänzt."
+    "lastReviewed": "2026-09-05",
+    "reviewNote": "Zentrale Guidance für vorhandene erweiterte Prätestdaten ergänzt.",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Tabelle 3 und zytologischer Algorithmus: EU-TIRADS, Größenkriterien, Bethesda und Grenzen der Übertragbarkeit. S3-Leitlinie, 2026 veröffentlicht: indikationsgerechte Abklärung im hausärztlichen Kontext.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
   },
   {
     "conditionId": "obstruktive-koronare-herzkrankheit",
@@ -1072,5 +1011,239 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-07-10",
     "reviewNote": "Quellengeprüft, bleibt bis zur benannten fachlichen Freigabe needs-review."
+  },
+  {
+    "conditionId": "schilddrusenfunktionsstorung",
+    "summary": "Klinische Konstellation und Vorbefunde vor einem Laborpanel klären. Ein isoliertes Symptom beweist keine Funktionsstörung.",
+    "whenToTest": [
+      "Klinische Konstellation und Vorbefunde vor einem Laborpanel klären. Ein isoliertes Symptom beweist keine Funktionsstörung."
+    ],
+    "recommendedTests": [
+      "Akute Erkrankung, Biotin und Schilddrüsenmedikation berücksichtigen.",
+      "Ohne zentralen Verdacht TSH zuerst: bei Erhöhung fT4, bei Erniedrigung fT4 und fT3.",
+      "Bei Hypophysenverdacht TSH und fT4 gemeinsam; TSH allein reicht nicht."
+    ],
+    "pitfalls": [
+      "Medikation, Zeitpunkt, zentrale Störung und Assayinterferenz mit dem Labor prüfen.",
+      "Akute Erkrankung oder relevante Interferenz zunächst berücksichtigen; nicht routinemäßig Zusatztests anhängen."
+    ],
+    "settingNotes": [
+      "Ungezielte Hormon-/Antikörperpanels können Zufallsbefunde erzeugen.",
+      "Würde ein weiterer Wert die aktuelle Fragestellung beantworten?"
+    ],
+    "links": [
+      {
+        "title": "NICE NG145: Thyroid disease",
+        "year": 2023,
+        "url": "https://www.nice.org.uk/guidance/ng145/chapter/recommendations",
+        "kind": "Leitlinie",
+        "note": "Abschnitte 1.2–1.3: Testindikation, TSH-Reflexdiagnostik, zentrale Störung und Interferenzen."
+      }
+    ],
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Abschnitte 1.2–1.3: Testindikation, TSH-Reflexdiagnostik, zentrale Störung und Interferenzen.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
+  },
+  {
+    "conditionId": "hyperprolaktinamie",
+    "summary": "Hyperprolaktinämie ist zunächst ein Befund, nicht automatisch ein Prolaktinom.",
+    "whenToTest": [
+      "Hyperprolaktinämie ist zunächst ein Befund, nicht automatisch ein Prolaktinom."
+    ],
+    "recommendedTests": [
+      "Schwangerschaft, Stress, Medikamente, Schilddrüsen- und Nierenfunktion berücksichtigen.",
+      "Bei milder Erhöhung Messung unter geeigneten Bedingungen bestätigen; Makroprolaktin im passenden Kontext prüfen.",
+      "Große Raumforderung bei nur mäßigem Wert: Labor auf Verdünnung/Hook-Effekt ansprechen."
+    ],
+    "pitfalls": [
+      "Makroprolaktin, Hook-Effekt und Laborinterferenz abhängig von Phänotyp und Bildgebung klären.",
+      "Eine gestörte Messung nicht mit einer zweiten unabhängigen Erkrankungswahrscheinlichkeit verrechnen."
+    ],
+    "settingNotes": [
+      "Ungezielte MRT kann zusätzliche Inzidentalome aufdecken; Medikamente nicht eigenständig absetzen.",
+      "Welche nichttumoröse Erklärung passt zu diesem Befund?"
+    ],
+    "links": [
+      {
+        "title": "Pituitary Society: Prolactinoma consensus",
+        "year": 2023,
+        "url": "https://doi.org/10.1038/s41574-023-00886-5",
+        "kind": "Leitlinie",
+        "note": "Biochemische Diagnostik: Wiederholung bei <5-facher Normobergrenze, Stress, Makroprolaktin und Hook-Effekt."
+      }
+    ],
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Biochemische Diagnostik: Wiederholung bei <5-facher Normobergrenze, Stress, Makroprolaktin und Hook-Effekt.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
+  },
+  {
+    "conditionId": "mannlicher-hypogonadismus",
+    "summary": "Abklärung bei passenden Symptomen/Zeichen; kein allgemeines Screening asymptomatischer Männer.",
+    "whenToTest": [
+      "Abklärung bei passenden Symptomen/Zeichen; kein allgemeines Screening asymptomatischer Männer."
+    ],
+    "recommendedTests": [
+      "Zwei morgendliche nüchterne Gesamt-Testosteronmessungen unter stabilen Bedingungen.",
+      "SHBG und freie Fraktion bei begründeter Indikation; validierte Methoden und Referenzen.",
+      "Akute Erkrankung, Adipositas, Medikamente und Kinderwunsch erfassen."
+    ],
+    "pitfalls": [
+      "Symptome, SHBG, Assay und reversible Einflüsse zusammenführen.",
+      "Während akuter Erkrankung oder ungeeigneter Abnahme keine definitive Einordnung."
+    ],
+    "settingNotes": [
+      "Ein niedriger Einzelwert ist keine automatische Indikation zur Substitution.",
+      "Ist eine reversible Ursache plausibler als ein dauerhafter Hormonmangel?"
+    ],
+    "links": [
+      {
+        "title": "Endocrine Society: Testosterone therapy in men with hypogonadism",
+        "year": 2018,
+        "url": "https://doi.org/10.1210/jc.2018-00229",
+        "kind": "Leitlinie",
+        "note": "Empfehlungen 1.1–1.4: Symptome, wiederholte morgendliche nüchterne Messung, freie Fraktion und Ursachenklärung."
+      }
+    ],
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Empfehlungen 1.1–1.4: Symptome, wiederholte morgendliche nüchterne Messung, freie Fraktion und Ursachenklärung.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
+  },
+  {
+    "conditionId": "osteoporose-frakturrisiko",
+    "summary": "Frakturanamnese, Risikofaktoren und mögliche Konsequenzen entscheiden über die Basisdiagnostik.",
+    "whenToTest": [
+      "Frakturanamnese, Risikofaktoren und mögliche Konsequenzen entscheiden über die Basisdiagnostik."
+    ],
+    "recommendedTests": [
+      "Alter, vorausgegangene Fragilitätsfraktur, Stürze, Glukokortikoide und sekundäre Ursachen erfassen.",
+      "DXA im geeigneten Kontext; bei jungen Erwachsenen Z-Score-Kontext beachten.",
+      "DVO: 3-Jahres-Risiko für Hüft-/Wirbelkörperfrakturen; FRAX: 10-Jahres-Risiken, nicht austauschbar."
+    ],
+    "pitfalls": [
+      "Fraktur bei wenig auffälliger DXA: Messqualität, Lokalisation und sekundäre Ursachen prüfen.",
+      "Artefakte oder ungeeignete Messregionen fachlich bewerten lassen."
+    ],
+    "settingNotes": [
+      "Kontrollabstände müssen eine interpretierbare Veränderung erwarten lassen.",
+      "Welcher Endpunkt und welcher Zeitraum sind für diese Person wichtig?"
+    ],
+    "links": [
+      {
+        "title": "DVO-Leitlinie Osteoporose",
+        "year": 2023,
+        "url": "https://leitlinien.dv-osteologie.org/",
+        "kind": "Leitlinie",
+        "note": "Kapitel Basisdiagnostik und Risikobeurteilung. Gültigkeit bis 30.09.2026; vor späterer Nutzung Nachfolgefassung prüfen."
+      }
+    ],
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Kapitel Basisdiagnostik und Risikobeurteilung. Gültigkeit bis 30.09.2026; vor späterer Nutzung Nachfolgefassung prüfen.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
+  },
+  {
+    "conditionId": "hyperandrogenismus-zyklusstorung",
+    "summary": "Erwachsene mit Zyklusstörung oder Hyperandrogenismus; PCOS/PMOS ist eine Ausschlussdiagnose im passenden Kontext.",
+    "whenToTest": [
+      "Erwachsene mit Zyklusstörung oder Hyperandrogenismus; PCOS/PMOS ist eine Ausschlussdiagnose im passenden Kontext."
+    ],
+    "recommendedTests": [
+      "Schwangerschaft und relevante Differenzialdiagnosen, etwa Schilddrüsenstörung, Hyperprolaktinämie und nichtklassisches AGS, gezielt prüfen.",
+      "Bei unregelmäßigen Zyklen plus Hyperandrogenismus ist Ultraschall/AMH zur Diagnose nicht zusätzlich nötig.",
+      "AMH nicht als alleinigen Test oder zusätzlich zur Sonografie zur Doppelzählung verwenden; unter hormoneller Kontrazeption Interpretation einschränken."
+    ],
+    "pitfalls": [
+      "Klinische und biochemische Befunde samt Medikamentenkontext überprüfen.",
+      "Gestörte Androgenmessung zunächst klären, zusätzliche Tests nicht ungezielt akkumulieren."
+    ],
+    "settingNotes": [
+      "Unnötige Kombination von AMH und Ultraschall kann Überdiagnosen fördern.",
+      "Welche alternative Ursache muss vor einer Syndromdiagnose geprüft werden?"
+    ],
+    "links": [
+      {
+        "title": "International evidence-based PCOS/PMOS guideline",
+        "year": 2023,
+        "url": "https://www.monash.edu/medicine/mchri/pcos/guideline",
+        "kind": "Leitlinie",
+        "note": "Diagnostischer Algorithmus für Erwachsene; PMOS-Benennung seit Mai 2026, PCOS als Suchbegriff erhalten."
+      }
+    ],
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Diagnostischer Algorithmus für Erwachsene; PMOS-Benennung seit Mai 2026, PCOS als Suchbegriff erhalten.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
+  },
+  {
+    "conditionId": "diabetes-diagnostik",
+    "summary": "Diabetesdiagnostik mit validiertem HbA1c oder Plasma-Glukosekriterien; Symptome und Krisenkontext unterscheiden.",
+    "whenToTest": [
+      "Diabetesdiagnostik mit validiertem HbA1c oder Plasma-Glukosekriterien; Symptome und Krisenkontext unterscheiden."
+    ],
+    "recommendedTests": [
+      "Ohne eindeutige symptomatische Hyperglykämie sind zwei pathologische Ergebnisse erforderlich.",
+      "Bei verändertem Erythrozytenumsatz oder relevanten HbA1c-Interferenzen Plasma-Glukosekriterien bevorzugen.",
+      "Nüchternstatus, Probenverarbeitung, Transfusion, Anämie und Hämoglobinvarianten berücksichtigen."
+    ],
+    "pitfalls": [
+      "Den oberhalb des Grenzwerts liegenden Test wiederholen und Interferenzen klären.",
+      "Ungeeigneten HbA1c nicht als Entwarnung nutzen; auf gültige Glukosekriterien zurückgreifen."
+    ],
+    "settingNotes": [
+      "CGM und Verlaufsmarker ersetzen die validierten Diagnosekriterien nicht.",
+      "Ist die Diagnose bestätigt oder wurde erst ein auffälliger Einzelwert gefunden?"
+    ],
+    "links": [
+      {
+        "title": "ADA Standards of Care: Diagnosis and Classification of Diabetes",
+        "year": 2026,
+        "url": "https://doi.org/10.2337/dc26-S002",
+        "kind": "Leitlinie",
+        "note": "Tabelle 2.1 und Confirming the Diagnosis: Bestätigung, Diskordanz und HbA1c-Interferenzen."
+      }
+    ],
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "moderate",
+    "dataCompleteness": "partial",
+    "sourceCheck": {
+      "status": "verified",
+      "checkedAt": "2026-09-05",
+      "location": "Tabelle 2.1 und Confirming the Diagnosis: Bestätigung, Diskordanz und HbA1c-Interferenzen.",
+      "note": "Kontext und Leitlinienempfehlung abgeglichen; keine quantitative Testgüte daraus abgeleitet. Menschliche Freigabe offen."
+    }
   }
 ]

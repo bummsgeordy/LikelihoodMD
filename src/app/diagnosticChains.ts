@@ -47,7 +47,7 @@ export function resolveChainStages(
   return chain.stages.flatMap(stage => {
     const test = tests.find(candidate => candidate.id === stage.testId);
     const profile = profiles.find(candidate => candidate.id === stage.evidenceProfileId);
-    return test && profile ? [{ stageId: stage.id, label: stage.label, test, profile }] : [];
+    return test && profile && profile.testId === test.id && test.conditionId === chain.conditionId ? [{ stageId: stage.id, label: stage.label, test, profile }] : [];
   });
 }
 
@@ -58,7 +58,10 @@ export function calculateDiagnosticChain(
   startPretestProbability: number
 ): DiagnosticChainViewModel | null {
   const stages = resolveChainStages(chain, tests, profiles);
-  if (stages.length < 2) return null;
+  if (chain.calculationPolicy !== 'conditional-lr' || !chain.conditionalEvidence || chain.sourceCheck?.status !== 'verified') {
+    return { chain, stages, paths: [], sources: chain.sources };
+  }
+  if (stages.length !== 2 || chain.stages.length !== 2) return null;
   const [firstStage, secondStage] = stages;
   const firstOutcome = calculateProfileOutcome(firstStage.profile, startPretestProbability);
   if (firstOutcome.status !== 'computed') return null;

@@ -19,3 +19,7 @@ Bitte keine Patientendaten eingeben. Das Tool ist für populationsbezogene Annah
 - Manipulierte oder übergroße lokale JSON-Importe.
 
 Diese Risiken werden durch sichtbare Quellen, Begründungen, Grenzen, Validierung und klare Zweckbeschreibung reduziert, aber nicht vollständig beseitigt.
+
+Quellen-URLs müssen HTTP(S) verwenden und dürfen keine eingebetteten Zugangsdaten enthalten. Importierte Werte sind Text, kein ausführbares HTML. Überlange, verschachtelte oder doppelte Datensätze sowie unbekannte Profilzuordnungen werden abgewiesen. Lokale Importe werden dabei nicht als medizinisch freigegeben markiert.
+
+Build-Abhängigkeiten werden per Lockdatei und CI-Audit geprüft. Ein unauffälliger Audit ist eine Momentaufnahme. Der Offline-Cache hält veröffentlichte Inhalte bis zur nächsten erfolgreichen Aktualisierung vor; das ist keine Garantie der medizinischen Aktualität.

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+### Schema v7 / Praxis und Lehre
+
+- Zwölf strukturierte Praxisfragen, sechs neue Themen und getrennte Befundkonstellationen ergänzt.
+- Seltene Wahrscheinlichkeiten ohne 0,1-%-Untergrenze; ungültige und fehlende Werte werden nicht berechnet. Herkunft, Quellenprüfung und menschliche Freigabe getrennt.
+- Calcitonin-Ersatzwerte, EU-TIRADS-Mittelpunkte, pauschale FNA-Dichotomisierung und unbelegte numerische Ketten zurückgezogen. Akromegalie, Steroidachse, MACS, PA, Herzinsuffizienz und Zöliakie korrigiert; Belege im Praxis-Review.
+- CKD-Sammel-HR durch exakt zugeordnete endpunktspezifische Werte ersetzt.
+- Hauptrechner und Simulation teilen Bayes-/Nomogrammlogik und Evidenzprofile. Häufigkeitsbaum, zwei Szenarien, Vortragsfälle und Druckansicht ergänzt.
+- Quellen und ausführliche Guidance kompakter ausklappbar; Zustände bleiben bei Eingabeänderungen erhalten.
+- Import-/Speicherprüfungen, v1–v6-Migration, revisionsbasierter Offline-Cache und WebKit-Regressionen ergänzt. Kontext- und Untersuchungsdaten werden getrennt geladen.
+- PostCSS und Nanoid in der Build-Werkzeugkette aktualisiert. Audit wird beim Release erneut ausgeführt, nicht als dauerhafte Sicherheitsgarantie verstanden.
+
 ### Schema v6 / Stabilisierungsrelease
 
 - PA-Daten mit dem Nature Reviews Disease Primer 2026 abgeglichen: breiter Screeningkontext, assay-spezifische ARR-Orientierungsgrenzen, Wiederholungsmessung bei hoher Prätestwahrscheinlichkeit, selektive Suppressionstests und probabilistische Subtypisierung ergänzt.

@@ -730,5 +730,179 @@
     "dataCompleteness": "minimal",
     "lastReviewed": "2026-07-10",
     "reviewNote": "Lücke bewusst dokumentiert, um Troponin nicht als universellen binären KHK-Test darzustellen."
+  },
+  {
+    "id": "schilddrusenfunktionsstorung-no-point",
+    "conditionId": "schilddrusenfunktionsstorung",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Kein universeller Prätest-Punktwert für diesen kontextbezogenen Ablauf.",
+    "searchedQuestion": "Ist eine settingübergreifende binäre Prätestwahrscheinlichkeit geeignet?",
+    "searchedSources": [
+      {
+        "title": "NICE NG145: Thyroid disease",
+        "year": 2023,
+        "url": "https://www.nice.org.uk/guidance/ng145/chapter/recommendations",
+        "kind": "Leitlinie",
+        "note": "Abschnitte 1.2–1.3: Testindikation, TSH-Reflexdiagnostik, zentrale Störung und Interferenzen."
+      }
+    ],
+    "recommendedNextStep": "Indikation, Befundmuster und Voraussetzungen prüfen. Keine Wahrscheinlichkeit aus einem erfundenen Mittelpunkt.",
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "partial"
+  },
+  {
+    "id": "hyperprolaktinamie-no-point",
+    "conditionId": "hyperprolaktinamie",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Kein universeller Prätest-Punktwert für diesen kontextbezogenen Ablauf.",
+    "searchedQuestion": "Ist eine settingübergreifende binäre Prätestwahrscheinlichkeit geeignet?",
+    "searchedSources": [
+      {
+        "title": "Pituitary Society: Prolactinoma consensus",
+        "year": 2023,
+        "url": "https://doi.org/10.1038/s41574-023-00886-5",
+        "kind": "Leitlinie",
+        "note": "Biochemische Diagnostik: Wiederholung bei <5-facher Normobergrenze, Stress, Makroprolaktin und Hook-Effekt."
+      }
+    ],
+    "recommendedNextStep": "Indikation, Befundmuster und Voraussetzungen prüfen. Keine Wahrscheinlichkeit aus einem erfundenen Mittelpunkt.",
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "partial"
+  },
+  {
+    "id": "mannlicher-hypogonadismus-no-point",
+    "conditionId": "mannlicher-hypogonadismus",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Kein universeller Prätest-Punktwert für diesen kontextbezogenen Ablauf.",
+    "searchedQuestion": "Ist eine settingübergreifende binäre Prätestwahrscheinlichkeit geeignet?",
+    "searchedSources": [
+      {
+        "title": "Endocrine Society: Testosterone therapy in men with hypogonadism",
+        "year": 2018,
+        "url": "https://doi.org/10.1210/jc.2018-00229",
+        "kind": "Leitlinie",
+        "note": "Empfehlungen 1.1–1.4: Symptome, wiederholte morgendliche nüchterne Messung, freie Fraktion und Ursachenklärung."
+      }
+    ],
+    "recommendedNextStep": "Indikation, Befundmuster und Voraussetzungen prüfen. Keine Wahrscheinlichkeit aus einem erfundenen Mittelpunkt.",
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "partial"
+  },
+  {
+    "id": "osteoporose-frakturrisiko-no-point",
+    "conditionId": "osteoporose-frakturrisiko",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Kein universeller Prätest-Punktwert für diesen kontextbezogenen Ablauf.",
+    "searchedQuestion": "Ist eine settingübergreifende binäre Prätestwahrscheinlichkeit geeignet?",
+    "searchedSources": [
+      {
+        "title": "DVO-Leitlinie Osteoporose",
+        "year": 2023,
+        "url": "https://leitlinien.dv-osteologie.org/",
+        "kind": "Leitlinie",
+        "note": "Kapitel Basisdiagnostik und Risikobeurteilung. Gültigkeit bis 30.09.2026; vor späterer Nutzung Nachfolgefassung prüfen."
+      }
+    ],
+    "recommendedNextStep": "Indikation, Befundmuster und Voraussetzungen prüfen. Keine Wahrscheinlichkeit aus einem erfundenen Mittelpunkt.",
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "partial"
+  },
+  {
+    "id": "hyperandrogenismus-zyklusstorung-no-point",
+    "conditionId": "hyperandrogenismus-zyklusstorung",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Kein universeller Prätest-Punktwert für diesen kontextbezogenen Ablauf.",
+    "searchedQuestion": "Ist eine settingübergreifende binäre Prätestwahrscheinlichkeit geeignet?",
+    "searchedSources": [
+      {
+        "title": "International evidence-based PCOS/PMOS guideline",
+        "year": 2023,
+        "url": "https://www.monash.edu/medicine/mchri/pcos/guideline",
+        "kind": "Leitlinie",
+        "note": "Diagnostischer Algorithmus für Erwachsene; PMOS-Benennung seit Mai 2026, PCOS als Suchbegriff erhalten."
+      }
+    ],
+    "recommendedNextStep": "Indikation, Befundmuster und Voraussetzungen prüfen. Keine Wahrscheinlichkeit aus einem erfundenen Mittelpunkt.",
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "partial"
+  },
+  {
+    "id": "diabetes-diagnostik-no-point",
+    "conditionId": "diabetes-diagnostik",
+    "settingIds": [
+      "hausarztpraxis",
+      "klinik-notaufnahme",
+      "ambulant-kardiologie",
+      "ambulant-endokrinologie",
+      "ambulant-diabetologie",
+      "ambulant-nephrologie"
+    ],
+    "status": "not-clinically-meaningful-as-setting",
+    "summary": "Kein universeller Prätest-Punktwert für diesen kontextbezogenen Ablauf.",
+    "searchedQuestion": "Ist eine settingübergreifende binäre Prätestwahrscheinlichkeit geeignet?",
+    "searchedSources": [
+      {
+        "title": "ADA Standards of Care: Diagnosis and Classification of Diabetes",
+        "year": 2026,
+        "url": "https://doi.org/10.2337/dc26-S002",
+        "kind": "Leitlinie",
+        "note": "Tabelle 2.1 und Confirming the Diagnosis: Bestätigung, Diskordanz und HbA1c-Interferenzen."
+      }
+    ],
+    "recommendedNextStep": "Indikation, Befundmuster und Voraussetzungen prüfen. Keine Wahrscheinlichkeit aus einem erfundenen Mittelpunkt.",
+    "lastReviewed": "2026-09-05",
+    "reviewStatus": "needs-review",
+    "evidenceQuality": "unclear",
+    "dataCompleteness": "partial"
   }
 ]

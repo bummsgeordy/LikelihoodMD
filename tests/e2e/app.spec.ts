@@ -8,6 +8,7 @@ test('Rechner, Workflow-Zustand und Untersuchungsmodus funktionieren ohne Konsol
 
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'LikelihoodMD' })).toBeVisible();
+  await page.locator('#pretestNumber').fill('12,3');
   await expect(page.locator('#postPositiveValue')).not.toHaveText('–');
 
   await page.locator('#conditionSelect').selectOption('chronische-nierenkrankheit');
@@ -18,6 +19,11 @@ test('Rechner, Workflow-Zustand und Untersuchungsmodus funktionieren ohne Konsol
   await page.getByRole('tab', { name: 'Körperliche Untersuchung' }).click();
   await expect(page.locator('#physicalFindingSelect')).toBeVisible();
   await expect(page.locator('#physicalLrPositive')).not.toHaveText('–');
+  await page.locator('#physicalPretestNumber').fill('0,006');
+  await expect(page.locator('#physicalPretestValue')).toContainText('0,006');
+  await page.locator('#physicalPretestNumber').fill('12x');
+  await expect(page.locator('#physicalPostPositiveValue')).toHaveText('–');
+  await expect(page.locator('#physicalPretestNumber')).toHaveAttribute('aria-invalid','true');
 
   expect(consoleErrors).toEqual([]);
 });
@@ -40,6 +46,8 @@ test('Datenkatalog und statische Unterseiten sind erreichbar', async ({ page }) 
 
 test('Nomogramme und Rechner bleiben im Viewport', async ({ page }) => {
   await page.goto('/');
+  await page.locator('#pretestNumber').fill('0,006');
+  await expect(page.locator('#pretestValue')).toContainText('0,006');
   const layout = await page.locator('#calculatorGrid').evaluate(element => {
     const positive = element.querySelector<HTMLCanvasElement>('#nomogramPositive')?.getBoundingClientRect();
     const negative = element.querySelector<HTMLCanvasElement>('#nomogramNegative')?.getBoundingClientRect();

@@ -49,13 +49,14 @@ Eine neue Annahme gehört in `src/data/pretest-assumptions.json`. Bitte angeben:
 - `settingId`: stabile Setting-ID; allgemeine Erkrankungs-Fallbacks nutzen `general`.
 - `evidenceLevel`: `direct` für konkrete Setting-Daten, `fallback` für allgemeine Erkrankungsannahmen.
 - `population`: Patientengruppe, auf die sich die Annahme bezieht.
-- `probability`: Ausgangswahrscheinlichkeit als Dezimalzahl zwischen 0 und 1.
+- `probability`: Ausgangswahrscheinlichkeit zwischen 0 und 1 oder `null`, wenn kein belastbarer Punktwert vorliegt.
+- `origin`: `observed`, `transferred-cohort`, `guideline-estimate`, `expert-estimate` oder `unknown`.
 - optional `rangeLow` und `rangeHigh` als plausible Spanne.
 - `kind`: `curated`, `custom` oder `scenario`.
 - `rationale`, `limitations`, `sources`, `lastReviewed`.
 - `reviewStatus`, `evidenceQuality`, `dataCompleteness` und optional `reviewNote`.
 
-Eigene Annahmen aus dem Drawer werden als `custom` gespeichert. Direkte Setting-Annahmen werden in der App grün markiert; allgemeine Fallbacks werden orange markiert.
+Eigene Annahmen aus dem Drawer werden als `custom` gespeichert. Farbige Hinweise ersetzen keine Qualitätsbewertung. `direct` bezeichnet die Setting-Zuordnung, nicht automatisch eine direkt gemessene Prävalenz. Ein numerischer Startwert wird nur mit verifiziertem Quellenstatus angeboten; Schätzungen bleiben erkennbar und müssen bewusst begründet werden.
 
 ## Klinischen Modifikator ergänzen
 
@@ -75,7 +76,13 @@ Bitte pro Modifikator angeben:
 - `sources`, `lastReviewed`, `kind`.
 - `reviewStatus`, `evidenceQuality`, `dataCompleteness` und optional `reviewNote`.
 
-Ohne quantifizierten Faktor wird der Modifikator im Rechner nur qualitativ angezeigt. Die Rechnung bleibt dann unverändert, weist aber sichtbar darauf hin, dass die wahre Posttestwahrscheinlichkeit klinisch höher oder niedriger liegen kann. Quantifizierte Modifikatoren zeigen nur eine Vorschau; sie werden erst nach aktiver Übernahme in die Prätestwahrscheinlichkeit eingerechnet.
+Qualitative Faktoren ändern keine Zahl. Eine numerische Vorschau ist auf einen einzelnen quellengeprüften diagnostischen LR ohne Überlappung begrenzt und wird erst nach aktiver Übernahme genutzt. `role` unterscheidet `disease-risk`, `test-validity` und `both`; Interferenzen sind keine automatisch berechenbaren Risikomultiplikatoren.
+
+## Praxisfragen und Ergebniskategorien
+
+`practice-questions.json` enthält klinischen Anlass, Indikation, Voraussetzungen, passende Test-IDs, fünf Befundkonstellationen, Dringlichkeit, Belastung und Reflexionsfrage. Alle Aussagen benötigen verknüpfte Quellen und eine konkrete `sourceCheck`-Fundstelle. Neue Fragen beginnen als `needs-review`.
+
+Kategorische Profile nutzen `resultCategories` mit stabiler ID, Label und Interpretation. Ein Bethesda- oder Workfloweintrag erhält keine künstliche LR. Diagnostikketten bleiben ohne belegte bedingte Testgüte `workflow-only`.
 
 ## Reviewstatus und Datenqualität
 
@@ -115,6 +122,8 @@ Die Datenstruktur ist zusätzlich als JSON Schema dokumentiert:
 - `schemas/clinical-modifier.schema.json`
 - `schemas/condition-guidance.schema.json`
 - `schemas/user-data-export.schema.json`
+- `schemas/practice-question.schema.json`
+- `schemas/source-check.schema.json`
 
 Ein vollständiges Beispiel für eigene importierbare Daten steht in `examples/user-data-example.json`.
 

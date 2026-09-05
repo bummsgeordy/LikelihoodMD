@@ -67,7 +67,14 @@
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "overlapWarning": "Wenn das Setting Nephrologie/Hypertonie mit resistenter Hypertonie bereits gewählt ist, diesen Modifikator nicht zusätzlich als quantitativen Faktor verwenden.",
     "riskStratum": "resistente-hypertonie",
-    "mapsToPretestAssumptionId": "pa-nephrology-direct"
+    "mapsToPretestAssumptionId": "pa-nephrology-direct",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pa-hypokalemia",
@@ -127,7 +134,14 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "role": "both",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pa-adrenal-incidentaloma",
@@ -181,7 +195,14 @@
     "evidenceQuality": "low",
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-    "riskStratum": "nebenniereninzidentalom-mit-hypertonie"
+    "riskStratum": "nebenniereninzidentalom-mit-hypertonie",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pa-early-onset-family-history",
@@ -213,7 +234,14 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer Risikohinweis aus Primer und Leitlinie; keine eigenständige numerische Prätestanpassung."
+    "reviewNote": "Qualitativer Risikohinweis aus Primer und Leitlinie; keine eigenständige numerische Prätestanpassung.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pa-atrial-fibrillation-no-structural-heart-disease",
@@ -238,7 +266,14 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "low",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer Kontextfaktor; nicht als eigenständiger diagnostischer Test oder numerischer Faktor verwenden."
+    "reviewNote": "Qualitativer Kontextfaktor; nicht als eigenständiger diagnostischer Test oder numerischer Faktor verwenden.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ppgl-paroxysmal-symptoms",
@@ -246,7 +281,7 @@
     "label": "Kopfschmerz + Palpitationen + Schwitzen",
     "category": "Symptom",
     "direction": "increases",
-    "rationale": "Die klassische Symptomtrias erhöht die Vortestwahrscheinlichkeit deutlich. Im Tool wird dies als ungefähr 6-facher Odds-Multiplikator visualisiert, nicht als universeller diagnostischer Test-LR.",
+    "rationale": "Paroxysmale Symptome unterstützen den klinischen Verdacht, sind aber nicht spezifisch. Kein populationsunabhängiger LR-Punktwert für die Kombination übernommen.",
     "limitations": "Der Effekt ist kontextabhängig; Symptome sind unspezifisch und sollten nicht ohne Setting, Blutdruckkontext, Medikamente und Tumorrisiko interpretiert werden.",
     "lastReviewed": "2026-05-17",
     "kind": "curated",
@@ -280,15 +315,21 @@
         "note": "Beschreibt klassische adrenerge Symptome/uncontrolled hypertension als Präsentationsgruppe neben Inzidentalom und genetischem Screening."
       }
     ],
-    "quantificationStatus": "likelihood-ratio",
+    "quantificationStatus": "qualitative",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-    "likelihoodRatio": 6,
     "overlapWarning": "Wenn bereits eine Hochrisiko-Prätest-Annahme für typische Symptome oder Inzidentalom gewählt wurde, kann eine zusätzliche Anwendung den Verdacht doppelt gewichten.",
     "riskStratum": "klassische-symptomtrias",
-    "mapsToPretestAssumptionId": "ppgl-endocrine-high-suspicion-direct"
+    "mapsToPretestAssumptionId": "ppgl-endocrine-high-suspicion-direct",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "withdrawn",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Pauschale LR 6 zurückgezogen; konkrete Population und belastbare Fundstelle fehlen."
+    }
   },
   {
     "id": "ppgl-adrenal-incidentaloma",
@@ -351,7 +392,14 @@
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "overlapWarning": "Nicht zusätzlich anwenden, wenn eine Inzidentalom-spezifische Prätest-Annahme bereits gewählt ist.",
     "riskStratum": "nebenniereninzidentalom",
-    "mapsToPretestAssumptionId": "ppgl-endocrine-high-suspicion-direct"
+    "mapsToPretestAssumptionId": "ppgl-endocrine-high-suspicion-direct",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ppgl-genetic-risk",
@@ -391,7 +439,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
-    "riskStratum": "genetisches-risiko"
+    "riskStratum": "genetisches-risiko",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "cushing-typical-stigmata",
@@ -426,7 +481,14 @@
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "overlapWarning": "Wenn eine Prätest-Annahme für diskriminative Cushing-Zeichen gewählt ist, kann eine zusätzliche Gewichtung doppelt zählen.",
     "riskStratum": "diskriminative-cushing-zeichen",
-    "mapsToPretestAssumptionId": "cushing-endocrine-direct"
+    "mapsToPretestAssumptionId": "cushing-endocrine-direct",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "cushing-adrenal-incidentaloma",
@@ -468,7 +530,14 @@
     "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet.",
     "riskStratum": "nebenniereninzidentalom-macs",
     "mapsToPretestAssumptionId": "cushing-endocrine-direct",
-    "overlapWarning": "Nicht zusätzlich quantifizieren, wenn die gewählte Prätest-Annahme bereits Nebenniereninzidentalom/MACS als Zuweisungskontext abbildet."
+    "overlapWarning": "Nicht zusätzlich quantifizieren, wenn die gewählte Prätest-Annahme bereits Nebenniereninzidentalom/MACS als Zuweisungskontext abbildet.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "cushing-severe-comorbidity",
@@ -493,7 +562,14 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "heart-failure-orthopnea-edema",
@@ -518,7 +594,14 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "adrenal-insufficiency-hyperpigmentation",
@@ -543,7 +626,14 @@
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet."
+    "reviewNote": "Qualitativer klinischer Modifikator; nicht automatisch in die Berechnung eingerechnet.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "cushing-unspecific-metabolic-features",
@@ -571,7 +661,14 @@
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "riskStratum": "unspezifische-metabolische-merkmale",
     "mapsToPretestAssumptionId": "cushing-primary-care-direct",
-    "overlapWarning": "Dieser Modifikator kann bereits in der gewählten Prätest-Annahme enthalten sein; Doppelzählung vermeiden."
+    "overlapWarning": "Dieser Modifikator kann bereits in der gewählten Prätest-Annahme enthalten sein; Doppelzählung vermeiden.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ai-hyponatremia-hyperkalemia",
@@ -610,7 +707,14 @@
     "evidenceQuality": "expert-opinion",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-17",
-    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen."
+    "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ai-exogenous-glucocorticoids",
@@ -645,7 +749,14 @@
     "lastReviewed": "2026-05-17",
     "reviewNote": "Aktualisiert aus strukturierten endokrinologischen Vorschlägen; quantitative Effekte und Übertragbarkeit weiter fachlich prüfen.",
     "riskStratum": "glukokortikoidexposition",
-    "mapsToPretestAssumptionId": "adrenal-insufficiency-endocrine-steroid-exposure-direct"
+    "mapsToPretestAssumptionId": "adrenal-insufficiency-endocrine-steroid-exposure-direct",
+    "role": "both",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ai-pituitary-sellar-disease",
@@ -678,7 +789,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-18",
     "reviewNote": "Qualitativer Modifikator für zentrale Nebenniereninsuffizienz; Inzidentalom-Serien berichten relevante Achsendefizite, aber kein allgemein übertragbarer Faktor ist hinterlegt.",
-    "riskStratum": "hypophysen-hypothalamus-erkrankung"
+    "riskStratum": "hypophysen-hypothalamus-erkrankung",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ai-pituitary-surgery-radiation",
@@ -704,7 +822,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-18",
     "reviewNote": "Qualitativer Modifikator für zentrale Nebenniereninsuffizienz; quantitative Risiken müssen nach Entität/Behandlung separat kuratiert werden.",
-    "riskStratum": "hypophysenoperation-bestrahlung"
+    "riskStratum": "hypophysenoperation-bestrahlung",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "ai-multiple-pituitary-axis-deficits",
@@ -737,7 +862,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-18",
     "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung, um Doppelzählung mit Setting/Überweisungsselektion zu vermeiden.",
-    "riskStratum": "multiple-hypophysenachsen-ausfaelle"
+    "riskStratum": "multiple-hypophysenachsen-ausfaelle",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "acromegaly-acral-facial-changes",
@@ -772,7 +904,14 @@
     "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung, weil kein belastbarer Faktor hinterlegt ist.",
     "riskStratum": "typische-akromegalie-zeichen",
     "mapsToPretestAssumptionId": "acromegaly-endocrine-suspicion-direct",
-    "overlapWarning": "Nicht zusätzlich quantifizieren, wenn die gewählte Prätest-Annahme bereits typische Akromegalie-Zeichen abbildet."
+    "overlapWarning": "Nicht zusätzlich quantifizieren, wenn die gewählte Prätest-Annahme bereits typische Akromegalie-Zeichen abbildet.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "acromegaly-associated-comorbidities",
@@ -805,7 +944,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
     "reviewNote": "Qualitativer Modifikator; häufige Einzelbefunde nicht isoliert übergewichten.",
-    "riskStratum": "akromegalie-assoziierte-komorbiditaeten"
+    "riskStratum": "akromegalie-assoziierte-komorbiditaeten",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "acromegaly-pituitary-mass",
@@ -838,7 +984,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
     "reviewNote": "Qualitativer Modifikator; keine automatische Berechnung.",
-    "riskStratum": "hypophysenmasse"
+    "riskStratum": "hypophysenmasse",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "dvt-wells-unlikely",
@@ -870,7 +1023,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
-    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "dvt-wells-likely",
@@ -902,7 +1062,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
-    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pe-perc-negative",
@@ -934,7 +1101,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
-    "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung."
+    "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pe-wells-unlikely",
@@ -966,7 +1140,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
-    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pe-wells-likely",
@@ -998,7 +1179,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
-    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung."
+    "reviewNote": "Qualitativer Score-Modifikator; keine automatische Berechnung.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "pe-years-no-items",
@@ -1030,7 +1218,14 @@
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "lastReviewed": "2026-05-19",
-    "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung, um Mischstrategien zu vermeiden."
+    "reviewNote": "Qualitativer Strategie-Modifikator; keine automatische Berechnung, um Mischstrategien zu vermeiden.",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "graves-orbitopathy-thyrotoxicosis",
@@ -1077,7 +1272,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "thyreotoxikose-mit-orbitopathie"
+    "riskStratum": "thyreotoxikose-mit-orbitopathie",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "graves-diffuse-goiter-bruit",
@@ -1124,7 +1326,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "diffuse-hypervaskulaere-struma"
+    "riskStratum": "diffuse-hypervaskulaere-struma",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "graves-nodular-goiter-older-age",
@@ -1157,7 +1366,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "knotige-thyreotoxikose"
+    "riskStratum": "knotige-thyreotoxikose",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "graves-autoimmune-postpartum-context",
@@ -1190,7 +1406,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "autoimmun-postpartum"
+    "riskStratum": "autoimmun-postpartum",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "mtc-ret-men2-family-history",
@@ -1216,7 +1439,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "ret-men2"
+    "riskStratum": "ret-men2",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "mtc-thyroid-nodule-suspicious-node",
@@ -1249,7 +1479,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "knoten-plus-lymphknoten"
+    "riskStratum": "knoten-plus-lymphknoten",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "mtc-flushing-diarrhea-nodule",
@@ -1282,7 +1519,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "sekretorische-symptome"
+    "riskStratum": "sekretorische-symptome",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "mtc-low-risk-incidental-small-nodule",
@@ -1315,7 +1559,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "niedrigrisiko-knoten"
+    "riskStratum": "niedrigrisiko-knoten",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "celiac-first-degree-relative",
@@ -1348,7 +1599,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "erstgradige-angehoerige"
+    "riskStratum": "erstgradige-angehoerige",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "celiac-type1-diabetes-autoimmune-thyroid",
@@ -1381,7 +1639,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "autoimmun-risikogruppe"
+    "riskStratum": "autoimmun-risikogruppe",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "celiac-malabsorption-iron-deficiency",
@@ -1421,7 +1686,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "symptomatisches-case-finding"
+    "riskStratum": "symptomatisches-case-finding",
+    "role": "disease-risk",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "celiac-gluten-free-diet-before-testing",
@@ -1454,7 +1726,14 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "test-nicht-valide-ohne-gluten"
+    "riskStratum": "test-nicht-valide-ohne-gluten",
+    "role": "test-validity",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   },
   {
     "id": "celiac-iga-deficiency",
@@ -1494,6 +1773,13 @@
     "dataCompleteness": "partial",
     "lastReviewed": "2026-06-01",
     "reviewNote": "Qualitativer Modifikator aus Leitlinien/Reviews; keine automatische mathematische Prätestanpassung.",
-    "riskStratum": "iga-mangel"
+    "riskStratum": "iga-mangel",
+    "role": "both",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Quellenangabe des Bestands; qualitative Orientierung",
+      "note": "Keine unabhängige quantitative Risikoadjustierung freigegeben."
+    }
   }
 ]

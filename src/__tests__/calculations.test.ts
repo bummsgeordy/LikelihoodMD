@@ -64,9 +64,11 @@ describe('Bayes calculations', () => {
     expect(values.npv).toBeCloseTo(0.96, 5);
   });
 
-  it('clamps probability percent away from invalid odds', () => {
-    expect(clampProbabilityPercent(-10)).toBe(0.1);
-    expect(clampProbabilityPercent(150)).toBe(99.9);
+  it('limits slider positions without imposing a minimum clinical probability', () => {
+    expect(clampProbabilityPercent(-10)).toBe(0);
+    expect(clampProbabilityPercent(150)).toBe(100);
+    expect(clampProbabilityPercent(Number.NaN)).toBeNaN();
+    expect(clampProbabilityPercent(Infinity)).toBeNaN();
   });
 
   it('calculates a complete result from an evidence profile', () => {

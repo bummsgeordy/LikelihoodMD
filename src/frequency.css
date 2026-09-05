@@ -1,0 +1,41 @@
+.frequency-root {
+  text-align: center;
+  border: 1px solid #abb8c6;
+  padding: 10px;
+}
+.frequency-branches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-top: 12px;
+}
+.frequency-branches > section {
+  border-top: 4px solid #4d739d;
+  padding: 10px 0;
+  min-width: 0;
+}
+.frequency-branches > .diseased {
+  border-color: #853f70;
+}
+.frequency-branches h4 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+.frequency-leaves p {
+  padding: 8px;
+  border-left: 3px solid #a9b8c9;
+  background: #f2f5f7;
+  font-variant-numeric: tabular-nums;
+}
+.frequency-disclosure summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+@media (max-width: 650px) {
+  .frequency-branches {
+    gap: 8px;
+  }
+  .frequency-leaves p {
+    font-size: 14px;
+  }
+}

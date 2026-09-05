@@ -8,6 +8,8 @@ const assumptions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/pretest
 const modifiers = JSON.parse(fs.readFileSync(path.join(root, 'src/data/clinical-modifiers.json'), 'utf8'));
 const chains = JSON.parse(fs.readFileSync(path.join(root, 'src/data/diagnostic-chains.json'), 'utf8'));
 const guidance = JSON.parse(fs.readFileSync(path.join(root, 'src/data/condition-guidance.json'), 'utf8'));
+const questions = JSON.parse(fs.readFileSync(path.join(root, 'src/data/practice-questions.json'), 'utf8'));
+const sourceStatus = check => ({verified:'Fundstelle abgeglichen',restricted:'Eingeschränkt / offen',withdrawn:'Numerische Nutzung zurückgezogen'})[check?.status] ?? 'Nicht einzeln geprüft';
 const profiles = tests.flatMap(test =>
   test.evidenceProfiles.map(profile => ({ test, profile }))
 );
@@ -30,7 +32,7 @@ const rows = profiles
     const source = primarySource
       ? `[${escapeCell(primarySource.title)}](${primarySource.url}) (${primarySource.year})`
       : '–';
-    return `| ${escapeCell(test.condition)} | ${escapeCell(test.name)} | ${escapeCell(profile.label)} | ${profile.calculationMode} | ${source} | ${profile.reviewStatus} |`;
+    return `| ${escapeCell(test.condition)} | ${escapeCell(test.name)} | ${escapeCell(profile.label)} | ${profile.calculationMode} | ${source} | ${sourceStatus(profile.sourceCheck)}: ${escapeCell(profile.sourceCheck?.location)} | ${profile.reviewStatus} |`;
   });
 
 const assumptionRows = assumptions
@@ -43,7 +45,8 @@ const assumptionRows = assumptions
     const range = assumption.rangeLow != null && assumption.rangeHigh != null
       ? `${(assumption.rangeLow * 100).toLocaleString('de-DE')}–${(assumption.rangeHigh * 100).toLocaleString('de-DE')} %`
       : '–';
-    return `| ${escapeCell(assumption.condition)} | ${escapeCell(assumption.setting)} | ${(assumption.probability * 100).toLocaleString('de-DE')} % | ${range} | ${source} | ${assumption.reviewStatus} |`;
+    const point = assumption.probability == null ? 'Kein Punktwert' : `${(assumption.probability * 100).toLocaleString('de-DE', {maximumFractionDigits:6})} %`;
+    return `| ${escapeCell(assumption.condition)} | ${escapeCell(assumption.setting)} | ${point} | ${range} | ${escapeCell(assumption.origin)}; ${sourceStatus(assumption.sourceCheck)} | ${source} | ${assumption.reviewStatus} |`;
   });
 
 const chainRows = chains
@@ -62,11 +65,13 @@ const missingNegative = findings.filter(finding => finding.lrNegative.notReporte
 
 const document = `# Evidenz-Audit
 
-Stand: 2026-07-10 · Datenschema v6
+Stand: 2026-09-05 · Datenschema v7
 
 Dieser Bericht dokumentiert den maschinell prüfbaren Stand der kuratierten Daten. Ein Quellenabgleich oder eine strukturelle Prüfung setzt einen Eintrag **nicht** automatisch auf \`reviewed\`. Die fachliche Einzelprüfung durch einen benannten Reviewer bleibt erforderlich.
 
-## Zentrale Korrekturen des Stabilisierungsreleases
+Die fachlichen Änderungen mit Primärbelegen, zurückgezogenen Aussagen und offenen Fragen stehen im [Praxis-Review](PRACTICE_REVIEW.md). Die folgende Inventur ist reproduzierbar, aber keine pauschale medizinische Freigabe.
+
+## Zentrale Korrekturen
 
 - Nicht quantifizierbare Verfahren sind \`categorical\` oder \`workflow-only\`; LR 1/1 wird nicht als Platzhalter verwendet.
 - LR− 0 und nicht endliche LR werden blockiert. Calcitonin wird mit sichtbarer Unsicherheit statt absolutem Ausschluss dargestellt.
@@ -74,6 +79,10 @@ Dieser Bericht dokumentiert den maschinell prüfbaren Stand der kuratierten Date
 - Diagnostikketten enthalten bedingte Fortsetzungen und Stopppfade; nach negativem D-Dimer wird im geeigneten Standardpfad keine Bildgebung fortgerechnet.
 - \`pretest-assumptions.json\` ist die einzige kanonische Prätestbasis. Evidenzlücken werden separat dokumentiert.
 - 1000er-Veranschaulichungen werden nur aus direkt hinterlegter Sensitivität und Spezifität erzeugt.
+- Seltene Wahrscheinlichkeiten werden nicht auf 0,1 % angehoben; fehlende Prätestwerte bleiben leer.
+- Calcitonin bleibt wegen Verifikationsbias und problematischem Null-LR ein Workflow; die untere Sensitivitäts-KI-Grenze wird nicht als Punktwert verwendet.
+- Alle Bestandsketten verzichten ohne belegte bedingte Testgüte auf numerische Endwahrscheinlichkeiten.
+- EU-TIRADS erhält keine erfundenen Mittelpunkte; Bethesda wird kategorisch dargestellt.
 
 ## Profilübersicht
 
@@ -82,8 +91,8 @@ Dieser Bericht dokumentiert den maschinell prüfbaren Stand der kuratierten Date
 - Kategorisch: ${modeCounts.categorical}
 - Nur Workflow/Kontext: ${modeCounts['workflow-only']}
 
-| Erkrankung | Test | Profil | Modus | Primärquelle | Status |
-|---|---|---|---|---|---|
+| Erkrankung | Test | Profil | Modus | Primärquelle | Quellenabgleich / Fundstelle | Menschlicher Review |
+|---|---|---|---|---|---|---|
 ${rows.join('\n')}
 
 ## Prätestannahmen
@@ -91,18 +100,26 @@ ${rows.join('\n')}
 - Kanonische Annahmen: ${assumptions.length}
 - Klinische Modifikatoren: ${modifiers.length}
 
-| Erkrankung | Setting/Population | Startwert | Spanne | Primärquelle | Status |
-|---|---|---:|---:|---|---|
+| Erkrankung | Setting/Population | Startwert | Spanne | Herkunft / Quellenabgleich | Primärquelle | Menschlicher Review |
+|---|---|---:|---:|---|---|---|
 ${assumptionRows.join('\n')}
 
 ## Diagnostikketten und Guidance
 
-- Bedingte Diagnostikketten: ${chains.length}
+- Klinische Diagnostikketten: ${chains.length}; numerische Verkettung im Bestand: ${chains.filter(chain => chain.calculationPolicy === 'conditional-lr').length}
 - Krankheitsbezogene Guidance-Einträge: ${guidance.length}
 
 | Kette | Bedingte Stufen | Primärquelle | Status |
 |---|---|---|---|
 ${chainRows.join('\n')}
+
+## Praxisfragen
+
+${questions.length} strukturierte Fragen; Quellenabgleich und menschliche Freigabe bleiben getrennt.
+
+| Frage | Fundstelle | Quellenprüfung | Menschlicher Review |
+|---|---|---|---|
+${questions.map(q => `| ${escapeCell(q.label)} | ${escapeCell(q.sourceCheck?.location)} | ${sourceStatus(q.sourceCheck)} | ${q.reviewStatus} |`).join('\n')}
 
 ## Körperliche Untersuchung nach McGee
 

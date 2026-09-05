@@ -1,0 +1,126 @@
+.practice-panel {
+  border-block: 1px solid #cbd5e1;
+  background: #fff;
+  padding: 20px;
+  margin-block: 16px;
+}
+.practice-panel h2 {
+  font-size: 22px;
+  margin: 0 0 14px;
+}
+.practice-controls {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 16px;
+}
+.practice-controls label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.practice-controls :is(select, input),
+#profileCategories select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.practice-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-block: 18px;
+}
+.practice-steps section {
+  min-width: 0;
+}
+.practice-steps h3 {
+  font-size: 17px;
+  margin: 0 0 10px;
+}
+.practice-steps p,
+.practice-steps li {
+  font-size: 15px;
+  line-height: 1.55;
+}
+.practice-steps ul {
+  padding-left: 20px;
+}
+.practice-panel details {
+  padding: 10px 0;
+  border-top: 1px solid #d6dce3;
+}
+.practice-panel summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.practice-urgent {
+  color: #8a251b;
+}
+.guidance-section summary,
+.evidence-disclosure summary {
+  cursor: pointer;
+  font-weight: 650;
+  padding: 10px 0;
+}
+.evidence-disclosure {
+  border-top: 1px solid #cbd5e1;
+  padding-block: 6px;
+}
+.result-evidence {
+  font-size: 14px;
+  padding: 12px 0;
+  border-top: 1px solid #d6dce3;
+  overflow-wrap: anywhere;
+}
+.chain-decisions {
+  padding-left: 22px;
+}
+.chain-decisions li {
+  padding: 8px;
+  margin-block: 6px;
+  border-left: 3px solid #758399;
+}
+.chain-decisions .status-stop {
+  border-color: #167044;
+}
+.chain-decisions .status-clarify {
+  border-color: #b45309;
+}
+@media (max-width: 1000px) {
+  .practice-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .practice-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+  .practice-controls label:nth-child(2) {
+    grid-row: 2;
+    grid-column: 1/-1;
+  }
+}
+@media (max-width: 560px) {
+  .practice-steps,
+  .practice-controls {
+    grid-template-columns: 1fr;
+  }
+  .practice-controls label:nth-child(2) {
+    grid-row: auto;
+    grid-column: auto;
+  }
+  .practice-panel {
+    padding: 14px;
+  }
+}
+@media print {
+  .practice-controls input,
+  .hero-actions,
+  .mode-tabs {
+    display: none;
+  }
+  .practice-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+  .practice-panel details {
+    display: block;
+  }
+}

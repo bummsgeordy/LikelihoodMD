@@ -1,69 +1,42 @@
 import { describe, expect, it } from 'vitest';
-import chains from '../data/diagnostic-chains.json';
-import tests from '../data/tests.json';
-import { calculateDiagnosticChain, chainsForContext } from '../app/diagnosticChains';
-import { posttestProbability } from '../lib/calculations';
+import chainsRaw from '../data/diagnostic-chains.json';
+import testsRaw from '../data/tests.json';
+import { calculateDiagnosticChain, resolveChainStages } from '../app/diagnosticChains';
+import { posttestProbability, tryResolveLikelihoodRatios } from '../lib/calculations';
 import type { DiagnosticChain, DiagnosticTest } from '../types';
 
-const curatedTests = tests as DiagnosticTest[];
-const profiles = curatedTests.flatMap(test => test.evidenceProfiles);
-
-describe('diagnostic chains', () => {
-  it('filters chains by condition and setting', () => {
-    const result = chainsForContext(
-      chains as DiagnosticChain[],
-      'primarer-hyperaldosteronismus',
-      'ambulant-nephrologie'
-    );
-    expect(result.map(chain => chain.id)).toContain('pa-arr-to-oral-sodium-loading');
+const chains=chainsRaw as DiagnosticChain[], tests=testsRaw as DiagnosticTest[], profiles=tests.flatMap(t=>t.evidenceProfiles);
+describe('clinical pathways',()=>{
+  it('never multiplies the current dependent or cross-population profiles',()=>{
+    for(const chain of chains){
+      const model=calculateDiagnosticChain(chain,tests,profiles,.1);
+      expect(model?.stages).toHaveLength(2);
+      expect(model?.paths).toEqual([]);
+      expect(chain.calculationPolicy).toBe('workflow-only');
+    }
   });
-
-  it('uses posttest probability from stage one as pretest probability for stage two', () => {
-    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pa-arr-to-oral-sodium-loading');
-    expect(chain).toBeDefined();
-    const viewModel = calculateDiagnosticChain(chain!, curatedTests, profiles, 0.04);
-    expect(viewModel).not.toBeNull();
-    const positivePositive = viewModel!.paths.find(path => path.id.endsWith('pos-pos'));
-    expect(positivePositive?.intermediateProbability).toBeCloseTo(posttestProbability(0.04, 22.25), 5);
-    expect(positivePositive?.finalProbability).toBeGreaterThan(0.9);
+  it('retains D-dimer stop decisions without hypothetical imaging probabilities',()=>{
+    for(const id of ['pe-ddimer-to-ctpa','dvt-ddimer-to-compression-ultrasound']){
+      const chain=chains.find(c=>c.id===id)!;
+      expect(chain.decisions?.some(d=>d.status==='stop'&&d.when.includes('Negatives D-Dimer'))).toBe(true);
+      expect(calculateDiagnosticChain(chain,tests,profiles,.1)?.paths).toEqual([]);
+    }
   });
-
-  it('stops after a negative ARR instead of inventing a confirmation-test path', () => {
-    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pa-arr-to-oral-sodium-loading')!;
-    const viewModel = calculateDiagnosticChain(chain, curatedTests, profiles, 0.04);
-    expect(viewModel?.paths.map(path => path.label)).toEqual([
-      'positiv → positiv',
-      'positiv → negativ',
-      'negativ → stoppen'
-    ]);
-    expect(viewModel?.paths.find(path => path.firstResultLabel === 'negativ')?.second).toBeNull();
+  it('requires explicit verified conditional evidence before any numerical chain',()=>{
+    const base=chains.find(c=>c.id==='cushing-lnsc-to-dst')!;
+    const chain:DiagnosticChain={...base,calculationPolicy:'conditional-lr',conditionalEvidence:'Synthetic unit-test fixture; not clinical evidence',sourceCheck:{status:'verified',checkedAt:'2026-09-05',location:'Test fixture',note:'Synthetic'}};
+    const model=calculateDiagnosticChain(chain,tests,profiles,.1)!;
+    const lr=tryResolveLikelihoodRatios(model.stages[0].profile)!;
+    expect(model.paths[0].intermediateProbability).toBeCloseTo(posttestProbability(.1,lr.lrPositive),10);
+    expect(calculateDiagnosticChain({...chain,conditionalEvidence:undefined},tests,profiles,.1)?.paths).toEqual([]);
+    expect(calculateDiagnosticChain({...chain,sourceCheck:{...chain.sourceCheck!,status:'restricted'}},tests,profiles,.1)?.paths).toEqual([]);
   });
-
-  it('calculates the added diagnostic chain examples with valid second stages', () => {
-    const expectedChains = [
-      'dvt-ddimer-to-compression-ultrasound',
-      'pe-ddimer-to-ctpa',
-      'hf-ntprobnp-to-lung-ultrasound',
-      'celiac-ttg-iga-to-ema-iga',
-      'graves-trab-to-doppler'
-    ];
-
-    expectedChains.forEach(chainId => {
-      const chain = (chains as DiagnosticChain[]).find(item => item.id === chainId);
-      expect(chain, chainId).toBeDefined();
-      const viewModel = calculateDiagnosticChain(chain!, curatedTests, profiles, 0.1);
-      expect(viewModel?.stages).toHaveLength(2);
-      expect(viewModel?.paths).toHaveLength(3);
-      expect(viewModel?.paths.every(path => path.finalProbability >= 0 && path.finalProbability <= 1)).toBe(true);
-    });
+  it('rejects profile/test or disease mismatch',()=>{
+    const c=structuredClone(chains[0]);c.stages[0].evidenceProfileId='ntprobnp-400';
+    expect(resolveChainStages(c,tests,profiles)).toHaveLength(1);
   });
-
-  it('does not calculate CTPA after a negative D-dimer', () => {
-    const chain = (chains as DiagnosticChain[]).find(item => item.id === 'pe-ddimer-to-ctpa')!;
-    const viewModel = calculateDiagnosticChain(chain, curatedTests, profiles, 0.1);
-    const negativePath = viewModel?.paths.find(path => path.firstResultLabel === 'negativ');
-    expect(negativePath?.status).toBe('stopped');
-    expect(negativePath?.secondResultLabel).toBeNull();
-    expect(negativePath?.finalProbability).toBe(negativePath?.intermediateProbability);
+  it('uses echo for non-acute heart failure and a contextual celiac confirmation',()=>{
+    expect(chains.find(c=>c.id.startsWith('hf-'))?.stages[1].testId).toBe('echocardiography-hf');
+    expect(chains.find(c=>c.id.startsWith('celiac-'))?.stages[1].testId).toBe('celiac-confirmation-context');
   });
 });

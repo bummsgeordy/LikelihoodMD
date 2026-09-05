@@ -1,0 +1,330 @@
+:root {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #192129;
+  background: #f2f4f6;
+  font-synthesis: none;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.learning-app {
+  max-width: 1560px;
+  margin: auto;
+  padding: 20px;
+}
+header {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+h1 {
+  font-size: 26px;
+  margin: 0;
+}
+h2 {
+  font-size: 22px;
+  margin: 0 0 16px;
+}
+h3 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+h4 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+p {
+  margin: 10px 0;
+}
+a {
+  color: #1759a4;
+}
+button,
+.button {
+  border: 1px solid #306aba;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: #fff;
+  color: #174e91;
+  cursor: pointer;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 650;
+}
+button:hover,
+.button:hover {
+  background: #eaf2ff;
+}
+button[aria-pressed="true"] {
+  background: #1759a4;
+  color: white;
+}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #6a93d7;
+  outline-offset: 3px;
+}
+.header-tools {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+label {
+  display: block;
+  font-weight: 650;
+  margin-top: 10px;
+}
+input,
+select {
+  font: inherit;
+  border: 1px solid #a7b1bf;
+  border-radius: 5px;
+  padding: 9px;
+  background: #fff;
+  max-width: 100%;
+  min-width: 0;
+}
+select {
+  width: 100%;
+  text-overflow: ellipsis;
+}
+input[type="range"] {
+  width: 100%;
+  padding: 4px 0;
+  accent-color: #2465b6;
+}
+.workbench,
+.band {
+  padding: 22px;
+  background: #fff;
+  border-top: 1px solid #cbd3db;
+  margin-bottom: 18px;
+}
+.simulation-grid {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+.sim-controls {
+  grid-column: 1;
+  grid-row: 1;
+}
+.sim-controls input:not([type="range"]) {
+  width: 100%;
+  font-size: 18px;
+}
+.positive-panel {
+  grid-column: 2;
+}
+.negative-panel {
+  grid-column: 3;
+}
+.simulation-grid section {
+  min-width: 0;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 440px;
+  background: #fff;
+  border: 1px solid #cbd3db;
+  border-radius: 6px;
+}
+.result-line {
+  font-size: 20px;
+  font-weight: 700;
+  border-top: 1px solid #cbd3db;
+  padding-top: 14px;
+}
+.muted {
+  color: #586474;
+  font-size: 14px;
+}
+.warning {
+  color: #863d11;
+  background: #fff4e9;
+  padding: 8px;
+}
+.warning:empty {
+  display: none;
+}
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 18px;
+}
+.scenario-grid > section {
+  min-width: 0;
+}
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+#caseContent {
+  font-size: 18px;
+  min-height: 160px;
+}
+#caseContent .reveal-step {
+  border-left: 3px solid #248471;
+  padding: 10px 16px;
+}
+#caseContent a {
+  font-size: 15px;
+}
+footer {
+  font-size: 14px;
+  padding: 10px 22px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+[hidden] {
+  display: none !important;
+}
+body.lecture h1 {
+  font-size: 30px;
+}
+body.lecture .workbench {
+  position: relative;
+}
+body.lecture .result-line {
+  font-size: 26px;
+}
+body.lecture #caseContent {
+  font-size: 24px;
+}
+body.lecture canvas {
+  height: 500px;
+}
+body.lecture .muted {
+  font-size: 16px;
+}
+@media (max-width: 1150px) {
+  .simulation-grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  .negative-panel {
+    grid-column: 2;
+  }
+  .sim-controls {
+    grid-row: 1/3;
+    position: sticky;
+    top: 16px;
+    align-self: start;
+  }
+  .scenario-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 650px) {
+  .learning-app {
+    padding: 10px;
+  }
+  .workbench,
+  .band {
+    padding: 14px;
+  }
+  .simulation-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .positive-panel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .sim-controls {
+    position: static;
+    grid-column: 1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    gap: 6px 12px;
+  }
+  .sim-controls label,
+  .sim-controls p {
+    grid-column: 1/-1;
+  }
+  .negative-panel {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  canvas {
+    height: 360px;
+  }
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+  .header-tools {
+    margin-left: 0;
+  }
+  h1 {
+    font-size: 23px;
+  }
+  .frequency-branches {
+    gap: 8px;
+  }
+  .frequency-leaves p {
+    font-size: 14px;
+  }
+  .result-line {
+    font-size: 18px;
+  }
+}
+@media print {
+  body {
+    background: white;
+  }
+  .header-tools,
+  button,
+  .sim-controls,
+  select,
+  input,
+  label {
+    display: none !important;
+  }
+  .learning-app {
+    max-width: none;
+    padding: 0;
+  }
+  .simulation-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .positive-panel {
+    grid-column: 1;
+  }
+  .negative-panel {
+    grid-column: 2;
+  }
+  .workbench,
+  .band {
+    break-inside: avoid;
+    padding: 10px 0;
+  }
+  .scenario-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  a {
+    color: inherit;
+  }
+  canvas {
+    height: 320px;
+  }
+}

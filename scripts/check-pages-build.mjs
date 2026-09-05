@@ -85,6 +85,10 @@ if (!manifest.includes('"display": "standalone"') || !manifest.includes('./icons
 }
 
 const serviceWorker = readFileSync(serviceWorkerPath, 'utf8');
+if (serviceWorker.includes("'development-v7'") || serviceWorker.includes('const BUILD_ASSETS = [];')) {
+  console.error('sw.js enthält noch Entwicklungsplatzhalter statt einer Revision und gebauter Offline-Assets.');
+  process.exit(1);
+}
 if (!serviceWorker.includes('CACHE_VERSION') || !serviceWorker.includes('precacheApp')) {
   console.error('sw.js enthält nicht die erwartete Offline-Cache-Logik.');
   process.exit(1);

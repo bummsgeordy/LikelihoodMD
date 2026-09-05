@@ -15,10 +15,12 @@
       {
         "id": "pa-arr-screen",
         "testId": "arr",
-        "evidenceProfileId": "arr-direct-renin-li-2016",
-        "label": "Screening: Aldosteron/direct-Renin-Ratio (methodenspezifisches Beispiel)",
+        "evidenceProfileId": "arr-screening-guideline",
+        "label": "Methodenbezogenes ARR-Screening",
         "expectedUse": "screening",
-        "continueOn": ["positive"],
+        "continueOn": [
+          "positive"
+        ],
         "stopAfter": {
           "negative": "Bei unauffälligem Screening endet der Standardpfad; bei hoher klinischer Wahrscheinlichkeit zuerst Präanalytik und Medikation prüfen und gegebenenfalls wiederholen."
         }
@@ -75,12 +77,36 @@
         "note": "Retrospektive direkte Vergleichsstudie: OSLT zeigte in der untersuchten Kohorte höhere Sensitivität als der sitzende Kochsalzinfusionstest; Übertragbarkeit und Referenzstandard beachten."
       }
     ],
-    "lastReviewed": "2026-07-12",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Mit Primer 2026 aktualisierter didaktischer Beispielpfad; nicht als obligatorische Sequenz interpretieren."
+    "reviewNote": "Mit Primer 2026 aktualisierter didaktischer Beispielpfad; nicht als obligatorische Sequenz interpretieren.",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "Negativ bei hoher Wahrscheinlichkeit / Interferenz",
+        "action": "Standardisierte Wiederholung erwägen; negatives Ergebnis nicht unkritisch ausschließend werten.",
+        "status": "clarify"
+      },
+      {
+        "when": "Positives Screening, intermediäre Wahrscheinlichkeit und gewünschte operative Abklärung",
+        "action": "Suppressionstest selektiv fachärztlich wählen; sichere Durchführbarkeit prüfen.",
+        "status": "continue"
+      },
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   },
   {
     "id": "cushing-lnsc-to-dst",
@@ -100,7 +126,9 @@
         "evidenceProfileId": "lnsc-elecsys-2024",
         "label": "Screening: Late-night salivary cortisol",
         "expectedUse": "screening",
-        "continueOn": ["positive"],
+        "continueOn": [
+          "positive"
+        ],
         "stopAfter": {
           "negative": "Bei niedriger klinischer Wahrscheinlichkeit endet der Standardpfad; bei fortbestehend hohem Verdacht ist eine unabhängige Wiederholungs- oder Alternativtestung nötig."
         }
@@ -129,12 +157,26 @@
         "note": "Vergleicht diagnostische Genauigkeit mehrerer Cushing-Screeningtests."
       }
     ],
-    "lastReviewed": "2026-05-17",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Didaktische Kette; Testabhängigkeit und Pseudo-Cushing-Konstellationen weiter prüfen."
+    "reviewNote": "Didaktische Kette; Testabhängigkeit und Pseudo-Cushing-Konstellationen weiter prüfen.",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   },
   {
     "id": "dvt-ddimer-to-compression-ultrasound",
@@ -154,7 +196,9 @@
         "evidenceProfileId": "d-dimer-dvt-high-sensitivity",
         "label": "Screening/Rule-out: hochsensitives D-Dimer",
         "expectedUse": "screening",
-        "continueOn": ["positive"],
+        "continueOn": [
+          "positive"
+        ],
         "stopAfter": {
           "negative": "Bei geeigneter niedriger oder mittlerer klinischer Wahrscheinlichkeit beendet ein negatives hochsensitives D-Dimer den Standardpfad."
         }
@@ -183,12 +227,36 @@
         "note": "Stützt die Kompressionssonografie-Testgüte für proximale TVT."
       }
     ],
-    "lastReviewed": "2026-06-01",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Didaktische Sequenz; lokale TVT-Algorithmen und Wiederholungsstrategie prüfen."
+    "reviewNote": "Didaktische Sequenz; lokale TVT-Algorithmen und Wiederholungsstrategie prüfen.",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "Negatives D-Dimer bei geeigneter niedriger / nicht hoher klinischer Wahrscheinlichkeit",
+        "action": "Standardpfad endet; keine hypothetische Bildgebung nachrechnen. Hohe klinische Wahrscheinlichkeit gehört direkt in den Bildgebungspfad.",
+        "status": "stop"
+      },
+      {
+        "when": "Positives D-Dimer oder von Anfang an hohe Wahrscheinlichkeit",
+        "action": "Settinggerechte Bildgebung gemäß Leitlinie. Diskordante Bildgebung wird eigenständig klinisch überprüft.",
+        "status": "continue"
+      },
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   },
   {
     "id": "pe-ddimer-to-ctpa",
@@ -208,7 +276,9 @@
         "evidenceProfileId": "d-dimer-pe-high-sensitivity",
         "label": "Screening/Rule-out: hochsensitives D-Dimer",
         "expectedUse": "screening",
-        "continueOn": ["positive"],
+        "continueOn": [
+          "positive"
+        ],
         "stopAfter": {
           "negative": "Bei niedriger oder intermediärer klinischer Wahrscheinlichkeit beendet ein negatives hochsensitives D-Dimer den Standardpfad; eine CTPA wird nicht angeschlossen."
         }
@@ -237,12 +307,36 @@
         "note": "Beschreibt PE-Wells/PERC/D-Dimer und CTPA im PE-Pfad."
       }
     ],
-    "lastReviewed": "2026-06-01",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
-    "reviewNote": "Didaktische Sequenz; nach negativem D-Dimer wird der Standardpfad beendet und keine CTPA fortgerechnet."
+    "reviewNote": "Didaktische Sequenz; nach negativem D-Dimer wird der Standardpfad beendet und keine CTPA fortgerechnet.",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "Negatives D-Dimer bei geeigneter niedriger / nicht hoher klinischer Wahrscheinlichkeit",
+        "action": "Standardpfad endet; keine hypothetische Bildgebung nachrechnen. Hohe klinische Wahrscheinlichkeit gehört direkt in den Bildgebungspfad.",
+        "status": "stop"
+      },
+      {
+        "when": "Positives D-Dimer oder von Anfang an hohe Wahrscheinlichkeit",
+        "action": "Settinggerechte Bildgebung gemäß Leitlinie. Diskordante Bildgebung wird eigenständig klinisch überprüft.",
+        "status": "continue"
+      },
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   },
   {
     "id": "hf-ntprobnp-to-lung-ultrasound",
@@ -252,10 +346,10 @@
       "klinik-notaufnahme",
       "ambulant-kardiologie"
     ],
-    "label": "Herzinsuffizienz: NT-proBNP → Lungenultraschall",
-    "description": "Didaktische Kette bei Dyspnoe/Herzinsuffizienzverdacht: natriuretisches Peptid plus bildgebender Stauungsnachweis.",
-    "rationale": "NT-proBNP und Lungenultraschall liefern unterschiedliche Informationen. Zusammen zeigen sie, wie Labor-Rule-out und bildgebender Stauungskontext die Wahrscheinlichkeit sequenziell verändern.",
-    "limitations": "Echo ist weiterhin der notwendige Folge-/Bestätigungsschritt für Struktur, EF, Klappen und Ätiologie, wird aber nicht als einzelner binärer LR-Test modelliert. LUS-Werte gelten vor allem für akute Dyspnoe.",
+    "label": "Herzinsuffizienz: NT-proBNP → Echokardiographie",
+    "description": "Settinggerechtes NT-proBNP führt bei entsprechender Konstellation zur Echokardiographie, nicht zur Multiplikation mit einer akuten Lungenultraschall-LR.",
+    "rationale": "NT-proBNP dient im nicht-akuten Verdachtskontext als erste Einordnung. Echokardiographie klärt Struktur und Funktion; ihre Befunde sind nicht unabhängig und werden nicht als pauschale zweite LR multipliziert.",
+    "limitations": "Nicht auf akute Dyspnoe übertragen. NT-proBNP 125 und 400 pg/ml stammen aus unterschiedlichen Strategien. Vorhofflimmern, Nierenfunktion, Adipositas und Vorbehandlung beeinflussen den Wert; Echo ersetzt keine klinische Diagnosestellung.",
     "stages": [
       {
         "id": "hf-ntprobnp-stage",
@@ -263,49 +357,61 @@
         "evidenceProfileId": "ntprobnp-400",
         "label": "Labor: NT-proBNP 400 pg/ml",
         "expectedUse": "screening",
-        "continueOn": ["positive"],
+        "continueOn": [
+          "positive"
+        ],
         "stopAfter": {
           "negative": "Ein ausreichend niedriges natriuretisches Peptid macht Herzinsuffizienz im passenden Setting unwahrscheinlicher; Grenzwert, Alter, Nierenfunktion und Adipositas beachten."
         }
       },
       {
-        "id": "hf-lus-stage",
-        "testId": "lung-ultrasound-b-lines-hf",
-        "evidenceProfileId": "lung-ultrasound-b-lines-acute-hf",
-        "label": "Bildgebung: Lungenultraschall-B-Linien",
-        "expectedUse": "follow-up"
+        "id": "hf-echo",
+        "testId": "echocardiography-hf",
+        "evidenceProfileId": "echocardiography-hf-guideline",
+        "label": "Echokardiographie zur strukturellen und funktionellen Abklärung",
+        "expectedUse": "confirmation"
       }
     ],
     "sources": [
       {
-        "title": "NICE NG106: Chronic heart failure in adults",
-        "year": 2018,
+        "title": "NICE NG106: Chronic heart failure",
+        "year": 2025,
         "url": "https://www.nice.org.uk/guidance/ng106/chapter/Recommendations",
         "kind": "Leitlinie",
-        "note": "Empfiehlt NT-proBNP und anschließende Echokardiographie/Spezialbeurteilung bei erhöhten Werten."
-      },
-      {
-        "title": "Lung ultrasound in acute and chronic heart failure: EACVI clinical consensus statement",
-        "year": 2023,
-        "url": "https://academic.oup.com/ehjcimaging/article/24/12/1569/7224431",
-        "kind": "Leitlinie",
-        "note": "Beschreibt LUS-B-Linien als schnelle Zusatzdiagnostik für akute kardiale Dyspnoe und die Integration mit Echokardiographie."
-      },
-      {
-        "title": "Emergency department ultrasound for B-lines in acute decompensated heart failure: systematic review and meta-analysis",
-        "year": 2018,
-        "url": "https://pubmed.ncbi.nlm.nih.gov/29619917/",
-        "kind": "Review",
-        "note": "Stützt die diagnostische Rolle von B-Linien bei akuter Dyspnoe, zeigt aber heterogene Genauigkeit."
+        "note": "1.2: NT-proBNP im nicht-akuten Kontext, Echokardiographie, Störfaktoren und Überweisung."
       }
     ],
-    "lastReviewed": "2026-06-01",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Echo bewusst nicht als LR-Stufe modelliert; LUS dient als quantitativ abbildbare didaktische Zusatzstufe.",
-    "reviewPriority": "medium"
+    "reviewPriority": "medium",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "NT-proBNP <400 ng/l, unbehandelte nicht-akute Situation",
+        "action": "Herzinsuffizienz weniger wahrscheinlich. Bei fortbestehendem Verdacht andere Ursachen und fachärztliche Abklärung besprechen.",
+        "status": "clarify"
+      },
+      {
+        "when": "NT-proBNP 400–2000 oder >2000 ng/l (NICE)",
+        "action": "Echo und fachärztliche Beurteilung: innerhalb 6 Wochen bzw. bei >2000 innerhalb 2 Wochen. Akute Beschwerden separat beurteilen.",
+        "status": "continue"
+      },
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   },
   {
     "id": "celiac-ttg-iga-to-ema-iga",
@@ -315,8 +421,8 @@
       "ambulant-diabetologie",
       "ambulant-endokrinologie"
     ],
-    "label": "Zöliakie: tTG-IgA → Bestätigungskontext",
-    "description": "tTG-IgA plus Gesamt-IgA als Einstieg; EMA, Duodenalbiopsie, IgG-Serologie oder HLA werden nur entsprechend Titer, Alter, IgA-Status und Diskordanz eingesetzt.",
+    "label": "Zöliakie: tTG-IgA + Gesamt-IgA → kontextbezogene Bestätigung",
+    "description": "Gesamt-IgA, Glutenexposition und Antikörpertiter bestimmen den Bestätigungsweg.",
     "rationale": "tTG-IgA ist der serologische Ersttest unter Glutenexposition. EMA ist ein möglicher hochspezifischer Bestätigungstest, aber nach ESsCD 2025 nicht pauschal obligatorische zweite Stufe.",
     "limitations": "Nicht ohne ausreichende Glutenexposition anwenden. Bei IgA-Mangel ist ein IgG-basierter Pfad nötig. Für ausgewählte Erwachsene unter 45 Jahren mit IgA-anti-TG2 ≥10× ULN beschreibt ESsCD 2025 eine bedingte No-biopsy-Option; lokale Regeln und Ausschlusskriterien beachten.",
     "stages": [
@@ -326,49 +432,61 @@
         "evidenceProfileId": "ttg-iga-adults-meta",
         "label": "Screening: tTG-IgA plus Gesamt-IgA",
         "expectedUse": "screening",
-        "continueOn": ["positive"],
+        "continueOn": [
+          "positive"
+        ],
         "stopAfter": {
           "negative": "Bei ausreichender Glutenexposition und normalem Gesamt-IgA endet der Standardpfad meist; bei IgA-Mangel oder hohem Verdacht ist ein anderer Pfad erforderlich."
         }
       },
       {
-        "id": "celiac-ema-stage",
-        "testId": "ema-iga-celiac",
-        "evidenceProfileId": "ema-iga-celiac-confirmation",
-        "label": "Mögliche Bestätigung bei diskordantem/niedrigerem Titer: EMA-IgA",
+        "id": "celiac-confirm",
+        "testId": "celiac-confirmation-context",
+        "evidenceProfileId": "celiac-confirmation-context-guideline",
+        "label": "Biopsie oder definierte No-biopsy-Option",
         "expectedUse": "confirmation"
       }
     ],
     "sources": [
       {
-        "title": "ESsCD 2025 Updated Guidelines on the Diagnosis of Coeliac Disease in Adults",
+        "title": "ESsCD: Diagnosis of coeliac disease in adults",
         "year": 2025,
         "url": "https://doi.org/10.1002/ueg2.70119",
         "kind": "Leitlinie",
-        "note": "Empfiehlt tTG-IgA mit Gesamt-IgA und beschreibt eine bedingte No-biopsy-Option für ausgewählte Erwachsene unter 45 Jahren bei IgA-anti-TG2 ≥10× ULN."
-      },
-      {
-        "title": "Comparative Accuracy of Diagnostic Tests for Celiac Disease",
-        "year": 2017,
-        "url": "https://www.ncbi.nlm.nih.gov/books/NBK447451/",
-        "kind": "Review",
-        "note": "Vergleicht tTG-IgA, EMA-IgA, DGP und HLA im Zöliakie-Kontext."
-      },
-      {
-        "title": "ACG Clinical Guideline: Diagnosis and Management of Celiac Disease",
-        "year": 2023,
-        "url": "https://pubmed.ncbi.nlm.nih.gov/36602833/",
-        "kind": "Leitlinie",
-        "note": "Stützt serologische Diagnostik unter Glutenexposition und Kontextentscheidung zu Biopsie/weiterer Diagnostik."
+        "note": "Serologie, Gesamt-IgA, Glutenexposition und IV.1.2: bedingte No-biopsy-Option; keine obligate EMA-Zweitstufe."
       }
     ],
-    "lastReviewed": "2026-06-01",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "moderate",
     "dataCompleteness": "partial",
     "reviewNote": "Didaktische Sequenz; lokale pädiatrische/erwachsene Biopsie- und No-biopsy-Regeln nicht automatisch abbilden.",
-    "reviewPriority": "medium"
+    "reviewPriority": "medium",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "Erwachsene <45 Jahre, IgA-tTG ≥10 × ULN",
+        "action": "Nach zweiter bestätigender Probe unter Gluten kann in spezialisierter Versorgung ohne Warnmerkmale eine No-biopsy-Diagnose gemeinsam erwogen werden; EMA ist nicht generell Pflicht.",
+        "status": "continue"
+      },
+      {
+        "when": "IgA-Mangel, geringer Titer oder klinische Diskordanz",
+        "action": "Passende IgG-Tests bzw. Duodenalbiopsie prüfen; nicht routinemäßig eine EMA-LR fortrechnen.",
+        "status": "clarify"
+      },
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   },
   {
     "id": "graves-trab-to-doppler",
@@ -388,7 +506,9 @@
         "evidenceProfileId": "trab-third-generation-meta",
         "label": "Labor: TRAb 3. Generation",
         "expectedUse": "screening",
-        "continueOn": ["negative"],
+        "continueOn": [
+          "negative"
+        ],
         "stopAfter": {
           "positive": "Bei klar positivem TRAb und passender Thyreotoxikose ist zusätzliche Bildgebung häufig nicht nötig."
         }
@@ -417,12 +537,26 @@
         "note": "Unterstützt TRAb-basierte Diagnose und Bildgebung bei unklarer Ätiologie."
       }
     ],
-    "lastReviewed": "2026-06-01",
+    "lastReviewed": "2026-09-05",
     "kind": "curated",
     "reviewStatus": "needs-review",
     "evidenceQuality": "low",
     "dataCompleteness": "partial",
     "reviewNote": "Didaktische Kontextkette; Doppler/Szintigrafie nicht pauschal nach jedem positiven TRAb erforderlich.",
-    "reviewPriority": "high"
+    "reviewPriority": "high",
+    "calculationPolicy": "workflow-only",
+    "sourceCheck": {
+      "status": "restricted",
+      "checkedAt": "2026-09-05",
+      "location": "Klinischer Ablauf; keine validierte bedingte gemeinsame Testgüte hinterlegt.",
+      "note": "Keine rechnerische Endwahrscheinlichkeit über populationsübergreifende oder abhängige Tests."
+    },
+    "decisions": [
+      {
+        "when": "Grenzwertig, widersprüchlich oder nicht verwertbar",
+        "action": "Indikation, Population, Präanalytik und alternative Erklärung prüfen; nicht blind eine weitere LR multiplizieren.",
+        "status": "clarify"
+      }
+    ]
   }
 ]

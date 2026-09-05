@@ -1,105 +1,34 @@
 # Veröffentlichung und Datenpflege
 
-## Zielbild
+## GitHub Desktop
 
-Die GitHub-Pages-Version ist eine statische Kopie der App mit den kuratierten Daten aus dem Repository. Besucher können die App nutzen, eigene Daten lokal im Browser speichern und JSON exportieren. Sie können aber die öffentliche Datenbasis nicht verändern, weil es kein Backend, keine Online-Datenbank und keinen Schreibzugriff aus der Webseite heraus gibt.
+1. Änderungen an Code und Daten prüfen.
+2. Die in der [README](../README.md#daten-und-entwicklung) aufgeführten Prüfungen ausführen; Browserprüfungen verwenden den zuvor erzeugten Produktionsbuild.
+3. Evidenzbericht mit `npm run audit:evidence` aktualisieren und zusammen mit den Änderungen lokal committen.
+4. In GitHub Desktop **Push origin** wählen.
 
-Kuratierte Daten werden ausschließlich durch Änderungen im Repository gepflegt:
+Ein Push auf `main` startet die Pages-Prüfung und Veröffentlichung. Ein lokaler Commit allein verändert die öffentliche Seite nicht. Das Projekt führt selbst keine Git-Operationen aus.
 
-- `src/data/conditions.json`
-- `src/data/tests.json`
-- `src/data/pretest-assumptions.json`
-- `src/data/clinical-modifiers.json`
-- `src/data/clinical-settings.json`
-- `src/data/diagnostic-chains.json`
-- `src/data/condition-guidance.json`
-- `src/data/physical-*.json`
+## GitHub Actions
 
-## Einmalig auf GitHub veröffentlichen
+Unter **Settings → Pages** muss **GitHub Actions** ausgewählt sein. Der Workflow prüft Daten, Unit-Tests, Abhängigkeiten, reproduzierbaren Evidenzbericht, Build, relative Seitenpfade, Bundlebudget und Browserfunktionen mit Chromium/WebKit.
 
-1. Auf GitHub ein neues öffentliches Repository anlegen, z. B. `likelihood-ratio-rechner`.
-2. Lokal im Projektordner den Remote setzen:
+Schlägt ein Lauf fehl, zuerst im betroffenen Job den ersten fehlgeschlagenen Schritt öffnen. Ein rotes `validate` bedeutet nicht automatisch einen Fehler im Pages-Hosting. Den Fehler lokal beheben, Bericht gegebenenfalls neu erzeugen und den geprüften Commit pushen.
 
-   ```bash
-   git remote add origin https://github.com/DEIN-NAME/likelihood-ratio-rechner.git
-   ```
+## Datenpflege
 
-3. Dateien committen und pushen:
+Kuratierte Daten liegen in `src/data/`; dazu gehören auch `practice-questions.json` und `pretest-evidence-gaps.json`. Die [Beitragsregeln](CONTRIBUTING.md) beschreiben Pflichtangaben und fachliche Prüfung.
 
-   ```bash
-   git add .
-   git commit -m "Initial public likelihood ratio calculator"
-   git branch -M main
-   git push -u origin main
-   ```
+Browser-Ergänzungen werden nur lokal gespeichert. Ein JSON-Vorschlag oder eine lokale Reviewmarkierung ist keine Änderung der öffentlichen Datenbasis und keine fachliche Freigabe. Erst die geprüfte Repository-Änderung wird veröffentlicht.
 
-4. In GitHub unter `Settings -> Pages` als Quelle `GitHub Actions` auswählen.
-5. Der Workflow `.github/workflows/deploy.yml` baut automatisch und veröffentlicht die App.
-6. Der Live-Link steht nach erfolgreichem Lauf unter `Settings -> Pages`.
+Das Exportformat ist **v7** mit optionalem numerischem Prätestwert (`null` bedeutet fehlend). v1–v6 werden importiert und migriert. Ältere externe Editoren müssen vor Nutzung neuer Felder gesondert geprüft werden. Die private Mac-App liegt außerhalb dieses Repositorys und wird nicht mit veröffentlicht.
 
-## Updates veröffentlichen
+## Offline-Aktualisierung
 
-Nach einer Änderung an Daten oder Code:
+Der Build erzeugt eine inhaltsabhängige Cache-Revision und hält Hauptseite, Simulation, Informationsseiten und Datenmodule lokal vor. Ein vollständiger Online-Aufruf ist Voraussetzung. Unterseiten erhalten bei Verbindungsfehlern ihren eigenen Cacheinhalt, nicht die Hauptseite als Ersatz.
 
-```bash
-npm run validate:data
-npm run test:run
-npm run audit:evidence
-npm run build
-npm run check:pages
-npm run check:bundle
-npm run smoke:test
-npm run test:e2e
-git add .
-git commit -m "Update curated diagnostic data"
-git push
-```
+Nach einem Update die App online öffnen und neu laden. Externe Leitlinienlinks sind nicht Teil des Offline-Caches. Browserspeicher kann gelöscht werden; eigene Ergänzungen als JSON sichern.
 
-Der Push auf `main` startet automatisch den GitHub-Pages-Deploy.
+## Repository-Schutz
 
-## Empfehlungen von außen einbinden
-
-Empfohlenes Vorgehen ohne Backend:
-
-1. Externe Nutzer öffnen den Datenkatalog in der App.
-2. Sie wählen den passenden Eintrag und nutzen `JSON-Vorschlag`.
-3. Sie senden dir die JSON-Datei per E-Mail, GitHub Issue oder Pull Request.
-4. Du importierst die Datei lokal im Drawer oder übernimmst die Daten manuell in die kuratierten JSON-Dateien.
-5. Vor Veröffentlichung immer prüfen:
-
-   ```bash
-   npm run validate:data
-   npm run test:run
-   npm run audit:evidence
-   npm run build
-   npm run check:pages
-   npm run check:bundle
-   npm run smoke:test
-   npm run test:e2e
-   ```
-
-6. Erst danach committen und pushen.
-
-Damit bleiben öffentliche Daten unter deiner Kontrolle. Online-Nutzer können nur ihre lokale Browserkopie ändern; andere Besucher sehen weiterhin die kuratierten Repository-Daten.
-
-## Empfohlene Repository-Einstellungen
-
-- `Settings -> Pages`: Quelle `GitHub Actions`.
-- `Settings -> Branches`: Branch Protection für `main` aktivieren.
-- Pull Requests nur mergen, wenn Validierung, Tests, Build, Pages-Check und Smoke-Test grün sind.
-- Externe Vorschläge bevorzugt über Issue-Templates oder JSON-Vorschläge sammeln.
-- `reviewed` erst setzen, wenn du den medizinischen Inhalt fachlich geprüft hast.
-
-## Direkte Beiträge über GitHub
-
-Für strukturierte Vorschläge können externe Beitragende auch einen Pull Request erstellen. Medizinische Beiträge sollten mindestens enthalten:
-
-- betroffene Erkrankung und Setting
-- Quelle mit URL/DOI/PubMed-Link
-- Population
-- Sensitivität/Spezifität oder LR-Werte
-- Cut-off und Methode
-- Begründung und Grenzen der Übertragbarkeit
-- Datum der letzten Prüfung
-
-Die fachlichen Anforderungen stehen in `docs/CONTRIBUTING.md`.
+Branch Protection für `main`, verpflichtende erfolgreiche Prüfungen und fachlich nachvollziehbare Pull Requests sind empfohlen. `reviewed` wird erst nach dokumentierter menschlicher Einzelprüfung gesetzt.

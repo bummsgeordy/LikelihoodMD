@@ -10,6 +10,16 @@ export type QuantificationStatus = 'qualitative' | 'probability-factor' | 'likel
 export type CalculationMode = 'binary-lr' | 'categorical' | 'workflow-only';
 export type LikelihoodRatioDerivation = 'reported' | 'derived';
 export type CalculatorMode = 'diagnostic-tests' | 'physical-exam';
+export type ClinicalContext = 'screening' | 'suspicion' | 'incidental' | 'follow-up';
+export type FindingCategory = 'normal' | 'abnormal' | 'borderline' | 'discordant' | 'uninterpretable';
+export type EstimateOrigin = 'observed' | 'transferred-cohort' | 'guideline-estimate' | 'expert-estimate' | 'unknown';
+
+export interface SourceCheck {
+  status: 'verified' | 'restricted' | 'withdrawn';
+  checkedAt: string;
+  location: string;
+  note: string;
+}
 
 export const REVIEW_STATUSES: ReviewStatus[] = ['draft', 'reviewed', 'needs-review'];
 export const EVIDENCE_QUALITIES: EvidenceQuality[] = ['high', 'moderate', 'low', 'expert-opinion', 'unclear'];
@@ -21,6 +31,7 @@ export interface ReviewMetadata {
   evidenceQuality: EvidenceQuality;
   dataCompleteness: DataCompleteness;
   reviewNote?: string;
+  sourceCheck?: SourceCheck;
 }
 
 export interface ClinicalSetting {
@@ -94,6 +105,7 @@ export interface EvidenceProfile extends ReviewMetadata {
   isDefault?: boolean;
   deviationFromProfileId?: string;
   deviationReason?: string;
+  resultCategories?: Array<{ id: string; label: string; interpretation: string }>;
 }
 
 export interface NumericInterval {
@@ -120,7 +132,8 @@ export interface PretestAssumption extends ReviewMetadata {
   settingId?: string;
   evidenceLevel?: PretestEvidenceLevel;
   population: string;
-  probability: number;
+  probability: number | null;
+  origin?: EstimateOrigin;
   rangeLow?: number;
   rangeHigh?: number;
   rationale: string;
@@ -150,6 +163,7 @@ export interface PretestEvidenceGap extends ReviewMetadata {
 }
 
 export interface ClinicalModifier extends ReviewMetadata {
+  role?: 'disease-risk' | 'test-validity' | 'both';
   id: string;
   conditionId: string;
   label: string;
@@ -224,6 +238,11 @@ export interface CalculatorState {
   selectedSettingId: string;
   selectedConditionId: string;
   manualPretestPercent: number;
+  pretestInputSource?: 'unset' | 'manual' | 'assumption';
+  clinicalContext?: ClinicalContext;
+  selectedPracticeQuestionId?: string;
+  selectedFindingCategory?: FindingCategory;
+  pretestInterferencesOpen?: boolean;
   selectedModifierIds: string[];
   modifierListExpanded: boolean;
   pretestStatusExpanded?: boolean;
@@ -240,7 +259,7 @@ export interface CalculatorState {
   selectedPhysicalSystemId?: string;
   selectedPhysicalConditionId?: string;
   selectedPhysicalFindingId?: string;
-  physicalPretestPercent?: number;
+  physicalPretestPercent?: number | null;
 }
 
 export interface DiagnosticChainStage {
@@ -266,6 +285,9 @@ export interface DiagnosticChain extends ReviewMetadata {
   sources: EvidenceSource[];
   lastReviewed: string;
   kind: EvidenceProfileKind;
+  calculationPolicy?: 'workflow-only' | 'conditional-lr';
+  conditionalEvidence?: string;
+  decisions?: Array<{ when: string; action: string; status: 'continue' | 'stop' | 'clarify' | 'urgent' }>;
 }
 
 export interface CalculationResult {
@@ -283,10 +305,26 @@ export type ProfileCalculationOutcome =
   | { status: 'not-computable'; reason: string };
 
 export interface UserDataExport {
-  schemaVersion: 6;
+  schemaVersion: 7;
   exportedAt: string;
   customTests: DiagnosticTest[];
   customEvidenceProfiles: EvidenceProfile[];
   customAssumptions: PretestAssumption[];
   customModifiers: ClinicalModifier[];
+}
+
+export interface PracticeQuestion extends ReviewMetadata {
+  id: string;
+  conditionId: string;
+  label: string;
+  contexts: ClinicalContext[];
+  testIds: string[];
+  indication: string;
+  prerequisites: string[];
+  results: Record<FindingCategory, string>;
+  urgent: string;
+  burden: string;
+  reflection: string;
+  sources: EvidenceSource[];
+  lastReviewed: string;
 }

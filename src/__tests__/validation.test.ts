@@ -7,6 +7,7 @@ import physicalFindings from '../data/physical-findings.json';
 import physicalSystems from '../data/physical-systems.json';
 import assumptions from '../data/pretest-assumptions.json';
 import tests from '../data/tests.json';
+import gaps from '../data/pretest-evidence-gaps.json';
 import {
   validateClinicalModifier,
   validateDiagnosticChain,
@@ -70,14 +71,14 @@ describe('curated data', () => {
     expect(sourceUrls.filter(url => url.includes('pubmed.ncbi.nlm.nih.gov/?term='))).toEqual([]);
   });
 
-  it('has a fallback pretest assumption for every curated test condition', () => {
+  it('documents a missing numerical assumption instead of requiring invented fallback probabilities', () => {
     const fallbackConditionIds = new Set(
       (assumptions as PretestAssumption[])
         .filter(assumption => assumption.evidenceLevel === 'fallback')
         .map(assumption => assumption.conditionId)
     );
     const testConditionIds = new Set((tests as DiagnosticTest[]).map(test => test.conditionId));
-    expect([...testConditionIds].filter(conditionId => !fallbackConditionIds.has(conditionId))).toEqual([]);
+    expect([...testConditionIds].filter(conditionId => !fallbackConditionIds.has(conditionId) && !gaps.some(gap=>gap.conditionId===conditionId))).toEqual([]);
   });
 
   it('does not contain LR 1/1 placeholders or zero LR values', () => {
