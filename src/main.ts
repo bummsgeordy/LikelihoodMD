@@ -18,6 +18,7 @@ import {
   formatPercent,
   formatRatio,
   likelihoodRatiosFromSensitivitySpecificity,
+  tryResolveLikelihoodRatios,
   posttestProbability,
 } from "./lib/calculations";
 import { cohortExplanationParts } from "./lib/cohortExplanation";
@@ -27,6 +28,8 @@ import {
   isEligiblePretest,
   resolveAssumption,
   modifierPreviewProbability,
+  illustrativePretestInput,
+  pretestInputLabel,
 } from "./app/pretest";
 import { parseProbabilityPercent } from "./lib/calculations";
 import {
@@ -224,6 +227,7 @@ app.innerHTML = `
             <input id="pretestNumber" class="pretest-number-input" type="text" inputmode="decimal" autocomplete="off" maxlength="12" aria-label="Prätestwahrscheinlichkeit in Prozent">
           </div>
           <p id="pretestInputError" class="warning" role="status"></p><p class="pretest-suggestion-hint" id="pretestSuggestionHint"></p>
+          <button id="useExamplePretestButton" class="secondary-button compact-button hidden" type="button">Lehrbeispiel mit 5 % verwenden</button>
         </div>
         <div class="pretest-status" id="pretestStatus"></div>
         <div class="pretest-estimate-panel" id="pretestEstimatePanel"></div>
@@ -286,6 +290,8 @@ app.innerHTML = `
             <span class="toggle-large">Normal anzeigen</span>
           </label>
         </div>
+        <p id="nomogramExampleNote" class="nomogram-example-note hidden"></p>
+        <div class="calculation-unavailable hidden" id="nomogramUnavailable" role="status"></div>
         <div class="nomogram-panels">
           <section class="nomogram-panel" aria-labelledby="nomogramPositiveTitle">
             <h3 id="nomogramPositiveTitle">Positives Testergebnis (LR+)</h3>
@@ -296,7 +302,6 @@ app.innerHTML = `
             <canvas id="nomogramNegative" width="720" height="405" aria-label="Fagan-Nomogramm für negatives Testergebnis">Prätestwahrscheinlichkeit, LR− und Posttestwahrscheinlichkeit werden zusätzlich in der Ergebniskarte als Text angezeigt.</canvas>
           </section>
         </div>
-        <div class="calculation-unavailable hidden" id="nomogramUnavailable"></div>
         <div class="modifier-impact hidden" id="nomogramModifierImpact"></div>
         <div class="nomogram-guide">
           <h3>Nomogramm interpretieren</h3>
@@ -998,8 +1003,10 @@ function resetPretestForContext(): void {
   const suggested = resolvePretestAssumption().probability;
   state.pretestInputSource = Number.isFinite(suggested)
     ? "assumption"
-    : "unset";
-  state.manualPretestPercent = Number.isFinite(suggested) ? suggested * 100 : 0;
+    : "illustrative";
+  state.manualPretestPercent = Number.isFinite(suggested)
+    ? suggested * 100
+    : illustrativePretestInput().manualPretestPercent;
   state.pretestInterferencesOpen = false;
 }
 
@@ -1127,7 +1134,7 @@ function commitPretestNumberInput(options: {
   if (
     (parsed == null && state.pretestInputSource === "unset") ||
     (parsed === state.manualPretestPercent &&
-      state.pretestInputSource === "manual")
+      state.pretestInputSource !== "unset")
   )
     return;
   if (parsed == null) {
@@ -1546,7 +1553,17 @@ function renderPretestStatus(resolution: PretestResolution): void {
       ? "Prätest noch nicht festgelegt."
       : state.pretestInputSource === "manual"
         ? "Manuelle Arbeitsannahme; nicht als gemessene Prävalenz ausgewiesen."
-        : "";
+        : state.pretestInputSource === "illustrative"
+          ? `Lehrbeispiel: ${formatPercent(state.manualPretestPercent / 100)}. Keine Erkrankungs- oder Settingprävalenz.`
+          : "";
+  controls.pretestSuggestionHint.classList.toggle(
+    "is-example",
+    state.pretestInputSource === "illustrative",
+  );
+  $("useExamplePretestButton").classList.toggle(
+    "hidden",
+    state.pretestInputSource !== "unset",
+  );
 }
 
 function createEstimateAlert(
@@ -3094,6 +3111,11 @@ function clearNomogram(): void {
   [controls.nomogramPositive, controls.nomogramNegative].forEach((canvas) => {
     const context = canvas.getContext("2d");
     context?.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.setAttribute(
+      "aria-label",
+      "Keine Posttestberechnung: gültige Prätestwahrscheinlichkeit und binäre Testgüte erforderlich.",
+    );
+    canvas.textContent = canvas.getAttribute("aria-label")!;
   });
 }
 
@@ -3487,7 +3509,24 @@ function renderMain(): void {
   } = currentCalculation();
   const pretestPercent = clampProbabilityPercent(pretestProbability * 100);
   state.selectedEvidenceProfileId = profile.id;
-  controls.pretestRange.value = String(pretestPercent);
+  controls.pretestRange.value = Number.isFinite(pretestPercent)
+    ? String(pretestPercent)
+    : "0";
+  controls.pretestRange.dataset.unset = String(
+    !Number.isFinite(pretestPercent),
+  );
+  controls.pretestRange.setAttribute(
+    "aria-valuetext",
+    Number.isFinite(pretestPercent)
+      ? `${formatPercent(pretestProbability)}; ${pretestInputLabel(state.pretestInputSource)}`
+      : "Prätest nicht festgelegt",
+  );
+  controls.pretestNumber.setAttribute(
+    "aria-invalid",
+    String(state.pretestInputSource === "unset"),
+  );
+  if (state.pretestInputSource !== "unset")
+    $("pretestInputError").textContent = "";
   if (document.activeElement !== controls.pretestNumber) {
     controls.pretestNumber.value =
       state.pretestInputSource === "unset"
@@ -3498,7 +3537,9 @@ function renderMain(): void {
   setBar(controls.pretestBar, pretestProbability);
   const isComputable = result != null;
   controls.calculationModeBadge.textContent = isComputable
-    ? "Bayes-Berechnung"
+    ? state.pretestInputSource === "illustrative"
+      ? "Bayes-Berechnung · Lehrbeispiel"
+      : "Bayes-Berechnung"
     : profile.calculationMode === "binary-lr"
       ? "Prätestwert erforderlich"
       : profile.calculationMode === "categorical"
@@ -3507,6 +3548,13 @@ function renderMain(): void {
   controls.calculationModeBadge.className = `calculation-mode-badge mode-${profile.calculationMode}`;
   controls.calculationUnavailable.classList.toggle("hidden", isComputable);
   controls.nomogramUnavailable.classList.toggle("hidden", isComputable);
+  controls.nomogramCard.classList.toggle("is-unavailable", !isComputable);
+  const exampleNote = $("nomogramExampleNote");
+  exampleNote.classList.toggle(
+    "hidden",
+    !isComputable || state.pretestInputSource !== "illustrative",
+  );
+  exampleNote.textContent = `Lehrbeispiel · Prätest ${formatPercent(pretestProbability)} · keine Erkrankungs- oder Settingprävalenz`;
   if (result) {
     controls.lrPositive.textContent = formatRatio(result.lrPositive);
     controls.lrNegative.textContent = formatRatio(result.lrNegative);
@@ -3534,8 +3582,9 @@ function renderMain(): void {
         ? "Kategorische Risikoklassifikation"
         : "Klinischer Workflow";
     const reason = notComputableReason ?? "Keine binäre Testgüte hinterlegt.";
-    controls.lrPositive.textContent = "–";
-    controls.lrNegative.textContent = "–";
+    const ratios = tryResolveLikelihoodRatios(profile);
+    controls.lrPositive.textContent = formatRatio(ratios?.lrPositive ?? null);
+    controls.lrNegative.textContent = formatRatio(ratios?.lrNegative ?? null);
     controls.postPositiveValue.textContent = "–";
     controls.postNegativeValue.textContent = "–";
     setBar(controls.postPositiveBar, 0);
@@ -4149,7 +4198,7 @@ function selectCatalogItem(
   if (!item) return;
   state.selectedPracticeQuestionId = undefined;
   state.selectedModifierIds = [];
-  state.pretestInputSource = "unset";
+  Object.assign(state, illustrativePretestInput());
   if (kind === "assumption") {
     const assumption = normalizeAssumption(item as PretestAssumption);
     state.selectedConditionId =
@@ -4162,7 +4211,9 @@ function selectCatalogItem(
     state.selectedAssumptionId = assumption.id;
     state.pretestInputSource = isEligiblePretest(assumption)
       ? "assumption"
-      : "unset";
+      : "illustrative";
+    if (!isEligiblePretest(assumption))
+      Object.assign(state, illustrativePretestInput());
   } else if (kind === "pretest-gap") {
     const gap = item as PretestEvidenceGap;
     state.selectedConditionId = gap.conditionId;
@@ -4201,7 +4252,9 @@ function selectCatalogItem(
         );
         state.pretestInputSource = isEligiblePretest(assumption)
           ? "assumption"
-          : "unset";
+          : "illustrative";
+        if (!isEligiblePretest(assumption))
+          Object.assign(state, illustrativePretestInput());
       }
     }
   }
@@ -4396,7 +4449,8 @@ async function copySummary(): Promise<void> {
       ? `Szenario-Begründung: ${profile.deviationReason ?? "–"}`
       : "",
     `Quellen: ${profile.sources.map((source) => `${source.title} (${source.year})`).join("; ")}`,
-    `Prätest: ${formatPercent(pretestProbability)} (${pretestResolution.title}; ${assumption.setting})`,
+    `Prätest: ${formatPercent(pretestProbability)} (${pretestInputLabel(state.pretestInputSource)})`,
+    `Prätest-Datenbasis: ${pretestResolution.title}; ${assumption.setting}. Unabhängig von der Recheneingabe zu prüfen.`,
     result
       ? `LR+: ${formatRatio(result.lrPositive)} | LR−: ${formatRatio(result.lrNegative)}`
       : `Berechnungsart: ${profile.calculationMode === "categorical" ? "kategorische Risikoklassifikation" : "klinischer Workflow"}`,
@@ -4523,7 +4577,7 @@ async function importUserData(file: File): Promise<boolean> {
     parsed.customAssumptions[0].settingId !== "general"
       ? parsed.customAssumptions[0].settingId
       : state.selectedSettingId;
-  state.pretestInputSource = "unset";
+  Object.assign(state, illustrativePretestInput());
   state.selectedPracticeQuestionId = undefined;
   saveAndRender();
   return true;
@@ -4793,6 +4847,11 @@ controls.pretestNumber.addEventListener("keydown", (event) => {
   }
 });
 controls.pretestSuggestionMarker.addEventListener("click", useSuggestedPretest);
+$("useExamplePretestButton").addEventListener("click", () => {
+  Object.assign(state, illustrativePretestInput());
+  $("pretestInputError").textContent = "";
+  saveAndRender();
+});
 controls.diagnosticChainSelect.addEventListener("change", () => {
   state.selectedDiagnosticChainId = controls.diagnosticChainSelect.value;
   saveAndRender();

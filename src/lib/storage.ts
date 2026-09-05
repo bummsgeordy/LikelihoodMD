@@ -11,6 +11,7 @@ import type {
   UserDataExport,
 } from "../types";
 import { likelihoodRatiosFromSensitivitySpecificity } from "./calculations";
+import { illustrativePretestInput, restorePretestInput } from "../app/pretest";
 import {
   validateDiagnosticTest,
   validateEvidenceProfile,
@@ -168,8 +169,7 @@ export const defaultState: CalculatorState = {
   selectedAssumptionId: "cushing-endocrine-direct",
   selectedSettingId: "ambulant-endokrinologie",
   selectedConditionId: "cushing-syndrom-hyperkortisolismus",
-  manualPretestPercent: 5,
-  pretestInputSource: "unset",
+  ...illustrativePretestInput(),
   clinicalContext: "suspicion",
   selectedModifierIds: [],
   modifierListExpanded: false,
@@ -355,13 +355,7 @@ export function loadState(): CalculatorState {
       return {
         ...defaultState,
         ...parsed,
-        pretestInputSource:
-          ["manual", "assumption"].includes(parsed.pretestInputSource ?? "") &&
-          typeof parsed.manualPretestPercent === "number" &&
-          parsed.manualPretestPercent >= 0 &&
-          parsed.manualPretestPercent <= 100
-            ? parsed.pretestInputSource
-            : "unset",
+        ...restorePretestInput(parsed),
         clinicalContext: [
           "screening",
           "suspicion",

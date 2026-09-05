@@ -117,6 +117,53 @@ const customModifier: ClinicalModifier = {
 describe("user data export", () => {
   afterEach(() => vi.unstubAllGlobals());
 
+  it("repairs the former empty v7 startup without reusing its misleading slider value", () => {
+    const previous = {
+      ...defaultState,
+      pretestInputVersion: undefined,
+      pretestInputSource: "unset",
+      manualPretestPercent: 50,
+    };
+    vi.stubGlobal("window", {
+      localStorage: {
+        getItem: (key: string) =>
+          key.endsWith("-v7") ? JSON.stringify(previous) : null,
+      },
+    });
+    expect(loadState()).toMatchObject({
+      pretestInputSource: "illustrative",
+      manualPretestPercent: 5,
+      pretestInputVersion: 2,
+    });
+  });
+
+  it("preserves a valid manually entered rare probability", () => {
+    const previous = {
+      ...defaultState,
+      pretestInputSource: "manual",
+      manualPretestPercent: 0.006,
+    };
+    vi.stubGlobal("window", {
+      localStorage: { getItem: () => JSON.stringify(previous) },
+    });
+    expect(loadState()).toMatchObject({
+      pretestInputSource: "manual",
+      manualPretestPercent: 0.006,
+    });
+  });
+
+  it("does not replace a deliberately cleared input with an illustrative value after reload", () => {
+    const previous = {
+      ...defaultState,
+      pretestInputSource: "unset",
+      manualPretestPercent: 12.3,
+    };
+    vi.stubGlobal("window", {
+      localStorage: { getItem: () => JSON.stringify(previous) },
+    });
+    expect(loadState().pretestInputSource).toBe("unset");
+  });
+
   it("preserves missing probabilities instead of replacing them with zero", () => {
     const payload = buildExport(
       [],

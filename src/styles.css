@@ -691,6 +691,18 @@ input[type="range"] {
   gap: 14px;
 }
 
+#nomogramCard.is-unavailable .nomogram-panels { display: none; }
+.nomogram-example-note,
+.pretest-suggestion-hint.is-example {
+  color: #694000;
+  background: #fff5dd;
+  border-left: 3px solid #b7791f;
+  padding: 8px 10px;
+  margin: 8px 0;
+}
+#pretestRange[data-unset="true"]::-webkit-slider-thumb { opacity: 0; }
+#pretestRange[data-unset="true"]::-moz-range-thumb { opacity: 0; }
+
 .nomogram-panel {
   min-width: 0;
 }

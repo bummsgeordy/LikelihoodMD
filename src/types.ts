@@ -238,7 +238,8 @@ export interface CalculatorState {
   selectedSettingId: string;
   selectedConditionId: string;
   manualPretestPercent: number;
-  pretestInputSource?: 'unset' | 'manual' | 'assumption';
+  pretestInputSource?: 'unset' | 'manual' | 'assumption' | 'illustrative';
+  pretestInputVersion?: 2;
   clinicalContext?: ClinicalContext;
   selectedPracticeQuestionId?: string;
   selectedFindingCategory?: FindingCategory;

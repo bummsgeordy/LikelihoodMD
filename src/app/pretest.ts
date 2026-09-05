@@ -1,5 +1,65 @@
-import type { ClinicalModifier, PretestAssumption } from "../types";
+import type {
+  CalculatorState,
+  ClinicalModifier,
+  PretestAssumption,
+} from "../types";
 import { posttestProbability } from "../lib/calculations";
+
+export const ILLUSTRATIVE_PRETEST_PERCENT = 5;
+type PretestInput = Pick<
+  CalculatorState,
+  "manualPretestPercent" | "pretestInputSource" | "pretestInputVersion"
+>;
+
+export function illustrativePretestInput(): PretestInput {
+  return {
+    manualPretestPercent: ILLUSTRATIVE_PRETEST_PERCENT,
+    pretestInputSource: "illustrative",
+    pretestInputVersion: 2,
+  };
+}
+
+export function restorePretestInput(
+  saved: Partial<CalculatorState>,
+): PretestInput {
+  const valid =
+    typeof saved.manualPretestPercent === "number" &&
+    Number.isFinite(saved.manualPretestPercent) &&
+    saved.manualPretestPercent >= 0 &&
+    saved.manualPretestPercent <= 100;
+  if (
+    valid &&
+    ["manual", "assumption", "illustrative"].includes(
+      saved.pretestInputSource ?? "",
+    )
+  ) {
+    return {
+      manualPretestPercent: saved.manualPretestPercent!,
+      pretestInputSource: saved.pretestInputSource,
+      pretestInputVersion: 2,
+    };
+  }
+  // Repair the old empty startup state once; preserve deliberately cleared inputs thereafter.
+  if (saved.pretestInputVersion === 2) {
+    return {
+      manualPretestPercent: valid ? saved.manualPretestPercent! : 0,
+      pretestInputSource: "unset",
+      pretestInputVersion: 2,
+    };
+  }
+  return illustrativePretestInput();
+}
+
+export function pretestInputLabel(
+  source: CalculatorState["pretestInputSource"],
+): string {
+  if (source === "illustrative")
+    return "Lehrbeispiel; keine Erkrankungs- oder Settingprävalenz";
+  if (source === "manual") return "Manuelle Arbeitsannahme";
+  if (source === "assumption")
+    return "Übernommener Quellenwert; Übertragbarkeit prüfen";
+  return "Nicht festgelegt";
+}
 
 export function estimateOriginLabel(assumption: PretestAssumption): string {
   const origin =

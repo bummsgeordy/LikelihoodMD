@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Nomogramm-Regression behoben
+
+- Berechenbare Tests zeigen wieder unmittelbar beide Nomogramme und Posttestwerte. Fehlende klinische Prävalenzdaten sind von einem ausdrücklich als Lehrbeispiel markierten Rechenstart von 5 % getrennt.
+- Alte leere Startzustände werden repariert; gültige eigene Eingaben bleiben erhalten. Bewusst geleerte oder ungültige Eingaben zeigen einen direkten Hinweis statt großer leerer Diagrammflächen.
+- Slider, Zahlenfeld, Bericht und Beispielkennzeichnung bleiben konsistent. Keine Änderung der medizinischen Testgüte oder Prävalenzdaten.
+
 ### Schema v7 / Praxis und Lehre
 
 - Zwölf strukturierte Praxisfragen, sechs neue Themen und getrennte Befundkonstellationen ergänzt.

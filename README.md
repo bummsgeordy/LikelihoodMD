@@ -12,7 +12,7 @@ LikelihoodMD verbindet diese Fragen mit einer visuellen Bayes-Berechnung. Ein po
 
 1. Klinische Frage oder Erkrankung und Anlass wählen.
 2. Indikation, Voraussetzungen und passende Tests prüfen.
-3. Für ein berechenbares Profil eine begründete Prätestwahrscheinlichkeit eingeben.
+3. Für ein berechenbares Profil die klar markierte Beispielwahrscheinlichkeit durch eine begründete eigene Prätestwahrscheinlichkeit ersetzen.
 4. Positive und negative Ergebnisse, Unsicherheit und mögliche nächste Klärung vergleichen.
 
 Die App zeigt beide Testergebnisse gleichzeitig. Kategorische Befunde und klinische Abläufe bleiben ohne künstliche Posttestzahl. Unklare oder nicht verwertbare Befunde haben eigene Hinweise.
@@ -29,7 +29,7 @@ Die App zeigt beide Testergebnisse gleichzeitig. Kategorische Befunde und klinis
 
 ## Was die Zahlen bedeuten
 
-Ein passendes Setting ist kein Nachweis einer direkt gemessenen Prävalenz. Die Daten unterscheiden beobachtete Häufigkeiten, übertragene Kohorten und Schätzungen. Fehlt eine tragfähige Zahl, bleibt der Startwert leer; Spannweiten erhalten keinen erfundenen Mittelpunkt.
+Ein passendes Setting ist kein Nachweis einer direkt gemessenen Prävalenz. Die Daten unterscheiden beobachtete Häufigkeiten, übertragene Kohorten und Schätzungen. Fehlt eine tragfähige Zahl, bleibt der klinische Datenwert offen; Spannweiten erhalten keinen erfundenen Mittelpunkt. Unabhängig davon startet der Rechner mit einem ausdrücklich markierten **Lehrbeispiel von 5 %**, damit Nomogramme und Posttestwerte sofort sichtbar sind. Diese Beispielzahl ist keine Erkrankungs- oder Settingprävalenz. Eine eigene Eingabe ersetzt sie; ungültige oder bewusst geleerte Eingaben werden nicht berechnet.
 
 Quellenprüfung (`sourceCheck`) und menschliche Freigabe (`reviewStatus`) sind getrennt. Eine recherchierte Fundstelle macht einen Eintrag nicht automatisch klinisch übertragbar oder freigegeben. Einschränkungen stehen am Ergebnis und im [Evidenz-Audit](docs/EVIDENCE_AUDIT.md).
 

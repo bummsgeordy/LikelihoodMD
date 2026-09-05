@@ -44,7 +44,7 @@ Parallelfragen erfassen Begründung, Alternativhypothesen, Unsicherheit und Test
 - Bestandsprofile ohne neuen individuellen Volltextabgleich sind ausdrücklich eingeschränkt/offen. Quellenlinks allein bestätigen weder Zahl noch Übertragbarkeit.
 - Die 732 McGee-Befunde sind technisch geprüft, aber nicht einzeln medizinisch, sprachlich oder urheberrechtlich freigegeben. Besonders starke LR und fehlende LR− bleiben prioritäre Reviewgruppen.
 - Kein Bestandsketten-Modell besitzt hier belegte bedingte LR für eine quantitative Endrechnung. Das ist eine ausgewiesene Datenlücke, kein LR-1-Ersatz.
-- Viele lokale Setting-Prävalenzen fehlen. Ein leerer Startwert ist beabsichtigt. Die App berechnet keine externen Scores und integriert in diesem Schritt keine zusätzlichen Score-Modelle.
+- Viele lokale Setting-Prävalenzen fehlen. Der klinische Datenwert bleibt dann offen. Die Recheneingabe startet davon getrennt mit einem markierten Lehrbeispiel von 5 %; es ist keine Erkrankungsprävalenz. Die App berechnet keine externen Scores und integriert in diesem Schritt keine zusätzlichen Score-Modelle.
 - Zentrale Nebenniereninsuffizienz und komplexe Hypophysenverläufe benötigen weitere spezialisierte Pfade. Nicht alle älteren Guidance-Quellen wurden in diesem Release vollständig neu abgeglichen.
 - Die Hauptdatei bleibt groß. Berechnung, Kontextauflösung, Lehre und neue Renderer sind getrennt; die restliche Admin-Oberfläche bleibt weiterer Modularisierungsbedarf.
 - Die private Mac-App wurde nicht geändert. Vor Nutzung neuer Nullwerte/Ergebniskategorien dort muss ihre Import-/Exportkompatibilität geprüft werden.
@@ -55,7 +55,7 @@ Vor patientenbezogener Entscheidungsunterstützung ist der konkrete Einsatz fach
 
 ## Technische Abnahme
 
-Abnahme am 5. September 2026: 74 Unit-Tests und 44 Browserprüfungen bestanden; fünf doppelte Offline-Prüfungen bei weiteren Bildschirmgrößen bewusst ausgelassen. Datenvalidierung, Produktions-Build unter Node 22, Pages-, Bundle- und Smoke-Prüfung bestanden. Die Abhängigkeitsprüfung meldete zu diesem Zeitpunkt keine bekannten Schwachstellen.
+Abnahme einschließlich Nomogramm-Nachkorrektur am 5. September 2026: 77 Unit-Tests und 58 Browserprüfungen bestanden; fünf doppelte Offline-Prüfungen bei weiteren Bildschirmgrößen bewusst ausgelassen. Neue Prüfungen kontrollieren gezeichnete Kurven schon beim Erstaufruf, Migration alter leerer Startzustände, Eingabekonsistenz und Erkrankungswechsel. Datenvalidierung, Produktions-Build unter Node 22, Pages-, Bundle- und Smoke-Prüfung bestanden. Die Abhängigkeitsprüfung meldete zu diesem Zeitpunkt keine bekannten Schwachstellen.
 
 Die Regressionstests decken seltene und ungültige Eingaben, klinische Anwendbarkeit, Bethesda-Kategorien, Häufigkeitsbäume, Vortragsfälle sowie Import, Konfliktbestätigung und Export ab. Der Build wird mit Node.js 22 geprüft. Browserprüfungen verwenden Chromium und WebKit bei 390, 768 und 1440 px sowie Chromium bei 1920 px; die Druckansicht wird zusätzlich kontrolliert.
 
