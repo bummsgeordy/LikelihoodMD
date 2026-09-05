@@ -452,6 +452,54 @@ export function validatePretestAssumption(
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   if (
+    assumption.startingPoint != null &&
+    (!["reported", "rounded", "working-estimate"].includes(
+      assumption.startingPoint.basis,
+    ) ||
+      !hasText(assumption.startingPoint.justification))
+  ) {
+    issues.push({
+      field: "startingPoint",
+      message: "Startwert benötigt eine gültige Ableitungsart und Begründung.",
+    });
+  }
+  if (
+    assumption.rangeKind != null &&
+    !["study-interval", "between-study", "scenario"].includes(
+      assumption.rangeKind,
+    )
+  ) {
+    issues.push({
+      field: "rangeKind",
+      message: "Art der Spanne ist ungültig.",
+    });
+  }
+  for (const field of ["applicableTestIds", "excludedTestIds"] as const) {
+    const ids = assumption[field];
+    if (
+      ids != null &&
+      (!Array.isArray(ids) ||
+        ids.length === 0 ||
+        ids.some((id) => !hasText(id)) ||
+        new Set(ids).size !== ids.length)
+    ) {
+      issues.push({
+        field,
+        message: "Testzuordnung muss eindeutige, nicht leere IDs enthalten.",
+      });
+    }
+  }
+  if (
+    assumption.probability != null &&
+    (assumption.probability < (assumption.rangeLow ?? 0) ||
+      assumption.probability > (assumption.rangeHigh ?? 1))
+  ) {
+    issues.push({
+      field: "probability",
+      message: "Startwert liegt außerhalb der angegebenen Spanne.",
+    });
+  }
+  if (
     assumption.origin != null &&
     ![
       "observed",

@@ -134,6 +134,13 @@ export interface PretestAssumption extends ReviewMetadata {
   population: string;
   probability: number | null;
   origin?: EstimateOrigin;
+  startingPoint?: {
+    basis: 'reported' | 'rounded' | 'working-estimate';
+    justification: string;
+  };
+  rangeKind?: 'study-interval' | 'between-study' | 'scenario';
+  applicableTestIds?: string[];
+  excludedTestIds?: string[];
   rangeLow?: number;
   rangeHigh?: number;
   rationale: string;

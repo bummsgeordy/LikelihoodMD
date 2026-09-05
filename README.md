@@ -12,7 +12,7 @@ LikelihoodMD verbindet diese Fragen mit einer visuellen Bayes-Berechnung. Ein po
 
 1. Klinische Frage oder Erkrankung und Anlass wählen.
 2. Indikation, Voraussetzungen und passende Tests prüfen.
-3. Für ein berechenbares Profil die klar markierte Beispielwahrscheinlichkeit durch eine begründete eigene Prätestwahrscheinlichkeit ersetzen.
+3. Population, Quelle und Startannahme prüfen; die Prätestwahrscheinlichkeit bei Bedarf selbst anpassen.
 4. Positive und negative Ergebnisse, Unsicherheit und mögliche nächste Klärung vergleichen.
 
 Die App zeigt beide Testergebnisse gleichzeitig. Kategorische Befunde und klinische Abläufe bleiben ohne künstliche Posttestzahl. Unklare oder nicht verwertbare Befunde haben eigene Hinweise.
@@ -29,7 +29,11 @@ Die App zeigt beide Testergebnisse gleichzeitig. Kategorische Befunde und klinis
 
 ## Was die Zahlen bedeuten
 
-Ein passendes Setting ist kein Nachweis einer direkt gemessenen Prävalenz. Die Daten unterscheiden beobachtete Häufigkeiten, übertragene Kohorten und Schätzungen. Fehlt eine tragfähige Zahl, bleibt der klinische Datenwert offen; Spannweiten erhalten keinen erfundenen Mittelpunkt. Unabhängig davon startet der Rechner mit einem ausdrücklich markierten **Lehrbeispiel von 5 %**, damit Nomogramme und Posttestwerte sofort sichtbar sind. Diese Beispielzahl ist keine Erkrankungs- oder Settingprävalenz. Eine eigene Eingabe ersetzt sie; ungültige oder bewusst geleerte Eingaben werden nicht berechnet.
+Für alle 24 Krankheitsbilder stehen insgesamt 66 quellenbezogene Prätestannahmen bereit. Der Rechner übernimmt die passende Startannahme; Quelle und Zielpopulation bleiben sichtbar. Spezifische Kontexte wie MACS, Steroidexposition oder TVT/LE-Risikostufen haben eigene Einträge. Fehlen Daten für eine Fachabteilung, wird eine allgemeine Referenz derselben Erkrankung mit entsprechendem Hinweis verwendet, keine vermeintlich gemessene lokale Prävalenz.
+
+**Studienwerte und Arbeitsannahmen sind nicht dasselbe.** Beobachtete Häufigkeiten, übertragene Kohorten, gerundete Referenzwerte und nicht validierte Arbeitsannahmen sind getrennt gekennzeichnet. Bei einer Arbeitsannahme begründen Quellen den klinischen Kontext, nicht zwingend die gewählte Prozentzahl. Deren Auswahl ist eigens erläutert. Studienintervalle, Unterschiede zwischen Studien und hypothetische Szenariospannen bleiben unterscheidbar; eine Spanne liefert nicht automatisch einen Mittelpunkt.
+
+Eigene Eingaben bleiben erhalten. Ohne anwendbare Startannahme steht ein separat markiertes Lehrbeispiel von 5 % bereit; bewusst geleerte oder ungültige Eingaben werden nicht berechnet. EU-TIRADS 1/2 eröffnen keine FNA-Rechnung. Die körperliche Untersuchung behält ihre manuelle Prätesteingabe.
 
 Quellenprüfung (`sourceCheck`) und menschliche Freigabe (`reviewStatus`) sind getrennt. Eine recherchierte Fundstelle macht einen Eintrag nicht automatisch klinisch übertragbar oder freigegeben. Einschränkungen stehen am Ergebnis und im [Evidenz-Audit](docs/EVIDENCE_AUDIT.md).
 
@@ -65,7 +69,7 @@ Auf iPhone/iPad einmal online in Safari vollständig laden und über **Teilen �
 
 Kuratierte Daten liegen in `src/data/`: Erkrankungen, Settings, Tests, Prätestannahmen, Evidenzlücken, Modifikatoren, Diagnostikketten, Guidance, Praxisfragen und Untersuchungsbefunde. `pretest-assumptions.json` ist die einzige kanonische Prätestbasis; `probability: null` bedeutet **kein belastbarer Punktwert**, nicht null Prozent.
 
-Exportformat **v7**; v1–v6 bleiben importierbar. Bestehende IDs und lokale Profile werden erhalten. Die private Mac-App gehört nicht zu diesem Repository und wurde nicht angepasst; ihre v7-Kompatibilität ist separat zu prüfen.
+Exportformat **v7**; v1–v6 bleiben importierbar. Optionale Angaben zu Startwertbegründung, Spannenart und Testzuordnung ergänzen v7, ohne ältere eigene Einträge ungültig zu machen. Bestehende IDs und lokale Profile werden erhalten. Die private Mac-App gehört nicht zu diesem Repository und wurde nicht angepasst; ihre v7-Kompatibilität ist separat zu prüfen.
 
 Importe ergänzen vorhandene eigene Daten. Änderungen an derselben ID benötigen eine Bestätigung; kuratierte Einträge werden nicht überschrieben.
 

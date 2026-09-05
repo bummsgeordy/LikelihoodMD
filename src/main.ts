@@ -26,6 +26,8 @@ import { renderFrequencyTree } from "./ui/frequencyTree";
 import {
   estimateOriginLabel,
   isEligiblePretest,
+  pretestRangeLabel,
+  startingPretestInput,
   resolveAssumption,
   modifierPreviewProbability,
   illustrativePretestInput,
@@ -99,6 +101,7 @@ let categoryRenderKey = "";
 let guidanceRenderKey = "";
 let diagnosticChains: DiagnosticChain[] = [];
 let contextDataPromise: Promise<void> | null = null;
+let startupAssumptionApplied = false;
 
 async function ensureContextData(): Promise<void> {
   if (conditionGuidance.length > 0 && diagnosticChains.length > 0) return;
@@ -887,22 +890,31 @@ function allSettings(): ClinicalSetting[] {
   normalizedAssumptions()
     .filter((assumption) => assumption.settingId !== "general")
     .forEach((assumption) => {
-      settings.set(
-        assumption.settingId ?? settingIdForLabel(assumption.setting),
-        {
-          id: assumption.settingId ?? settingIdForLabel(assumption.setting),
-          label: assumption.setting,
-        },
-      );
+      if (
+        !settings.has(
+          assumption.settingId ?? settingIdForLabel(assumption.setting),
+        )
+      )
+        settings.set(
+          assumption.settingId ?? settingIdForLabel(assumption.setting),
+          {
+            id: assumption.settingId ?? settingIdForLabel(assumption.setting),
+            label: assumption.setting,
+          },
+        );
     });
   return [...settings.values()];
 }
 
 function settingsForCondition(conditionId: string): ClinicalSetting[] {
-  const isThyroidNodule =
-    conditionId === "schilddrusenknoten-malignitatsrisiko";
+  const generalIds = new Set(clinicalSettings.map((setting) => setting.id));
+  const conditionIds = new Set(
+    normalizedAssumptions()
+      .filter((assumption) => assumption.conditionId === conditionId)
+      .map((assumption) => assumption.settingId),
+  );
   return allSettings().filter(
-    (setting) => isThyroidNodule || !setting.id.startsWith("thyroid-"),
+    (setting) => generalIds.has(setting.id) || conditionIds.has(setting.id),
   );
 }
 
@@ -967,6 +979,7 @@ function resolvePretestAssumption(): PretestResolution {
     normalizedAssumptions(),
     state.selectedConditionId,
     state.selectedSettingId,
+    state.selectedTestId,
   ) ?? {
     id: "unavailable-" + state.selectedConditionId,
     conditionId: state.selectedConditionId,
@@ -991,22 +1004,25 @@ function resolvePretestAssumption(): PretestResolution {
   return {
     assumption,
     probability: eligible ? assumption.probability! : Number.NaN,
-    status: eligible ? "direct" : "manual",
+    status: eligible
+      ? assumption.origin === "expert-estimate"
+        ? "fallback"
+        : "direct"
+      : "manual",
     title: estimateOriginLabel(assumption),
     message: eligible
-      ? "Quellenbasierter Startwert; Übertragbarkeit auf die konkrete Population prüfen."
+      ? assumption.origin === "expert-estimate"
+        ? "Unvalidierte Arbeitsannahme: Die Quelle begründet den Kontext, nicht diesen Prozentwert."
+        : "Quellenbasierter Startwert; Übertragbarkeit auf die konkrete Population prüfen."
       : "Kein ausreichend belegter numerischer Standard. Prätestwahrscheinlichkeit bewusst manuell einschätzen.",
   };
 }
 
 function resetPretestForContext(): void {
-  const suggested = resolvePretestAssumption().probability;
-  state.pretestInputSource = Number.isFinite(suggested)
-    ? "assumption"
-    : "illustrative";
-  state.manualPretestPercent = Number.isFinite(suggested)
-    ? suggested * 100
-    : illustrativePretestInput().manualPretestPercent;
+  Object.assign(
+    state,
+    startingPretestInput(resolvePretestAssumption().assumption),
+  );
   state.pretestInterferencesOpen = false;
 }
 
@@ -1153,10 +1169,9 @@ function commitPretestNumberInput(options: {
 }
 
 function useSuggestedPretest(): void {
-  const probability = resolvePretestAssumption().probability;
-  if (!Number.isFinite(probability)) return;
-  state.manualPretestPercent = probability * 100;
-  state.pretestInputSource = "assumption";
+  const resolution = resolvePretestAssumption();
+  if (!Number.isFinite(resolution.probability)) return;
+  Object.assign(state, startingPretestInput(resolution.assumption));
   saveAndRender();
 }
 
@@ -1523,7 +1538,7 @@ function renderPretestStatus(resolution: PretestResolution): void {
   const available = Number.isFinite(resolution.probability);
   const details = createDisclosure(
     "pretest-status-disclosure " + resolution.status,
-    `${available ? "✓" : "!"} ${resolution.title}: ${available ? formatPercent(resolution.probability) : "kein numerischer Standard"} · Kontext anzeigen`,
+    `${available && resolution.status === "direct" ? "✓" : "!"} ${resolution.title}: ${available ? formatPercent(resolution.probability) : "kein numerischer Standard"} · Kontext anzeigen`,
     (open) => {
       state.pretestStatusExpanded = open;
       saveState(state);
@@ -1542,7 +1557,7 @@ function renderPretestStatus(resolution: PretestResolution): void {
       "--pretest-suggestion-left",
       `${resolution.probability * 100}%`,
     );
-    controls.pretestSuggestionMarker.textContent = `Vorschlag ${formatPercent(resolution.probability)} (Quelle)`;
+    controls.pretestSuggestionMarker.textContent = `Vorschlag ${formatPercent(resolution.probability)} (${resolution.assumption.origin === "expert-estimate" ? "Schätzung" : "Quelle"})`;
     controls.pretestSuggestionMarker.setAttribute(
       "aria-label",
       "Vorschlag " + formatPercent(resolution.probability) + " übernehmen",
@@ -1555,7 +1570,11 @@ function renderPretestStatus(resolution: PretestResolution): void {
         ? "Manuelle Arbeitsannahme; nicht als gemessene Prävalenz ausgewiesen."
         : state.pretestInputSource === "illustrative"
           ? `Lehrbeispiel: ${formatPercent(state.manualPretestPercent / 100)}. Keine Erkrankungs- oder Settingprävalenz.`
-          : "";
+          : state.clinicalContext === "follow-up"
+            ? "Startreferenz der genannten Population; keine individuelle Verlaufs- oder Rezidivwahrscheinlichkeit."
+            : resolution.assumption.origin === "expert-estimate"
+              ? "Unvalidierte Arbeitsannahme, keine gemessene Prävalenz."
+              : "Startwert gilt nur für die unten genannte Population.";
   controls.pretestSuggestionHint.classList.toggle(
     "is-example",
     state.pretestInputSource === "illustrative",
@@ -1602,9 +1621,18 @@ function renderPretestEstimatePanel(
   const title = document.createElement("strong");
   title.textContent = "Prätest-Datenbasis";
   const confidence = document.createElement("span");
-  confidence.className = `quality-pill quality-${assumption.evidenceQuality}`;
-  confidence.textContent = qualityLabel(assumption.evidenceQuality);
+  const isWorkingEstimate = assumption.origin === "expert-estimate";
+  confidence.className = `quality-pill quality-${isWorkingEstimate ? "d" : assumption.evidenceQuality}`;
+  confidence.textContent = isWorkingEstimate
+    ? "Arbeitsannahme"
+    : qualityLabel(assumption.evidenceQuality);
   heading.append(title, confidence);
+
+  const population = document.createElement("p");
+  population.className = "compact-note";
+  const populationLabel = document.createElement("strong");
+  populationLabel.textContent = "Population: ";
+  population.append(populationLabel, assumption.population);
 
   const grid = document.createElement("div");
   grid.className = "estimate-meta-grid";
@@ -1612,7 +1640,7 @@ function renderPretestEstimatePanel(
     ["Setting", assumption.setting],
     ["Basis", formatPercent(assumption.probability)],
     [
-      "Spanne",
+      pretestRangeLabel(assumption),
       assumption.rangeLow != null && assumption.rangeHigh != null
         ? `${formatPercent(assumption.rangeLow)}–${formatPercent(assumption.rangeHigh)}`
         : "nicht hinterlegt",
@@ -1629,7 +1657,7 @@ function renderPretestEstimatePanel(
 
   const note = document.createElement("p");
   note.className = "muted compact-note";
-  note.textContent = `${assumption.rationale} Grenzen: ${assumption.limitations}`;
+  note.textContent = `${assumption.rationale} Grenzen: ${assumption.limitations} Quellenprüfung ist keine menschliche fachliche Freigabe.`;
 
   const modifierWrap = document.createElement("div");
   modifierWrap.className = "estimate-chip-row";
@@ -1719,7 +1747,20 @@ function renderPretestEstimatePanel(
   );
   interferenceDetails.append(highWarningWrap);
 
-  controls.pretestEstimatePanel.append(heading, grid);
+  controls.pretestEstimatePanel.append(heading, population, grid);
+  const primarySource = assumption.sources[0];
+  if (primarySource) {
+    const sourceLine = document.createElement("p");
+    sourceLine.className = "muted compact-note";
+    sourceLine.append("Grundlage: ");
+    const link = document.createElement("a");
+    link.href = primarySource.url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = `${primarySource.title} (${primarySource.year})`;
+    sourceLine.append(link);
+    controls.pretestEstimatePanel.append(sourceLine);
+  }
   controls.pretestEstimatePanel.append(contextDetails);
   if (highWarningWrap.childElementCount > 0)
     controls.pretestEstimatePanel.append(interferenceDetails);
@@ -3063,7 +3104,8 @@ function renderPosttestUncertainty(
 ): void {
   const usesSuggestedPretest =
     state.pretestInputSource === "assumption" &&
-    result.pretestProbability === assumption.probability;
+    assumption.probability != null &&
+    Math.abs(result.pretestProbability - assumption.probability) < 1e-12;
   const pretestLow = usesSuggestedPretest
     ? (assumption.rangeLow ?? result.pretestProbability)
     : result.pretestProbability;
@@ -3498,6 +3540,16 @@ function renderMain(): void {
   }
   populateSelectors();
   updatePracticePanel();
+  // Apply sourced defaults only after lazy data arrive; never replace a manual/cleared input.
+  if (!startupAssumptionApplied && curatedAssumptions.length > 0) {
+    startupAssumptionApplied = true;
+    if (
+      state.pretestInputSource === "illustrative" ||
+      state.pretestInputSource === "assumption"
+    ) {
+      resetPretestForContext();
+    }
+  }
   const {
     test,
     profile,
@@ -4451,6 +4503,12 @@ async function copySummary(): Promise<void> {
     `Quellen: ${profile.sources.map((source) => `${source.title} (${source.year})`).join("; ")}`,
     `Prätest: ${formatPercent(pretestProbability)} (${pretestInputLabel(state.pretestInputSource)})`,
     `Prätest-Datenbasis: ${pretestResolution.title}; ${assumption.setting}. Unabhängig von der Recheneingabe zu prüfen.`,
+    `Quellenpopulation: ${assumption.population}`,
+    `Begründung des Startwerts: ${assumption.rationale}`,
+    ...assumption.sources.map(
+      (source) =>
+        `Prätestquelle: ${source.title} (${source.year}). ${source.url} ${source.note}`,
+    ),
     result
       ? `LR+: ${formatRatio(result.lrPositive)} | LR−: ${formatRatio(result.lrNegative)}`
       : `Berechnungsart: ${profile.calculationMode === "categorical" ? "kategorische Risikoklassifikation" : "klinischer Workflow"}`,
@@ -4693,12 +4751,15 @@ physicalControls.pretestNumber.addEventListener("keydown", (event) => {
 });
 
 controls.testSelect.addEventListener("change", () => {
+  const previousAssumption = resolvePretestAssumption().assumption.id;
   state.selectedTestId = controls.testSelect.value;
   const profiles = profilesForTest(state.selectedTestId);
   state.selectedEvidenceProfileId =
     profiles.find((profile) => profile.isDefault)?.id ??
     profiles[0]?.id ??
     state.selectedEvidenceProfileId;
+  if (resolvePretestAssumption().assumption.id !== previousAssumption)
+    resetPretestForContext();
   saveAndRender();
 });
 controls.settingSelect.addEventListener("change", () => {
@@ -4728,12 +4789,16 @@ controls.adminConditionSelect.addEventListener("change", () => {
   saveAndRender();
 });
 controls.adminTestSelect.addEventListener("change", () => {
+  const previousAssumptionId = resolvePretestAssumption().assumption.id;
   state.selectedTestId = controls.adminTestSelect.value;
   const profiles = profilesForTest(state.selectedTestId);
   state.selectedEvidenceProfileId =
     profiles.find((profile) => profile.isDefault)?.id ??
     profiles[0]?.id ??
     state.selectedEvidenceProfileId;
+  if (resolvePretestAssumption().assumption.id !== previousAssumptionId) {
+    resetPretestForContext();
+  }
   saveAndRender();
 });
 controls.adminProfileSelect.addEventListener("change", () => {

@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Quellenbezogene Prätest-Startannahmen
+
+- 66 Annahmen für alle 24 Krankheitsbilder; passende Startwerte werden automatisch übernommen, eigene Eingaben bleiben erhalten. Studienwerte, übertragene Kohorten und ausdrücklich nicht validierte Arbeitsannahmen sind getrennt gekennzeichnet.
+- Eigene Kontexte für MACS, Steroidexposition, Hypokaliämie bei Hypertonie, familiäres Zöliakierisiko, TVT/LE-Risikostufen und Osteoporose nach Geschlecht ergänzt. Fachfremde Sondersettings erscheinen nicht mehr in der Auswahl.
+- Population und Quellenlink bleiben direkt sichtbar; Kurzbericht und Evidenz-Audit enthalten Herkunft und Begründung. Quellenintervalle, Studienbandbreiten und Szenariospannen werden unterschieden.
+- Automatische Übernahme ist auf fachlich passende Testkontexte begrenzt. EU-TIRADS 1/2 bleiben ohne FNA-Rechnung; Modifikatoren werden nicht zusätzlich numerisch verrechnet.
+- Daten-, Import- und Browserprüfungen sichern Vollständigkeit, Quellenbezüge, seltene Wahrscheinlichkeiten und die weiterhin unmittelbar sichtbaren Nomogramme ab.
+
 ### Nomogramm-Regression behoben
 
 - Berechenbare Tests zeigen wieder unmittelbar beide Nomogramme und Posttestwerte. Fehlende klinische Prävalenzdaten sind von einem ausdrücklich als Lehrbeispiel markierten Rechenstart von 5 % getrennt.

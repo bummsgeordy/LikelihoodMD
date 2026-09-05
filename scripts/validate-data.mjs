@@ -173,7 +173,8 @@ assumptions.forEach((assumption, index) => {
   ['id', 'condition', 'conditionId', 'setting', 'settingId', 'evidenceLevel', 'population', 'rationale', 'limitations', 'lastReviewed'].forEach(field => {
     if (!hasText(assumption[field])) errors.push(`${prefix}.${field} fehlt`);
   });
-  if (assumption.conditionId !== slugifyClinicalLabel(assumption.condition)) {
+  if (assumption.conditionId !== slugifyClinicalLabel(assumption.condition) &&
+      !conditions.some(condition => condition.id === assumption.conditionId && condition.label === assumption.condition)) {
     errors.push(`${prefix}.conditionId passt nicht zum Krankheitsbild`);
   }
   if (!pretestEvidenceLevels.has(assumption.evidenceLevel)) errors.push(`${prefix}.evidenceLevel unbekannt`);
@@ -189,8 +190,27 @@ assumptions.forEach((assumption, index) => {
   if (assumption.rangeLow !== undefined && !probability(assumption.rangeLow)) errors.push(`${prefix}.rangeLow ungültig`);
   if (assumption.rangeHigh !== undefined && !probability(assumption.rangeHigh)) errors.push(`${prefix}.rangeHigh ungültig`);
   if (assumption.rangeLow > assumption.rangeHigh) errors.push(`${prefix}.range unplausibel`);
+  if (assumption.probability != null &&
+      (assumption.probability < (assumption.rangeLow ?? 0) || assumption.probability > (assumption.rangeHigh ?? 1))) {
+    errors.push(`${prefix}.probability außerhalb der Spanne`);
+  }
+  if (assumption.probability != null && (!assumption.startingPoint || !hasText(assumption.startingPoint.justification))) errors.push(`${prefix}.startingPoint fehlt`);
+  if (assumption.startingPoint && !['reported', 'rounded', 'working-estimate'].includes(assumption.startingPoint.basis)) errors.push(`${prefix}.startingPoint.basis unbekannt`);
+  if (assumption.origin === 'expert-estimate' && assumption.probability != null &&
+      (assumption.startingPoint?.basis !== 'working-estimate' || assumption.evidenceQuality !== 'expert-opinion')) errors.push(`${prefix} Arbeitsannahme muss als unvalidierte Schätzung gekennzeichnet sein`);
+  if ((assumption.rangeLow != null || assumption.rangeHigh != null) &&
+      (!['study-interval', 'between-study', 'scenario'].includes(assumption.rangeKind) || assumption.rangeLow == null || assumption.rangeHigh == null)) errors.push(`${prefix}.rangeKind/Spanne unvollständig`);
+  for (const field of ['applicableTestIds', 'excludedTestIds']) {
+    if (assumption[field] && (!Array.isArray(assumption[field]) || assumption[field].length === 0 ||
+        assumption[field].some(id => !tests.some(test => test.id === id && test.conditionId === assumption.conditionId)))) errors.push(`${prefix}.${field} ungültig`);
+  }
   validateReview(assumption, prefix);
   validateSources(assumption.sources, prefix);
+});
+
+conditions.forEach(condition => {
+  if (!assumptions.some(assumption => assumption.conditionId === condition.id && assumption.evidenceLevel === 'fallback' &&
+      !assumption.applicableTestIds && probability(assumption.probability))) errors.push(`condition ${condition.id}: allgemeine Startannahme fehlt`);
 });
 
 const activeAssumptionKeys = new Set();

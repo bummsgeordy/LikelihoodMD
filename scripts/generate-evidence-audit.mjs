@@ -21,6 +21,8 @@ const modeCounts = Object.fromEntries(
   ])
 );
 const escapeCell = value => String(value ?? '–').replaceAll('|', '\\|').replaceAll('\n', ' ');
+const startingBasisLabel = basis => ({reported:'Berichteter Wert',rounded:'Gerundeter Referenzwert','working-estimate':'Arbeitsannahme (nicht validiert)'})[basis] ?? 'Kein numerischer Startwert';
+const rangeKindLabel = kind => ({'study-interval':'95%-Intervall der Quelle','between-study':'Berichtete Spannweite',scenario:'Szenariospanne, kein KI'})[kind] ?? 'Spanne';
 const rows = profiles
   .sort((a, b) =>
     a.test.condition.localeCompare(b.test.condition, 'de') ||
@@ -38,15 +40,12 @@ const rows = profiles
 const assumptionRows = assumptions
   .sort((a, b) => a.condition.localeCompare(b.condition, 'de') || a.setting.localeCompare(b.setting, 'de'))
   .map(assumption => {
-    const primarySource = assumption.sources[0];
-    const source = primarySource
-      ? `[${escapeCell(primarySource.title)}](${primarySource.url}) (${primarySource.year})`
-      : '–';
+    const source = assumption.sources.map(entry => `[${escapeCell(entry.title)}](${entry.url}) (${entry.year})`).join('; ') || '–';
     const range = assumption.rangeLow != null && assumption.rangeHigh != null
-      ? `${(assumption.rangeLow * 100).toLocaleString('de-DE')}–${(assumption.rangeHigh * 100).toLocaleString('de-DE')} %`
+      ? `${(assumption.rangeLow * 100).toLocaleString('de-DE', {maximumFractionDigits:6})}–${(assumption.rangeHigh * 100).toLocaleString('de-DE', {maximumFractionDigits:6})} % (${rangeKindLabel(assumption.rangeKind)})`
       : '–';
     const point = assumption.probability == null ? 'Kein Punktwert' : `${(assumption.probability * 100).toLocaleString('de-DE', {maximumFractionDigits:6})} %`;
-    return `| ${escapeCell(assumption.condition)} | ${escapeCell(assumption.setting)} | ${point} | ${range} | ${escapeCell(assumption.origin)}; ${sourceStatus(assumption.sourceCheck)} | ${source} | ${assumption.reviewStatus} |`;
+    return `| ${escapeCell(assumption.condition)} | ${escapeCell(assumption.setting)}: ${escapeCell(assumption.population)} | ${point}; ${startingBasisLabel(assumption.startingPoint?.basis)} | ${range} | ${escapeCell(assumption.startingPoint?.justification ?? assumption.rationale)} | ${escapeCell(assumption.origin)}; ${sourceStatus(assumption.sourceCheck)}: ${escapeCell(assumption.sourceCheck?.location)} | ${source} | ${assumption.reviewStatus} |`;
   });
 
 const chainRows = chains
@@ -79,10 +78,10 @@ Die fachlichen Änderungen mit Primärbelegen, zurückgezogenen Aussagen und off
 - Diagnostikketten enthalten bedingte Fortsetzungen und Stopppfade; nach negativem D-Dimer wird im geeigneten Standardpfad keine Bildgebung fortgerechnet.
 - \`pretest-assumptions.json\` ist die einzige kanonische Prätestbasis. Evidenzlücken werden separat dokumentiert.
 - 1000er-Veranschaulichungen werden nur aus direkt hinterlegter Sensitivität und Spezifität erzeugt.
-- Seltene Wahrscheinlichkeiten werden nicht auf 0,1 % angehoben; fehlende Prätestwerte bleiben leer.
+- Seltene Wahrscheinlichkeiten werden nicht auf 0,1 % angehoben; fehlende Quellen-Punktwerte sind von ausdrücklich begründeten Projekt-Arbeitsannahmen getrennt.
 - Calcitonin bleibt wegen Verifikationsbias und problematischem Null-LR ein Workflow; die untere Sensitivitäts-KI-Grenze wird nicht als Punktwert verwendet.
 - Alle Bestandsketten verzichten ohne belegte bedingte Testgüte auf numerische Endwahrscheinlichkeiten.
-- EU-TIRADS erhält keine erfundenen Mittelpunkte; Bethesda wird kategorisch dargestellt.
+- EU-TIRADS 3–5 erhalten gekennzeichnete Projekt-Startanker innerhalb der berichteten Spannen, keine vermeintlichen Leitlinien-Punktwerte. EU-TIRADS 1/2 bleiben ohne FNA-Rechnung; Bethesda wird kategorisch dargestellt.
 
 ## Profilübersicht
 
@@ -100,8 +99,10 @@ ${rows.join('\n')}
 - Kanonische Annahmen: ${assumptions.length}
 - Klinische Modifikatoren: ${modifiers.length}
 
-| Erkrankung | Setting/Population | Startwert | Spanne | Herkunft / Quellenabgleich | Primärquelle | Menschlicher Review |
-|---|---|---:|---:|---|---|---|
+Eine Quellenprüfung bestätigt bei einer Arbeitsannahme den klinischen Kontext, **nicht** die ausgewählte Prozentzahl. Arbeitsannahmen sind nicht validiert und bleiben ebenso wie quellenbezogene Werte bis zur menschlichen Freigabe \`needs-review\`. Referenzen allgemeiner Populationen sind keine gemessenen Häufigkeiten jeder Fachabteilung. Follow-up benötigt eine eigene Verlaufsbeurteilung.
+
+| Erkrankung | Setting/Population | Startwert und Grundlage | Spanne und Bedeutung | Begründung des Startwerts | Herkunft / Quellenabgleich | Quellen | Menschlicher Review |
+|---|---|---|---|---|---|---|---|
 ${assumptionRows.join('\n')}
 
 ## Diagnostikketten und Guidance

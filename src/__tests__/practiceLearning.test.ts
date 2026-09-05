@@ -95,10 +95,18 @@ describe("clinical applicability", () => {
     expect(resolveAssumption(a, "unknown", "hausarztpraxis")).toBeNull());
   it("does not promote setting matches or guessed midpoints to measured prevalence", () => {
     const expert = a.find((a) => a.origin === "expert-estimate")!;
-    expect(expert.probability).toBeNull();
-    expect(isEligiblePretest(expert)).toBe(false);
-    for (const assumption of a.filter((a) => a.id.includes("eu-tirads")))
-      expect(assumption.probability).toBeNull();
+    expect(expert.startingPoint?.basis).toBe("working-estimate");
+    expect(expert.evidenceQuality).toBe("expert-opinion");
+    expect(isEligiblePretest(expert)).toBe(true);
+    expect(isEligiblePretest({ ...expert, startingPoint: undefined })).toBe(
+      false,
+    );
+    for (const assumption of a.filter((a) => a.id.includes("eu-tirads"))) {
+      if (assumption.probability != null) {
+        expect(assumption.origin).toBe("expert-estimate");
+        expect(assumption.startingPoint?.basis).toBe("working-estimate");
+      }
+    }
   });
   it("does not mathematically combine qualitative modifiers", () =>
     expect(

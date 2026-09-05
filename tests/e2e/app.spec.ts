@@ -9,12 +9,15 @@ test("Nomogramme starten ohne Eingabe und bleiben bei Test- und Erkrankungswechs
   await expect(page.locator("#pretestRange")).toHaveValue("5");
   await expect(page.locator("#pretestValue")).toHaveText("5,0 %");
   await expect(page.locator("#postPositiveValue")).toHaveText("20,0 %");
-  await expect(page.locator("#nomogramExampleNote")).toContainText(
-    "Lehrbeispiel",
+  await expect(page.locator("#pretestEstimatePanel")).toContainText(
+    "nicht validiert",
+  );
+  await expect(page.locator("#pretestSuggestionMarker")).toContainText(
+    "Schätzung",
   );
   await page.locator("#pretestNumber").focus();
   await page.locator("#nomogramTitle").click();
-  await expect(page.locator("#nomogramExampleNote")).toBeVisible();
+  await expect(page.locator("#nomogramExampleNote")).toBeHidden();
   for (const id of ["nomogramPositive", "nomogramNegative"]) {
     const canvas = page.locator("#" + id);
     await expect(canvas).toBeVisible();
@@ -38,12 +41,9 @@ test("Nomogramme starten ohne Eingabe und bleiben bei Test- und Erkrankungswechs
       )
       .toBeGreaterThan(100);
   }
-  await page
-    .locator("#nomogramCard")
-    .screenshot({
-      path:
-        "/tmp/likelihoodmd-restored-nomograms-" + info.project.name + ".png",
-    });
+  await page.locator("#nomogramCard").screenshot({
+    path: "/tmp/likelihoodmd-restored-nomograms-" + info.project.name + ".png",
+  });
   await page.locator("#pretestNumber").fill("12,3");
   await expect(page.locator("#pretestRange")).toHaveValue("12.3");
   await expect(page.locator("#nomogramExampleNote")).toBeHidden();
@@ -79,7 +79,7 @@ test("Nomogramme starten ohne Eingabe und bleiben bei Test- und Erkrankungswechs
   await expect(page.locator("#postPositiveValue")).toHaveText("20,0 %");
 });
 
-test("Gespeicherter leerer Startzustand wird zu einem ausdrücklich markierten Lehrbeispiel migriert", async ({
+test("Gespeicherter leerer Altzustand erhält eine gekennzeichnete Startannahme", async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -100,8 +100,11 @@ test("Gespeicherter leerer Startzustand wird zu einem ausdrücklich markierten L
   await expect(page.locator("#pretestNumber")).toHaveValue("5");
   await expect(page.locator("#nomogramPositive")).toBeVisible();
   await expect(page.locator("#postPositiveValue")).toHaveText("20,0 %");
-  await expect(page.locator("#nomogramExampleNote")).toContainText(
-    "keine Erkrankungs- oder Settingprävalenz",
+  await expect(page.locator("#pretestEstimatePanel")).toContainText(
+    "nicht validiert",
+  );
+  await expect(page.locator("#pretestSuggestionHint")).toContainText(
+    "keine individuelle Verlaufs-",
   );
 });
 

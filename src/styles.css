@@ -1513,7 +1513,7 @@ input[type="range"] {
 
 .estimate-meta-grid {
   display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   gap: 5px 10px;
   margin: 8px 0;
 }
